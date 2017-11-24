@@ -208,3 +208,6 @@ nav ul li a:active{
 	color:  #ffe60d;
 }
 
+#shortcut{
+	display: none !important!
+}
