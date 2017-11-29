@@ -41,20 +41,15 @@
 
               <sa-datatable
                 [options]="{
-                  ajax: 'assets/api/e-commerce/orders1.json',
+                  ajax: 'assets/api/e-commerce/orders.json',
                   columns: [
-                    {data: 'verMas'},
                     {data: 'orderId'},
-                    {data: 'purchase'},
                     {data: 'customerId'},
-                    {data: 'tipoLinea'},
-                    {data: 'servicio'},
-                    {data: 'planes'},
-                    {data: 'sucursales'},
-                    {data: 'status'},
+                    {data: 'purchase'},
+                    {data: 'delivery'},
                     {data: 'basePrice'},
-                    {data: 'evaluacion'}
-
+                    {data: 'postalZip'},
+                    {data: 'status'}
                   ]
               }"
                 filter="true" paginationLength="true"
@@ -62,53 +57,40 @@
                 width="100%">
                 <thead>
                 <tr>
-                  <th class="hasinput" style="width:4%"></th>
                   <th class="hasinput" style="width:10%">
-                    <input type="text" class="form-control" placeholder="Buscar ID">
+                    <input type="text" class="form-control" placeholder="Find ID">
+                  </th>
+                  <th class="hasinput" style="width:12%">
+                    <input type="text" class="form-control" placeholder="Filter Cust ID">
                   </th>
                   <th class="hasinput icon-addon">
-                    <input id="dateselect_filter" type="text" placeholder="Buscar Fecha"
+                    <input id="dateselect_filter" type="text" placeholder="Purchase Date"
                            class="form-control datepicker" data-dateformat="yy/mm/dd">
                     <label for="dateselect_filter" class="glyphicon glyphicon-calendar no-margin padding-top-15"
                            rel="tooltip" title="" data-original-title="Purchase Date"></label>
                   </th>
-                  <th class="hasinput" style="width:10%">
-                    <input type="text" class="form-control" placeholder="Buscar DNI">
-                  </th>
                   <th class="hasinput">
-                    <input type="text" class="form-control" placeholder="Buscar Tipo de Linea">
+                    <input type="text" class="form-control" placeholder="Delivery Date">
+                  </th>
+                  <th class="hasinput" style="width:12%">
+                    <input type="text" class="form-control" placeholder="Base Price Filter">
                   </th>
                   <th class="hasinput" style="width:10%">
-                    <input type="text" class="form-control" placeholder="Buscar Servicio">
+                    <input type="text" class="form-control" placeholder="ZipCode Filter">
                   </th>
                   <th class="hasinput" style="width:10%">
-                    <input type="text" class="form-control" placeholder="Buscar Planes">
+                    <input type="text" class="form-control" placeholder="Status Filter">
                   </th>
-                  <th class="hasinput" style="width:8%">
-                    <input type="text" class="form-control" placeholder="Buscar Sucursales">
-                  </th>
-                  <th class="hasinput" style="width:8%">
-                    <input type="text" class="form-control" placeholder="Buscar Estado">
-                  </th>
-                  <th class="hasinput" style="width:8%">
-                    <input type="text" class="form-control" placeholder="Buscar Precio">
-                  </th>
-                  <th class="hasinput" style="width:10%">
-                    <input type="text" class="form-control" placeholder="Buscar Evaluación">
-                  </th>
+
                 </tr>
                 <tr>
-                  <th data-class="vermascol">Ver</th>
-                  <th data-class="expand">Pedido</th>
-                  <th data-hide="phone, tablet">Fecha</th>
-                  <th data-hide="phone, tablet">Cliente / DNI</th>
-                  <th data-hide="phone,tablet">Tipo de Linea</th>
-                  <th data-hide="phone,tablet">Servicio</th>
-                  <th data-hide="phone,tablet">Planes</th>
-                  <th data-hide="phone,tablet">Sucursales</th>
-                  <th data-hide="phone,tablet">Estado</th>
-                  <th data-hide="phone,tablet">Total</th>
-                  <th data-hide="phone,tablet">Evaluación crediticia</th>
+                  <th data-class="expand">Order ID</th>
+                  <th>Cust ID / Phn</th>
+                  <th data-hide="phone, tablet">Purchase</th>
+                  <th data-hide="phone, tablet">Delivery</th>
+                  <th data-hide="phone,tablet">Base Price</th>
+                  <th data-hide="phone,tablet">Postal/Zip</th>
+                  <th>Status</th>
                 </tr>
                 </thead>
 

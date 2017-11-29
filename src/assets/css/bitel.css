@@ -44,11 +44,12 @@
  	background-position: center right;
  	color: #ffffff;
  	font-weight: normal;
+ 	text-align: center;
  }
 
  table.dataTable thead .sorting_asc{
  	background-color: #169599 !important;
- 	background-image: ;
+	text-align: center;
  	color: #ffffff;
  }
 
@@ -110,6 +111,10 @@
 
  }
 
+ .vermascol.sorting_asc{
+ 	background: none !important;
+ }
+
 
 .page-title span{
  	color: #169599;
@@ -127,6 +132,15 @@
 
 table.dataTable thead .sorting_desc{
 	background-color: #ffe60d;
+}
+
+table.table-bordered tbody td, table.table-bordered tbody th{
+	text-align: center;
+}
+
+.vermascol,
+.vermas{
+	width: 50px;
 }
 
 sa-layout-switcher,
