@@ -1,0 +1,96 @@
+<div id="content">
+    <div class="row">
+      <sa-big-breadcrumbs [items]="topBreadCrumb" icon="table"
+          class="col-md-10"></sa-big-breadcrumbs>
+      <div class="col-md-2">
+          <a routerLink="./crear" class="btn btn-primary btn-lg pull-right">Crear Actividad</a>
+      </div>
+    </div>  
+    
+    <sa-widgets-grid>
+        <div class="row">
+          <article class="col-sm-12">
+  
+            <sa-widget color="darken">
+              <header>
+                <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                <h2>Actividades Predefinidas</h2>
+              </header>
+              <div>
+                <div class="widget-body no-padding">
+                  <sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
+                    [paginationLength]="true" tableClass="table table-striped table-bordered table-hover">
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th [style.width]="'8%'">
+                          <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                          Fecha
+                        </th>
+                        <th [style.width]="'8%'">
+                          <i class="fa fa-fw fa-clock-o text-muted hidden-md hidden-sm hidden-xs"></i>
+                          Inicia
+                        </th>
+                        <th [style.width]="'9%'">
+                          <i class="fa fa-fw fa-clock-o text-muted hidden-md hidden-sm hidden-xs"></i>
+                          Termina
+                        </th>
+                        <th>
+                          <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                          Título
+                        </th>
+                        <th>
+                          <i class="fa fa-fw fa-building text-muted hidden-md hidden-sm hidden-xs"></i>
+                          Lugar
+                        </th>                        
+                        <th [style.width]="'9%'">
+                          <i class="fa fa-fw fa-flag text-muted hidden-md hidden-sm hidden-xs"></i>
+                          Idiomas
+                        </th>
+                        <th [style.width]="'8%'" data-hide="mobile-p">
+                          <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                          Creado
+                        </th>
+                        <th [style.width]="'2%'" data-hide="mobile-p">Editar</th>
+                      </tr>
+                    </thead>                  
+                    <tbody *ngIf="itemsObs | async as items; else loading">
+                      <ng-container *ngFor="let item of items; let last = last"
+                        sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
+                        <tr>
+                          <td id="{{ item._id }}" class="details-control"></td>
+                          <td [attr.data-order]="item.fecha | moment:'x'">{{ item.fecha | date:"dd-MM-yy" }}</td>
+                          <td [attr.data-order]="item.hora_inicio">{{ item.hora_inicio | hourmins }}</td>
+                          <td [attr.data-order]="item.hora_fin">{{ item.hora_fin | hourmins }}</td>
+                          <td>{{ item.titulo[0] }}</td>
+                          <td>{{ item.lugar[0] }}</td>                          
+                          <td>{{ item.langCodes.join(', ') }}</td>
+                          <td [attr.data-order]="item.creado | moment:'x'">{{ item.creado | date:"dd-MM-yy" }}</td>
+                          <td class="text-center">
+                              <a (click)="Editar(item)">
+                                <i class="fa fa-lg fa-fw fa-pencil"></i>
+                              </a>
+                          </td>
+                        </tr>
+                        <sa-dt-detalle [data]="item" [type]="dcomp" [trigger]="item._id" [cols]="9"></sa-dt-detalle>
+                      </ng-container>
+                    </tbody>
+                    <ng-template #loading>
+                      <tr class="odd">
+                        <td valign="top" colspan="9" class="dataTables_empty">
+                          Cargando datos...
+                        </td>
+                      </tr>
+                    </ng-template>
+                  </sa-datatable>
+  
+                </div>
+              </div>
+            </sa-widget>
+          
+          </article>
+      </div>
+  
+    </sa-widgets-grid>
+  
+</div>

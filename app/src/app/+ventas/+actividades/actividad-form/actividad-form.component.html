@@ -1,0 +1,128 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Actividades', mode]" icon="calendar" class="col-xs-12 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+  </div>
+  <sa-widgets-grid>
+    <!-- row -->
+    <div class="row">
+      <!-- NEW WIDGET START -->
+      <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <sa-widget color="darken">
+          <header>
+            <span class="widget-icon"> <i class="fa fa-hashtag"></i> </span>
+            <h2>ID: {{actividad._id}}</h2>
+          </header>
+          <div class="widget-body">
+            <form-container
+              (onValidationSuccess)="onValidationSuccess($event)"
+              [validatorOptions]="validationOptions"
+            >
+            <fieldset *ngIf="actividad">
+                <legend>Contenido</legend>
+
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Actividad Predefinida</label>
+                    <div class="col-md-4">
+                      <!-- {{ predefinidas | json }} -->
+                      <select
+                        name="predefinida"
+                        [(ngModel)]="actividadPredefinida"
+                        class="form-control"
+                        select2
+                        [smartSelect2Options]="{placeholder: 'Seleccione una actividad predefinida'}"
+                        data-select-search="true"
+                        (onSmartSelect2Select)="onSelectChange($event)"
+                      >
+                        <option *ngFor="let predefinida of predefinidas" [ngValue]="predefinida._id">{{predefinida.label}}</option>
+                      </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-md-2 control-label">Lenguaje del Itinerario</label>
+                  <div class="col-md-10">
+                      <p class="form-control-static">{{ selectedLangLabel }}</p>
+                  </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Titulo*</label>
+                    <div class="col-md-4">
+                      <input [(ngModel)]="actividad.titulo" name="titulo" required class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Lugar*</label>
+                    <div class="col-md-4">
+                        <input [(ngModel)]="actividad.lugar" name="lugar" required class="form-control" type="text">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Descripción*</label>
+                    <div class="col-md-4">
+                      <textarea [(ngModel)]="actividad.desc" name="desc" class="form-control" rows="3"></textarea>
+                    </div>
+                </div>
+
+            </fieldset>
+            <fieldset>
+                <legend>Detalle de Actividad</legend>
+                <div class="form-group">
+                  <label class="col-md-2 control-label">Fecha*</label>
+                  <div class="col-md-4">
+                    <input
+                      [(ngModel)]="fecha" name="fecha" required class="form-control" type="text"
+                      (onSmartDatepickerChange)="onDateChange($event)"
+                      [saUiDatepicker]="{ dateFormat: 'dd/mm/yy'}"
+                    >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label">Hora de inicio*</label>
+                  <div class="col-md-4">
+                    <input [(ngModel)]="hora_inicio" name="hora_inicio" required class="form-control" type="text"
+                    smartTimepicker
+                    [smartTimepickerOptions]="timerOptions"
+                    (onSmartTimepickerUpdates)="onTimeChanges($event)"
+                    >
+                  </div>
+                </div>
+                <div class="form-group">
+                  <label class="col-md-2 control-label">Hora de fin*</label>
+                  <div class="col-md-4">
+                    <input [(ngModel)]="hora_fin" name="hora_fin" required class="form-control" type="text"
+                    smartTimepicker
+                    [smartTimepickerOptions]="timerOptions"
+                    (onSmartTimepickerUpdates)="onTimeChanges($event)"
+                    >
+                  </div>
+                </div>
+            </fieldset>
+
+              <fieldset>
+                <legend>Participantes</legend>
+                <div class="form-group col-md-4 col-md-push-2">
+                    <div *ngFor="let participante of itinerario.participantes; index as i" class="checkbox">
+                      <label><input [(ngModel)]="participantesCheck[i]" type="checkbox">{{ participante }}</label>
+                    </div>
+                </div>
+              </fieldset>
+                
+                <div class="form-actions">
+                  <div class="row">
+                    <div class="col-md-12">
+                        <button type="button" class="btn btn-default" onclick="window.history.back();">Regresar</button>
+                        <button type="submit" class="btn btn-primary">Guardar</button>
+                    </div>
+                  </div>
+                </div>
+            </form-container>
+            </div>
+        </sa-widget>
+      </article>
+      <!-- WIDGET END -->
+    </div>
+    <!-- end row -->
+  </sa-widgets-grid>
+  <!-- end widget grid -->
+</div>

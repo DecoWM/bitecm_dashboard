@@ -1,0 +1,86 @@
+<aside id="left-panel">
+
+  <!-- User info -->
+  <sa-login-info></sa-login-info>
+  <!-- end user info -->
+
+  <nav>
+    <!-- NOTE: Notice the gaps after each icon usage <i></i>..
+    Please note that these links work a bit different than
+    traditional href="" links. See documentation for details.
+    -->
+
+    <ul saSmartMenu>
+
+      <li routerLinkActive="active">
+        <a routerLink="/home" title="Home">
+          <i class="fa fa-lg fa-fw fa-home"></i> <span class="menu-item-parent">{{'Inicio' | i18n}}</span>
+        </a>
+      </li>
+
+      <li *ngIf="isAgente()">
+        <a title="Itinerarios"><i class="fa fa-lg fa-fw fa-table"></i> <span
+          class="menu-item-parent">{{'Itinerarios' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/itinerarios/paquetes">{{'Paquetes' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/itinerarios/mis-itinerarios">{{'Mis Itinerarios' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/itinerarios/predefinidas">{{'Actividades Predefinidas' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="isOperador()">
+        <a title="Conversaciones"><i class="fa fa-lg fa-fw fa-wechat"></i> <span
+          class="menu-item-parent">{{'Conversaciones' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/conversaciones/atencion-pendiente">{{'Atencion Pendiente' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/conversaciones/mis-conversaciones">{{'Mis Conversaciones' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/conversaciones/historial">{{'Historial' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="isAdmin()">
+        <a title="Usuarios"><i class="fa fa-lg fa-fw fa-users"></i> <span
+          class="menu-item-parent">{{'Usuarios' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/usuarios/agentes">{{'Agentes' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/usuarios/operadores">{{'Operadores' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/usuarios/clientes">{{'Clientes' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+
+      <li *ngIf="isAdmin()">
+        <a title="Agencia"><i class="fa fa-lg fa-fw fa-building"></i> <span
+          class="menu-item-parent">{{'Agencia' | i18n}}</span></a>
+        <ul>
+          <li routerLinkActive="active">
+            <a routerLink="/agencia/mi-agencia">{{'Mi Agencia' | i18n}}</a>
+          </li>
+          <li routerLinkActive="active">
+            <a routerLink="/agencia/subagencias">{{'Subagencias' | i18n}}</a>
+          </li>
+        </ul>
+      </li>
+    </ul>    
+  </nav>
+
+  <sa-minify-menu></sa-minify-menu>
+
+</aside>

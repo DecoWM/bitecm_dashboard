@@ -1,0 +1,99 @@
+{
+  "cabecera": {
+    "fondo": "#f3f3f3",
+    "boton": {
+      "fondo": "#fb3c4a",
+      "texto": "#ffffff"
+    },
+    "logo": {
+      "fondo": "#f3f3f3",
+      "inverso": false
+    },
+    "actividad": {
+      "boton": {
+        "fondo": "#0d0f12",
+        "texto": "#ffffff",
+        "contador": "#0aa699"
+      }
+    }
+  },
+  "lateral": {
+    "fondo": "#22262e",
+    "menu": {
+      "item": {
+        "normal": {
+          "texto": "#8b91a0"
+        },
+        "hover": {
+          "texto": "#e1eaf1"
+        },
+        "activo": {
+          "texto": "#ffffff"
+        }
+      }
+    },
+    "submenu": {
+      "fondo": "#2c3139",
+      "item": {
+        "hover": {
+          "fondo": "#1b1e24"
+        }
+      }
+    }
+  },
+  "pie": {
+    "fondo": "#dc9800",
+    "texto": "#ffffff"
+  },
+  "cinta": {
+    "fondo": "#e6e6e6",
+    "boton": {
+      "fondo": "#697486",
+      "texto": "#ffffff"
+    },
+    "migapan": {
+      "separador": "#646464",
+      "texto": "#747474",
+      "activo": "#868686"
+    }
+  },
+  "titulo": "#4c4f53",
+  "boton": {
+    "primario": {
+      "fondo": "#aac34d",
+      "color": "#ffffff"
+    }
+  },
+  "widget": {
+    "cabecera": {
+      "fondo": "#1b1e24",
+      "borde": "#1b1e24",
+      "texto": "#ffffff"
+    }
+  },
+  "tablas": {
+    "boton": {
+      "detalle": "#aac34d",
+      "acciones": {
+        "texto": "#36aecc"
+      }
+    }
+  },
+  "paginacion": {
+    "item": {
+      "normal": {
+        "texto": "#36aecc"
+      },
+      "hover": {},
+      "activo": {
+        "fondo": "#36aecc",
+        "texto": "#ffffff"
+      }
+    }
+  },
+  "popup": {
+    "fondo": "#000000",
+    "icono": "#fb3c4a",
+    "texto": "#ffffff"
+  }
+}

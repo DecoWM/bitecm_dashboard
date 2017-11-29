@@ -1,0 +1,55 @@
+<header id="header" class="animated fadeInDown">
+
+  <div id="logo-group">
+    <span id="logo"> 
+      <img src="assets/img/logo.png" alt="PlexiLabs Admin" style="width:30px"> 
+      &nbsp;PlexiLabs Admin 
+    </span>
+  </div>
+
+</header>
+<div id="main" role="main" class="animated fadeInDown" style="margin-left: 0;">
+
+  <div id="content" class="container">
+    <div class="row">
+      <div class="col-xs-12 col-sm-12 col-md-6">
+        <div class="well no-padding">
+          <form class="smart-form client-form">
+            <header>
+              Iniciar Sesión
+            </header>
+            <fieldset>
+              <section>
+                <label class="label">E-mail</label>
+                <label class="input"> <i class="icon-append fa fa-user"></i>
+                  <input [(ngModel)]="username" type="email" name="email">
+                  <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>
+                    Ingresar Correo Electrónico</b></label>
+              </section>
+              <section>
+                <label class="label">Password</label>
+                <label class="input"> <i class="icon-append fa fa-lock"></i>
+                  <input [(ngModel)]="password" type="password" name="password">
+                  <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Ingresar Clave</b> </label>
+
+                <!-- <div class="note">
+                  <a routerLink="/auth/forgot-password">¿Olvidó Clave?</a>
+                </div> -->
+              </section>
+              <!-- <section>
+                <label class="checkbox">
+                  <input type="checkbox" name="remember" checked>
+                  <i></i>Quedarse conectado</label>
+              </section> -->
+            </fieldset>
+            <footer>
+              <button (click)="login($event)" class="btn btn-primary">
+                Entrar
+              </button>
+            </footer>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

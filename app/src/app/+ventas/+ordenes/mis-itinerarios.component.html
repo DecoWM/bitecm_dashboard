@@ -1,0 +1,113 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Mis Itinerarios']" icon="table"
+        class="col-xs-10 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    <div class="col-xs-2 col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3 col-lg-2 col-lg-offset-6">
+      <a routerLink="./crear" class="btn btn-primary btn-lg pull-right">Crear Itinerario</a>
+    </div>
+  </div>  
+  
+  <sa-widgets-grid>
+    
+      <div class="row">
+        <article class="col-sm-12">
+
+          <sa-widget color="darken">
+            <div>
+              <div class="widget-body no-padding">
+                <sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
+                  [paginationLength]="true" tableClass="table table-striped table-bordered table-hover">                  
+                  <thead>
+                    <tr>
+                      <th></th>
+                      <th [style.width]="'10%'">
+                        <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Empieza
+                      </th>
+                      <th [style.width]="'10%'">
+                        <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Termina
+                      </th>
+                      <th>
+                        <i class="fa fa-fw fa-cube text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Paquete
+                      </th>
+                      <th>
+                        <i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Cliente
+                      </th>
+                      <th>
+                        <i class="fa fa-fw fa-user text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Agente
+                      </th>
+                      <th [style.width]="'10%'">
+                        <i class="fa fa-fw fa-building text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Subagencia
+                      </th>
+                      <th [style.width]="'8%'" data-hide="mobile-p">
+                        <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Creado
+                      </th>
+                      <th [style.width]="'8%'" data-hide="mobile-p">
+                        <i class="fa fa-fw fa-hashtag text-muted hidden-md hidden-sm hidden-xs"></i>
+                        PIN
+                      </th>
+                      <!--th [style.width]="'8%'" data-hide="mobile-p">Nro. Actividades</th-->
+                      <th [style.width]="'2%'" data-hide="mobile-p">Editar</th>
+                    </tr>
+                  </thead>
+                  <tbody *ngIf="itemsObs | async as items; else loading">
+                    <ng-container *ngFor="let item of items; let last = last" 
+                      sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
+                      <tr>
+                        <td id="{{ item._id }}" class="details-control">
+                        </td>
+                        <td [attr.data-order]="item.fecha_inicio | moment:'x'">{{ item.fecha_inicio | date:"dd-MM-yy" }}</td>
+                        <td [attr.data-order]="item.fecha_fin | moment:'x'">{{ item.fecha_fin | date:"dd-MM-yy" }}</td>
+                        <td>{{ item.paquete?.titulo[0] }}</td>
+                        <td>{{ item.cliente?.nombre }}</td>
+                        <td>{{ item.agente?.nombre }}</td>
+                        <td>{{ item.subagencia?.nombre }}</td>
+                        <td [attr.data-order]="item.creado | moment:'x'">{{ item.creado | date:"dd-MM-yy" }}</td>
+                        <td>{{ item.pin }}</td>
+                        <td class="text-center">
+                            <a (click)="Editar(item)">
+                              <i class="fa fa-lg fa-fw fa-pencil"></i>
+                            </a>
+                        </td>
+                      </tr>
+                      <sa-dt-detalle [data]="item" [type]="dcomp" [trigger]="item._id" [cols]="10"></sa-dt-detalle>
+                    </ng-container>                    
+                  </tbody>
+                  <ng-template #loading>
+                    <tr class="odd">
+                      <td valign="top" colspan="10" class="dataTables_empty">
+                        {{ loadingStatus }}
+                      </td>
+                    </tr>
+                  </ng-template>
+                  <!--tfoot>
+                    <tr>
+                      <th></th>
+                      <th>Fecha Inicio</th>
+                      <th>Fecha Fin</th>
+                      <th>Paquete</th>
+                      <th>Cliente</th>
+                      <th>Agente</th>
+                      <th>Subagencia</th>
+                      <th>Creado</th>
+                      <th>Editar</th>
+                    </tr>
+                  </tfoot-->
+                </sa-datatable>
+
+              </div>
+            </div>
+          </sa-widget>
+        
+        </article>
+    </div>
+
+  </sa-widgets-grid>
+
+</div>

@@ -1,0 +1,454 @@
+<style>
+app-main-layout a{
+  transition:color .1s linear 0s,
+  background-color .1s linear 0s!important
+}
+app-main-layout body.container{
+  border-left:1px solid rgba(34,38,46,.4);
+  border-right:1px solid rgba(34,38,46,.4)
+}
+app-main-layout #header{
+  background-image:none;
+  background-color:#f3f3f3
+}
+app-main-layout .project-context>:first-child{
+  color:#697B92;text-shadow:0 0 1px #111318
+}
+app-main-layout #ribbon{
+  background:#dc9800/*#e6e6e6*/
+}
+app-main-layout .breadcrumb>li+li:before{
+  color:#ffffff/*#646464*/
+}
+app-main-layout .project-selector{
+  color:#B9B9B9
+}
+app-main-layout .btn.btn-ribbon{
+  background-color:#697486;
+  background-image:-moz-linear-gradient(top,#6f7d94,#697486);
+  background-image:-webkit-gradient(linear,0 0,0 100%,from(#6f7d94),to(#697486));
+  background-image:-webkit-linear-gradient(top,#6f7d94,#697486);
+  background-image:-o-linear-gradient(top,#6f7d94,#697486);
+  background-image:linear-gradient(to bottom,#6f7d94,#697486)
+}
+app-main-layout #logo-group{
+  background:#f3f3f3!important
+}
+app-main-layout #logo-group span#activity{
+  background:#0d0f12;
+  border:1px solid #0d0f12;
+  color:#fff;cursor:pointer
+}
+app-main-layout #logo-group>span .badge{
+  background:#0aa699
+}
+app-main-layout .btn-header>:first-child>a{
+  background:#dc9800;/*#fb3c4a;*/
+  border:1px solid #dc9800;/*#fb3c4a;*/
+  color:#fff!important;
+  cursor:pointer!important
+}
+app-main-layout .btn-header>:first-child>a:hover{
+  opacity:.9
+}
+app-main-layout #cancel-search-js{
+  background:#fb3c4a;
+  line-height:29px!important
+}
+app-main-layout .MsgTitle .txt-color-orangeDark{
+  color:#fb3c4a!important
+}
+app-main-layout .minifyme{
+  background:#434953
+}
+app-main-layout .minifyme:hover{
+  background:#5C6C86;color:#E1E8F3
+}
+app-main-layout #show-shortcut:hover>i{
+  color:#fff
+}
+app-main-layout .superbox-list.active:before{
+  color:#1b1e24
+}
+app-main-layout nav ul b{
+  font-size:14px;
+  margin-top:0
+}
+app-main-layout nav ul b .fa-plus-square-o:before{
+  content:"\f104"
+}
+app-main-layout nav ul b .fa-minus-square-o:before{
+  content:"\f107"
+}
+app-main-layout nav ul ul{
+  background:#22262E
+}
+app-main-layout nav ul ul li>a{
+  text-shadow:0 1px 1px #000;
+  font-size:13px;
+  padding-left:43px;
+  color:#e1eaf1;
+  display:block;
+  font-weight:300;
+  padding-top:6px!important;
+  padding-bottom:6px!important;
+  overflow:hidden
+}
+app-main-layout nav ul ul li>a:hover{
+  background:#1b1e24!important
+}
+app-main-layout nav ul ul ul li a{
+  padding:8px 17px 8px 54px!important
+}
+app-main-layout nav ul ul ul ul li a{
+  padding-left:72px!important
+}
+app-main-layout nav ul ul ul ul ul li a{
+  padding-left:90px!important
+}
+app-main-layout nav ul ul ul ul ul ul li a{
+  padding-left:108px!important
+}
+app-main-layout nav ul li a:active{
+  background:0 0
+}
+app-main-layout nav ul li a:hover{
+  color:#E1EAF1
+}
+app-main-layout nav ul li a{
+  padding:12px 17px 12px 16px
+}
+app-main-layout nav>ul>li>a>i{
+  font-size:17px;vertical-align:0
+}
+app-main-layout nav>ul>li>a b{
+  right:17px;top:12px
+}
+app-main-layout nav>ul>li>a>i:after{
+  border:1px solid #fff
+}
+app-main-layout nav>ul>li>a:hover i{
+  -webkit-animation-name:none;
+  -moz-animation-name:none;
+  -o-animation-name:none;
+  animation-name:none
+}
+app-main-layout .header-search>input[type=text]{
+  border-color:#FFF!important;
+  border-radius:2px
+}
+app-main-layout .header-dropdown-list a.dropdown-toggle{
+  color:#FFF;
+  text-decoration:none
+}
+app-main-layout .login-info{
+  height:auto
+}
+app-main-layout .login-info>span{
+  padding:5px 10px
+}
+app-main-layout .login-info img{
+  width:35px;border-radius:50%
+}
+app-main-layout .login-info a{
+  margin-top:2px
+}
+app-main-layout .login-info a span{
+  max-width:136px
+}
+app-main-layout .login-info a:hover{
+  color:#fff
+}
+app-main-layout #activity.active .badge{
+  background:#0aa699!important
+}
+app-main-layout .ajax-dropdown{
+  background:#E2E8F1
+}
+app-main-layout .ajax-notifications{
+  background:#fff
+}
+app-main-layout img.online{
+  border-left-color:#0AA699!important
+}
+app-main-layout .onoffswitch-inner:before{
+  background-color:#36AECC!important
+}
+app-main-layout .bg-color-red{
+  background-color:#fb3c4a!important
+}
+app-main-layout .jarviswidget-color-darken>header{
+  background:#dc9800!important;/*#1B1E24!important;*/
+  border-color:#dc9800!important/*#1B1E24!important*/
+}
+app-main-layout .jarviswidget-color-blueDark>header{
+  background:#353D4B!important;
+  border-color:#353D4B!important
+}
+app-main-layout .jarviswidget-color-blue>header{
+  background:#688F9E;
+  border-color:#6A838D!important
+}
+app-main-layout .jarviswidget-color-purple>header{
+  background:#736086
+}
+app-main-layout .jarviswidget-color-red>header{
+  background:#C02631;
+  border-color:#8F2129!important
+}
+app-main-layout .jarviswidget .bg-color-red{
+  background:#C02631!important
+}
+app-main-layout .ui-chatbox-titlebar{
+  background:#3E4553!important
+}
+app-main-layout .ui-chatbox-titlebar.ui-state-focus{
+  background:#1B1F27!important
+}
+app-main-layout #ribbon .breadcrumb li:last-child,
+app-main-layout #ribbon .breadcrumb>.active{
+  color:#eeeeee/*#868686*/
+}
+app-main-layout #ribbon .breadcrumb,
+app-main-layout #ribbon .breadcrumb a{
+  color:#ffffff!important/*#747474!important*/
+}
+app-main-layout .dropdown-menu,
+app-main-layout .open>.dropdown-menu{
+  padding:4px
+}
+app-main-layout .dropdown-menu>li>a{
+  border-radius:4px;
+  margin:3px 0
+}
+app-main-layout .page-footer,
+app-main-layout .superbox-show,
+app-main-layout aside{
+  background:#22262e
+}
+app-main-layout .page-footer {
+  background:#dc9800!important;
+}
+app-main-layout aside #logo-aside{
+  width: 80%;
+  display: block;
+  margin: 0 auto;
+  margin-top: 30px;
+}
+app-main-layout aside #logo-aside img{
+  width: 100%;
+}
+app-main-layout .login-info,
+app-main-layout .login-info span{
+  border-bottom:none
+}
+app-main-layout nav>ul ul li::before,
+app-main-layout nav>ul>li>ul::before{
+  border:none!important
+}
+app-main-layout .login-info a,
+app-main-layout .login-info strong,
+app-main-layout nav ul li a{
+  color:#8b91a0
+}
+app-main-layout .pagination>.active>a,
+app-main-layout .pagination>.active>a:focus,
+app-main-layout .pagination>.active>a:hover,
+app-main-layout .pagination>.active>span,
+app-main-layout .pagination>.active>span:focus,
+app-main-layout .pagination>.active>span:hover{
+  background-color:#36AECC;
+  border-color:#36AECC
+}
+app-main-layout.minified .login-info a{
+  margin-top:6px
+}
+app-main-layout.minified .login-info img{
+  width:30px!important
+}
+app-main-layout.minified .login-info span{
+  padding:0 5px!important
+}
+app-main-layout.minified nav ul li a{
+  padding:12px 17px 12px 14px
+}
+app-main-layout.minified nav ul ul li>a:hover{
+  background:#30343D!important
+}
+app-main-layout.minified nav ul ul li>a{
+  padding-left:13px;padding-right:13px!important
+}
+app-main-layout.minified nav ul ul ul li a{
+  padding-left:33px!important;
+  padding-right:13px!important
+}
+app-main-layout.minified nav ul ul ul ul li a{
+  padding-left:43px!important;
+  padding-right:13px!important
+}
+app-main-layout.minified nav ul ul ul ul ul li a{
+  padding-left:53px!important;
+  padding-right:13px!important
+}
+app-main-layout.minified nav ul ul ul ul ul ul li a{
+  padding-left:63px!important;
+  padding-right:13px!important
+}
+app-main-layout.minified nav ul>li>ul>li>ul{
+  background:#1B1E24
+}
+app-main-layout.minified nav>ul>li{
+  border-bottom:1px solid #131416;
+  border-top:1px solid #303031
+}
+app-main-layout.minified nav>ul>li>a>i{
+  font-size:18px
+}
+app-main-layout.minified nav>ul>li>ul{
+  background:#1B1E24
+}
+app-main-layout.minified nav>ul>li>ul>li{
+  background:#22262E
+}
+app-main-layout.minified nav>ul>li>ul>li>ul>li{
+  background:#1B1E24
+}
+app-main-layout .jarviswidget .bg-color-greenLight,
+app-main-layout .jarviswidget-color-greenLight>header{
+  border-color:#96B447!important;
+  background:#96B447!important
+}
+app-main-layout .jarviswidget .bg-color-yellow,
+app-main-layout .jarviswidget-color-yellow>header{
+  border-color:#DBB727!important;
+  background:#FDD01C!important;
+  color:#25241F
+}
+app-main-layout .jarviswidget .bg-color-pink,
+app-main-layout .jarviswidget-color-pink>header{
+  background:#DB8EBB!important
+}
+app-main-layout.menu-on-top nav ul ul li>a{
+  text-shadow:none!important;color:#646E75
+}
+app-main-layout.menu-on-top nav ul ul li a{
+  padding-left:10px!important;
+  font-size:13px
+}
+app-main-layout.menu-on-top nav ul ul li:hover>a{
+  color:#fff;
+  background-color:#1b1e24
+}
+app-main-layout.menu-on-top nav ul ul .active>a{
+  color:#fff!important
+}
+app-main-layout.menu-on-top nav>ul ul ul{
+  border-top:1px solid #c7c7c7!important
+}
+app-main-layout.menu-on-top nav>ul ul li:hover>ul{
+  background:#333
+}
+app-main-layout.menu-on-top nav>ul>li>a:after{
+  color:#8AA1B3!important
+}
+app-main-layout.menu-on-top aside{
+  background:#14161B
+}
+app-main-layout.menu-on-top aside#left-panel{
+  -webkit-box-shadow:0 2px 4px 0 rgba(0,0,0,.25);
+  box-shadow:0 2px 4px 0 rgba(0,0,0,.25);
+  border-bottom:1px solid #222;
+  border-top:1px solid #333
+}
+app-main-layout.menu-on-top aside#left-panel nav>ul>li{
+  border-right:1px solid transparent;
+  border-left:1px solid transparent
+}
+app-main-layout.menu-on-top aside#left-panel nav>ul>li>a{
+  text-shadow:none!important;
+  font-size:13px;
+  padding:10px 9px!important
+}
+app-main-layout.menu-on-top aside#left-panel nav>ul>li>ul{
+  background:#3a3633
+}
+app-main-layout.menu-on-top aside#left-panel nav>ul>li:hover{
+  border-right-color:#333;
+  border-left-color:#333;
+  background:#fff;
+  background:-moz-linear-gradient(top,#04070c 0,#2e3e57 66%);
+  background:-webkit-gradient(linear,left top,left bottom,color-stop(0%,#cfcfcf),color-stop(66%,#2e3e57));
+  background:-webkit-linear-gradient(top,#04070c 0,#2e3e57 66%);
+  background:-o-linear-gradient(top,#04070c 0,#2e3e57 66%);
+  background:-ms-linear-gradient(top,#04070c 0,#2e3e57 66%);
+  background:linear-gradient(to bottom,#04070c,#2e3e57 66%);
+  filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#04070C', endColorstr='#2E3E57', GradientType=0)
+}
+app-main-layout.menu-on-top aside#left-panel nav>ul>li:hover>a{
+  color:#F1F1F1!important;
+  border-left:1px solid #000;
+  border-right:1px solid #000;
+  padding-left:8px!important;
+  padding-right:8px!important
+}
+app-main-layout.menu-on-top nav ul ul li a,
+app-main-layout.menu-on-top nav ul ul ul li a{
+  color:#D8DEE5
+}
+app-main-layout.menu-on-top nav ul ul li a:hover,
+app-main-layout.menu-on-top nav ul ul ul li a:hover{
+  color:#fff;background-color:#1b1e24!important
+}
+app-main-layout.menu-on-top nav ul ul,
+app-main-layout.menu-on-top nav ul ul ul{
+  background:#2e3e57!important;
+  border:1px solid transparent;
+  padding:0
+}
+app-main-layout.menu-on-top nav ul ul li:hover>a:after,
+app-main-layout.menu-on-top nav>ul ul>li a:after,
+app-main-layout.menu-on-top nav>ul ul>li a:hover:after,
+app-main-layout.menu-on-top nav>ul>li>a:after{
+  color:#D5D5D5
+}
+app-main-layout.menu-on-top nav ul ul li:hover>a:after,
+app-main-layout.menu-on-top nav>ul ul>li a:hover:after{
+  color:#fff
+}
+app-main-layout.menu-on-top nav>ul ul>li a:only-child:after,
+app-main-layout.menu-on-top nav>ul>li>a:only-child:after{
+  content:""!important
+}
+app-main-layout.menu-on-top nav ul ul li.active:hover>a,
+app-main-layout.menu-on-top nav ul ul li.active>a:hover{
+  color:#fff!important
+}
+app-main-layout .btn.btn-primary {
+  background-color: #aac34d;
+  border-color: #aac34d;
+}
+@media (max-width:979px) and (min-width:768px){
+  app-main-layout #hide-menu i{
+    color:#fff!important
+  }
+}
+@media (max-width:767px){
+  app-main-layout #hide-menu i{
+    color:#fff!important
+  }
+}
+@media only screen and (max-width:679px) and (min-width:0){
+  app-main-layout #hide-menu i{
+    color:#fff!important
+  }
+}
+@media only screen and (max-width:479px) and (min-width:320px){
+  app-main-layout #sparks{
+    background:#fff
+  }
+  app-main-layout #cancel-search-js,
+  app-main-layout .search-mobile .header-search>button{
+    border-radius:3px
+  }
+}
+</style>

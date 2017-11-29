@@ -1,0 +1,72 @@
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Paquetes']" icon="cube"
+        class="col-xs-10 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
+    <div class="col-xs-2 col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3 col-lg-2 col-lg-offset-6">
+      <a routerLink="./crear" class="btn btn-primary btn-lg pull-right">Crear Paquete</a>
+    </div>
+  </div>  
+  
+  <sa-widgets-grid>
+    
+      <div class="row">
+        <article class="col-sm-12">
+
+          <sa-widget color="darken">
+            <div>
+              <div class="widget-body no-padding">
+                <sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
+                  [paginationLength]="true" tableClass="table table-striped table-bordered table-hover">
+                  <thead>
+                    <tr>
+                      <th [style.width]="'4%'"></th>
+                      <th>
+                        <i class="fa fa-fw fa-cube text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Título
+                      </th>
+                      <th>
+                        <i class="fa fa-fw fa-flag text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Idiomas
+                      </th>
+                      <th [style.width]="'8%'" data-hide="mobile-p">
+                        <i class="fa fa-fw fa-calendar text-muted hidden-md hidden-sm hidden-xs"></i>
+                        Creado
+                      </th>
+                      <th [style.width]="'2%'" data-hide="mobile-p">Editar</th>
+                    </tr>
+                  </thead>                  
+                  <tbody *ngIf="itemsObs | async as items; else loading">
+                    <ng-container *ngFor="let item of items; let last = last"
+                      sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
+                      <tr>
+                        <td id="{{ item._id }}" class="details-control"></td>
+                        <td>{{ item.titulo[0] }}</td>
+                        <td>{{ item.langCodes.join(', ') }}</td>
+                        <td [attr.data-order]="item.creado | moment:'x'">{{ item.creado | date:"dd-MM-yy" }}</td>
+                        <td class="text-center">
+                            <a (click)="Editar(item)">
+                              <i class="fa fa-lg fa-fw fa-pencil"></i>
+                            </a>
+                        </td>
+                      </tr>
+                      <sa-dt-detalle [data]="item" [type]="dcomp" [trigger]="item._id" [cols]="5"></sa-dt-detalle>
+                    </ng-container>
+                  </tbody>
+                  <ng-template #loading>
+                    <tr class="odd">
+                      <td valign="top" colspan="9" class="dataTables_empty">
+                        Cargando datos...
+                      </td>
+                    </tr>
+                  </ng-template>
+                </sa-datatable>
+              </div>
+            </div>
+          </sa-widget>
+        
+        </article>
+    </div>
+
+  </sa-widgets-grid>
+
+</div>
