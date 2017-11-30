@@ -19,7 +19,7 @@ export class MainLayoutComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.skin.addSkin(this.auth.agencia);
+    // this.skin.addSkin(this.auth.branch);
   }
 
 }

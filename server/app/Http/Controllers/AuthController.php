@@ -24,12 +24,14 @@ class AuthController extends Controller
             }
 
             $user = JWTAuth::setToken($token)->authenticate();
+            $user['roles'] = [1];
 
             return response()->json([
             	'data' => [
 	                'user' => $user,
 	                'token' => $token
             	],
+                'success' => true,
             	'message' => "Autenticado correctamente.",
             	'status' => 200,
             ]);

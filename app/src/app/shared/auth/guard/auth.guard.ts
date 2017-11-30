@@ -20,10 +20,7 @@ export class AuthGuard implements CanActivate {
       if (route.children.length === 0) {
         if (this.auth.isAgente()) {
           this.router
-            .navigate(['/itinerarios/mis-itinerarios'], { replaceUrl: true });
-        } else if (this.auth.isOperador()) {
-          this.router
-            .navigate(['/conversaciones/atencion-pendiente'], { replaceUrl: true });
+            .navigate(['/ventas/ordenes'], { replaceUrl: true });
         }
       }
       return true;

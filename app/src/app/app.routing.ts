@@ -13,7 +13,7 @@ import {OperadorGuard} from './shared/auth/guard/operador.guard';
 export const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
+    // canActivate: [AuthGuard],
     component: MainLayoutComponent,
     data: { pageTitle: '' },
     children: [
@@ -22,39 +22,11 @@ export const routes: Routes = [
         redirectTo: 'inicio',
         pathMatch: 'full'
       },*/
-      /*{
-        path: 'inicio',
-        loadChildren: 'app/+home/home.module#HomeModule',
-        data: { pageTitle: 'Inicio' }
-      },*/
       {
-        path: 'itinerarios',
-        canActivate: [AgenteGuard],
-        loadChildren: 'app/+itinerarios/itinerarios.module#ItinerariosModule',
-        data: { pageTitle: 'Itinerarios' }
-      },
-      {
-        path: 'conversaciones',
-        canActivate: [OperadorGuard],
-        loadChildren: 'app/+conversaciones/conversaciones.module#ConversacionesModule',
-        data: { pageTitle: 'Conversaciones' }
-      },
-      {
-        path: 'usuarios',
-        canActivate: [AdminGuard],
-        loadChildren: 'app/+usuarios/usuarios.module#UsuariosModule',
-        data: { pageTitle: 'Usuarios' }
-      },
-      {
-        path: 'agencia',
-        canActivate: [AdminGuard],
-        loadChildren: 'app/+agencia/agencia.module#AgenciaModule',
-        data: { pageTitle: 'Agencia' }
-      },
-      {
-        path: 'mi-perfil',
-        loadChildren: 'app/+usuarios/+mi-perfil/mi-perfil.module#MiPerfilModule',
-        data: { pageTitle: 'Mi Perfil' }
+        path: 'ventas',
+        // canActivate: [AgenteGuard],
+        loadChildren: 'app/+ventas/ventas.module#VentasModule',
+        data: { pageTitle: 'Ventas' }
       }
     ]
   },

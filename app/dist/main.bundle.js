@@ -4,83 +4,23 @@ webpackJsonp(["main"],{
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"./+agentes/agentes.module": [
-		"../../../../../src/app/+usuarios/+agentes/agentes.module.ts",
-		"common",
-		"agentes.module"
-	],
-	"./+clientes/clientes.module": [
-		"../../../../../src/app/+usuarios/+clientes/clientes.module.ts",
-		"common",
-		"clientes.module"
-	],
 	"./+login/login.module": [
 		"../../../../../src/app/shared/auth/+login/login.module.ts",
 		"common"
 	],
-	"./+mi-agencia/mi-agencia.module": [
-		"../../../../../src/app/+agencia/+mi-agencia/mi-agencia.module.ts",
-		"common",
-		"mi-agencia.module"
-	],
-	"./+mis-itinerarios/mis-itinerarios.module": [
-		"../../../../../src/app/+itinerarios/+mis-itinerarios/mis-itinerarios.module.ts",
-		"common",
-		"mis-itinerarios.module"
-	],
-	"./+operadores/operadores.module": [
-		"../../../../../src/app/+usuarios/+operadores/operadores.module.ts",
-		"common",
-		"operadores.module"
-	],
-	"./+paquetes/paquetes.module": [
-		"../../../../../src/app/+itinerarios/+paquetes/paquetes.module.ts",
-		"common",
-		"paquetes.module"
-	],
-	"./+predefinidas/predefinidas.module": [
-		"../../../../../src/app/+itinerarios/+predefinidas/predefinidas.module.ts",
-		"common",
-		"predefinidas.module"
-	],
-	"./+subagencias/subagencias.module": [
-		"../../../../../src/app/+agencia/+subagencias/subagencias.module.ts",
-		"common",
-		"subagencias.module"
-	],
-	"./../+actividades/actividades.module": [
-		"../../../../../src/app/+itinerarios/+actividades/actividades.module.ts",
-		"common",
-		"actividades.module"
-	],
-	"app/+agencia/agencia.module": [
-		"../../../../../src/app/+agencia/agencia.module.ts",
-		"common",
-		"agencia.module"
-	],
-	"app/+conversaciones/conversaciones.module": [
-		"../../../../../src/app/+conversaciones/conversaciones.module.ts",
-		"conversaciones.module",
+	"./+ordenes/ordenes.module": [
+		"../../../../../src/app/+ventas/+ordenes/ordenes.module.ts",
+		"ordenes.module",
 		"common"
 	],
 	"app/+error/error.module": [
 		"../../../../../src/app/+error/error.module.ts",
 		"error.module"
 	],
-	"app/+itinerarios/itinerarios.module": [
-		"../../../../../src/app/+itinerarios/itinerarios.module.ts",
+	"app/+ventas/ventas.module": [
+		"../../../../../src/app/+ventas/ventas.module.ts",
 		"common",
-		"itinerarios.module"
-	],
-	"app/+usuarios/+mi-perfil/mi-perfil.module": [
-		"../../../../../src/app/+usuarios/+mi-perfil/mi-perfil.module.ts",
-		"common",
-		"mi-perfil.module"
-	],
-	"app/+usuarios/usuarios.module": [
-		"../../../../../src/app/+usuarios/usuarios.module.ts",
-		"common",
-		"usuarios.module"
+		"ventas.module"
 	],
 	"app/shared/auth/auth.module": [
 		"../../../../../src/app/shared/auth/auth.module.ts",
@@ -414,15 +354,7 @@ var APP_RESOLVER_PROVIDERS = [
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_layout_app_layouts_main_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/main-layout.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_layout_app_layouts_auth_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/auth-layout.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_layout_app_layouts_empty_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/empty-layout.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_auth_guard_auth_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/auth.guard.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_auth_guard_noauth_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/noauth.guard.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_auth_guard_admin_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/admin.guard.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_auth_guard_agente_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/agente.guard.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__shared_auth_guard_operador_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/operador.guard.ts");
-
-
-
-
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_auth_guard_noauth_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/noauth.guard.ts");
 
 
 
@@ -431,7 +363,7 @@ var APP_RESOLVER_PROVIDERS = [
 var routes = [
     {
         path: '',
-        canActivate: [__WEBPACK_IMPORTED_MODULE_4__shared_auth_guard_auth_guard__["a" /* AuthGuard */]],
+        // canActivate: [AuthGuard],
         component: __WEBPACK_IMPORTED_MODULE_1__shared_layout_app_layouts_main_layout_component__["a" /* MainLayoutComponent */],
         data: { pageTitle: '' },
         children: [
@@ -440,45 +372,17 @@ var routes = [
               redirectTo: 'inicio',
               pathMatch: 'full'
             },*/
-            /*{
-              path: 'inicio',
-              loadChildren: 'app/+home/home.module#HomeModule',
-              data: { pageTitle: 'Inicio' }
-            },*/
             {
-                path: 'itinerarios',
-                canActivate: [__WEBPACK_IMPORTED_MODULE_7__shared_auth_guard_agente_guard__["a" /* AgenteGuard */]],
-                loadChildren: 'app/+itinerarios/itinerarios.module#ItinerariosModule',
-                data: { pageTitle: 'Itinerarios' }
-            },
-            {
-                path: 'conversaciones',
-                canActivate: [__WEBPACK_IMPORTED_MODULE_8__shared_auth_guard_operador_guard__["a" /* OperadorGuard */]],
-                loadChildren: 'app/+conversaciones/conversaciones.module#ConversacionesModule',
-                data: { pageTitle: 'Conversaciones' }
-            },
-            {
-                path: 'usuarios',
-                canActivate: [__WEBPACK_IMPORTED_MODULE_6__shared_auth_guard_admin_guard__["a" /* AdminGuard */]],
-                loadChildren: 'app/+usuarios/usuarios.module#UsuariosModule',
-                data: { pageTitle: 'Usuarios' }
-            },
-            {
-                path: 'agencia',
-                canActivate: [__WEBPACK_IMPORTED_MODULE_6__shared_auth_guard_admin_guard__["a" /* AdminGuard */]],
-                loadChildren: 'app/+agencia/agencia.module#AgenciaModule',
-                data: { pageTitle: 'Agencia' }
-            },
-            {
-                path: 'mi-perfil',
-                loadChildren: 'app/+usuarios/+mi-perfil/mi-perfil.module#MiPerfilModule',
-                data: { pageTitle: 'Mi Perfil' }
+                path: 'ventas',
+                // canActivate: [AgenteGuard],
+                loadChildren: 'app/+ventas/ventas.module#VentasModule',
+                data: { pageTitle: 'Ventas' }
             }
         ]
     },
     {
         path: 'auth',
-        canActivate: [__WEBPACK_IMPORTED_MODULE_5__shared_auth_guard_noauth_guard__["a" /* NoAuthGuard */]],
+        canActivate: [__WEBPACK_IMPORTED_MODULE_4__shared_auth_guard_noauth_guard__["a" /* NoAuthGuard */]],
         component: __WEBPACK_IMPORTED_MODULE_2__shared_layout_app_layouts_auth_layout_component__["a" /* AuthLayoutComponent */],
         loadChildren: 'app/shared/auth/auth.module#AuthModule',
         data: { pageTitle: 'Autorización' }
@@ -880,9 +784,9 @@ var AuthService = (function () {
             }
             else {
                 var session = JSON.parse(localStorage.getItem('session'));
-                if (session && session.usuario) {
-                    this._user = session.usuario;
-                    return session.usuario;
+                if (session && session.user) {
+                    this._user = session.user;
+                    return session.user;
                 }
                 else {
                     return null;
@@ -892,24 +796,24 @@ var AuthService = (function () {
         enumerable: true,
         configurable: true
     });
-    Object.defineProperty(AuthService.prototype, "agencia", {
+    Object.defineProperty(AuthService.prototype, "branch", {
         get: function () {
-            if (this._agencia) {
-                return this._agencia;
+            if (this._branch) {
+                return this._branch;
             }
             else {
                 var session = JSON.parse(localStorage.getItem('session'));
-                if (session && session.agencia) {
-                    this._agencia = session.agencia;
-                    return session.agencia;
+                if (session && session.branch) {
+                    this._branch = session.branch;
+                    return session.branch;
                 }
                 else {
                     return null;
                 }
             }
         },
-        set: function (agencia) {
-            this._agencia = agencia;
+        set: function (branch) {
+            this._branch = branch;
             this.updateSession();
         },
         enumerable: true,
@@ -919,7 +823,7 @@ var AuthService = (function () {
         var data = {
             token: this._token,
             usuario: this._user,
-            agencia: this._agencia
+            branch: this._branch
         };
         localStorage.setItem('session', JSON.stringify(data));
     };
@@ -955,25 +859,8 @@ var AuthService = (function () {
         })
             .subscribe(function (data) {
             if (data.success) {
-                _this.afAuth.auth.signInAnonymously().catch(function (error) {
-                    // Handle Errors here.
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    loginObs.error({ message: errorMessage });
-                });
-                _this.afAuth.auth.onAuthStateChanged(function (user) {
-                    if (user) {
-                        // User is signed in.
-                        localStorage.setItem('session', JSON.stringify(data));
-                        var isAnonymous = user.isAnonymous;
-                        var uid = user.uid;
-                        loginObs.next(data);
-                    }
-                    else {
-                        // User is signed out.
-                        // loginObs.next({message: 'Usuario cerró sesión'});
-                    }
-                });
+                localStorage.setItem('session', JSON.stringify(data.data));
+                loginObs.next(data);
             }
         }, function (error) {
             // const message = JSON.parse(error._body);
@@ -984,7 +871,6 @@ var AuthService = (function () {
     };
     AuthService.prototype.logout = function (redirect) {
         if (redirect === void 0) { redirect = false; }
-        this.afAuth.auth.signOut();
         this._token = null;
         this._user = null;
         localStorage.removeItem('session');
@@ -1129,11 +1015,7 @@ var AuthGuard = (function () {
             if (route.children.length === 0) {
                 if (this.auth.isAgente()) {
                     this.router
-                        .navigate(['/itinerarios/mis-itinerarios'], { replaceUrl: true });
-                }
-                else if (this.auth.isOperador()) {
-                    this.router
-                        .navigate(['/conversaciones/atencion-pendiente'], { replaceUrl: true });
+                        .navigate(['/ventas/ordenes'], { replaceUrl: true });
                 }
             }
             return true;
@@ -1661,7 +1543,7 @@ var MainLayoutComponent = (function () {
         this.skin = skin;
     }
     MainLayoutComponent.prototype.ngOnInit = function () {
-        this.skin.addSkin(this.auth.agencia);
+        // this.skin.addSkin(this.auth.branch);
     };
     return MainLayoutComponent;
 }());
@@ -2974,7 +2856,7 @@ var _a;
 /***/ "../../../../../src/app/shared/layout/navigation/navigation.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<aside id=\"left-panel\">\n\n  <!-- User info -->\n  <sa-login-info></sa-login-info>\n  <!-- end user info -->\n\n  <nav>\n    <!-- NOTE: Notice the gaps after each icon usage <i></i>..\n    Please note that these links work a bit different than\n    traditional href=\"\" links. See documentation for details.\n    -->\n\n    <ul saSmartMenu>\n\n      <li routerLinkActive=\"active\">\n        <a routerLink=\"/home\" title=\"Home\">\n          <i class=\"fa fa-lg fa-fw fa-home\"></i> <span class=\"menu-item-parent\">{{'Inicio' | i18n}}</span>\n        </a>\n      </li>\n\n      <li *ngIf=\"isAgente()\">\n        <a title=\"Itinerarios\"><i class=\"fa fa-lg fa-fw fa-table\"></i> <span\n          class=\"menu-item-parent\">{{'Itinerarios' | i18n}}</span></a>\n        <ul>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/itinerarios/paquetes\">{{'Paquetes' | i18n}}</a>\n          </li>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/itinerarios/mis-itinerarios\">{{'Mis Itinerarios' | i18n}}</a>\n          </li>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/itinerarios/predefinidas\">{{'Actividades Predefinidas' | i18n}}</a>\n          </li>\n        </ul>\n      </li>\n\n      <li *ngIf=\"isOperador()\">\n        <a title=\"Conversaciones\"><i class=\"fa fa-lg fa-fw fa-wechat\"></i> <span\n          class=\"menu-item-parent\">{{'Conversaciones' | i18n}}</span></a>\n        <ul>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/conversaciones/atencion-pendiente\">{{'Atencion Pendiente' | i18n}}</a>\n          </li>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/conversaciones/mis-conversaciones\">{{'Mis Conversaciones' | i18n}}</a>\n          </li>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/conversaciones/historial\">{{'Historial' | i18n}}</a>\n          </li>\n        </ul>\n      </li>\n\n      <li *ngIf=\"isAdmin()\">\n        <a title=\"Usuarios\"><i class=\"fa fa-lg fa-fw fa-users\"></i> <span\n          class=\"menu-item-parent\">{{'Usuarios' | i18n}}</span></a>\n        <ul>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/usuarios/agentes\">{{'Agentes' | i18n}}</a>\n          </li>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/usuarios/operadores\">{{'Operadores' | i18n}}</a>\n          </li>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/usuarios/clientes\">{{'Clientes' | i18n}}</a>\n          </li>\n        </ul>\n      </li>\n\n      <li *ngIf=\"isAdmin()\">\n        <a title=\"Agencia\"><i class=\"fa fa-lg fa-fw fa-building\"></i> <span\n          class=\"menu-item-parent\">{{'Agencia' | i18n}}</span></a>\n        <ul>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/agencia/mi-agencia\">{{'Mi Agencia' | i18n}}</a>\n          </li>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/agencia/subagencias\">{{'Subagencias' | i18n}}</a>\n          </li>\n        </ul>\n      </li>\n    </ul>    \n  </nav>\n\n  <sa-minify-menu></sa-minify-menu>\n\n</aside>\n"
+module.exports = "<aside id=\"left-panel\">\n\n  <!-- User info -->\n  <sa-login-info></sa-login-info>\n  <!-- end user info -->\n\n  <nav>\n    <!-- NOTE: Notice the gaps after each icon usage <i></i>..\n    Please note that these links work a bit different than\n    traditional href=\"\" links. See documentation for details.\n    -->\n\n    <ul saSmartMenu>\n      <li routerLinkActive=\"active\" *ngIf=\"isAgente()\">\n        <a title=\"Ventas\"><i class=\"fa fa-lg fa-fw fa-table\"></i> <span\n          class=\"menu-item-parent\">{{'Ventas' | i18n}}</span></a>\n        <ul>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/ventas/ordenes\">{{'Ordenes' | i18n}}</a>\n          </li>\n        </ul>\n      </li>\n    </ul>    \n  </nav>\n\n  <sa-minify-menu></sa-minify-menu>\n\n</aside>\n"
 
 /***/ }),
 

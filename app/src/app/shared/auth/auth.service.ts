@@ -16,7 +16,7 @@ export class AuthService {
   private authenticated = false;
   private _token: string;
   private _user: any;
-  private _agencia: any;
+  private _branch: any;
 
   get token(): string {
     if (this._token && this._token.length) {
@@ -37,31 +37,31 @@ export class AuthService {
       return this._user;
     } else {
       const session = JSON.parse(localStorage.getItem('session'));
-      if (session && session.usuario) {
-        this._user = session.usuario;
-        return session.usuario;
+      if (session && session.user) {
+        this._user = session.user;
+        return session.user;
       } else {
         return null;
       }
     }
   }
 
-  get agencia(): any {
-    if (this._agencia) {
-      return this._agencia;
+  get branch(): any {
+    if (this._branch) {
+      return this._branch;
     } else {
       const session = JSON.parse(localStorage.getItem('session'));
-      if (session && session.agencia) {
-        this._agencia = session.agencia;
-        return session.agencia;
+      if (session && session.branch) {
+        this._branch = session.branch;
+        return session.branch;
       } else {
         return null;
       }
     }
   }
 
-  set agencia(agencia) {
-    this._agencia = agencia;
+  set branch(branch) {
+    this._branch = branch;
     this.updateSession();
   }
 
@@ -75,7 +75,7 @@ export class AuthService {
     const data = {
       token: this._token,
       usuario: this._user,
-      agencia: this._agencia
+      branch: this._branch
     };
     localStorage.setItem('session', JSON.stringify(data));
   }
@@ -119,24 +119,8 @@ export class AuthService {
       })
       .subscribe(data => {
         if (data.success) {
-          this.afAuth.auth.signInAnonymously().catch(error => {
-            // Handle Errors here.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            loginObs.error({message: errorMessage});
-          });
-          this.afAuth.auth.onAuthStateChanged(user => {
-            if (user) {
-              // User is signed in.
-              localStorage.setItem('session', JSON.stringify(data));
-              const isAnonymous = user.isAnonymous;
-              const uid = user.uid;
-              loginObs.next(data);
-            } else {
-              // User is signed out.
-              // loginObs.next({message: 'Usuario cerró sesión'});
-            }
-          });
+          localStorage.setItem('session', JSON.stringify(data.data));
+          loginObs.next(data);
         }
       }, error => {
         // const message = JSON.parse(error._body);
@@ -148,7 +132,6 @@ export class AuthService {
   }
 
   logout(redirect = false) {
-    this.afAuth.auth.signOut();
     this._token = null;
     this._user = null;
     localStorage.removeItem('session');

@@ -11,6 +11,6 @@ export class SkinComponent implements OnInit {
   constructor(private auth: AuthService) {}
 
   ngOnInit() {
-    this.agencia = this.auth.agencia;
+    this.agencia = this.auth.branch;
   }
 }
