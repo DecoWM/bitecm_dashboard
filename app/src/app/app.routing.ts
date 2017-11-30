@@ -32,7 +32,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    canActivate: [NoAuthGuard],
+    // canActivate: [NoAuthGuard],
     component: AuthLayoutComponent,
     loadChildren: 'app/shared/auth/auth.module#AuthModule',
     data: { pageTitle: 'Autorización' }

@@ -354,8 +354,6 @@ var APP_RESOLVER_PROVIDERS = [
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_layout_app_layouts_main_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/main-layout.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_layout_app_layouts_auth_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/auth-layout.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_layout_app_layouts_empty_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/empty-layout.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_auth_guard_noauth_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/noauth.guard.ts");
-
 
 
 
@@ -382,7 +380,7 @@ var routes = [
     },
     {
         path: 'auth',
-        canActivate: [__WEBPACK_IMPORTED_MODULE_4__shared_auth_guard_noauth_guard__["a" /* NoAuthGuard */]],
+        // canActivate: [NoAuthGuard],
         component: __WEBPACK_IMPORTED_MODULE_2__shared_layout_app_layouts_auth_layout_component__["a" /* AuthLayoutComponent */],
         loadChildren: 'app/shared/auth/auth.module#AuthModule',
         data: { pageTitle: 'Autorización' }
