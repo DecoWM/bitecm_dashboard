@@ -10,13 +10,13 @@ import { OrdenesService } from './ordenes.service';
 import { routing } from './ordenes.routing';
 import { OrdenesComponent } from './ordenes.component';
 import { DetalleOrdenComponent } from './detalle/detalle-orden.component';
-import { StatusFormComponent } from './status-form/status-form.component';
+// import { StatusFormComponent } from './status-form/status-form.component';
 
 @NgModule({
     declarations: [
         OrdenesComponent,
         DetalleOrdenComponent,
-        StatusFormComponent
+        // StatusFormComponent
     ],
     imports: [
         SmartadminModule,
