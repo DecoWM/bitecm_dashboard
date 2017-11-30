@@ -222,11 +222,10 @@ OrdenesModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routing; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ordenes_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__status_form_status_form_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalle_detalle_orden_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/detalle/detalle-orden.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__detalle_detalle_orden_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/detalle/detalle-orden.component.ts");
 
 
-
+// import { StatusFormComponent } from './status-form/status-form.component';
 
 var routes = [
     {
@@ -236,14 +235,9 @@ var routes = [
     },
     {
         path: 'detalle/:id',
-        component: __WEBPACK_IMPORTED_MODULE_3__detalle_detalle_orden_component__["a" /* DetalleOrdenComponent */],
+        component: __WEBPACK_IMPORTED_MODULE_2__detalle_detalle_orden_component__["a" /* DetalleOrdenComponent */],
         data: { pageTitle: 'Orden' }
     },
-    {
-        path: 'status/:id',
-        component: __WEBPACK_IMPORTED_MODULE_2__status_form_status_form_component__["a" /* StatusFormComponent */],
-        data: { pageTitle: 'Estados de la Orden' }
-    }
 ];
 var routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["d" /* RouterModule */].forChild(routes);
 //# sourceMappingURL=ordenes.routing.js.map
@@ -358,120 +352,6 @@ OrdenesService = __decorate([
 
 var _a, _b;
 //# sourceMappingURL=ordenes.service.js.map
-
-/***/ }),
-
-/***/ "../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.html":
-/***/ (function(module, exports) {
-
-module.exports = "<div id=\"content\" *ngIf=\"blockContent | async\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"['Estados']\" icon=\"calendar\" class=\"col-xs-12 col-sm-7 col-md-7 col-lg-4\"></sa-big-breadcrumbs>\n  </div>\n  <sa-widgets-grid>\n    <!-- row -->\n    <div class=\"row\">\n      <!-- NEW WIDGET START -->\n      <article class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n        <!-- Widget ID (each widget will need unique ID)-->\n        <sa-widget color=\"darken\">\n          <header>\n            <span class=\"widget-icon\"> <i class=\"fa fa-hashtag\"></i> </span>\n            <h2>ID: {{itinerario._id}}</h2>\n          </header>\n          <div class=\"widget-body\">\n            <form-container\n              (onValidationSuccess)=\"onValidationSuccess($event)\"\n              [validatorOptions]=\"validationOptions\"\n            >\n              <fieldset>\n                <legend>Detalles Itinerario</legend>\n                <div class=\"form-group\">\n                  <label class=\"col-md-2 control-label\">PIN*</label>\n                  <div class=\"col-md-4\">\n                    <input [(ngModel)]=\"itinerario.pin\" name=\"pin\" readonly class=\"form-control\" type=\"text\">\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <label class=\"col-md-2 control-label\">Idioma*</label>\n                  <div class=\"col-md-4\">\n                      <select\n                        [(ngModel)]=\"itinerario.langCode\"\n                        required class=\"form-control\"\n                      >\n                        <option *ngFor=\"let lang of langCodes\" [ngValue]=\"lang.code\">{{lang.label}}</option>\n                      </select>\n                  </div>\n                </div>\n                <div class=\"form-group\">\n                  <label class=\"col-md-2 control-label\">Fecha de inicio*</label>\n                  <div class=\"col-md-4\">\n                    <input\n                      [(ngModel)]=\"fecha_inicio\" name=\"fecha_inicio\" required class=\"form-control\" type=\"text\"\n                      (onSmartDatepickerChange)=\"onDateChange($event)\"\n                      [saUiDatepicker]=\"{ dateFormat: 'dd/mm/yy'}\"\n                    >\n                  </div>\n                </div>\n                <!-- <div class=\"form-group\">\n                  <label class=\"col-md-2 control-label\">Fecha de fin*</label>\n                  <div class=\"col-md-4\">\n                    <input\n                      [(ngModel)]=\"fecha_fin\" name=\"fecha_fin\" required class=\"form-control\" type=\"text\"\n                      (onSmartDatepickerChange)=\"onDateChange($event)\"\n                      [saUiDatepicker]=\"{ dateFormat: 'dd/mm/yy'}\"\n                    >\n                  </div>\n                </div> -->\n                <div class=\"form-group\">\n                    <label class=\"col-md-2 control-label\">Paquete*</label>\n                    <div class=\"col-md-4\">\n                      <select\n                        name=\"paquete\"\n                        required class=\"form-control\"\n                        select2 data-select-search=\"true\"\n                        [smartSelect2Options]=\"{placeholder: 'Selecciona un paquete'}\"\n                        [smartSelect2Selected]=\"itinerario.paquete?._id\"\n                        (onSmartSelect2Select)=\"onSelectChange($event)\"\n                      >\n                        <option *ngFor=\"let paquete of paquetes\" [attr.value]=\"paquete._id\">{{paquete.titulo | itinerariosTranslate:itinerario.langCode:paquete.langCodes}}</option>\n                      </select>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                    <label class=\"col-md-2 control-label\">Subagencia*</label>\n                    <div class=\"col-md-4\">\n                        <select\n                          name=\"subagencia\"\n                          required class=\"form-control\"\n                          select2 data-select-search=\"true\"\n                          [smartSelect2Options]=\"{placeholder: 'Selecciona una Subagencia'}\"\n                          [smartSelect2Selected]=\"itinerario.subagencia?._id\"\n                          (onSmartSelect2Select)=\"onSelectChange($event)\"\n                        >\n                          <option *ngFor=\"let subagencia of subagencias\" [attr.value]=\"subagencia._id\">{{subagencia.nombre}}</option>\n                        </select>\n                    </div>\n                </div>\n                <div class=\"form-group\">\n                  <label class=\"col-md-2 control-label\">Cliente</label>\n                  <div class=\"col-md-4\"  >\n                    <input [(ngModel)]=\"nombreCliente\" name=\"cliente\" class=\"form-control\" type=\"text\" readonly>\n                  </div>\n                </div>\n                <!-- <div class=\"form-group\">\n                    <label class=\"col-md-2 control-label\">Cliente*</label>\n                    <div class=\"col-md-4\">\n                        <select\n                          name=\"cliente\"\n                          required class=\"form-control\"\n                          select2 data-select-search=\"true\"\n                          [smartSelect2Options]=\"{placeholder: 'Selecciona un Cliente'}\"\n                          [smartSelect2Selected]=\"itinerario.cliente?._id\"\n                          (onSmartSelect2Select)=\"onSelectChange($event)\"\n                        >\n                          <option *ngFor=\"let cliente of clientes\" [attr.value]=\"cliente._id\">{{cliente.nombre}}</option>\n                        </select>\n                    </div>\n                </div> -->\n                <div class=\"form-group\">\n                  <label class=\"col-md-2 control-label\">Voucher</label>\n                  <div class=\"col-md-4\">\n                    <input style=\"text-transform:uppercase;\" [(ngModel)]=\"itinerario.voucher\" name=\"voucher\" class=\"form-control\" type=\"text\">\n                  </div>\n                </div>\n            </fieldset>\n            <fieldset>\n              <legend>Participantes</legend>\n              <div class=\"form-group\">\n                  <ol class=\"col-md-4 col-md-push-2 participantes-list\">\n                    <li *ngFor=\"let participante of participantes; index as i\">\n                        <div class=\"input-group\">\n                          <input [(ngModel)]=\"itinerario.participantes[i]\" class=\"form-control\" type=\"text\">\n                          <span class=\"input-group-btn\">\n                            <button class=\"btn btn-danger\" (click)=\"removeParticipante(i)\" type=\"button\">Quitar</button>\n                          </span>\n                        </div>\n                    </li>\n                    <li>\n                      <div class=\"input-group\">\n                        <input placeholder=\"Ingresa un nuevo nombre\" class=\"form-control\" type=\"text\"\n                        #nuevoParticipante (keyup.enter)=\"addParticipante(nuevoParticipante, $event)\">\n                        <span class=\"input-group-btn\">\n                            <button class=\"btn btn-primary\" (click)=\"addParticipante(nuevoParticipante)\" type=\"button\">Agregar</button>\n                        </span>\n                      </div>\n                    </li>\n                  </ol>\n              </div>\n            </fieldset>\n            <div class=\"form-actions\">\n              <div class=\"row\">\n                <div class=\"col-md-12\">\n                  <button type=\"button\" class=\"btn btn-default\" onclick=\"window.history.back();\">Regresar</button>\n                  <button type=\"submit\" class=\"btn btn-primary\">Guardar</button>\n                </div>\n              </div>\n            </div>\n          </form-container>\n        </div>\n      </sa-widget>\n        <!-- end widget -->\n      </article>\n      <!-- WIDGET END -->\n    </div>\n    <!-- end row -->\n  </sa-widgets-grid>\n  <!-- end widget grid -->\n</div>\n"
-
-/***/ }),
-
-/***/ "../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.ts":
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StatusFormComponent; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ordenes_service__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng_block_ui__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__ = __webpack_require__("../../../../rxjs/add/observable/of.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-
-
-var StatusFormComponent = (function () {
-    function StatusFormComponent(router, route, ordenesService) {
-        this.router = router;
-        this.route = route;
-        this.ordenesService = ordenesService;
-        this.blockContent = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["Subject"]();
-        this.status = {};
-        this.status_history = [];
-        this.validationOptions = {
-            feedbackIcons: {
-                valid: 'glyphicon glyphicon-ok',
-                invalid: 'glyphicon glyphicon-remove',
-                validating: 'glyphicon glyphicon-refresh'
-            },
-            fields: {
-                titulo: {
-                    validators: {
-                        notEmpty: {
-                            message: 'Titulo en cada idioma requerido'
-                        }
-                    }
-                }
-            }
-        };
-    }
-    StatusFormComponent.prototype.ngOnInit = function () {
-        var _this = this;
-        this.blockUI.start();
-        this.order_id = this.route.snapshot.params.id;
-        __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["Observable"].zip(this.ordenesService.getStatusHistory(this.order_id)).subscribe(function (_a) {
-            var d_status_history = _a[0];
-            _this.status_history = d_status_history.result;
-            _this.blockUI.stop();
-            _this.blockContent.next(true);
-        });
-    };
-    StatusFormComponent.prototype.onSelectChange = function (event) {
-        var data = event.params.data;
-        var inputName = event.currentTarget.name;
-        this.status[inputName] = data.id;
-    };
-    StatusFormComponent.prototype.onDateChange = function (event) {
-        this[event.currentTarget.name] = event.data;
-        this.status[event.currentTarget.name] = this.ordenesService.fromSimpleDateToISO(event.data);
-    };
-    StatusFormComponent.prototype.onValidationSuccess = function (e) {
-        if (e.type === 'success') {
-            this.save(this.status);
-        }
-    };
-    StatusFormComponent.prototype.save = function (status) {
-        var _this = this;
-        if (status) {
-            this.ordenesService.createStatus(this.order_id, status).subscribe(function (message) {
-                _this.router.navigate(['ventas', 'ordenes', 'status', _this.order_id]);
-            });
-        }
-    };
-    return StatusFormComponent;
-}());
-__decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_3_ng_block_ui__["BlockUI"])(),
-    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_3_ng_block_ui__["NgBlockUI"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ng_block_ui__["NgBlockUI"]) === "function" && _a || Object)
-], StatusFormComponent.prototype, "blockUI", void 0);
-StatusFormComponent = __decorate([
-    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'status-form',
-        template: __webpack_require__("../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.html"),
-        styles: ["\n    .participantes-list{ list-style: none; }\n    .participantes-list li{ padding-bottom: 5px; }\n  "]
-    }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ordenes_service__["a" /* OrdenesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ordenes_service__["a" /* OrdenesService */]) === "function" && _d || Object])
-], StatusFormComponent);
-
-var _a, _b, _c, _d;
-//# sourceMappingURL=status-form.component.js.map
 
 /***/ }),
 
