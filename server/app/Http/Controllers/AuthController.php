@@ -54,4 +54,8 @@ class AuthController extends Controller
         	'status' => 200
         ]);
     }
+
+    public function test(Request $request) {
+        die('holaaa!!!');
+    }
 }
