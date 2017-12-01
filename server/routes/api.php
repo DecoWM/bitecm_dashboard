@@ -2,13 +2,13 @@
 
 Route::get('/api/auth/login', 'AuthController@test');
 
+Route::get('api/auth/login', 'AuthController@test');
+
 Route::get('/auth/login', 'AuthController@test');
 
 Route::get('auth/login', 'AuthController@test');
 
 Route::post('api/auth/login', 'AuthController@authenticate');
-
-Route::get('api/auth/login', 'AuthController@test');
 
 Route::prefix('api/admin')->middleware('jwt.auth')->group(function () {
 	///////////
