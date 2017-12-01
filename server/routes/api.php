@@ -1,8 +1,8 @@
 <?php
 
-Route::post('/auth/login', 'AuthController@authenticate');
+Route::post('auth/login', 'AuthController@authenticate');
 
-Route::prefix('/admin')->middleware('jwt.auth')->group(function () {
+Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	///////////
 	// USERS //
 	///////////
