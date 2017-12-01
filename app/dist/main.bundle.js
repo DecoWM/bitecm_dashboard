@@ -852,7 +852,7 @@ var AuthService = (function () {
         // const headers = new HttpHeaders();
         // headers.set('Content-Type', 'application/x-www-form-urlencoded');
         this.http
-            .post('/api/auth/login', { user_email: user, user_password: password }
+            .post('/api/auth/login', { user_email: user, password: password }
         // { headers: headers }
         )
             .map(function (data) {
