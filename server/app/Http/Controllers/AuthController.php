@@ -19,11 +19,11 @@ class AuthController extends Controller
     public function authenticate(Request $request): JsonResponse
     {
         try {
-            $credentials = $request->only('user_email', 'user_password');
+            $credentials = $request->only('user_email', 'password');
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['password' => 'Invalid Password'], 401);
             }
-            
+
             $user = JWTAuth::setToken($token)->authenticate();
             $user['roles'] = [1];
 
