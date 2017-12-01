@@ -16,7 +16,7 @@ class UsersSeeder extends Seeder
         $user->create([
         	'user_name' => 'Agente Prueba',
 	        'user_email' => 'agente.prueba@bitel.pe',
-	        'user_password' => bcrypt('prueba')
+	        'password' => bcrypt('prueba')
         ]);
     }
 }
