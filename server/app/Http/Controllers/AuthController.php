@@ -49,9 +49,7 @@ class AuthController extends Controller
     {
         JWTAuth::invalidate(JWTAuth::getToken());
         return response()->json([
-        	'data' => [
-        		'success' => true
-        	],
+        	'success' => true,
         	'message' => "Sesión cerrada correctamente.",
         	'status' => 200
         ]);

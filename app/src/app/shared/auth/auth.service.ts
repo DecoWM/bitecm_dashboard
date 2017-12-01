@@ -107,7 +107,7 @@ export class AuthService {
     // headers.set('Content-Type', 'application/x-www-form-urlencoded');
     this.http
       .post(
-        '/api/auth/admin/login',
+        '/api/auth/login',
         { email: user, password: password }
         // { headers: headers }
       )
