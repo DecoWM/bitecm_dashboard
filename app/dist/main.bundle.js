@@ -354,6 +354,12 @@ var APP_RESOLVER_PROVIDERS = [
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_layout_app_layouts_main_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/main-layout.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_layout_app_layouts_auth_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/auth-layout.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_layout_app_layouts_empty_layout_component__ = __webpack_require__("../../../../../src/app/shared/layout/app-layouts/empty-layout.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_auth_guard_auth_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/auth.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_auth_guard_noauth_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/noauth.guard.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_auth_guard_agente_guard__ = __webpack_require__("../../../../../src/app/shared/auth/guard/agente.guard.ts");
+
+
+
 
 
 
@@ -361,7 +367,7 @@ var APP_RESOLVER_PROVIDERS = [
 var routes = [
     {
         path: '',
-        // canActivate: [AuthGuard],
+        canActivate: [__WEBPACK_IMPORTED_MODULE_4__shared_auth_guard_auth_guard__["a" /* AuthGuard */]],
         component: __WEBPACK_IMPORTED_MODULE_1__shared_layout_app_layouts_main_layout_component__["a" /* MainLayoutComponent */],
         data: { pageTitle: '' },
         children: [
@@ -372,7 +378,7 @@ var routes = [
             },*/
             {
                 path: 'ventas',
-                // canActivate: [AgenteGuard],
+                canActivate: [__WEBPACK_IMPORTED_MODULE_6__shared_auth_guard_agente_guard__["a" /* AgenteGuard */]],
                 loadChildren: 'app/+ventas/ventas.module#VentasModule',
                 data: { pageTitle: 'Ventas' }
             }
@@ -380,7 +386,7 @@ var routes = [
     },
     {
         path: 'auth',
-        // canActivate: [NoAuthGuard],
+        canActivate: [__WEBPACK_IMPORTED_MODULE_5__shared_auth_guard_noauth_guard__["a" /* NoAuthGuard */]],
         component: __WEBPACK_IMPORTED_MODULE_2__shared_layout_app_layouts_auth_layout_component__["a" /* AuthLayoutComponent */],
         loadChildren: 'app/shared/auth/auth.module#AuthModule',
         data: { pageTitle: 'Autorización' }
@@ -826,15 +832,13 @@ var AuthService = (function () {
         localStorage.setItem('session', JSON.stringify(data));
     };
     AuthService.prototype.isAuthenticated = function () {
-        return true;
-        // return this.token && this.user;
+        return this.token && this.user;
     };
     AuthService.prototype.isAdmin = function () {
         return this.user.roles.includes(1);
     };
     AuthService.prototype.isAgente = function () {
-        return true;
-        // return this.user.roles.includes(1) || this.user.roles.includes(2);
+        return this.user.roles.includes(1) || this.user.roles.includes(2);
     };
     AuthService.prototype.isOperador = function () {
         return this.user.roles.includes(1) || this.user.roles.includes(3);
@@ -852,14 +856,14 @@ var AuthService = (function () {
         // { headers: headers }
         )
             .map(function (data) {
-            if (data.usuario && data.token) {
-                data.redirectTo = _this.redirectUrl ? _this.redirectUrl : '';
+            if (data.result.user && data.result.token) {
+                data.result.redirectTo = _this.redirectUrl ? _this.redirectUrl : '';
             }
             return data;
         })
             .subscribe(function (data) {
             if (data.success) {
-                localStorage.setItem('session', JSON.stringify(data.data));
+                localStorage.setItem('session', JSON.stringify(data.result));
                 loginObs.next(data);
             }
         }, function (error) {

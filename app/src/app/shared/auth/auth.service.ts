@@ -81,8 +81,7 @@ export class AuthService {
   }
 
   isAuthenticated() {
-    return true;
-    // return this.token && this.user;
+    return this.token && this.user;
   }
 
   isAdmin() {
@@ -90,8 +89,7 @@ export class AuthService {
   }
 
   isAgente() {
-    return true;
-    // return this.user.roles.includes(1) || this.user.roles.includes(2);
+    return this.user.roles.includes(1) || this.user.roles.includes(2);
   }
 
   isOperador() {
@@ -114,14 +112,14 @@ export class AuthService {
         // { headers: headers }
       )
       .map((data: any) => {
-        if (data.usuario && data.token) {
-          data.redirectTo = this.redirectUrl ? this.redirectUrl : '';
+        if (data.result.user && data.result.token) {
+          data.result.redirectTo = this.redirectUrl ? this.redirectUrl : '';
         }
         return data;
       })
       .subscribe(data => {
         if (data.success) {
-          localStorage.setItem('session', JSON.stringify(data.data));
+          localStorage.setItem('session', JSON.stringify(data.result));
           loginObs.next(data);
         }
       }, error => {

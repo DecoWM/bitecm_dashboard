@@ -13,7 +13,7 @@ import {OperadorGuard} from './shared/auth/guard/operador.guard';
 export const routes: Routes = [
   {
     path: '',
-    // canActivate: [AuthGuard],
+    canActivate: [AuthGuard],
     component: MainLayoutComponent,
     data: { pageTitle: '' },
     children: [
@@ -24,7 +24,7 @@ export const routes: Routes = [
       },*/
       {
         path: 'ventas',
-        // canActivate: [AgenteGuard],
+        canActivate: [AgenteGuard],
         loadChildren: 'app/+ventas/ventas.module#VentasModule',
         data: { pageTitle: 'Ventas' }
       }
@@ -32,7 +32,7 @@ export const routes: Routes = [
   },
   {
     path: 'auth',
-    // canActivate: [NoAuthGuard],
+    canActivate: [NoAuthGuard],
     component: AuthLayoutComponent,
     loadChildren: 'app/shared/auth/auth.module#AuthModule',
     data: { pageTitle: 'Autorización' }

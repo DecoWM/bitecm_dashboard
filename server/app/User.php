@@ -11,17 +11,15 @@ class User extends Authenticatable implements AuthenticatableUserContract
 {
     use Notifiable;
 
+    protected $table = 'tbl_user';
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'role_id'
+        'user_name', 'user_email', 'user_password'
     ];
-
-    const SELLER = 1;
-    const SALES_MANAGER = 2;
 
     /**
      * The attributes that should be hidden for arrays.
@@ -29,7 +27,7 @@ class User extends Authenticatable implements AuthenticatableUserContract
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'user_password', 'remember_token',
     ];
 
     public function role()

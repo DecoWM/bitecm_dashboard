@@ -18,7 +18,7 @@ class AuthController extends Controller
     public function authenticate(Request $request): JsonResponse
     {
         try {
-            $credentials = $request->only('email', 'password');
+            $credentials = $request->only('user_email', 'user_password');
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['password' => 'Invalid Password'], 401);
             }
@@ -27,7 +27,7 @@ class AuthController extends Controller
             $user['roles'] = [1];
 
             return response()->json([
-            	'data' => [
+            	'result' => [
 	                'user' => $user,
 	                'token' => $token
             	],

@@ -14,16 +14,9 @@ class UsersSeeder extends Seeder
     {
         $user = new User();
         $user->create([
-        	'name' => 'Gerente de Ventas',
-	        'email' => 'gerente.ventas@cgl.com',
-	        'password' => bcrypt('123456'),
-	        'role_id' => 1
-        ]);
-        $user->create([
-        	'name' => 'Vendedor',
-	        'email' => 'vendedor@cgl.com',
-	        'password' => bcrypt('123456'),
-	        'role_id' => 2
+        	'user_name' => 'Agente Prueba',
+	        'user_email' => 'agente.prueba@bitel.pe',
+	        'user_password' => bcrypt('prueba')
         ]);
     }
 }
