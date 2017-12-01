@@ -1,7 +1,5 @@
 <?php
-$uri = urldecode(
-    parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH)
-);die($uri.' adasdasd');
+
 Route::get('/api/auth/login', 'AuthController@test');
 
 Route::get('api/auth/login', 'AuthController@test');
