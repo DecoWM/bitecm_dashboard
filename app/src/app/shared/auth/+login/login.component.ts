@@ -34,7 +34,10 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.username, this.password)
       .subscribe((data) => {
         if (data.success) {
-          this.router.navigate([data.redirectTo]);
+          if (this.authService.isAgente()) {
+            this.router
+              .navigate(['/ventas/ordenes'], { replaceUrl: true });
+          }
         }
       }, (error) => {
         if (error.status === 401) {

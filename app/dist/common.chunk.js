@@ -89,7 +89,10 @@ var LoginComponent = (function () {
         this.authService.login(this.username, this.password)
             .subscribe(function (data) {
             if (data.success) {
-                _this.router.navigate([data.redirectTo]);
+                if (_this.authService.isAgente()) {
+                    _this.router
+                        .navigate(['/ventas/ordenes'], { replaceUrl: true });
+                }
             }
         }, function (error) {
             if (error.status === 401) {
