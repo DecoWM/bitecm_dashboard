@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -22,7 +23,7 @@ class AuthController extends Controller
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['password' => 'Invalid Password'], 401);
             }
-
+// die($token);
             $user = JWTAuth::setToken($token)->authenticate();
             $user['roles'] = [1];
 
