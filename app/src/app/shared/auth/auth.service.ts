@@ -108,7 +108,7 @@ export class AuthService {
     this.http
       .post(
         '/api/auth/login',
-        { email: user, password: password }
+        { user_email: user, user_password: password }
         // { headers: headers }
       )
       .map((data: any) => {

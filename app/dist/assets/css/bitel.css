@@ -225,3 +225,11 @@ nav ul li a:active{
 #shortcut{
   display: none !important!
 }
+
+#extr-page #header #logo {
+  margin-top: 15px;
+}
+
+#extr-page #header #logo img {
+  width: 100px;
+}
