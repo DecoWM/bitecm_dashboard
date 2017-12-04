@@ -1,34 +1,207 @@
-<table cell-padding="5" cell-spacing="0" border="0" class="table table-hover table-condensed">
-    <tbody><tr>
-        <td style="width:100px"><b>Paquete:</b></td>
-        <td>{{data.paquete?.titulo[0]}}</td>
-    </tr>
-    <tr>
-        <td><b>Voucher:</b></td>
-        <td>{{data.voucher}}</td>
-    </tr>
-    <tr>
-        <td><b>PIN:</b></td>
-        <td>{{data.pin}}</td>
-    </tr>
-    <tr>
-        <td><b>Participantes:</b></td>
-        <td>{{data.participantes.join(', ')}}</td>
-    </tr>
-    <tr>
-        <td><b>Creado:</b></td>
-        <td>{{data.creado | date:"dd-MM-yy" }}</td>
-    </tr>
-    <tr>
-        <td><b>Modificado:</b></td>
-        <td>{{data.modificado | date:"dd-MM-yy" }}</td>
-    </tr>
-    <tr>
-        <td><b>Actividades:</b></td>
-        <td>
-            <button (click)="Actividades(data)" class="btn btn-xs btn-primary">Ver Actividades</button>
-            <!-- <button (click)="Desactivar(data)" class="btn btn-xs btn-danger pull-right" style="margin-left:5px">Desactivar</button> -->
-            <button (click)="Editar(data)" class="btn btn-xs btn-success pull-right">Editar</button>
-        </td>
-    </tr></tbody>
-</table>
+<!-- MAIN CONTENT -->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="['Detalle de Orden', 'Nro. #']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+
+    <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
+      <!-- Button trigger modal -->
+      <a (click)="mdModal.show()" class="btn btn-success btn-lg pull-right header-btn hidden-mobile"><i class="fa fa-circle-arrow-up fa-lg"></i> Cambiar Estado</a>
+    </div>
+  </div>
+
+
+  <!--div class="alert alert-block alert-success" dismisser="">
+
+    <h4 class="alert-heading"><i class="fa fa-check-square-o"></i> Check validation!</h4>
+
+    <p>
+      You may also check the form validation by clicking on the form action button. Please try and see the results
+      below!
+    </p>
+  </div-->
+
+  <!-- widget grid -->
+
+  <sa-widgets-grid>
+
+
+    <!-- START ROW -->
+
+    <div class="row">
+
+      <!-- NEW COL START -->
+      <article class="col-sm-12 col-md-12 col-lg-12 row">
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+        <!-- Widget ID (each widget will need unique ID)-->
+        <sa-widget [editbutton]="false" [custombutton]="false">
+
+          <!-- widget div-->
+          <div>
+
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+
+              <form id="checkout-form" class="smart-form" novalidate="novalidate">
+                <div id="detalle-order">
+                    <header><i class="icon-prepend fa fa-shopping-cart"></i>Detalle de orden</header>
+                    <div id="field-detalle-order">
+                      <div class="field-order">
+                          <i class="icon-prepend fa fa-building"></i>
+                          <p>Sucursal</p>
+                      </div>
+                      <div class="field-order">
+                          <i class="icon-prepend fa fa-calendar"></i>
+                          <p>Fecha de compra (01/01/2018)</p>
+                      </div>
+                      <div class="field-order">
+                          <i class="icon-prepend fa fa-credit-card"></i>
+                          <p>Tipo de Pago (Visa, Mastercard)</p>
+                      </div>
+                      <div class="field-order">
+                          <i class="icon-prepend fa fa-dollar"></i>
+                          <p>Costo</p>
+                      </div>
+                    </div>
+                </div>
+              </form>
+
+            </div>
+            <!-- end widget content -->
+
+
+
+          </div>
+          <!-- end widget div -->
+
+        </sa-widget>
+        </div>
+
+        <div class="col-sm-6 col-md-6 col-lg-6">
+        <sa-widget [editbutton]="false" [custombutton]="false">
+
+          <!-- widget div-->
+          <div>
+
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+              <form id="checkout-form" class="smart-form" novalidate="novalidate">
+                <div id="detalle-order">
+                    <header><i class="icon-prepend fa fa-user"></i>Detalle del Cliente</header>
+                    <div id="field-detalle-order">
+                      <div class="field-order">
+                          <i class="icon-prepend fa fa-user"></i>
+                          <p>Nombre Completo</p>
+                      </div>
+                      <div class="field-order">
+                          <i class="icon-prepend fa  fa-home"></i>
+                          <p>Dirección</p>
+                      </div>
+                      <div class="field-order">
+                          <i class="icon-prepend fa fa-envelope"></i>
+                          <p>Correo</p>
+                      </div>
+                      <div class="field-order">
+                          <i class="icon-prepend fa fa-phone"></i>
+                          <p>Teléfono</p>
+                      </div>
+                    </div>
+                </div>
+              </form>
+            </div>
+
+          </div>
+        </sa-widget>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-lg-12">
+        <sa-widget [editbutton]="false" [custombutton]="false">
+
+          <!-- widget div-->
+          <div>
+
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+              <form id="checkout-form" class="smart-form" novalidate="novalidate">
+                <div id="detalle-order">
+                    <header>
+                      <i class="icon-prepend fa fa-exclamation-circle"></i>Orden <span>#4010</span>
+                    </header>
+                    <div id="field-detalle-order" class="detalle-info">
+                        <div class="direccion-de-envio">
+                          <header><i class="icon-prepend fa fa-exclamation-circle"></i>Dirección</header>
+                          <div class="field-order">
+                              <p class="field">Distrito: </p>
+                              <p>Santa Anita</p>
+                          </div>
+                          <div class="field-order">
+                              <p class="field">Dirección: </p>
+                              <p>Calle Almendras</p>
+                          </div>
+                          <div class="field-order">
+                              <p class="field">Teléfono: </p>
+                              <p>994-318-767</p>
+                          </div>
+                          <div class="field-order">
+                              <p class="field">Referencia </p>
+                              <p>Al costado</p>
+                          </div>
+                          <div class="field-order">
+                              <p class="field">Correo Electronico </p>
+                              <p>juanperez@gmail.com</p>
+                          </div>
+                        </div>
+                        <div class="direccion-de-envio data-table">
+                        <table class="dataTable responsive display projects-table table table-striped table-bordered table-hover no-footer dtr-inline"
+                              width="100%">
+                              <thead>
+                              <tr>
+                                <th class="sorting" data-class="vermascol">Producto</th>
+                                <th class="sorting" data-class="expand">Marca</th>
+                                <th class="sorting" data-hide="phone, tablet">Modelo</th>
+                                <th class="sorting" data-hide="phone, tablet">Cantidad</th>
+                                <th class="sorting" data-hide="phone,tablet">Precio Unitario</th>
+                                <th class="sorting" data-hide="phone,tablet">Sub-total</th>
+                              </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>Smartphone Prepago</td>
+                                  <td>Huawei</td>
+                                  <td>P10 Plus</td>
+                                  <td>2</td>
+                                  <td>S/. 2500</td>
+                                  <td>S/. 5000</td>
+                                </tr>
+                                <tr>
+                                  <td>Smartphone Prepago</td>
+                                  <td>Huawei</td>
+                                  <td>P8 Lite</td>
+                                  <td>2</td>
+                                  <td>S/. 2000</td>
+                                  <td>S/. 4000</td>
+                                </tr>
+                              </tbody>
+                              <tfoot>
+                                <tr>
+                                  <td colspan="4"></td>
+                                  <td>Total</td>
+                                  <td>S/. 9000</td>
+                                </tr>
+                              </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+              </form>
+            </div>
+
+          </div>
+        </sa-widget>
+        </div>
+
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

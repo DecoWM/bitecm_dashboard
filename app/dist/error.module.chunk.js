@@ -3,7 +3,7 @@ webpackJsonp(["error.module"],{
 /***/ "../../../../../src/app/+error/error.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"content\">\n  <!-- row -->\n  <div class=\"row\">\n    <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n      <div class=\"row\">\n        <div class=\"col-sm-12\">\n          <div class=\"text-center error-box\">\n            <h1 class=\"error-text-2 bounceInDown animated\"> Error {{code}} <span class=\"particle particle--c\"></span><span class=\"particle particle--a\"></span><span class=\"particle particle--b\"></span></h1>\n\n            <h2 class=\"font-xl\"><strong><i class=\"fa fa-fw fa-warning fa-lg text-warning\"></i> Page\n              <u>Not</u> Found</strong></h2>\n            <br>\n\n            <p class=\"lead\">\n              The page you requested could not be found, either contact your webmaster or try again. Use\n              your browsers <b>Back</b> button to navigate to the page you have prevously come from\n            </p>\n\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- end row -->\n  </div>\n</div>\n"
+module.exports = "<div id=\"content\">\n  <!-- row -->\n  <div class=\"row\">\n    <div class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\">\n      <div class=\"row\">\n        <div class=\"col-sm-12\">\n          <div class=\"text-center error-box\">\n            <h1 class=\"error-text-2 bounceInDown animated\"> Error {{code}} <span class=\"particle particle--c\"></span><span class=\"particle particle--a\"></span><span class=\"particle particle--b\"></span></h1>\n\n            <h2 class=\"font-xl\"><strong><i class=\"fa fa-fw fa-warning fa-lg text-warning\"></i> {{mensaje}}</strong></h2>\n            <br>\n\n            <!--<p class=\"lead\">\n              The page you requested could not be found, either contact your webmaster or try again. Use\n              your browsers <b>Back</b> button to navigate to the page you have prevously come from\n            </p>-->\n\n          </div>\n        </div>\n      </div>\n    </div>\n    <!-- end row -->\n  </div>\n</div>\n"
 
 /***/ }),
 
@@ -53,7 +53,7 @@ var ErrorComponent = (function () {
 }());
 ErrorComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
-        selector: 'app-error',
+        selector: 'error',
         template: __webpack_require__("../../../../../src/app/+error/error.component.html"),
         styles: []
     }),

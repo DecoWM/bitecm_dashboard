@@ -91,7 +91,7 @@ var LoginComponent = (function () {
             if (data.success) {
                 if (_this.authService.isAgente()) {
                     _this.router
-                        .navigate(['/ventas/ordenes'], { replaceUrl: true });
+                        .navigate(['/ventas/ordenes']);
                 }
             }
         }, function (error) {

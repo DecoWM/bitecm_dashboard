@@ -13,7 +13,7 @@ export class AuthLayoutComponent implements OnInit {
   constructor(private skin: SkinService) { }
 
   ngOnInit() {
-    this.skin.removeSkin();
+    // this.skin.removeSkin();
   }
 
 }

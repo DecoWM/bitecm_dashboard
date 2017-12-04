@@ -12,7 +12,7 @@ export const routes: Routes = [
         data: { pageTitle: '' }
     },
     {
-        path: 'detalle/:id',
+        path: ':id',
         component: DetalleOrdenComponent,
         data: { pageTitle: 'Orden' }
     },

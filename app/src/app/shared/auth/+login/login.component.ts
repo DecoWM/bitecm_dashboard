@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
         if (data.success) {
           if (this.authService.isAgente()) {
             this.router
-              .navigate(['/ventas/ordenes'], { replaceUrl: true });
+              .navigate(['/ventas/ordenes']);
           }
         }
       }, (error) => {

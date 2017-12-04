@@ -18,7 +18,7 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	Route::prefix('ordenes')->group(function () {
 		Route::get('', 'OrdersController@list');
 		Route::get('{id}', 'OrdersController@detail');
-		Route::put('{id}', 'OrdersController@update');
+		Route::put('{id}/item', 'OrdersController@updateItem');
 		Route::get('{id}/status', 'OrdersController@statusHistory');
 		Route::post('{id}/status', 'OrdersController@createStatus');
 	});

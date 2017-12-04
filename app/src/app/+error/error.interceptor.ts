@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   HttpEvent, HttpInterceptor, HttpHandler,
@@ -6,17 +6,22 @@ import {
 } from '@angular/common/http';
 import 'rxjs/add/operator/do';
 import {Observable} from 'rxjs/Rx';
+import { AuthService } from './../shared/auth/auth.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-  constructor(private router: Router) {}
+  constructor(
+    private inj: Injector,
+    private router: Router
+  ) {}
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    const auth = this.inj.get(AuthService);
     return next
       .handle(req)
       .map(event => {
+        // console.log(event);
         if (event instanceof HttpResponse) {
-          // console.log(event);
           if (!event.ok) {
             this.router.navigate(['/error', event.status]);
             return null;
@@ -26,9 +31,18 @@ export class ErrorInterceptor implements HttpInterceptor {
         }
       })
       .catch(error => {
+        // console.log(error);
         if (error instanceof HttpErrorResponse) {
-          // this.router.navigate(['/error', error.status]);
-          this.router.navigate(['/auth/login']);
+          if (!error.ok) {
+            if (error.error.message === 'Token has expired') {
+              auth.logout();
+              this.router.navigate(['/auth/login']);
+            } else {
+              this.router.navigate(['/error/500']);
+            }
+          } else {
+            this.router.navigate(['/auth/login']);
+          }
           return Observable.throw(error);
         }
       });

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { DtDetalleInterface } from '../../../shared/ui/datatable/dt-detalle.interface';
@@ -6,13 +6,15 @@ import { DtDetalleInterface } from '../../../shared/ui/datatable/dt-detalle.inte
 @Component({
     templateUrl: './detalle-orden.component.html'
 })
-export class DetalleOrdenComponent implements DtDetalleInterface {
+export class DetalleOrdenComponent implements OnInit {
     @Input() data: any;
 
     constructor(
         private route: ActivatedRoute,
         private router: Router
     ) { }
+
+    ngOnInit() {}
 
     Actividades(data: any): void {
         this.router.navigate([data._id, 'actividades'], {relativeTo: this.route});

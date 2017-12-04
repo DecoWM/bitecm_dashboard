@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
-  selector: 'app-error',
+  selector: 'error',
   templateUrl: './error.component.html',
   styles: []
 })

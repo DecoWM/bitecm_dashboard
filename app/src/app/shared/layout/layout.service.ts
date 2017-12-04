@@ -56,7 +56,7 @@ export class LayoutService {
   constructor(private notificationService: NotificationService) {
     this.subject = new Subject();
     this.store = store;
-    this.trigger();
+    // this.trigger();
 
     Observable.fromEvent(window, 'resize').debounceTime(100).map(()=>{
       this.trigger()
@@ -239,7 +239,7 @@ export class LayoutService {
   skinFromUser(user) {
     const skin = {
       name: 'traveleando-skin',
-      logo: 'assets/img/logo.png',
+      logo: 'assets/img/bitel/logo.svg',
       skinBtnClass: 'btn btn-block btn-xs txt-color-white margin-right-5',
       style: {
         backgroundColor: '#4E463F'

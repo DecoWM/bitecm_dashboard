@@ -56,6 +56,7 @@ webpackAsyncContext.id = "../../../../../src/$$_gendir lazy recursive";
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_do__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_auth_auth_service__ = __webpack_require__("../../../../../src/app/shared/auth/auth.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -70,17 +71,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ErrorInterceptor = (function () {
-    function ErrorInterceptor(router) {
+    function ErrorInterceptor(inj, router) {
+        this.inj = inj;
         this.router = router;
     }
     ErrorInterceptor.prototype.intercept = function (req, next) {
         var _this = this;
+        var auth = this.inj.get(__WEBPACK_IMPORTED_MODULE_5__shared_auth_auth_service__["a" /* AuthService */]);
         return next
             .handle(req)
             .map(function (event) {
+            // console.log(event);
             if (event instanceof __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["f" /* HttpResponse */]) {
-                // console.log(event);
                 if (!event.ok) {
                     _this.router.navigate(['/error', event.status]);
                     return null;
@@ -91,9 +95,20 @@ var ErrorInterceptor = (function () {
             }
         })
             .catch(function (error) {
+            // console.log(error);
             if (error instanceof __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["d" /* HttpErrorResponse */]) {
-                // this.router.navigate(['/error', error.status]);
-                _this.router.navigate(['/auth/login']);
+                if (!error.ok) {
+                    if (error.error.message === 'Token has expired') {
+                        auth.logout();
+                        _this.router.navigate(['/auth/login']);
+                    }
+                    else {
+                        _this.router.navigate(['/error/500']);
+                    }
+                }
+                else {
+                    _this.router.navigate(['/auth/login']);
+                }
                 return __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["Observable"].throw(error);
             }
         });
@@ -102,10 +117,10 @@ var ErrorInterceptor = (function () {
 }());
 ErrorInterceptor = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Injectable"])(),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _a || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["Injector"]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object])
 ], ErrorInterceptor);
 
-var _a;
+var _a, _b;
 //# sourceMappingURL=error.interceptor.js.map
 
 /***/ }),
@@ -835,13 +850,13 @@ var AuthService = (function () {
         return this.token && this.user;
     };
     AuthService.prototype.isAdmin = function () {
-        return this.user.roles.includes(1);
+        return this.user && this.user.roles.includes(1);
     };
     AuthService.prototype.isAgente = function () {
-        return this.user.roles.includes(1) || this.user.roles.includes(2);
+        return this.user && (this.user.roles.includes(1) || this.user.roles.includes(2));
     };
     AuthService.prototype.isOperador = function () {
-        return this.user.roles.includes(1) || this.user.roles.includes(3);
+        return this.user && (this.user.roles.includes(1) || this.user.roles.includes(3));
     };
     AuthService.prototype.getAuthorizationHeader = function () {
         return 'Bearer ' + this.token;
@@ -1071,7 +1086,8 @@ var NoAuthGuard = (function () {
     }
     NoAuthGuard.prototype.canActivate = function (route, state) {
         if (this.auth.isAuthenticated()) {
-            this.location.back();
+            // this.location.back();
+            this.router.navigate(['']);
             return false;
         }
         else {
@@ -1443,7 +1459,7 @@ var AuthLayoutComponent = (function () {
         this.skin = skin;
     }
     AuthLayoutComponent.prototype.ngOnInit = function () {
-        this.skin.removeSkin();
+        // this.skin.removeSkin();
     };
     return AuthLayoutComponent;
 }());
@@ -2580,7 +2596,7 @@ var LayoutService = (function () {
         this.notificationService = notificationService;
         this.subject = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Subject"]();
         this.store = store;
-        this.trigger();
+        // this.trigger();
         __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].fromEvent(window, 'resize').debounceTime(100).map(function () {
             _this.trigger();
         }).subscribe();
@@ -2750,7 +2766,7 @@ var LayoutService = (function () {
     LayoutService.prototype.skinFromUser = function (user) {
         var skin = {
             name: 'traveleando-skin',
-            logo: 'assets/img/logo.png',
+            logo: 'assets/img/bitel/logo.svg',
             skinBtnClass: 'btn btn-block btn-xs txt-color-white margin-right-5',
             style: {
                 backgroundColor: '#4E463F'
@@ -3520,7 +3536,7 @@ var config = {
     skins: [
         {
             name: "smart-style-0",
-            logo: "assets/img/logo.png",
+            logo: "assets/img/bitel/logo.svg",
             skinBtnClass: "btn btn-block btn-xs txt-color-white margin-right-5",
             style: {
                 backgroundColor: '#4E463F'
@@ -4051,7 +4067,8 @@ var LogoutComponent = (function () {
         });
     };
     LogoutComponent.prototype.logout = function () {
-        this.authService.logout(true);
+        this.authService.logout();
+        this.router.navigate(['/auth/login']);
     };
     LogoutComponent.prototype.ngOnInit = function () {
     };

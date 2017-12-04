@@ -21,12 +21,12 @@ export class OrdenesComponent implements OnInit {
 
   options = {
     dom: 'Bfrtip',
-    columnDefs: [ {
+    /*columnDefs: [ {
       targets: [0, 8],
       orderable: false
-    } ],
-    order: [[7, 'desc']],
-    colReorder: true
+    } ],*/
+    order: [[1, 'desc']],
+    // colReorder: true
   };
 
   constructor(
@@ -42,6 +42,7 @@ export class OrdenesComponent implements OnInit {
     this.blockui.start('content');
     this.ordenesService.getOrdenes()
       .subscribe((data: any) => {
+        console.log(data);
         this.blockui.stop('content');
         const items = data.result;
         this.itemsObs.next(items);
@@ -56,8 +57,8 @@ export class OrdenesComponent implements OnInit {
       });
   }
 
-  Detalle(data: any): void {
-    this.router.navigate(['detalle', data._id], {relativeTo: this.route});
+  detail(data: any): void {
+    this.router.navigate([data.order_id], {relativeTo: this.route});
   }
 
 }

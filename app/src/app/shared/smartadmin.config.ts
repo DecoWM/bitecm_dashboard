@@ -11,7 +11,7 @@ export const config: any = {
   skins: [
     {
       name: "smart-style-0",
-      logo: "assets/img/logo.png",
+      logo: "assets/img/bitel/logo.svg",
       skinBtnClass: "btn btn-block btn-xs txt-color-white margin-right-5",
       style: {
         backgroundColor: '#4E463F'

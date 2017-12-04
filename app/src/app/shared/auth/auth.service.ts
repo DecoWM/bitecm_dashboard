@@ -85,15 +85,15 @@ export class AuthService {
   }
 
   isAdmin() {
-    return this.user.roles.includes(1);
+    return this.user && this.user.roles.includes(1);
   }
 
   isAgente() {
-    return this.user.roles.includes(1) || this.user.roles.includes(2);
+    return this.user && (this.user.roles.includes(1) || this.user.roles.includes(2));
   }
 
   isOperador() {
-    return this.user.roles.includes(1) || this.user.roles.includes(3);
+    return this.user && (this.user.roles.includes(1) || this.user.roles.includes(3));
   }
 
   getAuthorizationHeader() {
