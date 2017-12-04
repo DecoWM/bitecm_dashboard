@@ -6,6 +6,7 @@ import { OrdenesService } from './../ordenes.service';
 import { BlockUIService } from 'ng-block-ui';
 
 @Component({
+  selector: 'order-detail',
   templateUrl: './detalle-orden.component.html'
 })
 export class DetalleOrdenComponent implements OnInit {
@@ -31,9 +32,9 @@ export class DetalleOrdenComponent implements OnInit {
       });
   }
 
-  changeStatus(): void {
+  statusHistory(): void {
     if (this.order.order_id) {
-      this.router.navigate([this.order.order_id, 'status'], {relativeTo: this.route});
+      this.router.navigate(['status'], {relativeTo: this.route});
     }
   }
 

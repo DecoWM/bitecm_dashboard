@@ -3,7 +3,7 @@ webpackJsonp(["ordenes.module"],{
 /***/ "../../../../../src/app/+ventas/+ordenes/detalle/detalle-orden.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"['Detalle de Orden', 'Nro. #'+order.order_id]\" icon=\"pencil-square-o\" class=\"col-xs-12 col-sm-9 col-md-9 col-lg-9\"></sa-big-breadcrumbs>\n\n    <div class=\"col-xs-12 col-sm-3 col-md-3 col-lg-3\">\n      <!-- Button trigger modal -->\n      <a (click)=\"mdModal.show()\" class=\"btn btn-success btn-lg pull-right header-btn hidden-mobile\"><i class=\"fa fa-circle-arrow-up fa-lg\"></i> Cambiar Estado</a>\n    </div>\n  </div>\n\n  <!--div class=\"alert alert-block alert-success\" dismisser=\"\">\n    <h4 class=\"alert-heading\"><i class=\"fa fa-check-square-o\"></i> Check validation!</h4>\n\n    <p>\n      You may also check the form validation by clicking on the form action button. Please try and see the results\n      below!\n    </p>\n  </div-->\n\n  <!-- widget grid -->\n  <sa-widgets-grid>\n    <!-- START ROW -->\n\n    <div class=\"row\">\n      <!-- NEW COL START -->\n      <article>\n\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- Widget ID (each widget will need unique ID)-->\n          <sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n            <!-- widget div-->\n            <div>\n              <!-- widget content -->\n              <div class=\"widget-body no-padding\">\n\n                <form id=\"checkout-form\" class=\"smart-form\" novalidate=\"novalidate\">\n                  <div id=\"detalle-order\">\n                    <header>\n                      <i class=\"icon-prepend fa fa-shopping-cart\"></i>\n                      Detalle de orden\n                    </header>\n                    <div id=\"field-detalle-order\">\n                      <div class=\"field-order\">\n                        <i class=\"icon-prepend fa fa-building\"></i>\n                        <p>Sucursal </p>\n                      </div>\n                      <div class=\"field-order\">\n                        <i class=\"icon-prepend fa fa-calendar\"></i>\n                        <p>{{order.created_at}}</p>\n                      </div>\n                      <div class=\"field-order\">\n                        <i class=\"icon-prepend fa fa-credit-card\"></i>\n                        <p>{{order.method_name}}</p>\n                      </div>\n                      <div class=\"field-order\">\n                        <i class=\"icon-prepend fa fa-dollar\"></i>\n                        <p>Total Neto S/{{order.total}}</p>\n                      </div>\n                    </div>\n                  </div>\n                </form>\n\n              </div>\n              <!-- end widget content -->\n            </div>\n            <!-- end widget div -->\n          </sa-widget>\n        </div>\n\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n            <!-- widget div-->\n            <div>\n              <!-- widget content -->\n              <div class=\"widget-body no-padding\">\n                <form id=\"checkout-form\" class=\"smart-form\" novalidate=\"novalidate\">\n                  <div id=\"detalle-order\">\n                      <header>\n                        <i class=\"icon-prepend fa fa-user\"></i>\n                        Detalle del Cliente\n                      </header>\n                      <div id=\"field-detalle-order\">\n                        <div class=\"field-order\">\n                            <i class=\"icon-prepend fa fa-user\"></i>\n                            <p>{{order.first_name}} {{order.last_name}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                            <i class=\"icon-prepend fa  fa-home\"></i>\n                            <p>{{order.billing_district}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                            <i class=\"icon-prepend fa fa-envelope\"></i>\n                            <p>{{order.contact_email}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                            <i class=\"icon-prepend fa fa-phone\"></i>\n                            <p>{{order.billing_phone}}</p>\n                        </div>\n                      </div>\n                  </div>\n                </form>\n              </div>\n            </div>\n          </sa-widget>\n        </div>\n\n        <div class=\"col-sm-12 col-md-12 col-lg-12\">\n          <sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n            <!-- widget div-->\n            <div>\n              <!-- widget content -->\n              <div class=\"widget-body no-padding\">\n                <form id=\"checkout-form\" class=\"smart-form\" novalidate=\"novalidate\">\n                  <div id=\"detalle-order\">\n                    <header>\n                      <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n                      Orden <span>#{{order.order_id}}</span>\n                    </header>\n                    <div id=\"field-detalle-order\" class=\"detalle-info\">\n                      <div class=\"direccion-de-envio\">\n                        <header>\n                          <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n                          Información de Envío\n                        </header>\n                        <div class=\"field-order\">\n                          <p class=\"field\">Distrito: </p>\n                          <p>{{order.delivery_district}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                          <p class=\"field\">Dirección: </p>\n                          <p>{{order.delivery_address}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                          <p class=\"field\">Teléfono: </p>\n                          <p>{{order.contact_phone}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                          <p class=\"field\">Correo Electronico </p>\n                          <p>{{order.contact_email}}</p>\n                        </div>\n                      </div>\n                      <div class=\"direccion-de-envio data-table\">\n                        <table class=\"dataTable responsive display projects-table table table-striped table-bordered table-hover no-footer dtr-inline\" width=\"100%\">\n                          <thead>\n                            <tr>\n                              <th class=\"sorting\" data-class=\"vermascol\" style=\"width:10%\">Producto</th>\n                              <th class=\"sorting\" data-class=\"expand\" style=\"width:10%\">Marca</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Modelo</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Color</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Stock Model Code</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Cantidad</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Precio Unitario</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Sub-total</th>\n                            </tr>\n                          </thead>\n                          <tbody>\n                            <tr *ngFor=\"let item of order.items\">\n                              <td>{{item.product_id}}</td>\n                              <td>{{item.brand_name}}</td>\n                              <td>{{item.product_model}}</td>\n                              <td>{{item.color_name}}</td>\n                              <td>{{item.stock_model_code}}</td>\n                              <td>{{item.quantity}}</td>\n                              <td *ngIf=\"!item.promo_id\">{{item.product_price}}</td>\n                              <td *ngIf=\"item.promo_id\">\n                                <span>{{item.promo_price}}</span>\n                                <span class=\"normal-price\">{{item.product_price}}</span>\n                              </td>\n                              <td>{{item.subtotal}}</td>\n                            </tr>\n                          </tbody>\n                          <tfoot>\n                            <tr>\n                              <td colspan=\"6\"></td>\n                              <td>Total</td>\n                              <td>{{order.total}}</td>\n                            </tr>\n                            <tr>\n                              <td colspan=\"6\"></td>\n                              <td>Total + IGV</td>\n                              <td>{{order.total_igv}}</td>\n                            </tr>\n                          </tfoot>\n                        </table>\n                      </div>\n                    </div>\n                  </div>\n\n                </form>\n              </div>\n\n            </div>\n          </sa-widget>\n        </div>\n\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>\n"
+module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"['Detalle de Orden', 'Nro. #'+order.order_id]\" icon=\"pencil-square-o\" class=\"col-xs-12 col-sm-9 col-md-9 col-lg-9\"></sa-big-breadcrumbs>\n\n    <div class=\"col-xs-12 col-sm-3 col-md-3 col-lg-3\">\n      <!-- Button trigger modal -->\n      <a (click)=\"statusHistory(order)\" class=\"btn btn-success btn-lg pull-right header-btn hidden-mobile\"><i class=\"fa fa-circle-arrow-up fa-lg\"></i> Cambiar Estado</a>\n    </div>\n  </div>\n\n  <!--div class=\"alert alert-block alert-success\" dismisser=\"\">\n    <h4 class=\"alert-heading\"><i class=\"fa fa-check-square-o\"></i> Check validation!</h4>\n\n    <p>\n      You may also check the form validation by clicking on the form action button. Please try and see the results\n      below!\n    </p>\n  </div-->\n\n  <!-- widget grid -->\n  <sa-widgets-grid>\n    <!-- START ROW -->\n\n    <div class=\"row\">\n      <!-- NEW COL START -->\n      <article>\n\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- Widget ID (each widget will need unique ID)-->\n          <sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n            <!-- widget div-->\n            <div>\n              <!-- widget content -->\n              <div class=\"widget-body no-padding\">\n\n                <form id=\"checkout-form\" class=\"smart-form\" novalidate=\"novalidate\">\n                  <div id=\"detalle-order\">\n                    <header>\n                      <i class=\"icon-prepend fa fa-shopping-cart\"></i>\n                      Detalle de orden\n                    </header>\n                    <div id=\"field-detalle-order\">\n                      <div class=\"field-order\">\n                        <i class=\"icon-prepend fa fa-building\"></i>\n                        <p>Sucursal </p>\n                      </div>\n                      <div class=\"field-order\">\n                        <i class=\"icon-prepend fa fa-calendar\"></i>\n                        <p>{{order.created_at}}</p>\n                      </div>\n                      <div class=\"field-order\">\n                        <i class=\"icon-prepend fa fa-credit-card\"></i>\n                        <p>{{order.method_name}}</p>\n                      </div>\n                      <div class=\"field-order\">\n                        <i class=\"icon-prepend fa fa-dollar\"></i>\n                        <p>Total Neto S/{{order.total}}</p>\n                      </div>\n                    </div>\n                  </div>\n                </form>\n\n              </div>\n              <!-- end widget content -->\n            </div>\n            <!-- end widget div -->\n          </sa-widget>\n        </div>\n\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n            <!-- widget div-->\n            <div>\n              <!-- widget content -->\n              <div class=\"widget-body no-padding\">\n                <form id=\"checkout-form\" class=\"smart-form\" novalidate=\"novalidate\">\n                  <div id=\"detalle-order\">\n                      <header>\n                        <i class=\"icon-prepend fa fa-user\"></i>\n                        Detalle del Cliente\n                      </header>\n                      <div id=\"field-detalle-order\">\n                        <div class=\"field-order\">\n                            <i class=\"icon-prepend fa fa-user\"></i>\n                            <p>{{order.first_name}} {{order.last_name}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                            <i class=\"icon-prepend fa  fa-home\"></i>\n                            <p>{{order.billing_district}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                            <i class=\"icon-prepend fa fa-envelope\"></i>\n                            <p>{{order.contact_email}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                            <i class=\"icon-prepend fa fa-phone\"></i>\n                            <p>{{order.billing_phone}}</p>\n                        </div>\n                      </div>\n                  </div>\n                </form>\n              </div>\n            </div>\n          </sa-widget>\n        </div>\n\n        <div class=\"col-sm-12 col-md-12 col-lg-12\">\n          <sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n            <!-- widget div-->\n            <div>\n              <!-- widget content -->\n              <div class=\"widget-body no-padding\">\n                <form id=\"checkout-form\" class=\"smart-form\" novalidate=\"novalidate\">\n                  <div id=\"detalle-order\">\n                    <header>\n                      <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n                      Orden <span>#{{order.order_id}}</span>\n                    </header>\n                    <div id=\"field-detalle-order\" class=\"detalle-info\">\n                      <div class=\"direccion-de-envio\">\n                        <header>\n                          <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n                          Información de Envío\n                        </header>\n                        <div class=\"field-order\">\n                          <p class=\"field\">Distrito: </p>\n                          <p>{{order.delivery_district}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                          <p class=\"field\">Dirección: </p>\n                          <p>{{order.delivery_address}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                          <p class=\"field\">Teléfono: </p>\n                          <p>{{order.contact_phone}}</p>\n                        </div>\n                        <div class=\"field-order\">\n                          <p class=\"field\">Correo Electronico </p>\n                          <p>{{order.contact_email}}</p>\n                        </div>\n                      </div>\n                      <div class=\"direccion-de-envio data-table\">\n                        <table class=\"dataTable responsive display projects-table table table-striped table-bordered table-hover no-footer dtr-inline\" width=\"100%\">\n                          <thead>\n                            <tr>\n                              <th class=\"sorting\" data-class=\"vermascol\" style=\"width:10%\">Producto</th>\n                              <th class=\"sorting\" data-class=\"expand\" style=\"width:10%\">Marca</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Modelo</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Color</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Stock Model Code</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Cantidad</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Precio Unitario</th>\n                              <th class=\"sorting\" data-hide=\"phone,tablet\" style=\"width:10%\">Sub-total</th>\n                            </tr>\n                          </thead>\n                          <tbody>\n                            <tr *ngFor=\"let item of order.items\">\n                              <td>{{item.product_id}}</td>\n                              <td>{{item.brand_name}}</td>\n                              <td>{{item.product_model}}</td>\n                              <td>{{item.color_name}}</td>\n                              <td>{{item.stock_model_code}}</td>\n                              <td>{{item.quantity}}</td>\n                              <td *ngIf=\"!item.promo_id\">{{item.product_price}}</td>\n                              <td *ngIf=\"item.promo_id\">\n                                <span>{{item.promo_price}}</span>\n                                <span class=\"normal-price\">{{item.product_price}}</span>\n                              </td>\n                              <td>{{item.subtotal}}</td>\n                            </tr>\n                          </tbody>\n                          <tfoot>\n                            <tr>\n                              <td colspan=\"6\"></td>\n                              <td>Total</td>\n                              <td>{{order.total}}</td>\n                            </tr>\n                            <tr>\n                              <td colspan=\"6\"></td>\n                              <td>Total + IGV</td>\n                              <td>{{order.total_igv}}</td>\n                            </tr>\n                          </tfoot>\n                        </table>\n                      </div>\n                    </div>\n                  </div>\n\n                </form>\n              </div>\n\n            </div>\n          </sa-widget>\n        </div>\n\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>\n"
 
 /***/ }),
 
@@ -51,9 +51,9 @@ var DetalleOrdenComponent = (function () {
             _this.blockui.stop('content');
         });
     };
-    DetalleOrdenComponent.prototype.changeStatus = function () {
+    DetalleOrdenComponent.prototype.statusHistory = function () {
         if (this.order.order_id) {
-            this.router.navigate([this.order.order_id, 'status'], { relativeTo: this.route });
+            this.router.navigate(['status'], { relativeTo: this.route });
         }
     };
     DetalleOrdenComponent.prototype.editStockModel = function (stock_model_id) {
@@ -69,6 +69,7 @@ var DetalleOrdenComponent = (function () {
 }());
 DetalleOrdenComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'order-detail',
         template: __webpack_require__("../../../../../src/app/+ventas/+ordenes/detalle/detalle-orden.component.html")
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ng_block_ui__["BlockUIService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ordenes_service__["a" /* OrdenesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ordenes_service__["a" /* OrdenesService */]) === "function" && _d || Object])
@@ -183,13 +184,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__shared_smartadmin_module__ = __webpack_require__("../../../../../src/app/shared/smartadmin.module.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__shared_ui_datatable_smartadmin_datatable_module__ = __webpack_require__("../../../../../src/app/shared/ui/datatable/smartadmin-datatable.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_forms_input_smartadmin_input_module__ = __webpack_require__("../../../../../src/app/shared/forms/input/smartadmin-input.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_forms_custom_form_container_form_container_module__ = __webpack_require__("../../../../../src/app/shared/forms/custom/form-container/form-container.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_forms_input_select2_select2_module__ = __webpack_require__("../../../../../src/app/shared/forms/input/select2/select2.module.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ordenes_service__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ordenes_routing__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.routing.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ordenes_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__detalle_detalle_orden_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/detalle/detalle-orden.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__shared_forms_validation_smartadmin_validation_module__ = __webpack_require__("../../../../../src/app/shared/forms/validation/smartadmin-validation.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_forms_input_smartadmin_input_module__ = __webpack_require__("../../../../../src/app/shared/forms/input/smartadmin-input.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_forms_custom_form_container_form_container_module__ = __webpack_require__("../../../../../src/app/shared/forms/custom/form-container/form-container.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_forms_input_select2_select2_module__ = __webpack_require__("../../../../../src/app/shared/forms/input/select2/select2.module.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__ordenes_service__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ordenes_routing__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.routing.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ordenes_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__detalle_detalle_orden_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/detalle/detalle-orden.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__status_form_status_form_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -206,7 +209,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 
 
 
-// import { StatusFormComponent } from './status-form/status-form.component';
+
+
 var OrdenesModule = (function () {
     function OrdenesModule() {
     }
@@ -215,19 +219,21 @@ var OrdenesModule = (function () {
 OrdenesModule = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["NgModule"])({
         declarations: [
-            __WEBPACK_IMPORTED_MODULE_8__ordenes_component__["a" /* OrdenesComponent */],
-            __WEBPACK_IMPORTED_MODULE_9__detalle_detalle_orden_component__["a" /* DetalleOrdenComponent */],
+            __WEBPACK_IMPORTED_MODULE_9__ordenes_component__["a" /* OrdenesComponent */],
+            __WEBPACK_IMPORTED_MODULE_10__detalle_detalle_orden_component__["a" /* DetalleOrdenComponent */],
+            __WEBPACK_IMPORTED_MODULE_11__status_form_status_form_component__["a" /* StatusFormComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_1__shared_smartadmin_module__["a" /* SmartadminModule */],
             __WEBPACK_IMPORTED_MODULE_2__shared_ui_datatable_smartadmin_datatable_module__["a" /* SmartadminDatatableModule */],
-            __WEBPACK_IMPORTED_MODULE_3__shared_forms_input_smartadmin_input_module__["a" /* SmartadminInputModule */],
-            __WEBPACK_IMPORTED_MODULE_4__shared_forms_custom_form_container_form_container_module__["a" /* FormContainerModule */],
-            __WEBPACK_IMPORTED_MODULE_5__shared_forms_input_select2_select2_module__["a" /* Select2Module */],
-            __WEBPACK_IMPORTED_MODULE_7__ordenes_routing__["a" /* routing */]
+            __WEBPACK_IMPORTED_MODULE_3__shared_forms_validation_smartadmin_validation_module__["a" /* SmartadminValidationModule */],
+            __WEBPACK_IMPORTED_MODULE_4__shared_forms_input_smartadmin_input_module__["a" /* SmartadminInputModule */],
+            __WEBPACK_IMPORTED_MODULE_5__shared_forms_custom_form_container_form_container_module__["a" /* FormContainerModule */],
+            __WEBPACK_IMPORTED_MODULE_6__shared_forms_input_select2_select2_module__["a" /* Select2Module */],
+            __WEBPACK_IMPORTED_MODULE_8__ordenes_routing__["a" /* routing */]
         ],
         providers: [
-            __WEBPACK_IMPORTED_MODULE_6__ordenes_service__["a" /* OrdenesService */]
+            __WEBPACK_IMPORTED_MODULE_7__ordenes_service__["a" /* OrdenesService */]
         ]
     })
 ], OrdenesModule);
@@ -244,10 +250,11 @@ OrdenesModule = __decorate([
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return routing; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__ordenes_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__detalle_detalle_orden_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/detalle/detalle-orden.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__status_form_status_form_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__detalle_detalle_orden_component__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/detalle/detalle-orden.component.ts");
 
 
-// import { StatusFormComponent } from './status-form/status-form.component';
+
 
 var routes = [
     {
@@ -257,9 +264,14 @@ var routes = [
     },
     {
         path: ':id',
-        component: __WEBPACK_IMPORTED_MODULE_2__detalle_detalle_orden_component__["a" /* DetalleOrdenComponent */],
+        component: __WEBPACK_IMPORTED_MODULE_3__detalle_detalle_orden_component__["a" /* DetalleOrdenComponent */],
         data: { pageTitle: 'Orden' }
     },
+    {
+        path: ':id/status',
+        component: __WEBPACK_IMPORTED_MODULE_2__status_form_status_form_component__["a" /* StatusFormComponent */],
+        data: { pageTitle: 'Estados de la Orden' }
+    }
 ];
 var routing = __WEBPACK_IMPORTED_MODULE_0__angular_router__["d" /* RouterModule */].forChild(routes);
 //# sourceMappingURL=ordenes.routing.js.map
@@ -318,7 +330,7 @@ var OrdenesService = (function () {
     };
     OrdenesService.prototype.getStatusHistory = function (id) {
         return this.http
-            .get(this.getUrl(id), { headers: this.headers });
+            .get(this.getUrl(id, true), { headers: this.headers });
     };
     OrdenesService.prototype.createStatus = function (order_id, status) {
         return this.http
@@ -374,6 +386,129 @@ OrdenesService = __decorate([
 
 var _a, _b;
 //# sourceMappingURL=ordenes.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"['Estados', 'Nro. #'+order_id]\" icon=\"pencil-square-o\" class=\"col-xs-12 col-sm-9 col-md-9 col-lg-9\"></sa-big-breadcrumbs>\n  </div>\n\n  <!--div class=\"alert alert-block alert-success\" dismisser=\"\">\n    <h4 class=\"alert-heading\"><i class=\"fa fa-check-square-o\"></i> Check validation!</h4>\n\n    <p>\n      You may also check the form validation by clicking on the form action button. Please try and see the results\n      below!\n    </p>\n  </div-->\n\n  <!-- widget grid -->\n  <sa-widgets-grid>\n    <!-- START ROW -->\n\n    <div class=\"row\">\n      <!-- NEW COL START -->\n      <article>\n\n        <div class=\"col-sm-12 col-md-12 col-lg-12\">\n          <!-- Widget ID (each widget will need unique ID)-->\n          <sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n            <!-- widget div-->\n            <div>\n              <!-- widget content -->\n              <div class=\"widget-body no-padding\">\n\n                <form id=\"smart-form-register\" class=\"smart-form\" [saUiValidate]=\"validationOptions\" novalidate=\"novalidate\">\n                  <div id=\"detalle-order\">\n                    <header>\n                      <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n                      Historial\n                    </header>\n                    <div id=\"field-detalle-order\" class=\"detalle-registro \">\n                      <div class=\"direccion-de-envio data-table\">\n                        <table class=\"dataTable responsive display projects-table table table-striped table-bordered table-hover no-footer dtr-inline\" width=\"100%\">\n                          <thead>\n                            <tr>\n                              <th class=\"sorting\" data-class=\"vermascol\">Fecha</th>\n                              <th class=\"sorting\" data-class=\"expand\">Comentario</th>\n                              <th class=\"sorting\" data-hide=\"phone, tablet\">Estado</th>\n                              <th class=\"sorting\" data-hide=\"phone, tablet\">Notificación a Usuario</th>\n                            </tr>\n                          </thead>\n                          <tbody>\n                            <tr *ngFor=\"let item of status_history\">\n                              <td>{{item.created_at}}</td>\n                              <td>{{item.comment}}</td>\n                              <td>{{item.order_status_name}}</td>\n                              <td>{{item.notify_customer ? 'Si' : 'No'}}</td>\n                            </tr>\n                          </tbody>\n                        </table>\n                      </div>\n                    </div>\n                  </div>\n                  <div id=\"detalle-order\">\n                    <header>\n                      <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n                      Ingresar Registro\n                    </header>\n                    <div id=\"field-detalle-order\" class=\"detalle-registro \">\n                      <div class=\"row\">\n                        <section class=\"col col-6\">\n                          <label for=\"select-estado\" class=\"select\">Estado de orden</label>\n                        </section>\n                        <section class=\"col col-6\">\n                          <label class=\"select\">\n                            <select name=\"\" id=\"select-estado\">\n                              <option disabled=\"\" value=\"0\" value=\"0\">Seleccionar</option>\n                              <option value=\"1\" value=\"1\">Pendiente</option>\n                              <option value=\"2\" value=\"2\">Aprobado</option>\n                              <!--option value=\"3\" value=\"3\">Rechazado</option>\n                              <option value=\"4\" value=\"4\">En envío</option-->\n                            </select> <i></i>\n                          </label>\n                        </section>\n                      </div>\n                      <div class=\"row\">\n                        <section class=\"col col-6\">\n                          <label for=\"check-usuario\">Notificación a Usuario</label>\n                        </section>\n                        <section class=\"col col-6\">\n                          <label class=\"checkbox\"><input id=\"copy\" name=\"copy\" type=\"checkbox\"><i></i></label>\n                        </section>\n                      </div>\n                      <div class=\"row\">\n                        <section class=\"col col-6\">\n                          <label for=\"message\">Comentario</label>\n                        </section>\n                        <section class=\"col col-6\">\n                          <label class=\"textarea\">\n                            <i class=\"icon-append fa fa-comment\"></i>\n                            <textarea id=\"message\" name=\"message\" rows=\"4\"></textarea>\n                          </label>\n                        </section>\n                      </div>\n                      <footer>\n                        <div class=\"row\">\n                          <div class=\"btn-footer\">\n                            <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Aceptar</button>\n                            <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Cancelar</button>\n                          </div>\n                        </div>\n                      </footer>\n                    </div>\n                  </div>\n                </form>\n\n              </div>\n              <!-- end widget content -->\n            </div>\n            <!-- end widget div -->\n          </sa-widget>\n        </div>\n\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>\n"
+
+/***/ }),
+
+/***/ "../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return StatusFormComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ordenes_service__ = __webpack_require__("../../../../../src/app/+ventas/+ordenes/ordenes.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_ng_block_ui__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__ = __webpack_require__("../../../../rxjs/add/observable/of.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_rxjs_add_observable_of__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var StatusFormComponent = (function () {
+    function StatusFormComponent(router, route, blockui, ordenesService) {
+        this.router = router;
+        this.route = route;
+        this.blockui = blockui;
+        this.ordenesService = ordenesService;
+        this.blockContent = new __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["Subject"]();
+        this.status = {};
+        this.status_history = [];
+        this.validationOptions = {
+            rules: {
+                estado: {
+                    required: true
+                }
+            },
+            messages: {
+                estado: {
+                    required: 'Selecciona un estado'
+                }
+            },
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: {
+                titulo: {
+                    validators: {
+                        notEmpty: {
+                            message: 'Titulo en cada idioma requerido'
+                        }
+                    }
+                }
+            }
+        };
+    }
+    StatusFormComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.blockui.start('content');
+        this.order_id = this.route.snapshot.params.id;
+        __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["Observable"].zip(this.ordenesService.getStatusHistory(this.order_id)).subscribe(function (_a) {
+            var data = _a[0];
+            console.log(data);
+            if (data.success) {
+                _this.status_history = data.result;
+            }
+            _this.blockui.stop('content');
+            _this.blockContent.next(true);
+        });
+    };
+    StatusFormComponent.prototype.onSelectChange = function (event) {
+        var data = event.params.data;
+        var inputName = event.currentTarget.name;
+        this.status[inputName] = data.id;
+    };
+    StatusFormComponent.prototype.onDateChange = function (event) {
+        this[event.currentTarget.name] = event.data;
+        this.status[event.currentTarget.name] = this.ordenesService.fromSimpleDateToISO(event.data);
+    };
+    StatusFormComponent.prototype.onValidationSuccess = function (e) {
+        if (e.type === 'success') {
+            this.save(this.status);
+        }
+    };
+    StatusFormComponent.prototype.save = function (status) {
+        var _this = this;
+        if (status) {
+            this.ordenesService.createStatus(this.order_id, status).subscribe(function (message) {
+                _this.router.navigate(['ventas', 'ordenes', 'status', _this.order_id]);
+            });
+        }
+    };
+    return StatusFormComponent;
+}());
+StatusFormComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'status-form',
+        template: __webpack_require__("../../../../../src/app/+ventas/+ordenes/status-form/status-form.component.html")
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_3_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3_ng_block_ui__["BlockUIService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_2__ordenes_service__["a" /* OrdenesService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__ordenes_service__["a" /* OrdenesService */]) === "function" && _d || Object])
+], StatusFormComponent);
+
+var _a, _b, _c, _d;
+//# sourceMappingURL=status-form.component.js.map
 
 /***/ }),
 

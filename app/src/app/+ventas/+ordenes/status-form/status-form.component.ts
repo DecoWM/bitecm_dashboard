@@ -3,6 +3,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { OrdenesService } from '../ordenes.service';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
+import { BlockUIService } from 'ng-block-ui';
+
 import { Observable, Subject } from 'rxjs/Rx';
 import 'rxjs/add/observable/of';
 
@@ -10,14 +12,9 @@ declare var $: any;
 
 @Component({
   selector: 'status-form',
-  templateUrl: './status-form.component.html',
-  styles: [`
-    .participantes-list{ list-style: none; }
-    .participantes-list li{ padding-bottom: 5px; }
-  `]
+  templateUrl: './status-form.component.html'
 })
 export class StatusFormComponent implements OnInit {
-  @BlockUI() blockUI: NgBlockUI;
   blockContent: Subject<any> = new Subject();
 
   order_id: number;
@@ -26,6 +23,16 @@ export class StatusFormComponent implements OnInit {
   status_list: any[];
 
   validationOptions = {
+    rules: {
+      estado: {
+        required: true
+      }
+    },
+    messages: {
+      estado: {
+        required: 'Selecciona un estado'
+      }
+    },
     feedbackIcons: {
       valid: 'glyphicon glyphicon-ok',
       invalid: 'glyphicon glyphicon-remove',
@@ -45,17 +52,21 @@ export class StatusFormComponent implements OnInit {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
+    private blockui: BlockUIService,
     private ordenesService: OrdenesService
   ) { }
 
   ngOnInit() {
-    this.blockUI.start();
+    this.blockui.start('content');
     this.order_id = this.route.snapshot.params.id;
     Observable.zip(
       this.ordenesService.getStatusHistory(this.order_id)
-    ).subscribe(([d_status_history]: [any]) => {
-      this.status_history = d_status_history.result;
-      this.blockUI.stop();
+    ).subscribe(([data]: [any]) => {
+      console.log(data);
+      if (data.success) {
+        this.status_history = data.result;
+      }
+      this.blockui.stop('content');
       this.blockContent.next(true);
     });
   }

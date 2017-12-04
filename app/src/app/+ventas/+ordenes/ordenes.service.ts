@@ -41,7 +41,7 @@ export class OrdenesService {
 
   getStatusHistory(id) {
     return this.http
-      .get(this.getUrl(id), { headers: this.headers });
+      .get(this.getUrl(id, true), { headers: this.headers });
   }
 
   createStatus(order_id, status) {
