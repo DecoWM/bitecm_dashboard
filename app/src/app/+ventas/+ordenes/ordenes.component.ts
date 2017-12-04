@@ -42,7 +42,7 @@ export class OrdenesComponent implements OnInit {
     this.blockui.start('content');
     this.ordenesService.getOrdenes()
       .subscribe((data: any) => {
-        console.log(data);
+        // console.log(data);
         this.blockui.stop('content');
         const items = data.result;
         this.itemsObs.next(items);

@@ -1,7 +1,7 @@
 <!-- MAIN CONTENT -->
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="['Detalle de Orden', 'Nro. #']" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="['Detalle de Orden', 'Nro. #'+order.order_id]" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
 
     <div class="col-xs-12 col-sm-3 col-md-3 col-lg-3">
       <!-- Button trigger modal -->
@@ -9,9 +9,7 @@
     </div>
   </div>
 
-
   <!--div class="alert alert-block alert-success" dismisser="">
-
     <h4 class="alert-heading"><i class="fa fa-check-square-o"></i> Check validation!</h4>
 
     <p>
@@ -21,184 +19,179 @@
   </div-->
 
   <!-- widget grid -->
-
   <sa-widgets-grid>
-
-
     <!-- START ROW -->
 
     <div class="row">
-
       <!-- NEW COL START -->
-      <article class="col-sm-12 col-md-12 col-lg-12 row">
+      <article>
 
         <div class="col-sm-6 col-md-6 col-lg-6">
-        <!-- Widget ID (each widget will need unique ID)-->
-        <sa-widget [editbutton]="false" [custombutton]="false">
+          <!-- Widget ID (each widget will need unique ID)-->
+          <sa-widget [editbutton]="false" [custombutton]="false">
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="widget-body no-padding">
 
-          <!-- widget div-->
-          <div>
-
-            <!-- widget content -->
-            <div class="widget-body no-padding">
-
-              <form id="checkout-form" class="smart-form" novalidate="novalidate">
-                <div id="detalle-order">
-                    <header><i class="icon-prepend fa fa-shopping-cart"></i>Detalle de orden</header>
+                <form id="checkout-form" class="smart-form" novalidate="novalidate">
+                  <div id="detalle-order">
+                    <header>
+                      <i class="icon-prepend fa fa-shopping-cart"></i>
+                      Detalle de orden
+                    </header>
                     <div id="field-detalle-order">
                       <div class="field-order">
-                          <i class="icon-prepend fa fa-building"></i>
-                          <p>Sucursal</p>
+                        <i class="icon-prepend fa fa-building"></i>
+                        <p>Sucursal </p>
                       </div>
                       <div class="field-order">
-                          <i class="icon-prepend fa fa-calendar"></i>
-                          <p>Fecha de compra (01/01/2018)</p>
+                        <i class="icon-prepend fa fa-calendar"></i>
+                        <p>{{order.created_at}}</p>
                       </div>
                       <div class="field-order">
-                          <i class="icon-prepend fa fa-credit-card"></i>
-                          <p>Tipo de Pago (Visa, Mastercard)</p>
+                        <i class="icon-prepend fa fa-credit-card"></i>
+                        <p>{{order.method_name}}</p>
                       </div>
                       <div class="field-order">
-                          <i class="icon-prepend fa fa-dollar"></i>
-                          <p>Costo</p>
+                        <i class="icon-prepend fa fa-dollar"></i>
+                        <p>Total Neto S/{{order.total}}</p>
                       </div>
                     </div>
-                </div>
-              </form>
+                  </div>
+                </form>
 
+              </div>
+              <!-- end widget content -->
             </div>
-            <!-- end widget content -->
-
-
-
-          </div>
-          <!-- end widget div -->
-
-        </sa-widget>
+            <!-- end widget div -->
+          </sa-widget>
         </div>
 
         <div class="col-sm-6 col-md-6 col-lg-6">
-        <sa-widget [editbutton]="false" [custombutton]="false">
-
-          <!-- widget div-->
-          <div>
-
-            <!-- widget content -->
-            <div class="widget-body no-padding">
-              <form id="checkout-form" class="smart-form" novalidate="novalidate">
-                <div id="detalle-order">
-                    <header><i class="icon-prepend fa fa-user"></i>Detalle del Cliente</header>
-                    <div id="field-detalle-order">
-                      <div class="field-order">
-                          <i class="icon-prepend fa fa-user"></i>
-                          <p>Nombre Completo</p>
+          <sa-widget [editbutton]="false" [custombutton]="false">
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="widget-body no-padding">
+                <form id="checkout-form" class="smart-form" novalidate="novalidate">
+                  <div id="detalle-order">
+                      <header>
+                        <i class="icon-prepend fa fa-user"></i>
+                        Detalle del Cliente
+                      </header>
+                      <div id="field-detalle-order">
+                        <div class="field-order">
+                            <i class="icon-prepend fa fa-user"></i>
+                            <p>{{order.first_name}} {{order.last_name}}</p>
+                        </div>
+                        <div class="field-order">
+                            <i class="icon-prepend fa  fa-home"></i>
+                            <p>{{order.billing_district}}</p>
+                        </div>
+                        <div class="field-order">
+                            <i class="icon-prepend fa fa-envelope"></i>
+                            <p>{{order.contact_email}}</p>
+                        </div>
+                        <div class="field-order">
+                            <i class="icon-prepend fa fa-phone"></i>
+                            <p>{{order.billing_phone}}</p>
+                        </div>
                       </div>
-                      <div class="field-order">
-                          <i class="icon-prepend fa  fa-home"></i>
-                          <p>Dirección</p>
-                      </div>
-                      <div class="field-order">
-                          <i class="icon-prepend fa fa-envelope"></i>
-                          <p>Correo</p>
-                      </div>
-                      <div class="field-order">
-                          <i class="icon-prepend fa fa-phone"></i>
-                          <p>Teléfono</p>
-                      </div>
-                    </div>
-                </div>
-              </form>
+                  </div>
+                </form>
+              </div>
             </div>
-
-          </div>
-        </sa-widget>
+          </sa-widget>
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-12">
-        <sa-widget [editbutton]="false" [custombutton]="false">
-
-          <!-- widget div-->
-          <div>
-
-            <!-- widget content -->
-            <div class="widget-body no-padding">
-              <form id="checkout-form" class="smart-form" novalidate="novalidate">
-                <div id="detalle-order">
+          <sa-widget [editbutton]="false" [custombutton]="false">
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="widget-body no-padding">
+                <form id="checkout-form" class="smart-form" novalidate="novalidate">
+                  <div id="detalle-order">
                     <header>
-                      <i class="icon-prepend fa fa-exclamation-circle"></i>Orden <span>#4010</span>
+                      <i class="icon-prepend fa fa-exclamation-circle"></i>
+                      Orden <span>#{{order.order_id}}</span>
                     </header>
                     <div id="field-detalle-order" class="detalle-info">
-                        <div class="direccion-de-envio">
-                          <header><i class="icon-prepend fa fa-exclamation-circle"></i>Dirección</header>
-                          <div class="field-order">
-                              <p class="field">Distrito: </p>
-                              <p>Santa Anita</p>
-                          </div>
-                          <div class="field-order">
-                              <p class="field">Dirección: </p>
-                              <p>Calle Almendras</p>
-                          </div>
-                          <div class="field-order">
-                              <p class="field">Teléfono: </p>
-                              <p>994-318-767</p>
-                          </div>
-                          <div class="field-order">
-                              <p class="field">Referencia </p>
-                              <p>Al costado</p>
-                          </div>
-                          <div class="field-order">
-                              <p class="field">Correo Electronico </p>
-                              <p>juanperez@gmail.com</p>
-                          </div>
+                      <div class="direccion-de-envio">
+                        <header>
+                          <i class="icon-prepend fa fa-exclamation-circle"></i>
+                          Información de Envío
+                        </header>
+                        <div class="field-order">
+                          <p class="field">Distrito: </p>
+                          <p>{{order.delivery_district}}</p>
                         </div>
-                        <div class="direccion-de-envio data-table">
-                        <table class="dataTable responsive display projects-table table table-striped table-bordered table-hover no-footer dtr-inline"
-                              width="100%">
-                              <thead>
-                              <tr>
-                                <th class="sorting" data-class="vermascol">Producto</th>
-                                <th class="sorting" data-class="expand">Marca</th>
-                                <th class="sorting" data-hide="phone, tablet">Modelo</th>
-                                <th class="sorting" data-hide="phone, tablet">Cantidad</th>
-                                <th class="sorting" data-hide="phone,tablet">Precio Unitario</th>
-                                <th class="sorting" data-hide="phone,tablet">Sub-total</th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                                <tr>
-                                  <td>Smartphone Prepago</td>
-                                  <td>Huawei</td>
-                                  <td>P10 Plus</td>
-                                  <td>2</td>
-                                  <td>S/. 2500</td>
-                                  <td>S/. 5000</td>
-                                </tr>
-                                <tr>
-                                  <td>Smartphone Prepago</td>
-                                  <td>Huawei</td>
-                                  <td>P8 Lite</td>
-                                  <td>2</td>
-                                  <td>S/. 2000</td>
-                                  <td>S/. 4000</td>
-                                </tr>
-                              </tbody>
-                              <tfoot>
-                                <tr>
-                                  <td colspan="4"></td>
-                                  <td>Total</td>
-                                  <td>S/. 9000</td>
-                                </tr>
-                              </tfoot>
-                            </table>
+                        <div class="field-order">
+                          <p class="field">Dirección: </p>
+                          <p>{{order.delivery_address}}</p>
                         </div>
+                        <div class="field-order">
+                          <p class="field">Teléfono: </p>
+                          <p>{{order.contact_phone}}</p>
+                        </div>
+                        <div class="field-order">
+                          <p class="field">Correo Electronico </p>
+                          <p>{{order.contact_email}}</p>
+                        </div>
+                      </div>
+                      <div class="direccion-de-envio data-table">
+                        <table class="dataTable responsive display projects-table table table-striped table-bordered table-hover no-footer dtr-inline" width="100%">
+                          <thead>
+                            <tr>
+                              <th class="sorting" data-class="vermascol" style="width:10%">Producto</th>
+                              <th class="sorting" data-class="expand" style="width:10%">Marca</th>
+                              <th class="sorting" data-hide="phone,tablet" style="width:10%">Modelo</th>
+                              <th class="sorting" data-hide="phone,tablet" style="width:10%">Color</th>
+                              <th class="sorting" data-hide="phone,tablet" style="width:10%">Stock Model Code</th>
+                              <th class="sorting" data-hide="phone,tablet" style="width:10%">Cantidad</th>
+                              <th class="sorting" data-hide="phone,tablet" style="width:10%">Precio Unitario</th>
+                              <th class="sorting" data-hide="phone,tablet" style="width:10%">Sub-total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of order.items">
+                              <td>{{item.product_id}}</td>
+                              <td>{{item.brand_name}}</td>
+                              <td>{{item.product_model}}</td>
+                              <td>{{item.color_name}}</td>
+                              <td>{{item.stock_model_code}}</td>
+                              <td>{{item.quantity}}</td>
+                              <td *ngIf="!item.promo_id">{{item.product_price}}</td>
+                              <td *ngIf="item.promo_id">
+                                <span>{{item.promo_price}}</span>
+                                <span class="normal-price">{{item.product_price}}</span>
+                              </td>
+                              <td>{{item.subtotal}}</td>
+                            </tr>
+                          </tbody>
+                          <tfoot>
+                            <tr>
+                              <td colspan="6"></td>
+                              <td>Total</td>
+                              <td>{{order.total}}</td>
+                            </tr>
+                            <tr>
+                              <td colspan="6"></td>
+                              <td>Total + IGV</td>
+                              <td>{{order.total_igv}}</td>
+                            </tr>
+                          </tfoot>
+                        </table>
+                      </div>
                     </div>
-                </div>
+                  </div>
 
-              </form>
+                </form>
+              </div>
+
             </div>
-
-          </div>
-        </sa-widget>
+          </sa-widget>
         </div>
 
       </article>

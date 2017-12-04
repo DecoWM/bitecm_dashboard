@@ -41,7 +41,7 @@ class OrdersController extends ApiController
     ]);
 
     if(count($result)) {
-      $result[0]['items'] = DB::select('call PA_orderItems(
+      $result[0]->items = DB::select('call PA_orderItems(
         :order_id
       )', [
         'order_id' => $order_id

@@ -17,7 +17,7 @@ export const routes: Routes = [
         data: { pageTitle: 'Orden' }
     },
     /*{
-        path: 'status/:id',
+        path: ':id/status',
         component: StatusFormComponent,
         data: { pageTitle: 'Estados de la Orden' }
     }*/

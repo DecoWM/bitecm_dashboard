@@ -202,7 +202,7 @@ nav ul li a:active{
 }
 
 #logo img{
-  width: 100px;
+  width: 90px;
 }
 
 .login-info{
@@ -222,7 +222,7 @@ nav ul li a:active{
 }
 
 #shortcut{
-  display: none !important!
+  display: none !important;
 }
 
 #extr-page #header #logo {
@@ -326,4 +326,10 @@ nav ul li a:active{
   background-color: #ffe60d;
   border: 1px solid transparent;
   color:  #169599;
+}
+
+.detalle-info span.normal-price {
+  text-decoration: line-through;
+  font-size: 12px;
+  color: #d2d2d2;
 }

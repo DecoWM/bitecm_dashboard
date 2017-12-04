@@ -1,30 +1,51 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import { DtDetalleInterface } from '../../../shared/ui/datatable/dt-detalle.interface';
+import { OrdenesService } from './../ordenes.service';
+
+import { BlockUIService } from 'ng-block-ui';
 
 @Component({
-    templateUrl: './detalle-orden.component.html'
+  templateUrl: './detalle-orden.component.html'
 })
 export class DetalleOrdenComponent implements OnInit {
-    @Input() data: any;
+  order: any = {};
 
-    constructor(
-        private route: ActivatedRoute,
-        private router: Router
-    ) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private blockui: BlockUIService,
+    private ordenesService: OrdenesService
+  ) { }
 
-    ngOnInit() {}
+  ngOnInit() {
+    const order_id = this.route.snapshot.params.id;
+    this.blockui.start('content');
+    this.ordenesService.getOrden(order_id)
+      .subscribe((data: any) => {
+        console.log(data);
+        if (data.success) {
+          this.order = data.result;
+        }
+        this.blockui.stop('content');
+      });
+  }
 
-    Actividades(data: any): void {
-        this.router.navigate([data._id, 'actividades'], {relativeTo: this.route});
+  changeStatus(): void {
+    if (this.order.order_id) {
+      this.router.navigate([this.order.order_id, 'status'], {relativeTo: this.route});
     }
+  }
 
-    Editar(data: any): void {
-        this.router.navigate(['editar', data._id], {relativeTo: this.route});
-    }
+  editStockModel(stock_model_id: any): void {
+    console.log(stock_model_id);
+  }
 
-    Desactivar(data: any): void {
-        this.router.navigate(['desactivar', data._id], {relativeTo: this.route});
-    }
+  removeProduct(product_id: any): void {
+    console.log(product_id);
+  }
+
+  editOrder(): void {
+    console.log(this.order);
+  }
 }
