@@ -15,8 +15,6 @@ declare var $: any;
   templateUrl: './status-form.component.html'
 })
 export class StatusFormComponent implements OnInit {
-  blockContent: Subject<any> = new Subject();
-
   order_id: number;
   status: any = {};
   status_history: any = [];
@@ -24,12 +22,12 @@ export class StatusFormComponent implements OnInit {
 
   validationOptions = {
     rules: {
-      estado: {
+      order_status_id: {
         required: true
       }
     },
     messages: {
-      estado: {
+      order_status_id: {
         required: 'Selecciona un estado'
       }
     },
@@ -67,7 +65,6 @@ export class StatusFormComponent implements OnInit {
         this.status_history = data.result;
       }
       this.blockui.stop('content');
-      this.blockContent.next(true);
     });
   }
 
@@ -91,7 +88,13 @@ export class StatusFormComponent implements OnInit {
   save(status) {
     if (status) {
       this.ordenesService.createStatus(this.order_id, status).subscribe((message) => {
-        this.router.navigate(['ventas', 'ordenes', 'status', this.order_id]);
+        this.ordenesService.getStatusHistory(this.order_id)
+          .subscribe((data: any) => {
+            console.log(data);
+            if (data.success) {
+              this.status_history = data.result;
+            }
+          })
       });
     }
   }
