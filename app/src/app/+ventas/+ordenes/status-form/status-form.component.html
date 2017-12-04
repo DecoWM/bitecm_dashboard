@@ -75,11 +75,12 @@
                           <section class="col col-6">
                             <label class="select">
                               <select name="order_status_id" id="select-estado" [(ngModel)]="status.order_status_id">
-                                <option disabled="" value="0" value="0">Seleccionar</option>
-                                <option value="1" value="1">Pendiente</option>
-                                <option value="2" value="2">Aprobado</option>
-                                <!--option value="3" value="3">Rechazado</option>
-                                <option value="4" value="4">En envío</option-->
+                                <option disabled="" value="0">Seleccionar</option>
+                                <option value="1">Pendiente</option>
+                                <option value="2">Procesado</option>
+                                <option value="3">Cancelado</option>
+                                <option value="4">Entregado</option>
+                                <option value="5">Completado</option>
                               </select> <i></i>
                             </label>
                           </section>
