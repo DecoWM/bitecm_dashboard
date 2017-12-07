@@ -30,7 +30,7 @@
               <div class="widget-body no-padding">
 
                 <form id="smart-form-register" class="smart-form" novalidate="novalidate">
-                  <div id="detalle-order">
+                  <div class="detalle-order">
                     <header>
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
                       Historial
@@ -58,7 +58,7 @@
                       </div>
                     </div>
                   </div>
-                  <div id="detalle-order">
+                  <div class="detalle-order">
                     <header>
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
                       Ingresar Registro
@@ -76,11 +76,9 @@
                             <label class="select">
                               <select name="order_status_id" id="select-estado" [(ngModel)]="status.order_status_id">
                                 <option disabled="" value="0">Seleccionar</option>
-                                <option value="1">Pendiente</option>
-                                <option value="2">Procesado</option>
-                                <option value="3">Cancelado</option>
-                                <option value="4">Entregado</option>
-                                <option value="5">Completado</option>
+                                <option *ngFor="let item of status_list" value="{{item.order_status_id}}">
+                                  {{item.order_status_name}}
+                                </option>
                               </select> <i></i>
                             </label>
                           </section>

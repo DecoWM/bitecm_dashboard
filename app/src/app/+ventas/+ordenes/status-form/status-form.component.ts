@@ -58,11 +58,15 @@ export class StatusFormComponent implements OnInit {
     this.blockui.start('content');
     this.order_id = this.route.snapshot.params.id;
     Observable.zip(
-      this.ordenesService.getStatusHistory(this.order_id)
-    ).subscribe(([data]: [any]) => {
-      console.log(data);
-      if (data.success) {
-        this.status_history = data.result;
+      this.ordenesService.getStatusHistory(this.order_id),
+      this.ordenesService.getStatusList()
+    ).subscribe(([d_sh, d_sl]: [any, any]) => {
+      console.log(d_sh, d_sl);
+      if (d_sh.success) {
+        this.status_history = d_sh.result;
+      }
+      if (d_sl.success) {
+        this.status_list = d_sl.result;
       }
       this.blockui.stop('content');
     });
@@ -87,14 +91,15 @@ export class StatusFormComponent implements OnInit {
 
   save(status) {
     if (status) {
-      this.ordenesService.createStatus(this.order_id, status).subscribe((message) => {
-        this.ordenesService.getStatusHistory(this.order_id)
-          .subscribe((data: any) => {
-            console.log(data);
-            if (data.success) {
-              this.status_history = data.result;
-            }
-          })
+      this.ordenesService.createStatus(this.order_id, status)
+        .subscribe((message) => { console.log(message);
+          this.ordenesService.getStatusHistory(this.order_id)
+            .subscribe((data: any) => {
+              console.log(data);
+              if (data.success) {
+                this.status_history = data.result;
+              }
+            });
       });
     }
   }

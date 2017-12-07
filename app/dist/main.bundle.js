@@ -3976,7 +3976,7 @@ var SoundService_1, _a;
 /***/ "../../../../../src/app/shared/user/login-info/login-info.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div class=\"login-info\">\n  <span *ngIf=\"user?.nombre\"><a (click)=\"toggleShortcut()\">\n\t   <img [src]=\"'http://lorempixel.com/50/50/people'\" alt=\"me\"\n          class=\"online\"/><span>{{user.nombre}}</span> <i class=\"fa fa-angle-down\"></i>\n    </a>\n   </span>\n</div>\n"
+module.exports = "<div class=\"login-info\">\n  <span *ngIf=\"user?.user_name\">\n    <a (click)=\"toggleShortcut()\">\n\t   <img [src]=\"'http://lorempixel.com/50/50/people'\" alt=\"me\" class=\"online\"/>\n     <span>{{user.user_name}}</span> <!--<i class=\"fa fa-angle-down\"></i>-->\n    </a>\n   </span>\n</div>\n"
 
 /***/ }),
 
@@ -4007,6 +4007,7 @@ var LoginInfoComponent = (function () {
     }
     LoginInfoComponent.prototype.ngOnInit = function () {
         this.user = this.auth.user;
+        console.log(this.user);
     };
     LoginInfoComponent.prototype.toggleShortcut = function () {
         this.layoutService.onShortcutToggle();

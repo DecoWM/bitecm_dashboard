@@ -16,9 +16,18 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	// ORDERS //
 	/////////////
 	Route::prefix('ordenes')->group(function () {
+		// Order List
 		Route::get('', 'OrdersController@list');
+		// Status List
+		Route::get('status', 'OrdersController@listStatus');
+		// Order
 		Route::get('{id}', 'OrdersController@detail');
+		Route::put('{id}', 'OrdersController@update');
+		// Order Items
 		Route::put('{id}/item', 'OrdersController@updateItem');
+		Route::post('{id}/item', 'OrdersController@createItem');
+		Route::delete('{id}/item', 'OrdersController@deleteItem');
+		// Order Status
 		Route::get('{id}/status', 'OrdersController@statusHistory');
 		Route::post('{id}/status', 'OrdersController@createStatus');
 	});

@@ -233,20 +233,35 @@ nav ul li a:active{
   width: 100px;
 }
 
-#detalle-order{
+.detalle-order{
 
 }
 
-#detalle-order header{}
+.detalle-order header{
+  margin: 4px 14px 0;
+}
 
-#detalle-order header .icon-prepend{
+.detalle-order header .icon-prepend{
   position: initial;
   margin-right: 5px;
   border-right: none;
 }
 
+.detalle-order .btn {
+  float: right;
+  right: 20px;
+  position: absolute;
+  background-color: #169599;
+  border: 1px solid transparent;
+}
+
+.detalle-order .btn:active {
+  top: auto;
+  left: auto;
+}
+
 #field-detalle-order{
-  padding: 25px 14px 5px;
+  padding: 10px 14px 5px;
 }
 
 #field-detalle-order .field-order{
@@ -254,10 +269,10 @@ nav ul li a:active{
   align-items: center;
   border: 1px solid #BDBDBD;
   height: 32px;
-    line-height: 32px;
-    padding: 5px 10px;
-    box-sizing: border-box;
-    margin-bottom: 15px;
+  line-height: 32px;
+  padding: 5px 10px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
 }
 #field-detalle-order .field-order .icon-prepend{
   position: initial;
@@ -279,17 +294,24 @@ nav ul li a:active{
   margin-bottom: 15px;
 }
 
+.detalle-info .direccion-de-envio .row{
+  margin: 0;
+}
+
+.detalle-info .direccion-de-envio header{
+  margin-bottom: 10px;
+}
+
 .detalle-info .direccion-de-envio.data-table{
   border: none !important 
 }
-
 
 .detalle-info .direccion-de-envio.data-table .dataTable{
   border: 1px solid #BDBDBD !important;
 }
 
-.detalle-info .direccion-de-envio header{
-  margin-bottom: 10px;
+.detalle-info .direccion-de-envio.data-table .dataTable thead .sorting{
+  background-image: none;
 }
 
 .detalle-info .direccion-de-envio.data-table .dataTable tfoot{}
@@ -343,4 +365,12 @@ nav ul li a:active{
   background-color: #ffe60d;
   border: 1px solid transparent;
   color:  #169599;
+}
+
+.jarviswidget {
+  margin-bottom: 10px;
+}
+
+.login-info>span {
+  border-bottom: 0;
 }

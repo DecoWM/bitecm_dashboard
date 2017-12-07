@@ -18,7 +18,7 @@ export class LoginInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.user = this.auth.user;
+    this.user = this.auth.user; console.log(this.user);
   }
 
   toggleShortcut() {

@@ -12,6 +12,13 @@ import { BlockUIService } from 'ng-block-ui';
 export class DetalleOrdenComponent implements OnInit {
   order: any = {};
 
+  options = {
+    columnDefs: [ {
+      targets: [0, 1, 2, 3, 4, 5 , 6, 7],
+      orderable: false
+    } ]
+  };
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

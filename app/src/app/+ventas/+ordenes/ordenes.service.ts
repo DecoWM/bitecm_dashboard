@@ -36,7 +36,29 @@ export class OrdenesService {
 
   updateOrden(orden) {
     return this.http
-      .put(this.getUrl(orden._id), orden, { headers: this.headers });
+      .put(this.getUrl(orden.order_id), orden, { headers: this.headers });
+  }
+
+  deleteOrden(id) {
+    return this.http
+      .delete(this.getUrl(id, true), { headers: this.headers });
+  }
+
+  createItem(id, item) {
+
+  }
+
+  updateItem(id, item) {
+
+  }
+
+  deleteItem(id, item) {
+
+  }
+
+  getStatusList() {
+    return this.http
+      .get(this.getUrl(null, true), { headers: this.headers });
   }
 
   getStatusHistory(id) {
@@ -47,11 +69,6 @@ export class OrdenesService {
   createStatus(order_id, status) {
     return this.http
       .post(this.getUrl(order_id, true), status, { headers: this.headers });
-  }
-
-  deleteOrden(id) {
-    return this.http
-      .delete(this.getUrl(id, true), { headers: this.headers });
   }
 
   getUrl(id = null, status = false) {
