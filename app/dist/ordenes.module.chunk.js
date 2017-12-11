@@ -70,6 +70,9 @@ var DetalleOrdenComponent = (function () {
     };
     DetalleOrdenComponent.prototype.showPopupCreditStatus = function (credit_status) {
         var _this = this;
+        if (this.order.credit_status === credit_status) {
+            return;
+        }
         this.notificationService.smartMessageBox({
             title: '<i class="fa fa-sign-out txt-color-orangeDark"></i> Actualizar Evaluación Crediticia<span class="txt-color-orangeDark"><strong></strong></span>',
             content: '¿Seguro que quieres actualizar el estado de la evaluación crediticia?',
@@ -81,7 +84,24 @@ var DetalleOrdenComponent = (function () {
         });
     };
     DetalleOrdenComponent.prototype.updateCreditStatus = function (credit_status) {
-        console.log(credit_status);
+        var _this = this;
+        if (this.order.credit_status === credit_status) {
+            return;
+        }
+        this.blockui.start('content');
+        var old_cred_stat = this.order.credit_status;
+        this.order.credit_status = credit_status;
+        this.ordenesService.updateOrden(this.order)
+            .subscribe(function (data) {
+            console.log(data);
+            if (data.success) {
+                console.log(data.result);
+            }
+            else {
+                _this.order.credit_status = old_cred_stat;
+            }
+            _this.blockui.stop('content');
+        });
     };
     DetalleOrdenComponent.prototype.editStockModel = function (stock_model_id) {
         console.log(stock_model_id);

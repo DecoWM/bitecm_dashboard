@@ -51,6 +51,9 @@ export class DetalleOrdenComponent implements OnInit {
   }
 
   showPopupCreditStatus(credit_status) {
+    if (this.order.credit_status === credit_status) {
+      return;
+    }
     this.notificationService.smartMessageBox({
       title : '<i class="fa fa-sign-out txt-color-orangeDark"></i> Actualizar Evaluación Crediticia<span class="txt-color-orangeDark"><strong></strong></span>',
       content : '¿Seguro que quieres actualizar el estado de la evaluación crediticia?',
@@ -63,7 +66,22 @@ export class DetalleOrdenComponent implements OnInit {
   }
 
   updateCreditStatus(credit_status): void {
-    console.log(credit_status);
+    if (this.order.credit_status === credit_status) {
+      return;
+    }
+    this.blockui.start('content');
+    const old_cred_stat = this.order.credit_status;
+    this.order.credit_status = credit_status;
+    this.ordenesService.updateOrden(this.order)
+      .subscribe((data: any) => {
+        console.log(data);
+        if (data.success) {
+          console.log(data.result);
+        } else {
+          this.order.credit_status = old_cred_stat;
+        }
+        this.blockui.stop('content');
+      });
   }
 
   editStockModel(stock_model_id: any): void {

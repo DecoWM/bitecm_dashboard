@@ -60,7 +60,7 @@ class OrdersController extends ApiController
     ]);
   }
 
-  public function update($order_id = null) {
+  public function update(Request $request, $order_id = null) {
     $credit_status = $request->input('credit_status', null);
 
     if(!isset($order_id) || !isset($credit_status)) {
@@ -73,11 +73,11 @@ class OrdersController extends ApiController
     $result = DB::table('tbl_order')
       ->where('order_id', $order_id)
       ->update([
-        ['credit_status', '=', $credit_status]
+        'credit_status' => $credit_status
       ]);
 
     return response()->json([
-      'result' => $result,
+      'result' => $credit_status,
       'success' => $result
     ]);
   }
