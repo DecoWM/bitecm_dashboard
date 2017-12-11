@@ -85,14 +85,22 @@ export class StatusFormComponent implements OnInit {
 
   onValidationSuccess(e) {
     if (e.type === 'success') {
-      this.save(this.status);
+      this.save(this.status, e);
     }
   }
 
-  save(status) {
+  save(status, e) {
+    console.log(e);
     if (status) {
+      console.log(status);
       this.ordenesService.createStatus(this.order_id, status)
-        .subscribe((message) => { console.log(message);
+        .subscribe((message: any) => {
+          console.log(message);
+          if (message.success) {
+            this.status = {};
+            e.target.reset();
+          }
+          $('button[name="submit"]').prop('disabled', (i, v) => !v);
           this.ordenesService.getStatusHistory(this.order_id)
             .subscribe((data: any) => {
               console.log(data);
