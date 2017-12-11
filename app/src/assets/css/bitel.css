@@ -249,7 +249,7 @@ nav ul li a:active{
 
 .detalle-order .btn {
   float: right;
-  right: 20px;
+  right: 5px;
   position: absolute;
   background-color: #169599;
   border: 1px solid transparent;
@@ -258,6 +258,42 @@ nav ul li a:active{
 .detalle-order .btn:active {
   top: auto;
   left: auto;
+}
+
+.detalle-order .btn.active,
+.detalle-order .btn:active,
+.detalle-order .btn:hover {
+  background-color: #169599;
+}
+
+.detalle-order .dropdown {
+  float: right;
+  right: 5px;
+  position: absolute;
+}
+
+.detalle-order .dropdown .btn {
+  float: none;
+  right: auto;
+  position: static;
+  margin-top: -3px;
+}
+
+.detalle-order .dropdown.open > .dropdown-toggle.btn {
+  background-color: #169599;
+}
+
+.detalle-order .dropdown-menu {
+  margin-top: -5px !important;
+  right: 0 !important;
+  left: auto !important;
+}
+
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #169599;
 }
 
 #field-detalle-order{
@@ -273,6 +309,7 @@ nav ul li a:active{
   padding: 5px 10px;
   box-sizing: border-box;
   margin-bottom: 10px;
+  position: relative;
 }
 #field-detalle-order .field-order .icon-prepend{
   position: initial;
@@ -373,4 +410,16 @@ nav ul li a:active{
 
 .login-info>span {
   border-bottom: 0;
+}
+
+.MessageBoxContainer {
+  width: 50%;
+  margin: 0 auto;
+}
+.MessageBoxMiddle {
+  width: 100%;
+  left: 0%;
+}
+.MsgTitle .txt-color-orangeDark{
+  color: #169599;
 }

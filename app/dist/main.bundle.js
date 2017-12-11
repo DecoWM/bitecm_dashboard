@@ -4027,6 +4027,13 @@ var _a, _b;
 
 /***/ }),
 
+/***/ "../../../../../src/app/shared/user/logout/logout.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<div id=\"logout\" (click)=\"showPopup()\" class=\"btn-header transparent pull-right\">\n  <span>\n    <a title=\"Sign Out\" data-action=\"userLogout\" data-logout-msg=\"¿Seguro que quieres cerrar sesión?\">\n      <i class=\"fa fa-sign-out\"></i>\n    </a>\n  </span>\n</div>"
+
+/***/ }),
+
 /***/ "../../../../../src/app/shared/user/logout/logout.component.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -4058,11 +4065,11 @@ var LogoutComponent = (function () {
     LogoutComponent.prototype.showPopup = function () {
         var _this = this;
         this.notificationService.smartMessageBox({
-            title: "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" + $('#show-shortcut').text() + "</strong></span> ?",
-            content: "You can improve your security further after logging out by closing this opened browser",
-            buttons: '[No][Yes]'
+            title: '<i class="fa fa-sign-out txt-color-orangeDark"></i> Cerrar Sesión <span class="txt-color-orangeDark"><strong></strong></span>',
+            content: '¿Seguro que quieres cerrar sesión?',
+            buttons: '[No][Si]'
         }, function (ButtonPressed) {
-            if (ButtonPressed === "Yes") {
+            if (ButtonPressed === 'Si') {
                 _this.logout();
             }
         });
@@ -4078,7 +4085,7 @@ var LogoutComponent = (function () {
 LogoutComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["Component"])({
         selector: 'sa-logout',
-        template: "\n    <div id=\"logout\" (click)=\"showPopup()\" class=\"btn-header transparent pull-right\">\n      <span> <a title=\"Sign Out\" data-action=\"userLogout\" \n          data-logout-msg=\"You can improve your security further after logging out by closing this opened browser\"><i\n          class=\"fa fa-sign-out\"></i></a> </span>\n    </div>\n  ",
+        template: __webpack_require__("../../../../../src/app/shared/user/logout/logout.component.html"),
         styles: []
     }),
     __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_2__angular_router__["c" /* Router */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_3__utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__utils_notification_service__["a" /* NotificationService */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__auth_auth_service__["a" /* AuthService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__auth_auth_service__["a" /* AuthService */]) === "function" && _c || Object])

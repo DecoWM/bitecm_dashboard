@@ -122,20 +122,31 @@
                       </header>
                       <div id="field-detalle-order">
                         <div class="field-order">
-                            <i class="icon-prepend fa fa-credit-card"></i>
-                            <p>Crédito: {{order.credit_status}}</p>
+                          <i class="icon-prepend fa fa-credit-card"></i>
+                          <p>Crédito: {{order.credit_status}}</p>
+                          <div class="btn-group dropdown" dropdown>
+                            <button class="btn btn-primary btn-xs dropdown-toggle" dropdownToggle>
+                              <i class="fa fa-gear"></i>
+                              <i class="fa fa-caret-down"></i>
+                            </button>
+                            <ul *dropdownMenu class="dropdown-menu">
+                              <li *ngFor="let item of credit_status_list">
+                                <a *ngIf="item != order.credit_status" (click)="showPopupCreditStatus(item)">{{item}}</a>
+                              </li>
+                            </ul>
+                          </div>
                         </div>
                         <div *ngIf="order.device" class="field-order">
-                            <i class="icon-prepend fa fa-code"></i>
-                            <p>Product Code: {{order.device.product_code}}</p>
+                          <i class="icon-prepend fa fa-code"></i>
+                          <p>Product Code: {{order.device.product_code}}</p>
                         </div>
                         <div *ngIf="order.device" class="field-order">
-                            <i class="icon-prepend fa fa-code"></i>
-                            <p>Reason Code: {{order.device.reason_code}}</p>
+                          <i class="icon-prepend fa fa-code"></i>
+                          <p>Reason Code: {{order.device.reason_code}}</p>
                         </div>
                         <div *ngIf="order.device" class="field-order">
-                            <i class="icon-prepend fa fa-code"></i>
-                            <p>Product Package: {{order.device.product_package}}</p>
+                          <i class="icon-prepend fa fa-code"></i>
+                          <p>Product Package: {{order.device.product_package}}</p>
                         </div>
                       </div>
                   </div>

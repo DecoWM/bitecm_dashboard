@@ -7,13 +7,7 @@ declare var $: any;
 
 @Component({
   selector: 'sa-logout',
-  template: `
-    <div id="logout" (click)="showPopup()" class="btn-header transparent pull-right">
-      <span> <a title="Sign Out" data-action="userLogout" 
-          data-logout-msg="You can improve your security further after logging out by closing this opened browser"><i
-          class="fa fa-sign-out"></i></a> </span>
-    </div>
-  `,
+  templateUrl: './logout.component.html',
   styles: []
 })
 export class LogoutComponent implements OnInit {
@@ -26,12 +20,11 @@ export class LogoutComponent implements OnInit {
 
   showPopup() {
     this.notificationService.smartMessageBox({
-      title : "<i class='fa fa-sign-out txt-color-orangeDark'></i> Logout <span class='txt-color-orangeDark'><strong>" + $('#show-shortcut').text() + "</strong></span> ?",
-      content : "You can improve your security further after logging out by closing this opened browser",
-      buttons : '[No][Yes]'
-
+      title : '<i class="fa fa-sign-out txt-color-orangeDark"></i> Cerrar Sesión <span class="txt-color-orangeDark"><strong></strong></span>',
+      content : '¿Seguro que quieres cerrar sesión?',
+      buttons : '[No][Si]'
     }, (ButtonPressed) => {
-      if (ButtonPressed === "Yes") {
+      if (ButtonPressed === 'Si') {
         this.logout()
       }
     });

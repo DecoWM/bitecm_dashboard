@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { OrdenesService } from './../ordenes.service';
+import { NotificationService } from '../../../shared/utils/notification.service';
 
 import { BlockUIService } from 'ng-block-ui';
 
@@ -11,6 +12,9 @@ import { BlockUIService } from 'ng-block-ui';
 })
 export class DetalleOrdenComponent implements OnInit {
   order: any = {};
+  credit_status_list = [
+    'Pendiente', 'Aprobada', 'Rechazada', 'Observada'
+  ];
 
   options = {
     columnDefs: [ {
@@ -23,7 +27,8 @@ export class DetalleOrdenComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
-    private ordenesService: OrdenesService
+    private ordenesService: OrdenesService,
+    private notificationService: NotificationService
   ) { }
 
   ngOnInit() {
@@ -43,6 +48,22 @@ export class DetalleOrdenComponent implements OnInit {
     if (this.order.order_id) {
       this.router.navigate(['status'], {relativeTo: this.route});
     }
+  }
+
+  showPopupCreditStatus(credit_status) {
+    this.notificationService.smartMessageBox({
+      title : '<i class="fa fa-sign-out txt-color-orangeDark"></i> Actualizar Evaluación Crediticia<span class="txt-color-orangeDark"><strong></strong></span>',
+      content : '¿Seguro que quieres actualizar el estado de la evaluación crediticia?',
+      buttons : '[No][Si]'
+    }, (ButtonPressed) => {
+      if (ButtonPressed === 'Si') {
+        this.updateCreditStatus(credit_status);
+      }
+    });
+  }
+
+  updateCreditStatus(credit_status): void {
+    console.log(credit_status);
   }
 
   editStockModel(stock_model_id: any): void {
