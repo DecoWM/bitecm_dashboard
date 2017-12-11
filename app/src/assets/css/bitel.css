@@ -377,6 +377,7 @@ nav ul li a:active{
 }
 
 .detalle-registro footer .btn-footer .btn{
+  position: static;
   background-color: #169599;
   border: 1px solid transparent;
 }
