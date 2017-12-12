@@ -396,7 +396,13 @@ var routes = [
                 canActivate: [__WEBPACK_IMPORTED_MODULE_6__shared_auth_guard_agente_guard__["a" /* AgenteGuard */]],
                 loadChildren: 'app/+ventas/ventas.module#VentasModule',
                 data: { pageTitle: 'Ventas' }
-            }
+            } /*,
+            {
+              path: 'productos',
+              canActivate: [AgenteGuard],
+              loadChildren: 'app/+productos/productos.module#ProductosModule',
+              data: { pageTitle: 'Productos' }
+            }*/
         ]
     },
     {

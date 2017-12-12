@@ -41,7 +41,7 @@ export class OrdenesService {
 
   deleteOrden(id) {
     return this.http
-      .delete(this.getUrl(id, true), { headers: this.headers });
+      .delete(this.getUrl(id), { headers: this.headers });
   }
 
   createItem(id, item) {
@@ -49,7 +49,8 @@ export class OrdenesService {
   }
 
   updateItem(id, item) {
-
+    return this.http
+      .put(this.getUrl(id, 'item'), item, { headers: this.headers });
   }
 
   deleteItem(id, item) {
@@ -58,26 +59,26 @@ export class OrdenesService {
 
   getStatusList() {
     return this.http
-      .get(this.getUrl(null, true), { headers: this.headers });
+      .get(this.getUrl(null, 'status'), { headers: this.headers });
   }
 
   getStatusHistory(id) {
     return this.http
-      .get(this.getUrl(id, true), { headers: this.headers });
+      .get(this.getUrl(id, 'status'), { headers: this.headers });
   }
 
   createStatus(order_id, status) {
     return this.http
-      .post(this.getUrl(order_id, true), status, { headers: this.headers });
+      .post(this.getUrl(order_id, 'status'), status, { headers: this.headers });
   }
 
-  getUrl(id = null, status = false) {
+  getUrl(id = null, param = '') {
     const urlParts = [this.url];
     if (id) {
       urlParts.push(id);
     }
-    if (status) {
-      urlParts.push('status');
+    if (param.length) {
+      urlParts.push(param);
     }
     return urlParts.join('/');
   }

@@ -316,6 +316,34 @@ nav ul li a:active{
   margin-right: 10px;
 }
 
+.detalle-info td {
+  position: relative;
+}
+
+.detalle-info td .dropdown {
+  float: none;
+  right: auto;
+  position: static;
+  width: 100%;
+}
+
+.detalle-info td .dropdown .dropdown-toggle {
+  padding: 2px 10px;
+  width: 100%;
+}
+
+.detalle-info td .dropdown .dropdown-toggle .caret {
+  float: right;
+  margin-top: 7px;
+}
+
+.detalle-info td .dropdown .dropdown-menu{
+  margin-top: 0 !important;
+  width: calc(100% - 20px);
+  min-width: auto;
+  right: auto !important;
+}
+
 .detalle-info .field-order{
   border: none !important;
   margin-bottom: 0px !important;

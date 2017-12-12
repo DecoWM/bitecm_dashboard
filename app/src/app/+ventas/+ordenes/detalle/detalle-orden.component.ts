@@ -50,7 +50,7 @@ export class DetalleOrdenComponent implements OnInit {
     }
   }
 
-  showPopupCreditStatus(credit_status) {
+  showPopupCreditStatus(credit_status): void {
     if (this.order.credit_status === credit_status) {
       return;
     }
@@ -84,15 +84,78 @@ export class DetalleOrdenComponent implements OnInit {
       });
   }
 
-  editStockModel(stock_model_id: any): void {
-    console.log(stock_model_id);
+  showPopupColor(order_item_id, stock_model_id): void {
+    if (this._getItem(order_item_id).stock_model_id === stock_model_id) {
+      return;
+    }
+    this.notificationService.smartMessageBox({
+      title : '<i class="fa fa-sign-out txt-color-orangeDark"></i> Actualizar <span class="txt-color-orangeDark"><strong>Color</strong></span>',
+      content : '¿Seguro que quieres actualizar el color de este producto? Se actualizará también el stock model code.',
+      buttons : '[No][Si]'
+    }, (ButtonPressed) => {
+      if (ButtonPressed === 'Si') {
+        this.updateStockModel(order_item_id, stock_model_id);
+      }
+    });
   }
 
-  removeProduct(product_id: any): void {
+  showPopupStockModel(order_item_id, stock_model_id): void {
+    if (this._getItem(order_item_id).stock_model_id === stock_model_id) {
+      return;
+    }
+    this.notificationService.smartMessageBox({
+      title : '<i class="fa fa-sign-out txt-color-orangeDark"></i> Actualizar <span class="txt-color-orangeDark"><strong>Stock Model Code</strong></span>',
+      content : '¿Seguro que quieres actualizar el stock model code de este producto? Se actualizará también el color.',
+      buttons : '[No][Si]'
+    }, (ButtonPressed) => {
+      if (ButtonPressed === 'Si') {
+        this.updateStockModel(order_item_id, stock_model_id);
+      }
+    });
+  }
+
+  updateStockModel(order_item_id, stock_model_id): void {
+    const item = this._getItem(order_item_id);
+    if (item.stock_model_id === stock_model_id) {
+      return;
+    }
+    this.blockui.start('content');
+    const params = {
+      'order_item_id': order_item_id,
+      'stock_model_id': stock_model_id
+    }
+    this.ordenesService.updateItem(this.order.order_id, params)
+      .subscribe((res: any) => {
+        console.log(res);
+        if (res.success) {
+          this.ordenesService.getOrden(this.order.order_id)
+            .subscribe((data: any) => {
+              console.log(data);
+              if (data.success) {
+                this.order = data.result;
+              }
+              this.blockui.stop('content');
+            });
+        } else {
+          this.blockui.stop('content');
+        }
+      });
+  }
+
+  removeProduct(product_id): void {
     console.log(product_id);
   }
 
   editOrder(): void {
     console.log(this.order);
+  }
+
+  _getItem(order_item_id): any {
+    for (let i = 0; i < this.order.items.length; i++) {
+      if (this.order.items[i].order_item_id === order_item_id) {
+        return this.order.items[i];
+      }
+    }
+    return null;
   }
 }

@@ -216,8 +216,32 @@
                               <td>{{item.product_id}}</td>
                               <td>{{item.brand_name}}</td>
                               <td>{{item.product_model}}</td>
-                              <td>{{item.color_name}}</td>
-                              <td>{{item.stock_model_code}}</td>
+                              <td>
+                                <div *ngIf="item.stock_models.length > 1" class="btn-group dropdown" dropdown>
+                                  <button class="btn btn-primary dropdown-toggle" dropdownToggle>
+                                    <span>{{item.color_name}}</span>
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul *dropdownMenu class="dropdown-menu">
+                                    <li *ngFor="let stock_model of item.stock_models">
+                                      <a *ngIf="stock_model.color_id != item.color_id" (click)="showPopupColor(item.order_item_id, stock_model.stock_model_id)">{{stock_model.color_name}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </td>
+                              <td>
+                                <div *ngIf="item.stock_models.length > 1" class="btn-group dropdown" dropdown>
+                                  <button class="btn btn-primary dropdown-toggle" dropdownToggle>
+                                    <span>{{item.stock_model_code}}</span>
+                                    <span class="caret"></span>
+                                  </button>
+                                  <ul *dropdownMenu class="dropdown-menu">
+                                    <li *ngFor="let stock_model of item.stock_models">
+                                      <a *ngIf="stock_model.stock_model_id != item.stock_model_id" (click)="showPopupStockModel(item.order_item_id, stock_model.stock_model_id)">{{stock_model.stock_model_code}}</a>
+                                    </li>
+                                  </ul>
+                                </div>
+                              </td>
                               <td>{{item.quantity}}</td>
                               <td *ngIf="!item.promo_id">{{item.product_price}}</td>
                               <td *ngIf="item.promo_id">

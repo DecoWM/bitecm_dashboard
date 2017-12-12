@@ -4,13 +4,12 @@ namespace App\Http\Controllers;
 
 use DB;
 use App\Http\Controllers\ApiController;
-use App\Http\Requests\SellerRequest;
 use Illuminate\Http\Request;
 
 class OrdersController extends ApiController
 {
 	public function __construct() {
-      parent::__construct();
+    parent::__construct();
   }
 
   public function list(Request $request) {
@@ -42,15 +41,21 @@ class OrdersController extends ApiController
 
     if(count($result)) {
       $order = $result[0];
-      $order->items = DB::select('call PA_orderItems(
+      $items = DB::select('call PA_orderItems(
         :order_id
       )', [
         'order_id' => $order_id
       ]);
-      foreach($order->items as $item) {
+      foreach($items as $item) {
         if(isset($item->product_variation_id)) {
           $order->device = $item;
         }
+        $item->stock_models = DB::select('call PA_productStockModels(
+          :product_id
+        )', [
+          'product_id' => $item->product_id
+        ]);
+        $order->items[] = $item;
       }
     }
 
