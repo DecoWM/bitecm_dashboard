@@ -223,6 +223,7 @@
                                     </li>
                                   </ul>
                                 </div>
+                                <span *ngIf="item.stock_models.length == 1">{{item.color_name}}</span>
                               </td>
                               <td>
                                 <div *ngIf="item.stock_models.length > 1" class="btn-group dropdown" dropdown>
@@ -236,6 +237,7 @@
                                     </li>
                                   </ul>
                                 </div>
+                                <span *ngIf="item.stock_models.length == 1">{{item.stock_model_code}}</span>
                               </td>
                               <td>{{item.quantity}}</td>
                               <td *ngIf="!item.promo_id">{{item.product_price}}</td>
