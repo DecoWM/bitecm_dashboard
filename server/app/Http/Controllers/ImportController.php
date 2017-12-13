@@ -64,7 +64,7 @@ class ImportController extends ApiController
       if(!$product_id) {
         return;
       }
-      if (isset($row['color'])) {
+      if (!empty($row['color'])) {
         $color_id = $this->_colorExists($row['color']);
         if (!$color_id) {
           $color_id = $this->_insertColor($row['color']);
@@ -175,12 +175,13 @@ class ImportController extends ApiController
   }
 
   private function _insertProduct($category_id, $brand_id, $row) {
+    $now = new \DateTime('America/Lima');
     $result = DB::table('tbl_product')
       ->insertGetId([
         'category_id' => $category_id,
         'brand_id' => $brand_id,
         'product_model' => $row['model'],
-        'product_price' => isset($row['price']) ? $row['price'] : 0,
+        'product_price' => !empty($row['price']) ? $row['price'] : 0,
         'product_slug' => Str::slug($row['model']),
         'product_tag' => $this->_validTag($row['tag']) ? $row['tag'] : null,
         'product_description' => $row['description'],
@@ -195,7 +196,9 @@ class ImportController extends ApiController
         'product_processor_name' => $row['processor_name'],
         'product_processor_power' => $row['processor_power'],
         'product_processor_cores' => $row['processor_cores'],
-        'product_band' => $row['band']
+        'product_band' => $row['band'],
+        'publish_at' => $now->format('Y-m-h H:i:s'),
+        'active' => 1
       ]);
     return $result;
   }
@@ -220,7 +223,7 @@ class ImportController extends ApiController
     $result = DB::table('tbl_color')
       ->insertGetId([
         'color_name' => $color_name,
-        'color_hexcode' => isset($color_hexcode) ? $color_hexcode : '000000',
+        'color_hexcode' => !empty($color_hexcode) ? $color_hexcode : '000000',
         'color_slug' => Str::slug($color_name)
       ]);
     return $result;
