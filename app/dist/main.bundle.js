@@ -4,22 +4,30 @@ webpackJsonp(["main"],{
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
+	"./+importacion/importacion.module": [
+		"../../../../../src/app/+productos/+importacion/importacion.module.ts",
+		"common",
+		"importacion.module"
+	],
 	"./+login/login.module": [
 		"../../../../../src/app/shared/auth/+login/login.module.ts",
 		"common"
 	],
 	"./+ordenes/ordenes.module": [
 		"../../../../../src/app/+ventas/+ordenes/ordenes.module.ts",
-		"ordenes.module",
-		"common"
+		"common",
+		"ordenes.module"
 	],
 	"app/+error/error.module": [
 		"../../../../../src/app/+error/error.module.ts",
 		"error.module"
 	],
+	"app/+productos/productos.module": [
+		"../../../../../src/app/+productos/productos.module.ts",
+		"productos.module"
+	],
 	"app/+ventas/ventas.module": [
 		"../../../../../src/app/+ventas/ventas.module.ts",
-		"common",
 		"ventas.module"
 	],
 	"app/shared/auth/auth.module": [
@@ -396,13 +404,13 @@ var routes = [
                 canActivate: [__WEBPACK_IMPORTED_MODULE_6__shared_auth_guard_agente_guard__["a" /* AgenteGuard */]],
                 loadChildren: 'app/+ventas/ventas.module#VentasModule',
                 data: { pageTitle: 'Ventas' }
-            } /*,
+            },
             {
-              path: 'productos',
-              canActivate: [AgenteGuard],
-              loadChildren: 'app/+productos/productos.module#ProductosModule',
-              data: { pageTitle: 'Productos' }
-            }*/
+                path: 'productos',
+                canActivate: [__WEBPACK_IMPORTED_MODULE_6__shared_auth_guard_agente_guard__["a" /* AgenteGuard */]],
+                loadChildren: 'app/+productos/productos.module#ProductosModule',
+                data: { pageTitle: 'Productos' }
+            }
         ]
     },
     {
@@ -2882,7 +2890,7 @@ var _a;
 /***/ "../../../../../src/app/shared/layout/navigation/navigation.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<aside id=\"left-panel\">\n\n  <!-- User info -->\n  <sa-login-info></sa-login-info>\n  <!-- end user info -->\n\n  <nav>\n    <!-- NOTE: Notice the gaps after each icon usage <i></i>..\n    Please note that these links work a bit different than\n    traditional href=\"\" links. See documentation for details.\n    -->\n\n    <ul saSmartMenu>\n      <li routerLinkActive=\"active\" *ngIf=\"isAgente()\">\n        <a title=\"Ventas\"><i class=\"fa fa-lg fa-fw fa-shopping-cart\"></i> <span\n          class=\"menu-item-parent\">{{'Ventas' | i18n}}</span></a>\n        <ul>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/ventas/ordenes\">{{'Ordenes' | i18n}}</a>\n          </li>\n        </ul>\n      </li>\n    </ul>    \n  </nav>\n\n  <sa-minify-menu></sa-minify-menu>\n\n</aside>\n"
+module.exports = "<aside id=\"left-panel\">\n\n  <!-- User info -->\n  <sa-login-info></sa-login-info>\n  <!-- end user info -->\n\n  <nav>\n    <!-- NOTE: Notice the gaps after each icon usage <i></i>..\n    Please note that these links work a bit different than\n    traditional href=\"\" links. See documentation for details.\n    -->\n\n    <ul saSmartMenu>\n      <li routerLinkActive=\"active\" *ngIf=\"isAgente()\">\n        <a title=\"Ventas\"><i class=\"fa fa-lg fa-fw fa-shopping-cart\"></i> <span\n          class=\"menu-item-parent\">{{'Ventas' | i18n}}</span></a>\n        <ul>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/ventas/ordenes\">{{'Ordenes' | i18n}}</a>\n          </li>\n        </ul>\n      </li>\n      <li routerLinkActive=\"active\" *ngIf=\"isAgente()\">\n        <a title=\"Productos\"><i class=\"fa fa-lg fa-fw fa-cube\"></i> <span\n          class=\"menu-item-parent\">{{'Productos' | i18n}}</span></a>\n        <ul>\n          <li routerLinkActive=\"active\">\n            <a routerLink=\"/productos/importacion\">{{'Importación' | i18n}}</a>\n          </li>\n        </ul>\n      </li>\n    </ul>    \n  </nav>\n\n  <sa-minify-menu></sa-minify-menu>\n\n</aside>\n"
 
 /***/ }),
 

@@ -55,7 +55,7 @@ export class DetalleOrdenComponent implements OnInit {
       return;
     }
     this.notificationService.smartMessageBox({
-      title : '<i class="fa fa-sign-out txt-color-orangeDark"></i> Actualizar Evaluación Crediticia<span class="txt-color-orangeDark"><strong></strong></span>',
+      title : '<i class="fa fa-sign-out txt-color-orangeDark"></i> Actualizar <span class="txt-color-orangeDark"><strong>Evaluación Crediticia</strong></span>',
       content : '¿Seguro que quieres actualizar el estado de la evaluación crediticia?',
       buttons : '[No][Si]'
     }, (ButtonPressed) => {

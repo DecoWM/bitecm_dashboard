@@ -1,0 +1,110 @@
+<!-- MAIN CONTENT -->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[' Importación de Productos']" icon="sign-in" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+  </div>
+
+  <!-- widget grid -->
+  <sa-widgets-grid>
+    <!-- START ROW -->
+
+    <div class="row">
+      <!-- Importar Productos -->
+      <article>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <sa-widget [editbutton]="false" [custombutton]="false">
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="widget-body no-padding">
+                <form class="smart-form">
+                  <header>
+                    Importar Productos
+                  </header>
+                  <fieldset>
+                    <section>
+                      <label class="label">Excel de importación</label>
+                      <div class="input input-file">
+                        <span class="button"><input type="file" #productsFile name="products_file" onchange="console.log(this.parentNode.nextSibling); this.parentNode.nextSibling.value = this.value">Buscar Archivo</span>
+                        <input type="text" placeholder="Sube un archivo excel" readonly>
+                      </div>
+                    </section>
+                  </fieldset>
+                  <footer>
+                    <button type="button" class="btn btn-primary" (click)="importProducts()">
+                      Importar
+                    </button>
+                  </footer>
+                </form>
+              </div>
+            </div>
+          </sa-widget>
+        </div>
+      </article>
+      <!-- Importar Stock Model Codes -->
+      <article>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <sa-widget [editbutton]="false" [custombutton]="false">
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="widget-body no-padding">
+                <form class="smart-form">
+                  <header>
+                    Importar Stock Model Codes
+                  </header>
+                  <fieldset>
+                    <section>
+                      <label class="label">Excel de importación</label>
+                      <div class="input input-file">
+                        <span class="button"><input type="file" #stockModelsFile name="stock_models_file" onchange="this.parentNode.nextSibling.value = this.value">Buscar Archivo</span>
+                        <input type="text" placeholder="Sube un archivo excel" readonly>
+                      </div>
+                    </section>
+                  </fieldset>
+                  <footer>
+                    <button type="submit" class="btn btn-primary">
+                      Importar
+                    </button>
+                  </footer>
+                </form>
+              </div>
+            </div>
+          </sa-widget>
+        </div>
+      </article>
+      <!-- Importar Variaciones de Productos -->
+      <article>
+        <div class="col-sm-12 col-md-12 col-lg-12">
+          <sa-widget [editbutton]="false" [custombutton]="false">
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="widget-body no-padding">
+                <form class="smart-form">
+                  <header>
+                    Importar Variaciones de Productos
+                  </header>
+                  <fieldset>
+                    <section>
+                      <label class="label">Excel de importación</label>
+                      <div class="input input-file">
+                        <span class="button"><input type="file" #productVariationsFile name="product_variations_file" onchange="this.parentNode.nextSibling.value = this.value">Buscar Archivo</span>
+                        <input type="text" placeholder="Sube un archivo excel" readonly>
+                      </div>
+                    </section>
+                  </fieldset>
+                  <footer>
+                    <button type="submit" class="btn btn-primary">
+                      Importar
+                    </button>
+                  </footer>
+                </form>
+              </div>
+            </div>
+          </sa-widget>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

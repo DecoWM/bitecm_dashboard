@@ -1,10 +1,10 @@
 import {NgModule} from '@angular/core';
 
-import {routing} from './ventas.routing';
+import {routing} from './productos.routing';
 
 @NgModule({
   imports: [
     routing
   ]
 })
-export class VentasModule {}
+export class ProductosModule {}

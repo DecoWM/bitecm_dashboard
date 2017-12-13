@@ -26,22 +26,22 @@ export class OrdenesService {
 
   getOrdenes() {
     return this.http
-      .get(this.url, { headers: this.headers });
+      .get(this.url);
   }
 
   getOrden(id) {
     return this.http
-      .get(this.getUrl(id), { headers: this.headers });
+      .get(this.getUrl(id));
   }
 
   updateOrden(orden) {
     return this.http
-      .put(this.getUrl(orden.order_id), orden, { headers: this.headers });
+      .put(this.getUrl(orden.order_id), orden);
   }
 
   deleteOrden(id) {
     return this.http
-      .delete(this.getUrl(id), { headers: this.headers });
+      .delete(this.getUrl(id));
   }
 
   createItem(id, item) {
@@ -50,7 +50,7 @@ export class OrdenesService {
 
   updateItem(id, item) {
     return this.http
-      .put(this.getUrl(id, 'item'), item, { headers: this.headers });
+      .put(this.getUrl(id, 'item'), item);
   }
 
   deleteItem(id, item) {
@@ -59,17 +59,17 @@ export class OrdenesService {
 
   getStatusList() {
     return this.http
-      .get(this.getUrl(null, 'status'), { headers: this.headers });
+      .get(this.getUrl(null, 'status'));
   }
 
   getStatusHistory(id) {
     return this.http
-      .get(this.getUrl(id, 'status'), { headers: this.headers });
+      .get(this.getUrl(id, 'status'));
   }
 
   createStatus(order_id, status) {
     return this.http
-      .post(this.getUrl(order_id, 'status'), status, { headers: this.headers });
+      .post(this.getUrl(order_id, 'status'), status);
   }
 
   getUrl(id = null, param = '') {

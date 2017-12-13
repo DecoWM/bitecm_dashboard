@@ -110,7 +110,7 @@ class OrdersController extends ApiController
     }
 
     if(count($set)) {
-      $result = DB::table('tbl_product_variation')->whereColumn($set)->get();
+      $result = DB::table('tbl_product_variation')->where($set)->get();
       if(count($result)) {
         $set = ['product_variation_id' => $result[0]];
       } else {
@@ -168,7 +168,7 @@ class OrdersController extends ApiController
     }
 
     if(count($set) > 0) {
-      $result = DB::table('tbl_product_variation')->whereColumn($set)->get();
+      $result = DB::table('tbl_product_variation')->where($set)->get();
       if(count($result) > 0) {
         $set = ['product_variation_id' => $result[0]];
       } else {

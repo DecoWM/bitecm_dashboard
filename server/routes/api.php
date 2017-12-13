@@ -12,9 +12,9 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::get('profile', 'UserController@profile');
 	});
 
-	/////////////
+	////////////
 	// ORDERS //
-	/////////////
+	////////////
 	Route::prefix('ordenes')->group(function () {
 		// Order List
 		Route::get('', 'OrdersController@list');
@@ -30,5 +30,17 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		// Order Status
 		Route::get('{id}/status', 'OrdersController@statusHistory');
 		Route::post('{id}/status', 'OrdersController@createStatus');
+	});
+
+	////////////
+	// IMPORT //
+	////////////
+	Route::prefix('importar')->group(function () {
+		// Importar Productos
+		Route::post('productos', 'ImportController@products');
+		// Importar Stock Model Codes
+		Route::post('stockmodels', 'ImportController@stockModels');
+		// Importar Variaciones de Productos
+		Route::post('variaciones', 'ImportController@variations');
 	});
 });

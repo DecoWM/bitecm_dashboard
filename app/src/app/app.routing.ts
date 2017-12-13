@@ -27,13 +27,13 @@ export const routes: Routes = [
         canActivate: [AgenteGuard],
         loadChildren: 'app/+ventas/ventas.module#VentasModule',
         data: { pageTitle: 'Ventas' }
-      }/*,
+      },
       {
         path: 'productos',
         canActivate: [AgenteGuard],
         loadChildren: 'app/+productos/productos.module#ProductosModule',
         data: { pageTitle: 'Productos' }
-      }*/
+      }
     ]
   },
   {
