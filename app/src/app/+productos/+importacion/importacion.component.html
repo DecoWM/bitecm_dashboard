@@ -4,6 +4,13 @@
     <sa-big-breadcrumbs [items]="[' Importación de Productos']" icon="sign-in" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
   </div>
 
+  <div *ngIf="alert" class="alert alert-block alert-{{alert.mode}}" dismisser="">
+    <h4 class="alert-heading">
+      <i class="fa fa-check-square-o"></i> Importación {{alert.title}}
+    </h4>
+    <p>{{alert.message}}</p>
+  </div>
+
   <!-- widget grid -->
   <sa-widgets-grid>
     <!-- START ROW -->
@@ -63,7 +70,7 @@
                     </section>
                   </fieldset>
                   <footer>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" (click)="importStockModels()">
                       Importar
                     </button>
                   </footer>
@@ -95,7 +102,7 @@
                     </section>
                   </fieldset>
                   <footer>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" (click)="importProductVariations()">
                       Importar
                     </button>
                   </footer>

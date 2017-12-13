@@ -15,6 +15,8 @@ import { BlockUIService } from 'ng-block-ui';
   styles: []
 })
 export class ImportacionComponent implements OnInit {
+  alert: any = null;
+
   @ViewChild('productsFile') productsFile;
   @ViewChild('stockModelsFile') stockModelsFile;
   @ViewChild('productVariationsFile') productVariationsFile;
@@ -27,7 +29,7 @@ export class ImportacionComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.alert = null;
   }
 
   importProducts(): void {
@@ -39,14 +41,75 @@ export class ImportacionComponent implements OnInit {
       this.importacionService.importProducts(formData)
         .subscribe((data: any) => {
           console.log(data);
+          let mode, title;
           if (data.success) {
-            console.log(data.result);
+            mode = 'success';
+            title = 'Completada';
           } else {
-
+            mode = 'error';
+            title = 'Fallida';
+          }
+          this.alert = {
+            'title': title,
+            'message': data.result,
+            'mode': mode
           }
           this.blockui.stop('content');
         });
     }
   }
 
+  importStockModels(): void {
+    const fileBrowser = this.stockModelsFile.nativeElement;
+    if (fileBrowser.files && fileBrowser.files[0]) {
+      const formData = new FormData();
+      formData.append('importFile', fileBrowser.files[0]);
+      this.blockui.start('content');
+      this.importacionService.importStockModelCodes(formData)
+        .subscribe((data: any) => {
+          console.log(data);
+          let mode, title;
+          if (data.success) {
+            mode = 'success';
+            title = 'Completada';
+          } else {
+            mode = 'error';
+            title = 'Fallida';
+          }
+          this.alert = {
+            'title': title,
+            'message': data.result,
+            'mode': mode
+          }
+          this.blockui.stop('content');
+        });
+    }
+  }
+
+  importProductVariations(): void {
+    const fileBrowser = this.productVariationsFile.nativeElement;
+    if (fileBrowser.files && fileBrowser.files[0]) {
+      const formData = new FormData();
+      formData.append('importFile', fileBrowser.files[0]);
+      this.blockui.start('content');
+      this.importacionService.importProductVariations(formData)
+        .subscribe((data: any) => {
+          console.log(data);
+          let mode, title;
+          if (data.success) {
+            mode = 'success';
+            title = 'Completada';
+          } else {
+            mode = 'error';
+            title = 'Fallida';
+          }
+          this.alert = {
+            'title': title,
+            'message': data.result,
+            'mode': mode
+          }
+          this.blockui.stop('content');
+        });
+    }
+  }
 }
