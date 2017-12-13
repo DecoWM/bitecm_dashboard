@@ -95,7 +95,7 @@ class ImportController extends ApiController
         'category_id' => $category_id,
         'brand_id' => $brand_id,
         'product_model' => $row['modelo'],
-        'product_price' => $row['price']
+        'product_price' => isset($row['price']) ? $row['price'] : 0
       ]);
     return $result;
   }
