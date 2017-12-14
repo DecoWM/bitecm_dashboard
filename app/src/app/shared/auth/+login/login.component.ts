@@ -51,15 +51,15 @@ export class LoginComponent implements OnInit {
 
   showInvalidUserPopup() {
     this.notificationService.smartMessageBox({
-      title : '<i class="fa fa-user txt-color-orangeDark"></i> Usuario Inválido',
-      content : 'El usuario no existe en la Base de Datos o se encuentra inactivo',
+      title : '<i class="fa fa-user txt-color-orangeDark"></i> Credenciales Incorrectas',
+      content : 'Los datos ingresados son incorrectos.',
       buttons : '[Entendido]'
     });
   }
   showWrongPasswordPopup() {
     this.notificationService.smartMessageBox({
-      title : '<i class="fa fa-user txt-color-orangeDark"></i> Contraseña Inválida',
-      content : 'La contraseña ingresada no coincide en la Base de Datos',
+      title : '<i class="fa fa-user txt-color-orangeDark"></i> Credenciales Incorrectas',
+      content : 'Los datos ingresados son incorrectos.',
       buttons : '[Entendido]'
     });
   }
