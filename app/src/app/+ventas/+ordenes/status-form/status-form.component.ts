@@ -15,6 +15,8 @@ declare var $: any;
   templateUrl: './status-form.component.html'
 })
 export class StatusFormComponent implements OnInit {
+  alert: any = null;
+
   order_id: number;
   status: any = {};
   status_history: any = [];
@@ -55,6 +57,7 @@ export class StatusFormComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.alert = null;
     this.blockui.start('content');
     this.order_id = this.route.snapshot.params.id;
     Observable.zip(
@@ -96,6 +99,7 @@ export class StatusFormComponent implements OnInit {
       this.ordenesService.createStatus(this.order_id, status)
         .subscribe((message: any) => {
           console.log(message);
+          this.alert = this.getAlert(message);
           if (message.success) {
             this.status = {};
             e.target.reset();
@@ -103,12 +107,27 @@ export class StatusFormComponent implements OnInit {
           $('button[name="submit"]').prop('disabled', (i, v) => !v);
           this.ordenesService.getStatusHistory(this.order_id)
             .subscribe((data: any) => {
-              console.log(data);
               if (data.success) {
                 this.status_history = data.result;
               }
             });
       });
+    }
+  }
+
+  getAlert(data): any {
+    let mode, title;
+    if (data.success) {
+      mode = 'success';
+      title = 'Completado';
+    } else {
+      mode = 'danger';
+      title = 'Fallido';
+    }
+    return {
+      'title': title,
+      'message': data.result,
+      'mode': mode
     }
   }
 }

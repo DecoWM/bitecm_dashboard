@@ -105,18 +105,12 @@ var ErrorInterceptor = (function () {
             .catch(function (error) {
             // console.log(error);
             if (error instanceof __WEBPACK_IMPORTED_MODULE_2__angular_common_http__["d" /* HttpErrorResponse */]) {
-                if (!error.ok) {
-                    if (error.error.message === 'Token has expired') {
-                        auth.logout();
-                        _this.router.navigate(['/auth/login']);
-                    }
-                    else {
-                        _this.router.navigate(['/error/500']);
-                    }
-                }
-                else {
+                if (error.error.message === 'Token has expired') {
+                    auth.logout();
                     _this.router.navigate(['/auth/login']);
-                }
+                } /* else {
+                  this.router.navigate(['/error', error.status]);
+                }*/
                 return __WEBPACK_IMPORTED_MODULE_4_rxjs_Rx__["Observable"].throw(error);
             }
         });

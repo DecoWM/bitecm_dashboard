@@ -21,6 +21,10 @@ export class ImportacionComponent implements OnInit {
   @ViewChild('stockModelsFile') stockModelsFile;
   @ViewChild('productVariationsFile') productVariationsFile;
 
+  productsFilename = '';
+  stockModelsFilename = '';
+  productVariationsFilename = '';
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -30,6 +34,9 @@ export class ImportacionComponent implements OnInit {
 
   ngOnInit() {
     this.alert = null;
+    this.productsFilename = '';
+    this.stockModelsFilename = '';
+    this.productVariationsFilename = '';
   }
 
   importProducts(): void {
@@ -41,19 +48,11 @@ export class ImportacionComponent implements OnInit {
       this.importacionService.importProducts(formData)
         .subscribe((data: any) => {
           console.log(data);
-          let mode, title;
-          if (data.success) {
-            mode = 'success';
-            title = 'Completada';
-          } else {
-            mode = 'error';
-            title = 'Fallida';
-          }
-          this.alert = {
-            'title': title,
-            'message': data.result,
-            'mode': mode
-          }
+          this.alert = this.getAlert(data);
+          this.productsFilename = '';
+          this.blockui.stop('content');
+        }, (error) => {
+          this.productsFilename = '';
           this.blockui.stop('content');
         });
     }
@@ -68,19 +67,11 @@ export class ImportacionComponent implements OnInit {
       this.importacionService.importStockModelCodes(formData)
         .subscribe((data: any) => {
           console.log(data);
-          let mode, title;
-          if (data.success) {
-            mode = 'success';
-            title = 'Completada';
-          } else {
-            mode = 'error';
-            title = 'Fallida';
-          }
-          this.alert = {
-            'title': title,
-            'message': data.result,
-            'mode': mode
-          }
+          this.alert = this.getAlert(data);
+          this.stockModelsFilename = '';
+          this.blockui.stop('content');
+        }, (error) => {
+          this.stockModelsFilename = '';
           this.blockui.stop('content');
         });
     }
@@ -95,21 +86,44 @@ export class ImportacionComponent implements OnInit {
       this.importacionService.importProductVariations(formData)
         .subscribe((data: any) => {
           console.log(data);
-          let mode, title;
-          if (data.success) {
-            mode = 'success';
-            title = 'Completada';
-          } else {
-            mode = 'error';
-            title = 'Fallida';
-          }
-          this.alert = {
-            'title': title,
-            'message': data.result,
-            'mode': mode
-          }
+          this.alert = this.getAlert(data);
+          this.productVariationsFilename = '';
+          this.blockui.stop('content');
+        }, (error) => {
+          this.productVariationsFilename = '';
           this.blockui.stop('content');
         });
+    }
+  }
+
+  changeFilename(event, i): void {
+    const uploadedFiles = event.srcElement.files;
+    switch (i) {
+      case 1:
+        this.productsFilename = uploadedFiles[0].name;
+        break;
+      case 2:
+        this.stockModelsFilename = uploadedFiles[0].name;
+        break;
+      case 3:
+        this.productVariationsFilename = uploadedFiles[0].name;
+        break;
+    }
+  }
+
+  getAlert(data): any {
+    let mode, title;
+    if (data.success) {
+      mode = 'success';
+      title = 'Completada';
+    } else {
+      mode = 'danger';
+      title = 'Fallida';
+    }
+    return {
+      'title': title,
+      'message': data.result,
+      'mode': mode
     }
   }
 }

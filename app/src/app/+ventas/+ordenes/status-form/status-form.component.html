@@ -4,14 +4,12 @@
     <sa-big-breadcrumbs [items]="['Estados de la Orden', 'Nro. #'+order_id]" icon="pencil-square-o" class="col-xs-12 col-sm-9 col-md-9 col-lg-9"></sa-big-breadcrumbs>
   </div>
 
-  <!--div class="alert alert-block alert-success" dismisser="">
-    <h4 class="alert-heading"><i class="fa fa-check-square-o"></i> Check validation!</h4>
-
-    <p>
-      You may also check the form validation by clicking on the form action button. Please try and see the results
-      below!
-    </p>
-  </div-->
+  <div *ngIf="alert" class="alert alert-block alert-{{alert.mode}}" dismisser="">
+    <h4 class="alert-heading">
+      <i class="fa fa-check-square-o"></i> Cambio {{alert.title}}
+    </h4>
+    <p>{{alert.message}}</p>
+  </div>
 
   <!-- widget grid -->
   <sa-widgets-grid>

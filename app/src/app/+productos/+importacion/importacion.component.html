@@ -32,8 +32,8 @@
                     <section>
                       <label class="label">Excel de importación</label>
                       <div class="input input-file">
-                        <span class="button"><input type="file" #productsFile name="products_file" onchange="console.log(this.parentNode.nextSibling); this.parentNode.nextSibling.value = this.value">Buscar Archivo</span>
-                        <input type="text" placeholder="Sube un archivo excel" readonly>
+                        <span class="button"><input type="file" #productsFile name="products_file" (change)="changeFilename($event, 1)">Buscar Archivo</span>
+                        <input type="text" placeholder="Sube un archivo excel" value="{{productsFilename}}" readonly>
                       </div>
                     </section>
                   </fieldset>
@@ -64,8 +64,8 @@
                     <section>
                       <label class="label">Excel de importación</label>
                       <div class="input input-file">
-                        <span class="button"><input type="file" #stockModelsFile name="stock_models_file" onchange="this.parentNode.nextSibling.value = this.value">Buscar Archivo</span>
-                        <input type="text" placeholder="Sube un archivo excel" readonly>
+                        <span class="button"><input type="file" #stockModelsFile name="stock_models_file" (change)="changeFilename($event, 2)">Buscar Archivo</span>
+                        <input type="text" placeholder="Sube un archivo excel" value="{{stockModelsFilename}}" readonly>
                       </div>
                     </section>
                   </fieldset>
@@ -96,8 +96,8 @@
                     <section>
                       <label class="label">Excel de importación</label>
                       <div class="input input-file">
-                        <span class="button"><input type="file" #productVariationsFile name="product_variations_file" onchange="this.parentNode.nextSibling.value = this.value">Buscar Archivo</span>
-                        <input type="text" placeholder="Sube un archivo excel" readonly>
+                        <span class="button"><input type="file" #productVariationsFile name="product_variations_file" (change)="changeFilename($event, 3)">Buscar Archivo</span>
+                        <input type="text" placeholder="Sube un archivo excel" value="{{productVariationsFilename}}" readonly>
                       </div>
                     </section>
                   </fieldset>

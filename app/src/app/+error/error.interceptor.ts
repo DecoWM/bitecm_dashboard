@@ -33,16 +33,12 @@ export class ErrorInterceptor implements HttpInterceptor {
       .catch(error => {
         // console.log(error);
         if (error instanceof HttpErrorResponse) {
-          if (!error.ok) {
-            if (error.error.message === 'Token has expired') {
-              auth.logout();
-              this.router.navigate(['/auth/login']);
-            } else {
-              this.router.navigate(['/error/500']);
-            }
-          } else {
+          if (error.error.message === 'Token has expired') {
+            auth.logout();
             this.router.navigate(['/auth/login']);
-          }
+          }/* else {
+            this.router.navigate(['/error', error.status]);
+          }*/
           return Observable.throw(error);
         }
       });

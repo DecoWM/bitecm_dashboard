@@ -245,18 +245,38 @@ class OrdersController extends ApiController
   public function createStatus(Request $request, $order_id = null) {
     $status_id = $request->input('order_status_id', null);
 
-    if(isset($status_id)) {
-      $result = DB::table('tbl_order_status_history')
-        ->insertGetId([
-          'order_id' => $order_id,
-          'order_status_id' => $status_id,
-          'notify_customer' => $request->input('notify_customer', false),
-          'comment' => $request->input('comment', null)
+    if (isset($status_id)) {
+      $valid = true;
+      $status = DB::table('tbl_order_status_history')
+        ->where('order_id', $order_id)
+        ->orderBy('created_at','desc')
+        ->limit(1)
+        ->select('order_status_id')
+        ->get();
+      if (count($status)) {
+        $current_status_id = $status[0]->order_status_id;
+        if ($current_status_id == 3 || ($current_status_id >= $status_id && $status_id != 3)) {
+          $valid = false;
+        }
+      }
+      if ($valid) {
+        $result = DB::table('tbl_order_status_history')
+          ->insertGetId([
+            'order_id' => $order_id,
+            'order_status_id' => $status_id,
+            'notify_customer' => $request->input('notify_customer', false),
+            'comment' => $request->input('comment', null)
+          ]);
+        return response()->json([
+          'result' => 'Cambio de estado realizado con exito',
+          'success' => true
         ]);
-      return response()->json([
-        'result' => $result,
-        'success' => true
-      ]);
+      } else {
+        return response()->json([
+          'result' => 'Cambio de estado no permitido',
+          'success' => false
+        ]);
+      }
     } else {
       return response()->json([
         'error' => 'Estado requerido',

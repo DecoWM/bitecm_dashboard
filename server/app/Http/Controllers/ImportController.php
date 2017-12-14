@@ -52,10 +52,6 @@ class ImportController extends ApiController
     ];
     $sheet = $import->first();
     $sheet->each(function($row) use (&$result) {
-      $stock_model_id = $this->_stockModelExists($row['stock_model_code']);
-      if ($stock_model_id) {
-        return;
-      }
       $brand_id = $this->_brandExists($row['brand']);
       if (!$brand_id) {
         return;
@@ -76,6 +72,10 @@ class ImportController extends ApiController
         }
       } else {
         $color_id = null;
+      }
+      $stock_model_id = $this->_stockModelExists($product_id, $color_id, $row['stock_model_code']);
+      if ($stock_model_id) {
+        return;
       }
       $stock_model_id = $this->_insertStockModel($product_id, $color_id, $row['stock_model_code']);
       if (!$stock_model_id) {
@@ -166,6 +166,7 @@ class ImportController extends ApiController
   private function _productExists($brand_id, $product_model) {
     $result = DB::table('tbl_product')
       ->where([
+        ['active', '=', '1'],
         ['brand_id', '=', $brand_id],
         ['product_model', '=', $product_model]
       ])
@@ -203,14 +204,6 @@ class ImportController extends ApiController
     return $result;
   }
 
-  private function _stockModelExists($stock_model_code) {
-    $result = DB::table('tbl_stock_model')
-      ->where('stock_model_code', $stock_model_code)
-      ->select('stock_model_id')
-      ->get();
-    return count($result) ? $result[0]->stock_model_id : false;
-  }
-
   private function _colorExists($color_name) {
     $result = DB::table('tbl_color')
       ->where('color_name', $color_name)
@@ -227,6 +220,30 @@ class ImportController extends ApiController
         'color_slug' => Str::slug($color_name)
       ]);
     return $result;
+  }
+
+  private function _stockModelExists($product_id, $color_id, $stock_model_code) {
+    $query = DB::table('tbl_stock_model')
+      ->where('stock_model_code', $stock_model_code);
+    if(isset($color_id)) {
+      $query = $query
+        ->orWhere(function ($subquery) use ($product_id, $color_id) {
+          $subquery
+            ->where('product_id', $product_id)
+            ->where('color_id', $color_id);
+        });
+    } else {
+      $query = $query
+        ->orWhere(function ($subquery) use ($product_id, $color_id) {
+          $subquery
+            ->where('product_id', $product_id)
+            ->whereNull('color_id');
+        });
+    }
+    $result = $query
+      ->select('stock_model_id')
+      ->get();
+    return count($result) ? $result[0]->stock_model_id : false;
   }
 
   private function _insertStockModel($product_id, $color_id, $stock_model_code) {
