@@ -31,11 +31,11 @@ export class DatatableComponent implements OnInit {
   constructor(private el: ElementRef) {
   }
 
-  ngOnInit() {    
-    Promise.all([
-      System.import('script-loader!smartadmin-plugins/datatables/datatables.min.js'),
-    ]).then(()=>{
-      this.dtTrigger.subscribe(() => {  
+  ngOnInit() {
+    this.dtTrigger.subscribe(() => {
+      Promise.all([
+        System.import('script-loader!smartadmin-plugins/datatables/datatables.min.js'),
+      ]).then(() => {
         this.render()
       })
     })
@@ -44,7 +44,7 @@ export class DatatableComponent implements OnInit {
   render() {
     let element = $(this.el.nativeElement.children[0]);
     let options = this.options || {}
-    
+
     let toolbar = '';
     if (options.buttons)
       toolbar += 'B';
