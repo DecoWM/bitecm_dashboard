@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders, HttpResponse, HttpRequest } from '@angular/com
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable, Subject } from 'rxjs/Rx';
-import { AngularFireAuth } from 'angularfire2/auth';
+// import { AngularFireAuth } from 'angularfire2/auth';
 
 @Injectable()
 export class AuthService {
@@ -67,8 +67,8 @@ export class AuthService {
 
   constructor(
     private router: Router,
-    private http: HttpClient,
-    public afAuth: AngularFireAuth
+    private http: HttpClient
+    // public afAuth: AngularFireAuth
   ) { }
 
   updateSession() {

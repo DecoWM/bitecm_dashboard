@@ -3,7 +3,7 @@ import {Routes, RouterModule} from '@angular/router';
 import {MainLayoutComponent} from './shared/layout/app-layouts/main-layout.component';
 import {AuthLayoutComponent} from './shared/layout/app-layouts/auth-layout.component';
 import {EmptyLayoutComponent} from './shared/layout/app-layouts/empty-layout.component';
-import {AuthComponent} from './shared/auth/auth.component';
+// import {AuthComponent} from './shared/auth/auth.component';
 import {AuthGuard} from './shared/auth/guard/auth.guard';
 import {NoAuthGuard} from './shared/auth/guard/noauth.guard';
 import {AdminGuard} from './shared/auth/guard/admin.guard';

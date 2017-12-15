@@ -13,19 +13,19 @@ import { throwIfAlreadyLoaded } from './guards/module-import-guard';
 import { VoiceRecognitionService } from '../shared/voice-control/voice-recognition.service';
 import { TabsModule, ProgressbarModule, TooltipModule, BsDropdownModule, AlertModule } from 'ngx-bootstrap';
 
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireAuth } from 'angularfire2/auth'
-// import { AuthModule } from '../auth/auth.module';
-// import { AuthService } from '../auth/auth.service';
+// import { AngularFireModule } from 'angularfire2';
+// import { AngularFireAuth } from 'angularfire2/auth'
+// import { AuthModule } from '../shared/auth/auth.module';
+// import { AuthService } from '../shared/auth/auth.service';
 
-export const firebaseConfig = {
+/*export const firebaseConfig = {
   apiKey: 'AIzaSyDN5EwEQCx_kEym8zcbhzHYgFBMdExN2Sc',
   authDomain: 'plexilabs-e2f3f.firebaseapp.com',
   databaseURL: 'https://plexilabs-e2f3f.firebaseio.com',
   projectId: 'plexilabs-e2f3f',
   storageBucket: 'plexilabs-e2f3f.appspot.com',
   messagingSenderId: '685849318441'
-};
+};*/
 
 @NgModule({
   imports: [
@@ -35,7 +35,7 @@ export const firebaseConfig = {
     ProgressbarModule.forRoot(),
     AlertModule.forRoot(),
     TabsModule.forRoot(),
-    AngularFireModule.initializeApp(firebaseConfig)
+    // AngularFireModule.initializeApp(firebaseConfig)
     // AuthModule
   ],
   declarations: [],
@@ -48,7 +48,7 @@ export const firebaseConfig = {
     SoundService,
     SkinService,
     BlockUIService,
-    AngularFireAuth
+    // AngularFireAuth
     // AuthService
   ]
 })

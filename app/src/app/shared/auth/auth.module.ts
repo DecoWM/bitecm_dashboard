@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 
 import {routing} from './auth.routing';
-// import { AuthComponent } from './auth.component';
+import { AuthComponent } from './auth.component';
 // import { AuthService } from './auth.service';
 import { LoginModule } from './+login/login.module';
 import { NotificationService } from '../utils/notification.service';
@@ -15,7 +15,7 @@ import { NotificationService } from '../utils/notification.service';
     FormsModule,
     LoginModule
   ],
-  declarations: [ ],
+  declarations: [ AuthComponent ],
   providers: [
     // AuthService,
     NotificationService
