@@ -1,5 +1,7 @@
 import {Component, Input, ElementRef, AfterContentInit, OnInit} from '@angular/core';
-import { Subject, Observable } from "rxjs/Rx";
+import { Subject, Observable } from 'rxjs/Rx';
+
+import { BlockUIService } from 'ng-block-ui';
 
 declare var $: any;
 
@@ -12,30 +14,34 @@ declare var $: any;
 `,
   styles: [
     require('smartadmin-plugins/datatables/datatables.min.css'),
-    `:host >>> table.dataTable[_ngcontent-c1] { 
+    `:host >>> table.dataTable[_ngcontent-c1] {
       margin: 0 !important; }`
   ]
 })
 export class DatatableComponent implements OnInit {
 
-  @Input() public options:any;
-  @Input() public filter:any;
-  @Input() public detailsFormat:any;
-  @Input() public dtTrigger:Subject<any>;
+  @Input() public options: any;
+  @Input() public filter: any;
+  @Input() public detailsFormat: any;
+  @Input() public dtTrigger: Subject<any>;
 
   @Input() public paginationLength: boolean;
   @Input() public columnsHide: boolean;
   @Input() public tableClass: string;
-  @Input() public width: string = '100%';
+  @Input() public width = '100%';
 
-  constructor(private el: ElementRef) {
-  }
+  constructor(
+    private el: ElementRef,
+    private blockui: BlockUIService
+  ) { }
 
   ngOnInit() {
     this.dtTrigger.subscribe(() => {
       Promise.all([
         System.import('script-loader!smartadmin-plugins/datatables/datatables.min.js'),
+        this.blockui.start('content')
       ]).then(() => {
+        this.blockui.stop('content');
         this.render()
       })
     })
@@ -83,10 +89,10 @@ export class DatatableComponent implements OnInit {
       autoWidth: false,
       retrieve: true,
       responsive: true,
-      initComplete: (settings, json)=> {
-        element.parent().find('.input-sm', ).removeClass("input-sm").addClass('input-md');
+      initComplete: (settings, json) => {
+        element.parent().find('.input-sm', ).removeClass('input-sm').addClass('input-md');
       }
-    });    
+    });
 
     const _dataTable = element.DataTable(options);
 
@@ -101,7 +107,7 @@ export class DatatableComponent implements OnInit {
     }
 
     if (!toolbar) {
-      element.parent().find(".dt-toolbar").append('<div class="text-right"><img src="assets/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+      element.parent().find('.dt-toolbar').append('<div class="text-right"><img src="assets/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
     }
 
     /*if(this.detailsFormat){
@@ -118,7 +124,7 @@ export class DatatableComponent implements OnInit {
           tr.addClass('shown');
         }
       })
-    }*/    
+    }*/
 
   }
 
