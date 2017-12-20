@@ -21,6 +21,7 @@ export class OrdenesComponent implements OnInit {
 
   options = {
     dom: 'Bfrtip',
+    pageLength: 25,
     /*columnDefs: [ {
       targets: [0, 8],
       orderable: false

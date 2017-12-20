@@ -51,9 +51,11 @@ class OrdersController extends ApiController
           $order->device = $item;
         }
         $item->stock_models = DB::select('call PA_productStockModels(
-          :product_id
+          :product_id,
+          :color_required
         )', [
-          'product_id' => $item->product_id
+          'product_id' => $item->product_id,
+          'color_required' => null
         ]);
         $order->items[] = $item;
       }
