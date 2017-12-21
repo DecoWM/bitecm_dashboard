@@ -186,6 +186,8 @@ class ImportController extends ApiController
         'product_slug' => Str::slug($row['model']),
         'product_tag' => $this->_validTag($row['tag']) ? $row['tag'] : null,
         'product_description' => $row['description'],
+        'product_image_url' => $row['image'],
+        'product_data_sheet' => $row['data_sheet'],
         //'product_general_specifications' => $row['general_specifications'],
         'product_external_memory' => $row['external_memory'],
         'product_internal_memory' => $row['internal_memory'],
