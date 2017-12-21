@@ -239,6 +239,12 @@ nav ul li a:active{
 
 .detalle-order header{
   margin: 4px 14px 0;
+  font-weight: 600;
+}
+
+.page-title,
+.smart-form header{
+  font-weight: 600;
 }
 
 .detalle-order header .icon-prepend{
