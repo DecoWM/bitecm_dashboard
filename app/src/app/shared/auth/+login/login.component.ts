@@ -5,6 +5,8 @@ import { NotificationService } from '../../../shared/utils/notification.service'
 import {config} from '../../../shared/smartadmin.config';
 // import {LayoutService} from './../../../shared/layout/layout.service';
 
+declare var $: any;
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html'
@@ -31,6 +33,7 @@ export class LoginComponent implements OnInit {
 
   login(event) {
     event.preventDefault();
+    $('#login-form input').blur();
     if (!this.username.length || !this.password.length) {
       this.showEmptyFieldsPopup();
     } else {
@@ -62,15 +65,15 @@ export class LoginComponent implements OnInit {
   }
   showInvalidUserPopup() {
     this.notificationService.smartMessageBox({
-      title : '<i class="fa fa-user txt-color-orangeDark"></i> Credenciales Incorrectas',
-      content : 'Los datos ingresados son incorrectos.',
+      title : '<i class="fa fa-user txt-color-orangeDark"></i> Usuario no encontrado',
+      content : 'El usuario indicado no existe o se enuentra inactivo.',
       buttons : '[Entendido]'
     });
   }
   showWrongPasswordPopup() {
     this.notificationService.smartMessageBox({
-      title : '<i class="fa fa-user txt-color-orangeDark"></i> Usuario no encontrado',
-      content : 'El usuario indicado no existe o se enuentra inactivo.',
+      title : '<i class="fa fa-user txt-color-orangeDark"></i> Contraseña Incorrecta',
+      content : 'La contraseña ingresada no coincide con el usuario indicado',
       buttons : '[Entendido]'
     });
   }

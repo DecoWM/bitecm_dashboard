@@ -21,7 +21,7 @@ class OrdersController extends ApiController
       :sort_by,
       :sort_direction
     )', [
-      'pag_total_by_page' => $request->input('pag_total_by_page', 12),
+      'pag_total_by_page' => $request->input('pag_total_by_page', null),
       'pag_actual' => $request->input('pag_actual', null),
       'sort_by' => $request->input('sort_by', null),
       'sort_direction' => $request->input('sort_direction', null)
