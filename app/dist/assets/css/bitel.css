@@ -233,12 +233,18 @@ nav ul li a:active{
   width: 100px;
 }
 
+.page-title {
+  font-weight: bold;
+}
+
 .detalle-order{
 
 }
 
 .detalle-order header{
   margin: 4px 14px 0;
+  font-weight: bold;
+  color: #515151;
 }
 
 .detalle-order header .icon-prepend{
