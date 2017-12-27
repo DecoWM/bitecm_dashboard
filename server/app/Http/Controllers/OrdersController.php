@@ -248,18 +248,45 @@ class OrdersController extends ApiController
     $status_id = $request->input('order_status_id', null);
 
     if (isset($status_id)) {
-      $valid = true;
-      $status = DB::table('tbl_order_status_history')
-        ->where('order_id', $order_id)
-        ->orderBy('created_at','desc')
-        ->limit(1)
-        ->select('order_status_id')
+      $valid = false;
+      $desired_status = DB::table('tbl_order_status')
+        ->where('order_status_id', $status_id)
+        ->select('order_status_id', 'order_status_pos')
         ->get();
-      if (count($status)) {
-        $current_status_id = $status[0]->order_status_id;
-        if ($current_status_id == 3 || ($current_status_id >= $status_id && $status_id != 3)) {
-          $valid = false;
+      $current_status = DB::table('tbl_order_status_history')
+        ->join('tbl_order_status', 'tbl_order_status_history.order_status_id', '=', 'tbl_order_status.order_status_id')
+        ->where('order_id', $order_id)
+        ->orderBy('tbl_order_status_history.created_at','desc')
+        ->limit(1)
+        ->select('tbl_order_status.order_status_id', 'order_status_pos')
+        ->get();
+      $status_list = DB::table('tbl_order_status')
+        ->orderBy('order_status_pos','asc')
+        ->select('order_status_id', 'order_status_pos')
+        ->get();
+      if (count($current_status)) {
+        $current_status_id = $current_status[0]->order_status_id;
+        $current_status_pos = $current_status[0]->order_status_pos;
+        $desired_status_id = $status_id;
+        $desired_status_pos = $desired_status[0]->order_status_pos;
+        if ($current_status_pos != 0 && ($current_status_pos < $desired_status_pos || $desired_status_pos == 0)) {
+          if ($desired_status_pos == 0) {
+            $valid = true;
+          } else {
+            foreach ($status_list as $i => $status_item) {
+              if ($current_status_id == $status_item->order_status_id) {
+                if (isset($status_list[$i+1])) {
+                  $status = $status_list[$i+1];
+                  if ($status->order_status_pos == $desired_status_pos) {
+                    $valid = true;
+                  }
+                }
+              }
+            }
+          }
         }
+      } else {
+        $valid = true;
       }
       if ($valid) {
         $result = DB::table('tbl_order_status_history')
