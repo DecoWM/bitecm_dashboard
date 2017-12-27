@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use DB;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
+use App\Mail\OrderStatusChanged;
+use Illuminate\Support\Facades\Mail;
 
 class OrdersController extends ApiController
 {
@@ -245,45 +247,27 @@ class OrdersController extends ApiController
   }
 
   public function createStatus(Request $request, $order_id = null) {
-    $status_id = $request->input('order_status_id', null);
+    $desired_status_id = $request->input('order_status_id', null);
+    $notify_customer = $request->input('notify_customer', false);
 
-    if (isset($status_id)) {
+    if (isset($desired_status_id)) {
       $valid = false;
-      $desired_status = DB::table('tbl_order_status')
-        ->where('order_status_id', $status_id)
-        ->select('order_status_id', 'order_status_pos')
-        ->get();
       $current_status = DB::table('tbl_order_status_history')
-        ->join('tbl_order_status', 'tbl_order_status_history.order_status_id', '=', 'tbl_order_status.order_status_id')
         ->where('order_id', $order_id)
-        ->orderBy('tbl_order_status_history.created_at','desc')
+        ->orderBy('created_at','desc')
         ->limit(1)
-        ->select('tbl_order_status.order_status_id', 'order_status_pos')
-        ->get();
-      $status_list = DB::table('tbl_order_status')
-        ->orderBy('order_status_pos','asc')
-        ->select('order_status_id', 'order_status_pos')
+        ->select('order_status_id')
         ->get();
       if (count($current_status)) {
         $current_status_id = $current_status[0]->order_status_id;
-        $current_status_pos = $current_status[0]->order_status_pos;
-        $desired_status_id = $status_id;
-        $desired_status_pos = $desired_status[0]->order_status_pos;
-        if ($current_status_pos != 0 && ($current_status_pos < $desired_status_pos || $desired_status_pos == 0)) {
-          if ($desired_status_pos == 0) {
-            $valid = true;
-          } else {
-            foreach ($status_list as $i => $status_item) {
-              if ($current_status_id == $status_item->order_status_id) {
-                if (isset($status_list[$i+1])) {
-                  $status = $status_list[$i+1];
-                  if ($status->order_status_pos == $desired_status_pos) {
-                    $valid = true;
-                  }
-                }
-              }
-            }
-          }
+        $status_flux = DB::table('tbl_order_status_flux')
+          ->where('order_status_origin_id', $current_status_id)
+          ->where('order_status_destination_id', $desired_status_id)
+          ->limit(1)
+          ->select('order_status_flux_id')
+          ->get();
+        if (count($status_flux)) {
+          $valid = true;
         }
       } else {
         $valid = true;
@@ -292,10 +276,20 @@ class OrdersController extends ApiController
         $result = DB::table('tbl_order_status_history')
           ->insertGetId([
             'order_id' => $order_id,
-            'order_status_id' => $status_id,
-            'notify_customer' => $request->input('notify_customer', false),
+            'order_status_id' => $desired_status_id,
+            'notify_customer' => $notify_customer,
             'comment' => $request->input('comment', null)
           ]);
+        $status = DB::table('tbl_order_status')
+          ->where('order_status_id', $desired_status_id)
+          ->select('order_status_name')
+          ->get()[0];
+        if ($notify_customer) {
+          $order = DB::table('tbl_order')
+            ->where('order_id', $order_id)
+            ->get()[0];
+          Mail::to($order->contact_email)->send(new OrderStatusChanged($order, $status));
+        }
         return response()->json([
           'result' => 'Cambio de estado realizado con exito',
           'success' => true
