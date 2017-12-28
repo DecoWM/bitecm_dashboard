@@ -8,6 +8,11 @@ export const routes: Routes = [
         pathMatch: 'full'
     },
     {
+        path: 'catalogo',
+        loadChildren: './+catalogo/catalogo.module#CatalogoModule',
+        data: {pageTitle: 'Catalogo'}
+    },
+    {
         path: 'importacion',
         loadChildren: './+importacion/importacion.module#ImportacionModule',
         data: {pageTitle: 'Importación'}
