@@ -27,7 +27,7 @@
               <!-- widget content -->
               <div class="widget-body no-padding">
 
-                <form id="smart-form-register" class="smart-form" novalidate="novalidate">
+                <div class="smart-form">
                   <div class="detalle-order">
                     <header>
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
@@ -35,6 +35,8 @@
                     </header>
                     <div id="field-detalle-order" class="detalle-registro ">
                       <div class="direccion-de-envio data-table table-responsive">
+                        <!--sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
+                          [paginationLength]="true" tableClass="table table-striped table-bordered table-hover"-->
                         <table class="dataTable responsive display projects-table table table-striped table-bordered table-hover no-footer dtr-inline" width="100%">
                           <thead>
                             <tr>
@@ -45,14 +47,17 @@
                             </tr>
                           </thead>
                           <tbody>
-                            <tr *ngFor="let item of status_history">
-                              <td>{{item.created_at}}</td>
-                              <td>{{item.comment}}</td>
-                              <td>{{item.order_status_name}}</td>
-                              <td>{{item.notify_customer ? 'Si' : 'No'}}</td>
-                            </tr>
+                            <ng-container *ngFor="let item of status_history; let last = last" sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
+                              <tr>
+                                <td>{{item.created_at}}</td>
+                                <td>{{item.comment}}</td>
+                                <td>{{item.order_status_name}}</td>
+                                <td>{{item.notify_customer ? 'Si' : 'No'}}</td>
+                              </tr>
+                            </ng-container>
                           </tbody>
                         </table>
+                        <!--/sa-datatable-->
                       </div>
                     </div>
                   </div>
@@ -61,10 +66,7 @@
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
                       Ingresar Registro
                     </header>
-                    <form-container
-                      (onValidationSuccess)="onValidationSuccess($event)"
-                      [validatorOptions]="validationOptions"
-                    >
+                    <form id="smart-form-register" class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)">
                       <div id="field-detalle-order" class="detalle-registro">
                         <div class="row">
                           <section class="col col-6">
@@ -72,8 +74,8 @@
                           </section>
                           <section class="col col-6">
                             <label class="select">
-                              <select name="order_status_id" id="select-estado" [(ngModel)]="status.order_status_id">
-                                <option disabled="" value="0">Seleccionar</option>
+                              <select name="order_status_id" id="select-estado" [(ngModel)]="status.order_status_id" (change)="onSelectChange($event)">
+                                <option value="">Seleccionar estado</option>
                                 <option *ngFor="let item of status_list" value="{{item.order_status_id}}">
                                   {{item.order_status_name}}
                                 </option>
@@ -111,9 +113,9 @@
                           </div>
                         </footer>
                       </div>
-                    </form-container>
+                    </form>
                   </div>
-                </form>
+                </div>
 
               </div>
               <!-- end widget content -->
