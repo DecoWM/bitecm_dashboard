@@ -302,7 +302,7 @@ class OrdersController extends ApiController
       }
     } else {
       return response()->json([
-        'error' => 'Estado requerido',
+        'result' => 'Estado requerido',
         'success' => false
       ]);
     }
