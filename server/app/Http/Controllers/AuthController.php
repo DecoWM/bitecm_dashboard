@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use DB;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\Request;
@@ -20,6 +21,16 @@ class AuthController extends Controller
     {
         try {
             $credentials = $request->only('user_email', 'password');
+
+            $email = $credentials['user_email'];
+            $user = DB::table('tbl_user')
+                ->where('user_email', $email)
+                ->get();
+
+            if (!count($user)) {
+                return response()->json(['user' => 'Invalid User'], 404);
+            }
+
             if (!$token = JWTAuth::attempt($credentials)) {
                 return response()->json(['password' => 'Invalid Password'], 401);
             }
