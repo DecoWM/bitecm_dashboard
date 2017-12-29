@@ -18,6 +18,16 @@ export class ProductService {
       .get(this.url);
   }
 
+  publishProduct(product_id) {
+    return this.http
+      .put(this.getUrl(product_id), {});
+  }
+
+  unpublishProduct(product_id) {
+    return this.http
+      .put(this.getUrl(product_id), {});
+  }
+
   getUrl(param = '') {
     const urlParts = [this.url];
     if (param.length) {

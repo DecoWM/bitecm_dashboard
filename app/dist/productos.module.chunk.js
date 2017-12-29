@@ -44,7 +44,7 @@ ProductosModule = __decorate([
 var routes = [
     {
         path: '',
-        redirectTo: 'importacion',
+        redirectTo: 'catalogo',
         pathMatch: 'full'
     },
     {

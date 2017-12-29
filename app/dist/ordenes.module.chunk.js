@@ -271,10 +271,6 @@ var OrdenesComponent = (function () {
     OrdenesComponent.prototype.detail = function (data) {
         this.router.navigate([data.order_id], { relativeTo: this.route });
     };
-    OrdenesComponent.prototype.publish = function (data) {
-    };
-    OrdenesComponent.prototype.unpublish = function (data) {
-    };
     return OrdenesComponent;
 }());
 OrdenesComponent = __decorate([

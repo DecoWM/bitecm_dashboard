@@ -61,12 +61,4 @@ export class OrdenesComponent implements OnInit {
   detail(data: any): void {
     this.router.navigate([data.order_id], {relativeTo: this.route});
   }
-
-  publish(data: any): void {
-
-  }
-
-  unpublish(data: any): void {
-
-  }
 }

@@ -13,6 +13,9 @@ import { BlockUIService } from 'ng-block-ui';
   styles: []
 })
 export class ProductComponent implements OnInit {
+  subtitle: string;
+
   ngOnInit() {
+    this.subtitle = 'Nuevo producto'; // 'Nro. #' + product.product_id;
   }
 }
