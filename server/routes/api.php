@@ -62,6 +62,8 @@ Route::prefix('product')->group(function () {
 	Route::post('color', 'ProductController@storeColor');
 
 	//
+	Route::get('{product_id}', 'ProductController@showProduct');
+
 	Route::get('{product_id}/smc', 'ProductController@listStockModelCode');
 	Route::post('{product_id}/smc', 'ProductController@storeStockModelCode');
 });

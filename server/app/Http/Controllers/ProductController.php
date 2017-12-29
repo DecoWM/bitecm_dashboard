@@ -17,7 +17,7 @@ class ProductController extends ApiController
       $product_list = DB::table('tbl_product')
           ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
           ->join('tbl_category', 'tbl_product.category_id', '=', 'tbl_category.category_id')
-          ->select('tbl_product.product_id', 'tbl_product.product_priority', 'tbl_category.category_name', 'tbl_brand.brand_name','tbl_product.product_model', 'tbl_product.publish_at', 'tbl_product.active')
+          ->select('tbl_product.product_id', 'tbl_product.product_priority', DB::raw('IFNULL(tbl_product.updated_at, tbl_product.created_at) as updated_at'), 'tbl_category.category_name', 'tbl_brand.brand_name','tbl_product.product_model', 'tbl_product.publish_at', 'tbl_product.active')
           ->get();
 
       return response()->json([
@@ -108,14 +108,17 @@ class ProductController extends ApiController
   public function listStockModelCode($product_id) {
       $stock_model_code_list = DB::table('tbl_stock_model')
           ->where('tbl_stock_model.active', 1)
-          ->where('tbl_color.active', 1)
-          ->where('tbl_product_image.active', 1)
           ->where('tbl_stock_model.product_id', $product_id)
           ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
-          ->join('tbl_product_image', 'tbl_stock_model.stock_model_id', '=', 'tbl_product_image.stock_model_id')
-          ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id', 'tbl_product_image.product_image_id', 'tbl_product_image.product_image_url', 'tbl_product_image.weight')
-          // ->groupBy('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id')
+          ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id')
           ->get();
+
+      foreach ($stock_model_code_list as $stock_model_code) {
+          $stock_model_code->product_images = DB::table('tbl_product_image')
+              ->where('active', 1)
+              ->where('stock_model_id', $stock_model_code->stock_model_id)
+              ->select('product_image_id', 'product_image_url', 'weight')->get();
+      }
 
       return response()->json([
           'result' => $stock_model_code_list,
