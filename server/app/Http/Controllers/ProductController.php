@@ -15,7 +15,7 @@ class ProductController extends ApiController
 
   public function list() {
       $product_list = DB::table('tbl_product')
-          ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_brand.brand_id')
+          ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
           ->join('tbl_category', 'tbl_product.category_id', '=', 'tbl_category.category_id')
           ->select('tbl_product.product_id', 'tbl_product.product_priority', 'tbl_category.category_name', 'tbl_brand.brand_name','tbl_product.product_model', 'tbl_product.publish_at', 'tbl_product.active')
           ->get();
@@ -113,9 +113,8 @@ class ProductController extends ApiController
           ->where('tbl_stock_model.product_id', $product_id)
           ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
           ->join('tbl_product_image', 'tbl_stock_model.stock_model_id', '=', 'tbl_product_image.stock_model_id')
-          // ->select('stock_model_id', 'stock_model_code', 'tbl_stock_model.color_id')
-          ->select('*')
-          ->groupBy('tbl_stock_model.stock_model_id')
+          ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id', 'tbl_product_image.product_image_id', 'tbl_product_image.product_image_url', 'tbl_product_image.weight')
+          // ->groupBy('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id')
           ->get();
 
       return response()->json([
