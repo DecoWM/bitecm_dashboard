@@ -22,10 +22,10 @@ export class CatalogoComponent implements OnInit {
   options = {
     dom: 'Bfrtip',
     pageLength: 25,
-    /*columnDefs: [ {
-      targets: [0, 8],
+    columnDefs: [ {
+      targets: [ 7 ],
       orderable: false
-    } ],*/
+    } ],
     order: [[5, 'desc']],
     // colReorder: true
   };
