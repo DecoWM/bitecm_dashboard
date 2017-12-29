@@ -3,7 +3,7 @@ webpackJsonp(["catalogo.module"],{
 /***/ "../../../../../src/app/+productos/+catalogo/catalogo.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"['Catálogo']\" icon=\"shopping-cart\"\n      class=\"col-xs-10 col-sm-7 col-md-7 col-lg-4\"></sa-big-breadcrumbs>\n  </div>\n  \n  <sa-widgets-grid>\n    \n    <div class=\"row\">\n      <article class=\"col-sm-12\">\n\n        <sa-widget class=\"well\" color=\"darken\">\n          <div>\n            <div class=\"widget-body no-padding\">\n              <sa-datatable [options]=\"options\" [dtTrigger]=\"dtTrigger\" \n                [paginationLength]=\"true\" tableClass=\"table table-striped table-bordered table-hover\">\n                <thead>\n                  <tr>\n                    <th data-class=\"expand\" style=\"width:10%\">Nro. Producto</th>\n                    <th style=\"width:14%\">Categoría</th>\n                    <th style=\"width:14%\">Marca</th>\n                    <th style=\"width:14%\">Modelo</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:10%\">Peso</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:16%\">Publicación</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:10%\">Activo</th>\n                    <th style=\"width:12%\">Acción</th>\n                  </tr>\n                </thead>\n                <tbody *ngIf=\"itemsObs | async as items; else loading\">\n                  <ng-container *ngFor=\"let item of items; let last = last\" \n                    sa-cond-trigger [cond]=\"last ? true : false\" [trigger]=\"dtTrigger\">\n                    <tr>\n                      <td id=\"{{ item.product_id }}\">\n                        {{ item.product_id }}\n                      </td>\n                      <td>{{ item.category_name }}</td>\n                      <td>{{ item.brand_name }}</td>\n                      <td>{{ item.product_model }}</td>\n                      <td>{{ item.product_priority }}</td>\n                      <td [attr.data-order]=\"item.publish_at | moment:'x'\">{{ item.publish_at }}</td>\n                      <td>\n                        <span *ngIf=\"item.active\" class=\"fa fa-check-circle\"></span>\n                        <span *ngIf=\"!item.active\" class=\"fa fa-minus-circle\"></span>\n                      </td>\n                      <td>\n                        <div class=\"btn-group dropdown\" dropdown>\n                          <button class=\"btn btn-primary dropdown-toggle\" dropdownToggle>\n                            <i class=\"fa fa-gear\"></i>\n                            <i class=\"fa fa-caret-down\"></i>\n                          </button>\n                          <ul *dropdownMenu class=\"dropdown-menu\">\n                            <li>\n                              <a (click)=\"detail(item)\">Editar</a>\n                            </li>\n                            <li *ngIf=\"!item.active\">\n                              <a (click)=\"publish(item)\">Publicar</a>\n                            </li>\n                            <li *ngIf=\"item.active\">\n                              <a (click)=\"unpublish(item)\">Despublicar</a>\n                            </li>\n                          </ul>\n                        </div>\n                      </td>\n                    </tr>\n                  </ng-container>                \n                </tbody>\n                <ng-template #loading>\n                  <tr class=\"odd\">\n                    <td valign=\"top\" colspan=\"10\" class=\"dataTables_empty\">\n                      {{ loadingStatus }}\n                    </td>\n                  </tr>\n                </ng-template>\n              </sa-datatable>\n            </div>\n          </div>\n        </sa-widget>\n      \n      </article>\n    </div>\n\n  </sa-widgets-grid>\n\n</div>"
 
 /***/ }),
 
@@ -13,23 +13,69 @@ module.exports = ""
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CatalogoComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__product_service__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/product.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_ng_block_ui__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
 
 
 
 var CatalogoComponent = (function () {
-    function CatalogoComponent() {
+    function CatalogoComponent(route, router, blockui, productService) {
+        this.route = route;
+        this.router = router;
+        this.blockui = blockui;
+        this.productService = productService;
+        this.itemsObs = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Subject"]();
+        this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Subject"]();
+        this.options = {
+            dom: 'Bfrtip',
+            pageLength: 25,
+            /*columnDefs: [ {
+              targets: [0, 8],
+              orderable: false
+            } ],*/
+            order: [[5, 'desc']],
+        };
+        this.loadingStatus = 'Cargando productos...';
     }
     CatalogoComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.blockui.start('content');
+        this.productService.getProductos()
+            .subscribe(function (data) {
+            console.log(data);
+            _this.blockui.stop('content');
+            var items = data.result;
+            _this.itemsObs.next(items);
+            if (items.length === 0) {
+                _this.loadingStatus = 'No se encontraron registros';
+            }
+        }, function (error) {
+            _this.blockui.stop('content');
+            if (error.status === 401) {
+                // this.authService.logout(true);
+            }
+        });
     };
     return CatalogoComponent;
 }());
@@ -38,9 +84,11 @@ CatalogoComponent = __decorate([
         selector: 'catalogo',
         template: __webpack_require__("../../../../../src/app/+productos/+catalogo/catalogo.component.html"),
         styles: []
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__["BlockUIService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__product_service__["a" /* ProductService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__product_service__["a" /* ProductService */]) === "function" && _d || Object])
 ], CatalogoComponent);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=catalogo.component.js.map
 
 /***/ }),
@@ -194,8 +242,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var ProductService = (function () {
     function ProductService(http) {
         this.http = http;
-        this.url = '/api/admin/importar';
+        this.url = '/api/admin/productos';
     }
+    ProductService.prototype.getProductos = function () {
+        return this.http
+            .get(this.url);
+    };
     ProductService.prototype.getUrl = function (param) {
         if (param === void 0) { param = ''; }
         var urlParts = [this.url];
@@ -264,7 +316,7 @@ ProductBasicComponent = __decorate([
 /***/ "../../../../../src/app/+productos/+catalogo/product/product.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"[' Producto', 'Nro. #'+order.order_id]\" icon=\"cube\" class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\"></sa-big-breadcrumbs>\n  </div>\n\n  <div *ngIf=\"alert\" class=\"alert alert-block alert-{{alert.mode}}\" dismisser=\"\">\n    <h4 class=\"alert-heading\">\n      <i class=\"fa fa-check-square-o\"></i>{{alert.title}}\n    </h4>\n    <p>{{alert.message}}</p>\n  </div>\n\n  <sa-widgets-grid>\n    <div class=\"row\">\n      <article>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- PRODUCT BASIC -->\n          <product-basic></product-basic>\n          <!-- PRODUCT SPECS -->\n          <product-specs></product-specs>\n        </div>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- STOCK MODEL CODES -->\n          <stock-models></stock-models>\n          <!-- PREPAGO VARIATIONS -->\n          <prepago-variations></prepago-variations>\n          <!-- POSTPAGO VARIATIONS -->\n          <postpago-variations></postpago-variations>\n        </div>\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>"
 
 /***/ }),
 

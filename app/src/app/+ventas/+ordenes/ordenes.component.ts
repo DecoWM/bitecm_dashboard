@@ -15,9 +15,9 @@ import { BlockUIService } from 'ng-block-ui';
   styles: []
 })
 export class OrdenesComponent implements OnInit {
+  loadingStatus: string;
   itemsObs: Subject<any> = new Subject();
   dtTrigger: Subject<any> = new Subject();
-  loadingStatus: string;
 
   options = {
     dom: 'Bfrtip',
@@ -36,7 +36,7 @@ export class OrdenesComponent implements OnInit {
     private blockui: BlockUIService,
     private ordenesService: OrdenesService
   ) {
-    this.loadingStatus = 'Cargando datos...';
+    this.loadingStatus = 'Cargando ordenes...';
   }
 
   ngOnInit() {
@@ -62,4 +62,11 @@ export class OrdenesComponent implements OnInit {
     this.router.navigate([data.order_id], {relativeTo: this.route});
   }
 
+  publish(data: any): void {
+
+  }
+
+  unpublish(data: any): void {
+
+  }
 }

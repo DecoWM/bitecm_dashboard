@@ -7,11 +7,16 @@ import { Subject, Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class ProductService {
-  private url = '/api/admin/importar';
+  private url = '/api/admin/productos';
 
   constructor(
     private http: HttpClient
   ) {}
+
+  getProductos() {
+    return this.http
+      .get(this.url);
+  }
 
   getUrl(param = '') {
     const urlParts = [this.url];
