@@ -43,4 +43,25 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		// Importar Variaciones de Productos
 		Route::post('variaciones', 'ImportController@variations');
 	});
+
+});
+
+////////////
+// PRODUCT //
+////////////
+Route::prefix('product')->group(function () {
+	//Product list
+	Route::get('', 'ProductController@list');
+	Route::post('', 'ProductController@storeProduct');
+	// Brand
+	Route::get('brand', 'ProductController@listBrand');
+	// Category
+	Route::get('category', 'ProductController@listCategory');
+	// Color
+	Route::get('color', 'ProductController@listColor');
+	Route::post('color', 'ProductController@storeColor');
+
+	//
+	Route::get('{product_id}/smc', 'ProductController@listStockModelCode');
+	Route::post('{product_id}/smc', 'ProductController@storeStockModelCode');
 });
