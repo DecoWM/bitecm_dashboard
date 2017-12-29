@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use DB;
 use Validator;
 use App\Http\Controllers\ApiController;
@@ -23,6 +24,79 @@ class ProductController extends ApiController
       return response()->json([
           'result' => $product_list,
           'success' => true
+      ]);
+  }
+
+  public function publishProduct($product_id) {
+      $product = DB::table('tbl_product')
+          ->where('product_id', $product_id)
+          ->select('product_id', 'publish_at')
+          ->first();
+
+      if ($product) {
+          $publish_at = ($product->publish_at) ? $product->publish_at : Carbon::now()->toDateTimeString() ;
+
+          $data = [
+              'active' => 1,
+              'publish_at' => $publish_at,
+              'updated_at' => Carbon::now()->toDateTimeString()
+          ];
+
+          DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
+
+          return response()->json([
+            'result' => $data,
+            'success' => true
+          ]);
+      }
+
+      return response()->json([
+        'result' => 'No se pudo publicar el producto.',
+        'success' => false
+      ]);
+  }
+
+  public function hideProduct($product_id) {
+    $product = DB::table('tbl_product')
+        ->where('product_id', $product_id)
+        ->select('product_id')
+        ->first();
+
+    if ($product) {
+        $data = [
+            'active' => 0,
+            'updated_at' => Carbon::now()->toDateTimeString()
+        ];
+
+        DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
+
+        return response()->json([
+          'result' => $data,
+          'success' => true
+        ]);
+    }
+
+    return response()->json([
+      'result' => 'No se pudo ocultar el producto.',
+      'success' => false
+    ]);
+  }
+
+  public function showProduct($product_id) {
+      $product = DB::table('tbl_product')
+          ->where('product_id', $product_id)
+          ->first();
+
+      if ($product) {
+        return response()->json([
+            'result' => $product,
+            'success' => true
+        ]);
+      }
+
+      return response()->json([
+          'result' => '404',
+          'success' => false
       ]);
   }
 
@@ -103,6 +177,10 @@ class ProductController extends ApiController
         'result' => 'Producto registrado correctamente.',
         'success' => true
       ]);
+  }
+
+  public function updateProduct(Request $request, $product_id) {
+
   }
 
   public function listStockModelCode($product_id) {
