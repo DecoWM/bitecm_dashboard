@@ -64,9 +64,9 @@ Route::prefix('product')->group(function () {
 	//
 	Route::get('{product_id}', 'ProductController@showProduct');
 
-	Route::post('{product_id}/publish', 'ProductController@publishProduct');
-	Route::post('{product_id}/hide', 'ProductController@hideProduct');
-	
+	Route::put('{product_id}/publish', 'ProductController@publishProduct');
+	Route::put('{product_id}/hide', 'ProductController@hideProduct');
+
 	Route::get('{product_id}/smc', 'ProductController@listStockModelCode');
 	Route::post('{product_id}/smc', 'ProductController@storeStockModelCode');
 
