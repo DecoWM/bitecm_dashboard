@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Validator;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 
@@ -10,6 +11,268 @@ class ProductController extends ApiController
 {
   public function __construct() {
     parent::__construct();
+  }
+
+  public function list() {
+      $product_list = DB::table('tbl_product')
+          ->join('tbl_brand', 'tbl_brand.brand_id', '=', 'tbl_brand.brand_id')
+          ->join('tbl_category', 'tbl_product.category_id', '=', 'tbl_category.category_id')
+          ->select('tbl_product.product_id', 'tbl_product.product_priority', 'tbl_category.category_name', 'tbl_brand.brand_name','tbl_product.product_model', 'tbl_product.publish_at', 'tbl_product.active')
+          ->get();
+
+      return response()->json([
+          'result' => $product_list,
+          'success' => true
+      ]);
+  }
+
+  public function storeProduct(Request $request) {
+      //Validator
+      $validator = Validator::make($request->all(), [
+          'category_id' => 'required|exists:tbl_category',
+          'brand_id' => 'required|exists:tbl_brand',
+          'product_model' => 'required|unique:tbl_product',
+          'product_price' => 'required|numeric',
+          'product_priority' => 'required|integer',
+          'product_image' => 'required|image'
+      ]);
+
+      if($validator->fails()) {
+        return response()->json([
+          'result' => 'Los datos no cumplen con la validación establecida.',
+          'messages' => $validator->errors(),
+          'success' => false
+        ]);
+      }
+
+      //Inputs
+      $category_id = $request->input('category_id');
+      $brand_id = $request->input('brand_id');
+      $product_model = $request->input('product_model');
+      $product_price = $request->input('product_price');
+      $product_priority = $request->input('product_priority');
+
+      //Slug
+      $product_slug = str_slug($product_model);
+
+      //Image
+      $brand = DB::table('tbl_brand')->where('brand_id', $brand_id)->select('brand_name')->first();
+
+      if ($request->file('product_image')->isValid()) {
+          $prefix = "productos";
+          $extension = $request->file('product_image')->guessExtension();
+          $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product_slug.'.'.$extension);
+      } else {
+          $product_image_path = null;
+      }
+
+      $product_image_url = $product_image_path;
+
+      //Insert
+      try {
+          DB::beginTransaction();
+          $product = DB::table('tbl_product')->insertGetId([
+              'category_id' => $category_id,
+              'brand_id' => $brand_id,
+              'product_model' => $product_model,
+              'product_price' => $product_price,
+              'product_priority' => $product_priority,
+              'product_slug' => $product_slug,
+              'product_image_url' => $product_image_url
+          ]);
+          DB::commit();
+      } catch (\Illuminate\Database\QueryException $e) {
+          DB::rollback();
+          return response()->json([
+            'result' => 'No se pudo registrar el producto.',
+            'success' => false
+          ]);
+      } catch (\PDOException $e){
+          return response()->json([
+            'result' => 'No se pudo conectar a la base de datos.',
+            'success' => false
+          ]);
+      } catch (\Exception $e) {
+          return response()->json([
+            'result' => 'Se produjo un error al registrar el producto.',
+            'success' => false
+          ]);
+      }
+
+      return response()->json([
+        'result' => 'Producto registrado correctamente.',
+        'success' => true
+      ]);
+  }
+
+  public function listStockModelCode($product_id) {
+      $stock_model_code_list = DB::table('tbl_stock_model')
+          ->where('tbl_stock_model.active', 1)
+          ->where('tbl_color.active', 1)
+          ->where('tbl_product_image.active', 1)
+          ->where('tbl_stock_model.product_id', $product_id)
+          ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
+          ->join('tbl_product_image', 'tbl_stock_model.stock_model_id', '=', 'tbl_product_image.stock_model_id')
+          // ->select('stock_model_id', 'stock_model_code', 'tbl_stock_model.color_id')
+          ->select('*')
+          ->groupBy('tbl_stock_model.stock_model_id')
+          ->get();
+
+      return response()->json([
+          'result' => $stock_model_code_list,
+          'success' => true
+      ]);
+  }
+
+  public function storeStockModelCode(Request $request, $product_id) {
+      //Validator
+      $validator = Validator::make($request->all(), [
+          'color_id' => 'required|exists:tbl_color',
+          'stock_model_code' => 'required|unique:tbl_stock_model',
+          'product_images' => 'nullable|array',
+          'product_images.*' => 'nullable|image'
+      ]);
+
+      $product = DB::table('tbl_product')
+                    ->where('product_id', $product_id)
+                    ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
+                    ->select('tbl_brand.brand_name', 'product_slug')
+                    ->first();
+
+      $validator->after(function ($validator) use ($product_id, $product) {
+          if (!$product) {
+              $validator->errors()->add('product_id', 'The selected product id is invalid.');
+          }
+      });
+
+      if($validator->fails()) {
+        return response()->json([
+          'result' => 'Los datos no cumplen con la validación establecida.',
+          'messages' => $validator->errors(),
+          'success' => false
+        ]);
+      }
+
+      //Inputs
+      $color_id = $request->input('color_id');
+      $stock_model_code = $request->input('stock_model_code');
+
+      //Insert
+      $stock_model_id = DB::table('tbl_stock_model')->insertGetId([
+          'product_id' => $product_id,
+          'color_id' => $color_id,
+          'stock_model_code' => $stock_model_code
+      ]);
+
+      //Images
+      $product_images = $request->product_images;
+
+      $image_array = [];
+      foreach ($product_images as $index => $item) {
+          if ($item->isValid()) {
+              $prefix = "productos";
+              $extension = $item->guessExtension();
+              $product_image_path = $item->storeAs($prefix.'/'.$product->brand_name, $product->product_slug.'-'.$index.'.'.$extension);
+              $image_data = ['stock_model_id' => $stock_model_id, 'product_image_url' => $product_image_path, 'weight' => '1'];
+              array_push($image_array, $image_data);
+          }
+      }
+
+      DB::table('tbl_product_image')->insert($image_array);
+
+      return response()->json([
+        'result' => 'Product Stock Code registrado correctamente.',
+        'success' => true
+      ]);
+  }
+
+  public function listCategory() {
+      $category_list = DB::table('tbl_category')
+          ->where('active', 1)
+          ->select('category_id', 'category_name')
+          ->get();
+
+      return response()->json([
+          'result' => $category_list,
+          'success' => true
+      ]);
+  }
+
+  public function listBrand() {
+      $brand_list = DB::table('tbl_brand')
+          ->where('active', 1)
+          ->select('brand_id', 'brand_name')
+          ->get();
+
+      return response()->json([
+          'result' => $brand_list,
+          'success' => true
+      ]);
+  }
+
+  public function listColor() {
+      $color_list = DB::table('tbl_color')
+          ->where('active', 1)
+          ->select('color_id', 'color_name')
+          ->get();
+
+      return response()->json([
+          'result' => $color_list,
+          'success' => true
+      ]);
+  }
+
+  public function storeColor(Request $request) {
+      $validator = Validator::make($request->all(), [
+          'color_name' => 'required|unique:tbl_color',
+          'color_hexcode' => 'required',
+          'color_slug' => 'required|unique:tbl_color'
+      ]);
+
+      if($validator->fails()) {
+        return response()->json([
+          'result' => 'Los datos no cumplen con la validación establecida.',
+          'messages' => $validator->errors(),
+          'success' => false
+        ]);
+      }
+
+      try {
+          DB::beginTransaction();
+
+          $color_name = $request->input('color_name');
+          $color_hexcode = $request->input('color_hexcode');
+          $color_slug = $request->input('color_slug');
+
+          $color = DB::table('tbl_color')->insertGetId([
+            'color_name' => $color_name,
+            'color_hexcode' => $color_hexcode,
+            'color_slug' => $color_slug,
+          ]);
+
+          DB::commit();
+      } catch (\Illuminate\Database\QueryException $e) {
+          DB::rollback();
+          return response()->json([
+            'result' => 'No se pudo registrar el color.',
+            'success' => false
+          ]);
+      } catch (\PDOException $e){
+          return response()->json([
+            'result' => 'No se pudo conectar a la base de datos.',
+            'success' => false
+          ]);
+      } catch (\Exception $e) {
+          return response()->json([
+            'result' => 'Se produjo un error al registrar el color.',
+            'success' => false
+          ]);
+      }
+
+      return response()->json([
+        'result' => 'Color registrado correctamente.',
+        'success' => true
+      ]);
   }
 
   public function detail($product_id = null) {
