@@ -38,6 +38,11 @@ export class ProductService {
       .get(this.getUrl('category'));
   }
 
+  getBrands() {
+    return this.http
+      .get(this.getUrl('brand'));
+  }
+
   getUrl(params: any = '') {
     let urlParts = [this.url];
     if (params.length) {

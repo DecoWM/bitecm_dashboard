@@ -17,7 +17,9 @@ import { BlockUIService } from 'ng-block-ui';
 })
 export class ProductBasicComponent implements OnInit {
   categories: any = [];
+  brands: any = [];
   @Input() product: any = {};
+  productImageUrl = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -28,12 +30,24 @@ export class ProductBasicComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.productService.getCategories()
-      .subscribe((data: any) => {
-        console.log(data);
-        if (data.success) {
-          this.categories = data.result;
-        }
-      });
+    this.productImageUrl = '';
+    Observable.zip(
+      this.productService.getCategories(),
+      this.productService.getBrands()
+    ).subscribe(([cats, brands]: [any, any]) => {
+      if (cats.success) {
+        this.categories = cats.result;
+      }
+      if (brands.success) {
+        this.brands = brands.result;
+      }
+    });
   }
+
+  changeFile(event) {
+    const uploadedFiles = event.srcElement.files;
+    this.productImageUrl = uploadedFiles[0].name;
+  }
+
+  
 }

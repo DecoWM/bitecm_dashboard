@@ -359,6 +359,10 @@ var ProductService = (function () {
         return this.http
             .get(this.getUrl('category'));
     };
+    ProductService.prototype.getBrands = function () {
+        return this.http
+            .get(this.getUrl('brand'));
+    };
     ProductService.prototype.getUrl = function (params) {
         if (params === void 0) { params = ''; }
         var urlParts = [this.url];
@@ -387,7 +391,7 @@ var _a;
 /***/ "../../../../../src/app/+productos/+catalogo/product/basic.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Información Básica\n          </header>\n          <form id=\"smart-form-register\" class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onValidationSuccess)=\"onValidationSuccess($event)\">\n            <div id=\"field-detalle-order\" class=\"detalle-registro\">\n              <div class=\"row\">\n                <section class=\"col col-6\">\n                  <label for=\"category_id\" class=\"select\">Categoría</label>\n                </section>\n                <section class=\"col col-6\">\n                  <label class=\"select\">\n                    <select name=\"category_id\" id=\"category_id\" [(ngModel)]=\"product.category_id\" (change)=\"onSelectChange($event)\">\n                      <option value=\"\">Seleccionar categoría</option>\n                      <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                        {{item.category_name}}\n                      </option>\n                    </select> <i></i>\n                  </label>\n                </section>\n              </div>\n              <div class=\"row\">\n                <section class=\"col col-6\">\n                  <label for=\"brand_id\">Marca</label>\n                </section>\n                <section class=\"col col-6\">\n                  <label class=\"select\">\n                    <select name=\"brand_id\" id=\"brand_id\" [(ngModel)]=\"product.brand_id\" (change)=\"onSelectChange($event)\">\n                      <option value=\"\">Seleccionar marca</option>\n                      <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                        {{item.category_name}}\n                      </option>\n                    </select> <i></i>\n                  </label>\n                </section>\n              </div>\n              <div class=\"row\">\n                <section class=\"col col-6\">\n                  <label for=\"check-usuario\">Modelo</label>\n                </section>\n                <section class=\"col col-6\">\n                  <label class=\"text\">\n                    <input id=\"product_model\" name=\"product_model\" type=\"text\" [(ngModel)]=\"product.product_model\"><i></i>\n                  </label>\n                </section>\n              </div>\n              <footer>\n                <div class=\"row\">\n                  <div class=\"btn-footer\">\n                    <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Guardar</button>\n                  </div>\n                </div>\n              </footer>\n            </div>\n          </form>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>"
+module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Información Básica\n          </header>\n          <form id=\"smart-form-register\" class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onValidationSuccess)=\"onValidationSuccess($event)\">\n            <div id=\"field-detalle-order\" class=\"detalle-registro row\">\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"category_id\" class=\"select\">Categoría</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\">\n                      <select name=\"category_id\" id=\"category_id\" [(ngModel)]=\"product.category_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar categoría</option>\n                        <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                          {{item.category_name}}\n                        </option>\n                      </select> <i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"brand_id\">Marca</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\">\n                      <select name=\"brand_id\" id=\"brand_id\" [(ngModel)]=\"product.brand_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar marca</option>\n                        <option *ngFor=\"let item of brands\" value=\"{{item.brand_id}}\">\n                          {{item.brand_name}}\n                        </option>\n                      </select> <i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_model\">Modelo</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input id=\"product_model\" name=\"product_model\" type=\"text\" [(ngModel)]=\"product.product_model\"><i></i>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label for=\"product_image_url\">Imagen</label>\n                  </section>\n                  <section class=\"col col-sm-12\">\n                    <label class=\"\">\n                      <img *ngIf=\"product.product_image_url\" class=\"product-image\" src=\"{{product.product_image_url}}\">\n                      <img *ngIf=\"!product.product_image_url\" class=\"product-image\" src=\"\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label class=\"input input-file\">\n                      <span class=\"button\">\n                        <input id=\"product_image_url\" name=\"product_image_url\" type=\"file\" (change)=\"changeFilename($event)\">Buscar Imagen\n                      </span>\n                      <input type=\"text\" placeholder=\"\" value=\"{{productImageUrl}}\" readonly>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-12\">\n                <div class=\"row\">\n                  <footer>\n                    <div class=\"btn-footer\">\n                      <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Guardar</button>\n                    </div>\n                  </footer>\n                </div>\n              </div>\n            </div>\n          </form>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>"
 
 /***/ }),
 
@@ -398,14 +402,16 @@ module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n 
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductBasicComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__product_service__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/product.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_utils_notification_service__ = __webpack_require__("../../../../../src/app/shared/utils/notification.service.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_ng_block_ui__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__product_service__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/product.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__shared_utils_notification_service__ = __webpack_require__("../../../../../src/app/shared/utils/notification.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_ng_block_ui__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -422,6 +428,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var ProductBasicComponent = (function () {
     function ProductBasicComponent(route, router, blockui, productService, notificationService) {
         this.route = route;
@@ -430,17 +437,26 @@ var ProductBasicComponent = (function () {
         this.productService = productService;
         this.notificationService = notificationService;
         this.categories = [];
+        this.brands = [];
         this.product = {};
+        this.productImageUrl = '';
     }
     ProductBasicComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.productService.getCategories()
-            .subscribe(function (data) {
-            console.log(data);
-            if (data.success) {
-                _this.categories = data.result;
+        this.productImageUrl = '';
+        __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].zip(this.productService.getCategories(), this.productService.getBrands()).subscribe(function (_a) {
+            var cats = _a[0], brands = _a[1];
+            if (cats.success) {
+                _this.categories = cats.result;
+            }
+            if (brands.success) {
+                _this.brands = brands.result;
             }
         });
+    };
+    ProductBasicComponent.prototype.changeFile = function (event) {
+        var uploadedFiles = event.srcElement.files;
+        this.productImageUrl = uploadedFiles[0].name;
     };
     return ProductBasicComponent;
 }());
@@ -454,7 +470,7 @@ ProductBasicComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/+productos/+catalogo/product/basic.component.html"),
         styles: []
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__["BlockUIService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__product_service__["a" /* ProductService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__product_service__["a" /* ProductService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__shared_utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__shared_utils_notification_service__["a" /* NotificationService */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_7_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ng_block_ui__["BlockUIService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__product_service__["a" /* ProductService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__product_service__["a" /* ProductService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__shared_utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_utils_notification_service__["a" /* NotificationService */]) === "function" && _e || Object])
 ], ProductBasicComponent);
 
 var _a, _b, _c, _d, _e;
