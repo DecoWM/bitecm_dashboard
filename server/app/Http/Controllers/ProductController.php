@@ -427,6 +427,20 @@ class ProductController extends ApiController
       ]);
   }
 
+  public function updateStockModelCode(Request $request, $stock_model_id) {
+      //Validator
+      $validator = Validator::make($request->all(), [
+          'color_id' => 'required|exists:tbl_color',
+          // 'stock_model_code' => 'required|unique:tbl_stock_model',
+          'stock_model_code' => ['required',
+              Rule::unique('tbl_stock_model')->ignore($stock_model_id, 'user_id')
+          ],
+          'product_images' => 'nullable|array',
+          'product_images.*' => 'nullable|image'
+      ]);
+  }
+
+
   public function listCategory() {
       $category_list = DB::table('tbl_category')
           ->where('active', 1)
