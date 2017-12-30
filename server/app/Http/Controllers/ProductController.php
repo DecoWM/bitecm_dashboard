@@ -57,29 +57,29 @@ class ProductController extends ApiController
   }
 
   public function hideProduct($product_id) {
-    $product = DB::table('tbl_product')
-        ->where('product_id', $product_id)
-        ->select('product_id')
-        ->first();
+      $product = DB::table('tbl_product')
+          ->where('product_id', $product_id)
+          ->select('product_id')
+          ->first();
 
-    if ($product) {
-        $data = [
-            'active' => 0,
-            'updated_at' => Carbon::now()->toDateTimeString()
-        ];
+      if ($product) {
+          $data = [
+              'active' => 0,
+              'updated_at' => Carbon::now()->toDateTimeString()
+          ];
 
-        DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
+          DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
 
-        return response()->json([
-          'result' => $data,
-          'success' => true
-        ]);
-    }
+          return response()->json([
+            'result' => $data,
+            'success' => true
+          ]);
+      }
 
-    return response()->json([
-      'result' => 'No se pudo ocultar el producto.',
-      'success' => false
-    ]);
+      return response()->json([
+        'result' => 'No se pudo ocultar el producto.',
+        'success' => false
+      ]);
   }
 
   public function showProduct($product_id) {
@@ -95,7 +95,7 @@ class ProductController extends ApiController
       }
 
       return response()->json([
-          'result' => '404',
+          'result' => 'No se pudo encontrar el produto.',
           'success' => false
       ]);
   }
@@ -180,7 +180,168 @@ class ProductController extends ApiController
   }
 
   public function updateProduct(Request $request, $product_id) {
+      $product = DB::table('tbl_product')
+          ->where('product_id', $product_id)
+          ->select('product_id', 'product_slug', 'brand_id')
+          ->first();
 
+      if ($product) {
+          $validator = Validator::make($request->all(), [
+              'product_price' => 'required|numeric',
+              'product_priority' => 'required|integer',
+              'product_image' => 'nullable|image'
+          ]);
+
+          if($validator->fails()) {
+            return response()->json([
+              'result' => 'Los datos no cumplen con la validación establecida.',
+              'messages' => $validator->errors(),
+              'success' => false
+            ]);
+          }
+
+          $product_price = $request->input('product_price');
+          $product_priority = $request->input('product_priority');
+          $updated_at = Carbon::now()->toDateTimeString();
+
+          $data = [
+              'product_price' => $product_price,
+              'product_priority' => $product_priority,
+              'updated_at' => $updated_at
+          ];
+
+          if ($request->has('product_image')) {
+              $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
+              if ($request->file('product_image')->isValid()) {
+                  $prefix = "productos";
+                  $extension = $request->file('product_image')->guessExtension();
+                  $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product->product_slug.'.'.$extension);
+                  $data = array_add($data, 'product_image_url',$product_image_path);
+              }
+          }
+
+          //Insert
+          try {
+              DB::beginTransaction();
+              DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
+              DB::commit();
+          } catch (\Illuminate\Database\QueryException $e) {
+              DB::rollback();
+              return response()->json([
+                'result' => 'No se pudo actualizar el producto.',
+                'success' => false
+              ]);
+          }
+
+          return response()->json([
+            'result' => 'Producto actualizado correctamente.',
+            'success' => true
+          ]);
+      }
+
+      return response()->json([
+          'result' => 'No se pudo encontrar el producto.',
+          'success' => false
+      ]);
+  }
+
+  public function updateSpecifications(Request $request, $product_id) {
+      $product = DB::table('tbl_product')
+          ->where('product_id', $product_id)
+          ->select('product_id', 'product_slug', 'brand_id')
+          ->first();
+
+      if ($product) {
+          $validator = Validator::make($request->all(), [
+              'product_data_sheet' => 'nullable|mimes:pdf'
+          ]);
+
+          if($validator->fails()) {
+            return response()->json([
+              'result' => 'Los datos no cumplen con la validación establecida.',
+              'messages' => $validator->errors(),
+              'success' => false
+            ]);
+          }
+
+          $product_description = $request->input('product_description', null);
+          $product_general_specifications = $request->input('product_general_specifications', null);
+          $product_external_memory = $request->input('product_external_memory', null);
+          $product_internal_memory = $request->input('product_internal_memory', null);
+          $product_screen_size = $request->input('product_screen_size', null);
+          $product_camera_1 = $request->input('product_camera_1', null);
+          $product_camera_2 = $request->input('product_camera_2', null);
+          $product_camera_3 = $request->input('product_camera_3', null);
+          $product_camera_4 = $request->input('product_camera_4', null);
+          $product_processor_name = $request->input('product_processor_name', null);
+          $product_processor_power = $request->input('product_processor_power', null);
+          $product_processor_cores = $request->input('product_processor_cores', null);
+          $product_band = $request->input('product_band', null);
+          $product_radio = $request->input('product_radio', null);
+          $product_wlan = $request->input('product_wlan', null);
+          $product_bluetooth = $request->input('product_bluetooth', null);
+          $product_os = $request->input('product_os', null);
+          $product_gps = $request->input('product_gps', null);
+          $product_battery = $request->input('product_battery', null);
+
+          $data = [];
+
+          $updated_at = Carbon::now()->toDateTimeString();
+          $data = array_add($data, 'updated_at', $updated_at);
+
+          ($product_description) ? $data = array_add($data, 'product_description', $product_description) : '';
+          ($product_general_specifications) ? $data = array_add($data, 'product_general_specifications', $product_general_specifications) : '';
+          ($product_external_memory) ? $data = array_add($data, 'product_external_memory', $product_external_memory) : '';
+          ($product_internal_memory) ? $data = array_add($data, 'product_internal_memory', $product_internal_memory) : '';
+          ($product_screen_size) ? $data = array_add($data, 'product_screen_size', $product_screen_size) : '';
+          ($product_camera_1) ? $data = array_add($data, 'product_camera_1', $product_camera_1) : '';
+          ($product_camera_2) ? $data = array_add($data, 'product_camera_2', $product_camera_2) : '';
+          ($product_camera_3) ? $data = array_add($data, 'product_camera_3', $product_camera_3) : '';
+          ($product_camera_4) ? $data = array_add($data, 'product_camera_4', $product_camera_4) : '';
+          ($product_processor_name) ? $data = array_add($data, 'product_processor_name', $product_processor_name) : '';
+          ($product_processor_power) ? $data = array_add($data, 'product_processor_power', $product_processor_power) : '';
+          ($product_processor_cores) ? $data = array_add($data, 'product_processor_cores', $product_processor_cores) : '';
+          ($product_band) ? $data = array_add($data, 'product_band', $product_band) : '';
+          ($product_radio) ? $data = array_add($data, 'product_radio', $product_radio) : '';
+          ($product_wlan) ? $data = array_add($data, 'product_wlan', $product_wlan) : '';
+          ($product_bluetooth) ? $data = array_add($data, 'product_bluetooth', $product_bluetooth) : '';
+          ($product_os) ? $data = array_add($data, 'product_os', $product_os) : '';
+          ($product_gps) ? $data = array_add($data, 'product_gps', $product_gps) : '';
+          ($product_battery) ? $data = array_add($data, 'product_battery', $product_battery) : '';
+
+          if ($request->has('product_data_sheet')) {
+              $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
+              if ($request->file('product_data_sheet')->isValid()) {
+                  $prefix = "data_sheets";
+                  $extension = $request->file('product_data_sheet')->guessExtension();
+                  $product_data_sheet_path = $request->file('product_data_sheet')->storeAs($prefix, 'Ficha_tecnica_'.$brand->brand_name.'_'.$product->product_slug.'.'.$extension);
+                  $data = array_add($data, 'product_data_sheet', $product_data_sheet_path);
+              }
+          }
+
+          //Insert
+          try {
+              DB::beginTransaction();
+              DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
+              DB::commit();
+          } catch (\Illuminate\Database\QueryException $e) {
+              DB::rollback();
+              return response()->json([
+                'result' => 'No se pudo actualizar el producto.',
+                'success' => false
+              ]);
+          }
+
+          return response()->json([
+            'result' => 'Producto actualizado correctamente.',
+            'success' => true
+          ]);
+      }
+
+      return response()->json([
+          'result' => 'No se pudo encontrar el producto.',
+          'success' => false
+      ]);
   }
 
   public function listStockModelCode($product_id) {
@@ -265,6 +426,20 @@ class ProductController extends ApiController
         'success' => true
       ]);
   }
+
+  public function updateStockModelCode(Request $request, $stock_model_id) {
+      //Validator
+      $validator = Validator::make($request->all(), [
+          'color_id' => 'required|exists:tbl_color',
+          // 'stock_model_code' => 'required|unique:tbl_stock_model',
+          'stock_model_code' => ['required',
+              Rule::unique('tbl_stock_model')->ignore($stock_model_id, 'user_id')
+          ],
+          'product_images' => 'nullable|array',
+          'product_images.*' => 'nullable|image'
+      ]);
+  }
+
 
   public function listCategory() {
       $category_list = DB::table('tbl_category')

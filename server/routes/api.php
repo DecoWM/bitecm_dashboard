@@ -86,6 +86,8 @@ Route::prefix('product')->group(function () {
 
 	//
 	Route::get('{product_id}', 'ProductController@showProduct');
+	Route::put('{product_id}', 'ProductController@updateProduct');
+	Route::put('{product_id}/specifications', 'ProductController@updateSpecifications');
 
 	Route::put('{product_id}/publish', 'ProductController@publishProduct');
 	Route::put('{product_id}/hide', 'ProductController@hideProduct');
