@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use DB;
 use Validator;
 use App\Http\Controllers\ApiController;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
 class ProductController extends ApiController
@@ -88,6 +89,9 @@ class ProductController extends ApiController
           ->first();
 
       if ($product) {
+        $product->product_data_sheet = asset(Storage::url($product->product_data_sheet));
+        $product->product_image_url = asset(Storage::url($product->product_image_url));
+
         return response()->json([
             'result' => $product,
             'success' => true
@@ -357,6 +361,10 @@ class ProductController extends ApiController
               ->where('active', 1)
               ->where('stock_model_id', $stock_model_code->stock_model_id)
               ->select('product_image_id', 'product_image_url', 'weight')->get();
+
+          foreach ($stock_model_code->product_images as $image) {
+              $image->product_image_url = asset(Storage::url($image->product_image_url));
+          }
       }
 
       return response()->json([
@@ -431,9 +439,8 @@ class ProductController extends ApiController
       //Validator
       $validator = Validator::make($request->all(), [
           'color_id' => 'required|exists:tbl_color',
-          // 'stock_model_code' => 'required|unique:tbl_stock_model',
           'stock_model_code' => ['required',
-              Rule::unique('tbl_stock_model')->ignore($stock_model_id, 'user_id')
+              Rule::unique('tbl_stock_model')->ignore($stock_model_id, 'stock_model_id')
           ],
           'product_images' => 'nullable|array',
           'product_images.*' => 'nullable|image'
