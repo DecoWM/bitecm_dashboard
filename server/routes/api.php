@@ -97,5 +97,6 @@ Route::prefix('product')->group(function () {
 
 	Route::get('{product_id}/smc', 'ProductController@listStockModelCode');
 	Route::post('{product_id}/smc', 'ProductController@storeStockModelCode');
+	Route::put('{product_id}/smc', 'ProductController@updateStockModelCode');
 
 });
