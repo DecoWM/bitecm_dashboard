@@ -3,7 +3,7 @@ webpackJsonp(["catalogo.module"],{
 /***/ "../../../../../src/app/+productos/+catalogo/catalogo.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"['Catálogo']\" icon=\"shopping-cart\"\n      class=\"col-xs-10 col-sm-7 col-md-7 col-lg-4\"></sa-big-breadcrumbs>\n    <div class=\"col-xs-2 col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3 col-lg-2 col-lg-offset-6\">\n      <a routerLink=\"./nuevo\" class=\"btn btn-primary btn-lg pull-right\" style=\"margin: 8px 0px;\">Nuevo Producto</a>\n    </div>\n  </div>\n  \n  <sa-widgets-grid>\n    \n    <div class=\"row\">\n      <article class=\"col-sm-12\">\n\n        <sa-widget class=\"well\" color=\"darken\">\n          <div>\n            <div class=\"widget-body no-padding\">\n              <sa-datatable [options]=\"options\" [dtTrigger]=\"dtTrigger\" \n                [paginationLength]=\"true\" tableClass=\"table table-striped table-bordered table-hover\">\n                <thead>\n                  <tr>\n                    <th data-class=\"expand\" style=\"width:10%\">Nro. Producto</th>\n                    <th style=\"width:12%\">Categoría</th>\n                    <th style=\"width:12%\">Marca</th>\n                    <th style=\"width:12%\">Modelo</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:10%\">Prioridad</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:13%\">Actualizado</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:13%\">Publicado</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:8%\">Activo</th>\n                    <th style=\"width:10%\">Acción</th>\n                  </tr>\n                </thead>\n                <tbody *ngIf=\"itemsObs | async as items; else loading\">\n                  <ng-container *ngFor=\"let item of items; let last = last\" \n                    sa-cond-trigger [cond]=\"last ? true : false\" [trigger]=\"dtTrigger\">\n                    <tr>\n                      <td id=\"{{ item.product_id }}\">\n                        {{ item.product_id }}\n                      </td>\n                      <td>{{ item.category_name }}</td>\n                      <td>{{ item.brand_name }}</td>\n                      <td>{{ item.product_model }}</td>\n                      <td>{{ item.product_priority }}</td>\n                      <td [attr.data-order]=\"item.updated_at | moment:'x'\">{{ item.updated_at }}</td>\n                      <td [attr.data-order]=\"item.publish_at | moment:'x'\">{{ item.publish_at }}</td>\n                      <td>\n                        <span *ngIf=\"item.active\" class=\"fa fa-check-circle\" style=\"color: green;\"></span>\n                        <span *ngIf=\"!item.active\" class=\"fa fa-minus-circle\" style=\"color: red;\"></span>\n                      </td>\n                      <td>\n                        <div class=\"btn-group dropdown\" dropdown>\n                          <button class=\"btn btn-primary dropdown-toggle\" dropdownToggle>\n                            <i class=\"fa fa-gear\"></i>\n                            <i class=\"fa fa-caret-down\"></i>\n                          </button>\n                          <ul *dropdownMenu class=\"dropdown-menu\">\n                            <li>\n                              <a (click)=\"detail(item)\">Editar</a>\n                            </li>\n                            <li *ngIf=\"!item.active\">\n                              <a (click)=\"showPopupPublish(item)\">Publicar</a>\n                            </li>\n                            <li *ngIf=\"item.active\">\n                              <a (click)=\"showPopupUnpublish(item)\">Despublicar</a>\n                            </li>\n                          </ul>\n                        </div>\n                      </td>\n                    </tr>\n                  </ng-container>                \n                </tbody>\n                <ng-template #loading>\n                  <tr class=\"odd\">\n                    <td valign=\"top\" colspan=\"10\" class=\"dataTables_empty\">\n                      {{ loadingStatus }}\n                    </td>\n                  </tr>\n                </ng-template>\n              </sa-datatable>\n            </div>\n          </div>\n        </sa-widget>\n      \n      </article>\n    </div>\n\n  </sa-widgets-grid>\n\n</div>"
+module.exports = "<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"['Catálogo']\" icon=\"shopping-cart\"\n      class=\"col-xs-10 col-sm-7 col-md-7 col-lg-4\"></sa-big-breadcrumbs>\n    <div class=\"col-xs-2 col-sm-2 col-sm-offset-3 col-md-2 col-md-offset-3 col-lg-2 col-lg-offset-6\">\n      <a routerLink=\"./nuevo\" class=\"btn btn-primary btn-lg pull-right\" style=\"margin: 8px 0px;\">Nuevo Producto</a>\n    </div>\n  </div>\n\n  <div *ngIf=\"alert\" class=\"alert alert-block alert-{{alert.mode}}\" dismisser=\"\">\n    <h4 class=\"alert-heading\">\n      <i class=\"fa fa-check-square-o\"></i> {{alert.title}}\n    </h4>\n    <p>{{alert.message}}</p>\n  </div>\n  \n  <sa-widgets-grid>\n    \n    <div class=\"row\">\n      <article class=\"col-sm-12\">\n\n        <sa-widget class=\"well\" color=\"darken\">\n          <div>\n            <div class=\"widget-body no-padding\">\n              <sa-datatable [options]=\"options\" [dtTrigger]=\"dtTrigger\" \n                [paginationLength]=\"true\" tableClass=\"table table-striped table-bordered table-hover\">\n                <thead>\n                  <tr>\n                    <th data-class=\"expand\" style=\"width:10%\">Nro. Producto</th>\n                    <th style=\"width:12%\">Categoría</th>\n                    <th style=\"width:12%\">Marca</th>\n                    <th style=\"width:12%\">Modelo</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:10%\">Prioridad</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:13%\">Actualizado</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:13%\">Publicado</th>\n                    <th data-hide=\"phone,tablet\" style=\"width:8%\">Activo</th>\n                    <th style=\"width:10%\">Acción</th>\n                  </tr>\n                </thead>\n                <tbody *ngIf=\"itemsObs | async as items; else loading\">\n                  <ng-container *ngFor=\"let item of items; let last = last\" \n                    sa-cond-trigger [cond]=\"last ? true : false\" [trigger]=\"dtTrigger\">\n                    <tr>\n                      <td id=\"{{ item.product_id }}\">\n                        {{ item.product_id }}\n                      </td>\n                      <td>{{ item.category_name }}</td>\n                      <td>{{ item.brand_name }}</td>\n                      <td>{{ item.product_model }}</td>\n                      <td>{{ item.product_priority }}</td>\n                      <td [attr.data-order]=\"item.updated_at | moment:'x'\">{{ item.updated_at }}</td>\n                      <td [attr.data-order]=\"item.publish_at | moment:'x'\">{{ item.publish_at }}</td>\n                      <td>\n                        <span *ngIf=\"item.active\" class=\"fa fa-check-circle\" style=\"color: green;\"></span>\n                        <span *ngIf=\"!item.active\" class=\"fa fa-minus-circle\" style=\"color: red;\"></span>\n                      </td>\n                      <td>\n                        <div class=\"btn-group dropdown\" dropdown>\n                          <button class=\"btn btn-primary dropdown-toggle\" dropdownToggle>\n                            <i class=\"fa fa-gear\"></i>\n                            <i class=\"fa fa-caret-down\"></i>\n                          </button>\n                          <ul *dropdownMenu class=\"dropdown-menu\">\n                            <li>\n                              <a (click)=\"detail(item)\">Editar</a>\n                            </li>\n                            <li *ngIf=\"!item.active\">\n                              <a (click)=\"showPopupPublish(item)\">Publicar</a>\n                            </li>\n                            <li *ngIf=\"item.active\">\n                              <a (click)=\"showPopupUnpublish(item)\">Despublicar</a>\n                            </li>\n                          </ul>\n                        </div>\n                      </td>\n                    </tr>\n                  </ng-container>                \n                </tbody>\n                <ng-template #loading>\n                  <tr class=\"odd\">\n                    <td valign=\"top\" colspan=\"10\" class=\"dataTables_empty\">\n                      {{ loadingStatus }}\n                    </td>\n                  </tr>\n                </ng-template>\n              </sa-datatable>\n            </div>\n          </div>\n        </sa-widget>\n      \n      </article>\n    </div>\n\n  </sa-widgets-grid>\n\n</div>"
 
 /***/ }),
 
@@ -50,6 +50,7 @@ var CatalogoComponent = (function () {
         this.notificationService = notificationService;
         this.itemsObs = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Subject"]();
         this.dtTrigger = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Subject"]();
+        this.alert = null;
         this.options = {
             dom: 'Bfrtip',
             pageLength: 25,
@@ -63,8 +64,9 @@ var CatalogoComponent = (function () {
     }
     CatalogoComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.alert = null;
         this.blockui.start('content');
-        this.productService.getProductos()
+        this.productService.getProducts()
             .subscribe(function (data) {
             console.log(data);
             _this.blockui.stop('content');
@@ -112,11 +114,11 @@ var CatalogoComponent = (function () {
         this.blockui.start('content');
         this.productService.publishProduct(product.product_id)
             .subscribe(function (res) {
-            console.log(res);
             if (res.success) {
                 product.active = 1;
                 product.updated_at = res.result.updated_at;
                 product.publish_at = res.result.publish_at;
+                _this.alert = _this.getAlertPublish(res, product);
             }
             _this.blockui.stop('content');
         });
@@ -126,13 +128,49 @@ var CatalogoComponent = (function () {
         this.blockui.start('content');
         this.productService.unpublishProduct(product.product_id)
             .subscribe(function (res) {
-            console.log(res);
             if (res.success) {
                 product.active = 0;
-                product.updated_at = res.result;
+                product.updated_at = res.result.updated_at;
+                _this.alert = _this.getAlertUnpublish(res, product);
             }
             _this.blockui.stop('content');
         });
+    };
+    CatalogoComponent.prototype.getAlertPublish = function (result, product) {
+        var mode, title, message;
+        if (result.success) {
+            mode = 'success';
+            title = 'Publicación completada';
+            message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido publicado';
+        }
+        else {
+            mode = 'danger';
+            title = 'Publicación fallida';
+            message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser publicado';
+        }
+        return {
+            'title': title,
+            'message': message,
+            'mode': mode
+        };
+    };
+    CatalogoComponent.prototype.getAlertUnpublish = function (result, product) {
+        var mode, title, message;
+        if (result.success) {
+            mode = 'success';
+            title = 'Despublicación completada';
+            message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido despublicado';
+        }
+        else {
+            mode = 'danger';
+            title = 'Despublicación fallida';
+            message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser despublicado';
+        }
+        return {
+            'title': title,
+            'message': message,
+            'mode': mode
+        };
     };
     return CatalogoComponent;
 }());
@@ -301,23 +339,36 @@ var ProductService = (function () {
         this.http = http;
         this.url = '/api/admin/productos';
     }
-    ProductService.prototype.getProductos = function () {
+    ProductService.prototype.getProducts = function () {
         return this.http
             .get(this.url);
     };
+    ProductService.prototype.getProduct = function (product_id) {
+        return this.http
+            .get(this.getUrl(product_id));
+    };
     ProductService.prototype.publishProduct = function (product_id) {
         return this.http
-            .put(this.getUrl(product_id), {});
+            .put(this.getUrl([product_id, 'publish']), {});
     };
     ProductService.prototype.unpublishProduct = function (product_id) {
         return this.http
-            .put(this.getUrl(product_id), {});
+            .put(this.getUrl([product_id, 'hide']), {});
     };
-    ProductService.prototype.getUrl = function (param) {
-        if (param === void 0) { param = ''; }
+    ProductService.prototype.getCategories = function () {
+        return this.http
+            .get(this.getUrl('category'));
+    };
+    ProductService.prototype.getUrl = function (params) {
+        if (params === void 0) { params = ''; }
         var urlParts = [this.url];
-        if (param.length) {
-            urlParts.push(param);
+        if (params.length) {
+            if (typeof params === 'object') {
+                urlParts = urlParts.concat(params);
+            }
+            else if (typeof params === 'string') {
+                urlParts.push(params);
+            }
         }
         return urlParts.join('/');
     };
@@ -336,7 +387,7 @@ var _a;
 /***/ "../../../../../src/app/+productos/+catalogo/product/basic.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Información Básica\n          </header>\n          <form id=\"smart-form-register\" class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onValidationSuccess)=\"onValidationSuccess($event)\">\n            <div id=\"field-detalle-order\" class=\"detalle-registro\">\n              <div class=\"row\">\n                <section class=\"col col-6\">\n                  <label for=\"category_id\" class=\"select\">Categoría</label>\n                </section>\n                <section class=\"col col-6\">\n                  <label class=\"select\">\n                    <select name=\"category_id\" id=\"category_id\" [(ngModel)]=\"product.category_id\" (change)=\"onSelectChange($event)\">\n                      <option value=\"\">Seleccionar categoría</option>\n                      <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                        {{item.category_name}}\n                      </option>\n                    </select> <i></i>\n                  </label>\n                </section>\n              </div>\n              <div class=\"row\">\n                <section class=\"col col-6\">\n                  <label for=\"brand_id\">Marca</label>\n                </section>\n                <section class=\"col col-6\">\n                  <label class=\"select\">\n                    <select name=\"brand_id\" id=\"brand_id\" [(ngModel)]=\"product.brand_id\" (change)=\"onSelectChange($event)\">\n                      <option value=\"\">Seleccionar marca</option>\n                      <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                        {{item.category_name}}\n                      </option>\n                    </select> <i></i>\n                  </label>\n                </section>\n              </div>\n              <div class=\"row\">\n                <section class=\"col col-6\">\n                  <label for=\"check-usuario\">Modelo</label>\n                </section>\n                <section class=\"col col-6\">\n                  <label class=\"text\">\n                    <input id=\"product_model\" name=\"product_model\" type=\"text\" [(ngModel)]=\"product.product_model\"><i></i>\n                  </label>\n                </section>\n              </div>\n              <footer>\n                <div class=\"row\">\n                  <div class=\"btn-footer\">\n                    <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Guardar</button>\n                  </div>\n                </div>\n              </footer>\n            </div>\n          </form>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>"
 
 /***/ }),
 
@@ -346,34 +397,67 @@ module.exports = ""
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductBasicComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__product_service__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/product.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__shared_utils_notification_service__ = __webpack_require__("../../../../../src/app/shared/utils/notification.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_ng_block_ui__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
 
 
 
 var ProductBasicComponent = (function () {
-    function ProductBasicComponent() {
+    function ProductBasicComponent(route, router, blockui, productService, notificationService) {
+        this.route = route;
+        this.router = router;
+        this.blockui = blockui;
+        this.productService = productService;
+        this.notificationService = notificationService;
+        this.categories = [];
+        this.product = {};
     }
     ProductBasicComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.productService.getCategories()
+            .subscribe(function (data) {
+            console.log(data);
+            if (data.success) {
+                _this.categories = data.result;
+            }
+        });
     };
     return ProductBasicComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], ProductBasicComponent.prototype, "product", void 0);
 ProductBasicComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'product-basic',
         template: __webpack_require__("../../../../../src/app/+productos/+catalogo/product/basic.component.html"),
         styles: []
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6_ng_block_ui__["BlockUIService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__product_service__["a" /* ProductService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__product_service__["a" /* ProductService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__shared_utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__shared_utils_notification_service__["a" /* NotificationService */]) === "function" && _e || Object])
 ], ProductBasicComponent);
 
+var _a, _b, _c, _d, _e;
 //# sourceMappingURL=basic.component.js.map
 
 /***/ }),
@@ -381,7 +465,7 @@ ProductBasicComponent = __decorate([
 /***/ "../../../../../src/app/+productos/+catalogo/product/product.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"[' Producto', subtitle]\" icon=\"cube\" class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\"></sa-big-breadcrumbs>\n  </div>\n\n  <div *ngIf=\"alert\" class=\"alert alert-block alert-{{alert.mode}}\" dismisser=\"\">\n    <h4 class=\"alert-heading\">\n      <i class=\"fa fa-check-square-o\"></i>{{alert.title}}\n    </h4>\n    <p>{{alert.message}}</p>\n  </div>\n\n  <sa-widgets-grid>\n    <div class=\"row\">\n      <article>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- PRODUCT BASIC -->\n          <product-basic></product-basic>\n          <!-- PRODUCT SPECS -->\n          <product-specs></product-specs>\n        </div>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- STOCK MODEL CODES -->\n          <stock-models></stock-models>\n          <!-- PREPAGO VARIATIONS -->\n          <prepago-variations></prepago-variations>\n          <!-- POSTPAGO VARIATIONS -->\n          <postpago-variations></postpago-variations>\n        </div>\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>"
+module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"[' Producto', subtitle]\" icon=\"cube\" class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\"></sa-big-breadcrumbs>\n  </div>\n\n  <div *ngIf=\"alert\" class=\"alert alert-block alert-{{alert.mode}}\" dismisser=\"\">\n    <h4 class=\"alert-heading\">\n      <i class=\"fa fa-check-square-o\"></i>{{alert.title}}\n    </h4>\n    <p>{{alert.message}}</p>\n  </div>\n\n  <sa-widgets-grid>\n    <div class=\"row\">\n      <article>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- PRODUCT BASIC -->\n          <product-basic [product]=\"product\"></product-basic>\n          <!-- PRODUCT SPECS -->\n          <product-specs></product-specs>\n        </div>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- STOCK MODEL CODES -->\n          <stock-models></stock-models>\n          <!-- PREPAGO VARIATIONS -->\n          <prepago-variations></prepago-variations>\n          <!-- POSTPAGO VARIATIONS -->\n          <postpago-variations></postpago-variations>\n        </div>\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>"
 
 /***/ }),
 
@@ -391,24 +475,55 @@ module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"ro
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ProductComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__product_service__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/product.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng_block_ui__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
 
 
 
 var ProductComponent = (function () {
-    function ProductComponent() {
+    function ProductComponent(route, router, blockui, productService) {
+        this.route = route;
+        this.router = router;
+        this.blockui = blockui;
+        this.productService = productService;
+        this.product = {};
     }
     ProductComponent.prototype.ngOnInit = function () {
-        this.subtitle = 'Nuevo producto'; // 'Nro. #' + product.product_id;
+        var _this = this;
+        var product_id = this.route.snapshot.params.id;
+        if (product_id) {
+            this.subtitle = 'Nro. #' + product_id;
+            this.blockui.start('content');
+            this.productService.getProduct(product_id)
+                .subscribe(function (data) {
+                console.log(data);
+                if (data.success) {
+                    _this.product = data.result;
+                }
+                _this.blockui.stop('content');
+            });
+        }
+        else {
+            this.subtitle = 'Nuevo producto';
+        }
     };
     return ProductComponent;
 }());
@@ -417,9 +532,11 @@ ProductComponent = __decorate([
         selector: 'product',
         template: __webpack_require__("../../../../../src/app/+productos/+catalogo/product/product.component.html"),
         styles: []
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__["BlockUIService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_4__product_service__["a" /* ProductService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__product_service__["a" /* ProductService */]) === "function" && _d || Object])
 ], ProductComponent);
 
+var _a, _b, _c, _d;
 //# sourceMappingURL=product.component.js.map
 
 /***/ }),

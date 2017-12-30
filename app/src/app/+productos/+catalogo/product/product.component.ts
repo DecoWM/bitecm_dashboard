@@ -5,6 +5,8 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { ProductService } from './../product.service';
+
 import { BlockUIService } from 'ng-block-ui';
 
 @Component({
@@ -14,8 +16,30 @@ import { BlockUIService } from 'ng-block-ui';
 })
 export class ProductComponent implements OnInit {
   subtitle: string;
+  product: any = {};
+
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private blockui: BlockUIService,
+    private productService: ProductService
+  ) {}
 
   ngOnInit() {
-    this.subtitle = 'Nuevo producto'; // 'Nro. #' + product.product_id;
+    const product_id = this.route.snapshot.params.id;
+    if (product_id) {
+      this.subtitle = 'Nro. #' + product_id;
+      this.blockui.start('content');
+      this.productService.getProduct(product_id)
+        .subscribe((data: any) => {
+          console.log(data);
+          if (data.success) {
+            this.product = data.result;
+          }
+          this.blockui.stop('content');
+        });
+    } else {
+      this.subtitle = 'Nuevo producto';
+    }
   }
 }

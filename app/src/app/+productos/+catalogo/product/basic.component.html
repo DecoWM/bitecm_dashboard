@@ -1,0 +1,71 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Información Básica
+          </header>
+          <form id="smart-form-register" class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)">
+            <div id="field-detalle-order" class="detalle-registro">
+              <div class="row">
+                <section class="col col-6">
+                  <label for="category_id" class="select">Categoría</label>
+                </section>
+                <section class="col col-6">
+                  <label class="select">
+                    <select name="category_id" id="category_id" [(ngModel)]="product.category_id" (change)="onSelectChange($event)">
+                      <option value="">Seleccionar categoría</option>
+                      <option *ngFor="let item of categories" value="{{item.category_id}}">
+                        {{item.category_name}}
+                      </option>
+                    </select> <i></i>
+                  </label>
+                </section>
+              </div>
+              <div class="row">
+                <section class="col col-6">
+                  <label for="brand_id">Marca</label>
+                </section>
+                <section class="col col-6">
+                  <label class="select">
+                    <select name="brand_id" id="brand_id" [(ngModel)]="product.brand_id" (change)="onSelectChange($event)">
+                      <option value="">Seleccionar marca</option>
+                      <option *ngFor="let item of categories" value="{{item.category_id}}">
+                        {{item.category_name}}
+                      </option>
+                    </select> <i></i>
+                  </label>
+                </section>
+              </div>
+              <div class="row">
+                <section class="col col-6">
+                  <label for="check-usuario">Modelo</label>
+                </section>
+                <section class="col col-6">
+                  <label class="text">
+                    <input id="product_model" name="product_model" type="text" [(ngModel)]="product.product_model"><i></i>
+                  </label>
+                </section>
+              </div>
+              <footer>
+                <div class="row">
+                  <div class="btn-footer">
+                    <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                  </div>
+                </div>
+              </footer>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

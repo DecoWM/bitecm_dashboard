@@ -6,6 +6,13 @@
       <a routerLink="./nuevo" class="btn btn-primary btn-lg pull-right" style="margin: 8px 0px;">Nuevo Producto</a>
     </div>
   </div>
+
+  <div *ngIf="alert" class="alert alert-block alert-{{alert.mode}}" dismisser="">
+    <h4 class="alert-heading">
+      <i class="fa fa-check-square-o"></i> {{alert.title}}
+    </h4>
+    <p>{{alert.message}}</p>
+  </div>
   
   <sa-widgets-grid>
     

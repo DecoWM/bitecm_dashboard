@@ -48,7 +48,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	// PRODUCT //
 	/////////////
 	Route::prefix('productos')->group(function () {
-		//Product list
 		Route::get('', 'ProductController@list');
 		Route::post('', 'ProductController@storeProduct');
 		// Brand
@@ -60,6 +59,11 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::post('color', 'ProductController@storeColor');
 
 		//
+		Route::get('{product_id}', 'ProductController@showProduct');
+
+		Route::put('{product_id}/publish', 'ProductController@publishProduct');
+		Route::put('{product_id}/hide', 'ProductController@hideProduct');
+
 		Route::get('{product_id}/smc', 'ProductController@listStockModelCode');
 		Route::post('{product_id}/smc', 'ProductController@storeStockModelCode');
 	});

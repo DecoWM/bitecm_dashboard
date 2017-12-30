@@ -13,25 +13,39 @@ export class ProductService {
     private http: HttpClient
   ) {}
 
-  getProductos() {
+  getProducts() {
     return this.http
       .get(this.url);
   }
 
+  getProduct(product_id) {
+    return this.http
+      .get(this.getUrl(product_id));
+  }
+
   publishProduct(product_id) {
     return this.http
-      .put(this.getUrl(product_id), {});
+      .put(this.getUrl([product_id, 'publish']), {});
   }
 
   unpublishProduct(product_id) {
     return this.http
-      .put(this.getUrl(product_id), {});
+      .put(this.getUrl([product_id, 'hide']), {});
   }
 
-  getUrl(param = '') {
-    const urlParts = [this.url];
-    if (param.length) {
-      urlParts.push(param);
+  getCategories() {
+    return this.http
+      .get(this.getUrl('category'));
+  }
+
+  getUrl(params: any = '') {
+    let urlParts = [this.url];
+    if (params.length) {
+      if (typeof params === 'object') {
+        urlParts = urlParts.concat(params);
+      } else if (typeof params === 'string') {
+        urlParts.push(params);
+      }
     }
     return urlParts.join('/');
   }

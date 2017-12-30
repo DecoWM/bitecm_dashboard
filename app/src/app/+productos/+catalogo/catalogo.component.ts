@@ -19,6 +19,7 @@ export class CatalogoComponent implements OnInit {
   loadingStatus: string;
   itemsObs: Subject<any> = new Subject();
   dtTrigger: Subject<any> = new Subject();
+  alert: any = null;
 
   options = {
     dom: 'Bfrtip',
@@ -42,8 +43,9 @@ export class CatalogoComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.alert = null;
     this.blockui.start('content');
-    this.productService.getProductos()
+    this.productService.getProducts()
       .subscribe((data: any) => {
         console.log(data);
         this.blockui.stop('content');
@@ -98,11 +100,11 @@ export class CatalogoComponent implements OnInit {
     this.blockui.start('content');
     this.productService.publishProduct(product.product_id)
       .subscribe((res: any) => {
-        console.log(res);
         if (res.success) {
           product.active = 1;
           product.updated_at = res.result.updated_at;
           product.publish_at = res.result.publish_at;
+          this.alert = this.getAlertPublish(res, product);
         }
         this.blockui.stop('content');
       });
@@ -112,12 +114,48 @@ export class CatalogoComponent implements OnInit {
     this.blockui.start('content');
     this.productService.unpublishProduct(product.product_id)
       .subscribe((res: any) => {
-        console.log(res);
         if (res.success) {
           product.active = 0;
-          product.updated_at = res.result;
+          product.updated_at = res.result.updated_at;
+          this.alert = this.getAlertUnpublish(res, product);
         }
         this.blockui.stop('content');
       });
+  }
+
+  getAlertPublish(result, product): any {
+    let mode, title, message;
+    if (result.success) {
+      mode = 'success';
+      title = 'Publicación completada';
+      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido publicado';
+    } else {
+      mode = 'danger';
+      title = 'Publicación fallida';
+      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser publicado';
+    }
+    return {
+      'title': title,
+      'message': message,
+      'mode': mode
+    }
+  }
+
+  getAlertUnpublish(result, product): any {
+    let mode, title, message;
+    if (result.success) {
+      mode = 'success';
+      title = 'Despublicación completada';
+      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido despublicado';
+    } else {
+      mode = 'danger';
+      title = 'Despublicación fallida';
+      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser despublicado';
+    }
+    return {
+      'title': title,
+      'message': message,
+      'mode': mode
+    }
   }
 }
