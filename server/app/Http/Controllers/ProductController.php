@@ -520,6 +520,36 @@ class ProductController extends ApiController
       ]);
   }
 
+  public function deleteProductImage($product_image_id) {
+      $product_image = DB::table('tbl_product_image')->select('product_image_id')->first();
+
+      if($product_image) {
+          $updated_at = Carbon::now()->toDateTimeString();
+          $deleted_at = $updated_at;
+
+          $data = [
+            'active' => 0,
+            'deleted_by' => 1,
+            'updated_at' => $updated_at,
+            'deleted_at' => $deleted_at
+          ];
+
+          DB::table('tbl_product_image')
+          ->where('product_image_id', $product_image_id)
+          ->update($data);
+
+          return response()->json([
+            'result' => 'Imagen borrada correctamente.',
+            'success' => true
+          ]);
+      }
+
+      return response()->json([
+          'result' => 'No se pudo encontrar la imagen.',
+          'success' => false
+      ]);
+  }
+
   public function listCategory() {
       $category_list = DB::table('tbl_category')
           ->where('active', 1)
