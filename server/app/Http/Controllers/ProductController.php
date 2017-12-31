@@ -550,6 +550,181 @@ class ProductController extends ApiController
       ]);
   }
 
+  public function listPrepaidProductVariation($product_id) {
+      $variation_list = DB::table('tbl_product_variation')
+          ->where('product_id', $product_id)
+          ->where('variation_type_id', 1)
+          ->where('active', 1)
+          ->get();
+
+      return response()->json([
+        'result' => $variation_list,
+        'success' => true
+      ]);
+  }
+
+  public function listPostpaidProductVariation($product_id) {
+      $variation_list = DB::table('tbl_product_variation')
+          ->where('product_id', $product_id)
+          ->where('variation_type_id', 2)
+          ->where('active', 1)
+          ->get();
+
+      return response()->json([
+        'result' => $variation_list,
+        'success' => true
+      ]);
+  }
+
+  public function storePrepaidVariation(Request $request, $product_id) {
+      $product = DB::table('tbl_product')
+          ->where('product_id', $product_id)
+          ->where('active', 1)
+          ->select('product_id', 'product_price')
+          ->first();
+
+      if($product) {
+          //Validator
+          $validator = Validator::make($request->all(), [
+              'variation_type_id' => 'nullable|exists:tbl_variation_type',
+              'affiliation_id' => 'nullable|exists:tbl_affiliation',
+              'contract_id' => 'nullable|exists:tbl_contract',
+              'variation' => 'required|json'
+          ]);
+
+          if($validator->fails()) {
+            return response()->json([
+              'result' => 'Los datos no cumplen con la validación establecida.',
+              'messages' => $validator->errors(),
+              'success' => false
+            ]);
+          }
+
+          $product_id = $product_id;
+          $variation_type_id = $request->has('variation_type_id') ? $request->input('variation_type_id') : 1;
+          $affiliation_id = $request->has('affiliation_id') ? $request->input('affiliation_id') : null;
+          $contract_id = $request->has('contract_id') ? $request->input('contract_id') : null;
+
+          $created_at = Carbon::now()->toDateTimeString();
+          $updated_at = $created_at;
+
+          $variation = json_decode($request->variation);
+
+          $variation_array = [];
+
+          foreach ($variation as $item) {
+              $data = [
+                  'variation_type_id' => $variation_type_id,
+                  'product_id' => $product_id,
+                  'plan_id' => $item->plan_id,
+                  'affiliation_id' => $affiliation_id,
+                  'contract_id' => $contract_id,
+                  'product_variation_price' => array_has($item, 'product_variation_price') ? $item->product_variation_price : $product->product_price,
+                  'reason_code' => $item->reason_code ? $item->reason_code : null,
+                  'product_package' => $item->product_package ? $item->product_package : null,
+                  'created_at' => $created_at,
+                  'updated_at' => $updated_at,
+                  'created_by' => 1,
+                  'active' => 1
+              ];
+
+              array_push($variation_array, $data);
+          }
+
+          DB::table('tbl_product_variation')->insert($variation_array);
+
+          return response()->json([
+              'result' => 'Variación registrada correctamente.',
+              'success' => true
+          ]);
+      }
+
+      return response()->json([
+          'result' => 'No se encontró el producto.',
+          'success' => false
+      ]);
+  }
+
+  public function updatePrepaidVariation(Request $request, $product_id) {
+    $product = DB::table('tbl_product')
+        ->where('product_id', $product_id)
+        ->where('active', 1)
+        ->select('product_id', 'product_price')
+        ->first();
+
+    if($product) {
+        //Validator
+        $validator = Validator::make($request->all(), [
+            'variation_type_id' => 'nullable|exists:tbl_variation_type',
+            'affiliation_id' => 'nullable|exists:tbl_affiliation',
+            'contract_id' => 'nullable|exists:tbl_contract',
+            'variation' => 'required|json'
+        ]);
+
+        if($validator->fails()) {
+          return response()->json([
+            'result' => 'Los datos no cumplen con la validación establecida.',
+            'messages' => $validator->errors(),
+            'success' => false
+          ]);
+        }
+
+        $product_id = $product->product_id;
+        $variation_type_id = $request->has('variation_type_id') ? $request->input('variation_type_id') : 1;
+        $affiliation_id = $request->has('affiliation_id') ? $request->input('affiliation_id') : null;
+        $contract_id = $request->has('contract_id') ? $request->input('contract_id') : null;
+
+        $updated_at = Carbon::now()->toDateTimeString();
+
+        $variation = json_decode($request->variation);
+
+        foreach ($variation as $item) {
+            $product_variation_id = $item->product_variation_id;
+            $data = [
+                'variation_type_id' => $variation_type_id,
+                'product_id' => $product_id,
+                'plan_id' => $item->plan_id,
+                'affiliation_id' => $affiliation_id,
+                'contract_id' => $contract_id,
+                'product_variation_price' => array_has($item, 'product_variation_price') ? $item->product_variation_price : $product->product_price,
+                'reason_code' => $item->reason_code ? $item->reason_code : null,
+                'product_package' => $item->product_package ? $item->product_package : null,
+                'updated_at' => $updated_at,
+                'created_by' => 1,
+                'active' => 1
+            ];
+
+            DB::table('tbl_product_variation')->where('product_variation_id', $product_variation_id)->update($data);
+        }
+
+
+        return response()->json([
+            'result' => 'Variación actualizada correctamente.',
+            'success' => true
+        ]);
+    }
+
+    return response()->json([
+        'result' => 'No se encontró el producto.',
+        'success' => false
+    ]);
+  }
+
+  public function storePostpaidVariation(Request $request, $product_id) {
+      if($product) {
+
+          return response()->json([
+              'result' => 'Variación registrada correctamente.',
+              'success' => true
+          ]);
+      }
+
+      return response()->json([
+          'result' => 'No se encontró el producto.',
+          'success' => false
+      ]);
+  }
+
   //Lista de planes prepago
   public function listPrepaid() {
       $prepaid_list = DB::table('tbl_plan')

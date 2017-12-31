@@ -76,6 +76,14 @@ Route::prefix('product')->group(function () {
 
 	Route::put('{product_id}/smc/{stock_model_id}', 'ProductController@updateStockModelCode');
 
+	Route::get('{product_id}/variation/prepaid', 'ProductController@listPrepaidProductVariation');
+	Route::get('{product_id}/variation/postpaid', 'ProductController@listPostpaidProductVariation');
+
+	Route::post('{product_id}/variation/prepaid', 'ProductController@storePrepaidVariation');
+	Route::post('{product_id}/variation/postpaid', 'ProductController@storePostpaidVariation');
+
+	Route::put('{product_id}/variation/prepaid', 'ProductController@updatePrepaidVariation');
+
 	Route::delete('/image/{product_image_id}', 'ProductController@deleteProductImage');
 });
 
