@@ -550,6 +550,58 @@ class ProductController extends ApiController
       ]);
   }
 
+  //Lista de planes prepago
+  public function listPrepaid() {
+      $prepaid_list = DB::table('tbl_plan')
+          ->where('active', 1)
+          ->where('plan_type', 'Prepago')
+          ->select('plan_id', 'plan_name')
+          ->get();
+
+      return response()->json([
+          'result' => $prepaid_list,
+          'success' => true
+      ]);
+  }
+
+  //Lista de planes postpago
+  public function listPostpaid() {
+      $prepaid_list = DB::table('tbl_plan')
+          ->where('active', 1)
+          ->where('plan_type', 'Postpago')
+          ->select('plan_id', 'plan_name')
+          ->get();
+
+      return response()->json([
+          'result' => $prepaid_list,
+          'success' => true
+      ]);
+  }
+
+  public function listAffiliation() {
+      $affiliation_list = DB::table('tbl_affiliation')
+          ->where('active', 1)
+          ->select('affiliation_id', 'affiliation_name')
+          ->get();
+
+      return response()->json([
+          'result' => $affiliation_list,
+          'success' => true
+      ]);
+  }
+
+  public function listContract() {
+      $contract_list = DB::table('tbl_contract')
+          ->where('active', 1)
+          ->select('contract_id', 'contract_name')
+          ->get();
+
+      return response()->json([
+          'result' => $contract_list,
+          'success' => true
+      ]);
+  }
+
   public function listCategory() {
       $category_list = DB::table('tbl_category')
           ->where('active', 1)
@@ -582,6 +634,18 @@ class ProductController extends ApiController
 
       return response()->json([
           'result' => $color_list,
+          'success' => true
+      ]);
+  }
+
+  public function listVariation() {
+      $variation_list = DB::table('tbl_variation_type')
+          ->where('active', 1)
+          ->select('variation_type_id', 'variation_type_name')
+          ->get();
+
+      return response()->json([
+          'result' => $variation_list,
           'success' => true
       ]);
   }

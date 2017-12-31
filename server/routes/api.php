@@ -61,6 +61,8 @@ Route::prefix('product')->group(function () {
 	Route::get('color', 'ProductController@listColor');
 	Route::post('color', 'ProductController@storeColor');
 
+	Route::get('variation', 'ProductController@listVariation');
+
 	//
 	Route::get('{product_id}', 'ProductController@showProduct');
 	Route::put('{product_id}', 'ProductController@updateProduct');
@@ -75,4 +77,23 @@ Route::prefix('product')->group(function () {
 	Route::put('{product_id}/smc/{stock_model_id}', 'ProductController@updateStockModelCode');
 
 	Route::delete('/image/{product_image_id}', 'ProductController@deleteProductImage');
+});
+
+Route::prefix('plan')->group(function () {
+	Route::prefix('prepago')->group(function () {
+		Route::get('', 'ProductController@listPrepaid');
+	});
+
+	Route::prefix('postpago')->group(function () {
+		Route::get('', 'ProductController@listPostpaid');
+	});
+});
+
+Route::prefix('affiliation')->group(function () {
+	Route::get('', 'ProductController@listAffiliation');
+});
+
+
+Route::prefix('contract')->group(function () {
+	Route::get('', 'ProductController@listContract');
 });
