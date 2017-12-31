@@ -683,7 +683,7 @@ class ProductController extends ApiController
             $data = [
                 'variation_type_id' => $variation_type_id,
                 'product_id' => $product_id,
-                'plan_id' => $item->plan_id,
+                // 'plan_id' => $item->plan_id,
                 'affiliation_id' => $affiliation_id,
                 'contract_id' => $contract_id,
                 'product_variation_price' => array_has($item, 'product_variation_price') ? $item->product_variation_price : $product->product_price,
