@@ -22,11 +22,11 @@
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6">
           <!-- STOCK MODEL CODES -->
-          <stock-models></stock-models>
+          <!--stock-models></stock-models-->
           <!-- PREPAGO VARIATIONS -->
-          <prepago-variations></prepago-variations>
+          <prepago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1"></prepago-variations>
           <!-- POSTPAGO VARIATIONS -->
-          <postpago-variations></postpago-variations>
+          <postpago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1"></postpago-variations>
         </div>
       </article>
     </div>

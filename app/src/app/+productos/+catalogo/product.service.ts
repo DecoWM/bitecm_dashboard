@@ -43,12 +43,22 @@ export class ProductService {
       .get(this.getUrl('brand'));
   }
 
+  saveBasic(formData) {
+    return this.http
+      .post(this.url, formData);
+  }
+
+  updateBasic(product_id, formData) {
+    return this.http
+      .post(this.getUrl(product_id), formData);
+  }
+
   getUrl(params: any = '') {
     let urlParts = [this.url];
     if (params.length) {
       if (typeof params === 'object') {
         urlParts = urlParts.concat(params);
-      } else if (typeof params === 'string') {
+      } else {
         urlParts.push(params);
       }
     }

@@ -363,6 +363,14 @@ var ProductService = (function () {
         return this.http
             .get(this.getUrl('brand'));
     };
+    ProductService.prototype.saveBasic = function (formData) {
+        return this.http
+            .post(this.url, formData);
+    };
+    ProductService.prototype.updateBasic = function (product_id, formData) {
+        return this.http
+            .post(this.getUrl(product_id), formData);
+    };
     ProductService.prototype.getUrl = function (params) {
         if (params === void 0) { params = ''; }
         var urlParts = [this.url];
@@ -370,7 +378,7 @@ var ProductService = (function () {
             if (typeof params === 'object') {
                 urlParts = urlParts.concat(params);
             }
-            else if (typeof params === 'string') {
+            else {
                 urlParts.push(params);
             }
         }
@@ -391,7 +399,7 @@ var _a;
 /***/ "../../../../../src/app/+productos/+catalogo/product/basic.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Información Básica\n          </header>\n          <form id=\"smart-form-register\" class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onValidationSuccess)=\"onValidationSuccess($event)\">\n            <div id=\"field-detalle-order\" class=\"detalle-registro row\">\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"category_id\" class=\"select\">Categoría</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\">\n                      <select name=\"category_id\" id=\"category_id\" [(ngModel)]=\"product.category_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar categoría</option>\n                        <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                          {{item.category_name}}\n                        </option>\n                      </select> <i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"brand_id\">Marca</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\">\n                      <select name=\"brand_id\" id=\"brand_id\" [(ngModel)]=\"product.brand_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar marca</option>\n                        <option *ngFor=\"let item of brands\" value=\"{{item.brand_id}}\">\n                          {{item.brand_name}}\n                        </option>\n                      </select> <i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_model\">Modelo</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input id=\"product_model\" name=\"product_model\" type=\"text\" [(ngModel)]=\"product.product_model\"><i></i>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label for=\"product_image_url\">Imagen</label>\n                  </section>\n                  <section class=\"col col-sm-12\">\n                    <label class=\"\">\n                      <img *ngIf=\"product.product_image_url\" class=\"product-image\" src=\"{{product.product_image_url}}\">\n                      <img *ngIf=\"!product.product_image_url\" class=\"product-image\" src=\"\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label class=\"input input-file\">\n                      <span class=\"button\">\n                        <input id=\"product_image_url\" name=\"product_image_url\" type=\"file\" (change)=\"changeFilename($event)\">Buscar Imagen\n                      </span>\n                      <input type=\"text\" placeholder=\"\" value=\"{{productImageUrl}}\" readonly>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-12\">\n                <div class=\"row\">\n                  <footer>\n                    <div class=\"btn-footer\">\n                      <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Guardar</button>\n                    </div>\n                  </footer>\n                </div>\n              </div>\n            </div>\n          </form>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>"
+module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Información Básica\n          </header>\n          <form #formBasic=\"ngForm\" id=\"smart-form-register\" class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onValidationSuccess)=\"onValidationSuccess($event)\" name=\"form-basic\">\n            <div id=\"field-detalle-order\" class=\"detalle-registro row\">\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"category_id\" class=\"select\">Categoría</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\" [class.state-disabled]=\"product.product_id\">\n                      <select [attr.disabled]=\"product.product_id ? 'disabled' : null\" name=\"category_id\" id=\"category_id\" [(ngModel)]=\"product.category_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar categoría</option>\n                        <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                          {{item.category_name}}\n                        </option>\n                      </select> <i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"category_id\" value=\"{{product.category_id}}\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"brand_id\">Marca</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\" [class.state-disabled]=\"product.product_id\">\n                      <select [attr.disabled]=\"product.product_id ? 'disabled' : null\" name=\"brand_id\" id=\"brand_id\" [(ngModel)]=\"product.brand_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar marca</option>\n                        <option *ngFor=\"let item of brands\" value=\"{{item.brand_id}}\">\n                          {{item.brand_name}}\n                        </option>\n                      </select> <i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"brand_id\" value=\"{{product.brand_id}}\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_model\">Modelo</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\" [class.state-disabled]=\"product.product_id\">\n                      <input [attr.disabled]=\"product.product_id ? 'disabled' : null\" id=\"product_model\" name=\"product_model\" type=\"text\" [(ngModel)]=\"product.product_model\"><i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"product_model\" value=\"{{product.product_model}}\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_price\">Precio</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input id=\"product_price\" name=\"product_price\" type=\"text\" [(ngModel)]=\"product.product_price\"><i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_priority\">Prioridad</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input id=\"product_priority\" name=\"product_priority\" type=\"text\" [(ngModel)]=\"product.product_priority\"><i></i>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label for=\"product_image\">Imagen</label>\n                  </section>\n                  <section class=\"col col-sm-12\">\n                    <label class=\"\">\n                      <img *ngIf=\"product.product_image_url\" class=\"product-image\" src=\"{{product.product_image_url}}\">\n                      <img *ngIf=\"!product.product_image_url\" class=\"product-image\" src=\"\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label class=\"input input-file\">\n                      <span class=\"button\">\n                        <input #productImageInput id=\"product_image\" name=\"product_image\" type=\"file\" (change)=\"changeFilename($event)\">Buscar Imagen\n                      </span>\n                      <input type=\"text\" placeholder=\"\" value=\"{{productImageUrl}}\" readonly>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-12\">\n                <div class=\"row\">\n                  <footer>\n                    <div class=\"btn-footer\">\n                      <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Guardar</button>\n                    </div>\n                  </footer>\n                </div>\n              </div>\n            </div>\n          </form>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>"
 
 /***/ }),
 
@@ -438,8 +446,20 @@ var ProductBasicComponent = (function () {
         this.notificationService = notificationService;
         this.categories = [];
         this.brands = [];
-        this.product = {};
         this.productImageUrl = '';
+        this.product = {};
+        this.validationOptions = {
+            rules: {
+                category_id: {
+                    required: true
+                }
+            },
+            messages: {
+                category_id: {
+                    required: 'Debes seleccionar una categoría.'
+                },
+            }
+        };
     }
     ProductBasicComponent.prototype.ngOnInit = function () {
         var _this = this;
@@ -454,9 +474,40 @@ var ProductBasicComponent = (function () {
             }
         });
     };
-    ProductBasicComponent.prototype.changeFile = function (event) {
+    ProductBasicComponent.prototype.changeFilename = function (event) {
         var uploadedFiles = event.srcElement.files;
         this.productImageUrl = uploadedFiles[0].name;
+    };
+    ProductBasicComponent.prototype.onSelectChange = function (event) {
+        $(event.currentTarget).blur();
+    };
+    ProductBasicComponent.prototype.onValidationSuccess = function (e) {
+        console.log(e);
+        this.save(e);
+    };
+    ProductBasicComponent.prototype.save = function (e) {
+        var _this = this;
+        var fileBrowser = this.productImageInput.nativeElement;
+        var formData = new FormData(document.forms.namedItem('form-basic'));
+        if (this.product.product_id) {
+            this.productService.updateBasic(this.product.product_id, formData)
+                .subscribe(function (data) {
+                if (data.success) {
+                    _this.product = data.result;
+                }
+            });
+        }
+        else {
+            this.productService.saveBasic(formData)
+                .subscribe(function (data) {
+                if (data.success) {
+                    // this.product = data.result;
+                    console.log(data.result);
+                }
+            });
+        }
+    };
+    ProductBasicComponent.prototype.buildFormData = function (data) {
     };
     return ProductBasicComponent;
 }());
@@ -464,6 +515,14 @@ __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
 ], ProductBasicComponent.prototype, "product", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('formBasic'),
+    __metadata("design:type", Object)
+], ProductBasicComponent.prototype, "formBasic", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('productImageInput'),
+    __metadata("design:type", Object)
+], ProductBasicComponent.prototype, "productImageInput", void 0);
 ProductBasicComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'product-basic',
@@ -481,7 +540,7 @@ var _a, _b, _c, _d, _e;
 /***/ "../../../../../src/app/+productos/+catalogo/product/product.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"[' Producto', subtitle]\" icon=\"cube\" class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\"></sa-big-breadcrumbs>\n  </div>\n\n  <div *ngIf=\"alert\" class=\"alert alert-block alert-{{alert.mode}}\" dismisser=\"\">\n    <h4 class=\"alert-heading\">\n      <i class=\"fa fa-check-square-o\"></i>{{alert.title}}\n    </h4>\n    <p>{{alert.message}}</p>\n  </div>\n\n  <sa-widgets-grid>\n    <div class=\"row\">\n      <article>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- PRODUCT BASIC -->\n          <product-basic [product]=\"product\"></product-basic>\n          <!-- PRODUCT SPECS -->\n          <product-specs></product-specs>\n        </div>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- STOCK MODEL CODES -->\n          <stock-models></stock-models>\n          <!-- PREPAGO VARIATIONS -->\n          <prepago-variations></prepago-variations>\n          <!-- POSTPAGO VARIATIONS -->\n          <postpago-variations></postpago-variations>\n        </div>\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>"
+module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"[' Producto', subtitle]\" icon=\"cube\" class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\"></sa-big-breadcrumbs>\n  </div>\n\n  <div *ngIf=\"alert\" class=\"alert alert-block alert-{{alert.mode}}\" dismisser=\"\">\n    <h4 class=\"alert-heading\">\n      <i class=\"fa fa-check-square-o\"></i>{{alert.title}}\n    </h4>\n    <p>{{alert.message}}</p>\n  </div>\n\n  <sa-widgets-grid>\n    <div class=\"row\">\n      <article>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- PRODUCT BASIC -->\n          <product-basic [product]=\"product\"></product-basic>\n          <!-- PRODUCT SPECS -->\n          <product-specs></product-specs>\n        </div>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- STOCK MODEL CODES -->\n          <!--stock-models></stock-models-->\n          <!-- PREPAGO VARIATIONS -->\n          <prepago-variations *ngIf=\"product.product_id && product.category_id && product.category_id == 1\"></prepago-variations>\n          <!-- POSTPAGO VARIATIONS -->\n          <postpago-variations *ngIf=\"product.product_id && product.category_id && product.category_id == 1\"></postpago-variations>\n        </div>\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>"
 
 /***/ }),
 
@@ -657,7 +716,7 @@ var _a;
 /***/ "../../../../../src/app/+productos/+catalogo/stockmodels/stockmodels.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Stock Model Codes\n          </header>\n          <form id=\"smart-form-register\" class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onValidationSuccess)=\"onValidationSuccess($event)\">\n            <div id=\"field-detalle-order\" class=\"detalle-registro row\">\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"category_id\" class=\"select\">Color</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\">\n                      <select [attr.disabled]=\"product.product_id ? 'disabled' : null\" name=\"category_id\" id=\"category_id\" [(ngModel)]=\"product.category_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar categoría</option>\n                        <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                          {{item.category_name}}\n                        </option>\n                      </select> <i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"brand_id\">Marca</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\">\n                      <select [attr.disabled]=\"product.product_id ? 'disabled' : null\" name=\"brand_id\" id=\"brand_id\" [(ngModel)]=\"product.brand_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar marca</option>\n                        <option *ngFor=\"let item of brands\" value=\"{{item.brand_id}}\">\n                          {{item.brand_name}}\n                        </option>\n                      </select> <i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_model\">Modelo</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input [attr.disabled]=\"product.product_id ? 'disabled' : null\" id=\"product_model\" name=\"product_model\" type=\"text\" [(ngModel)]=\"product.product_model\"><i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_price\">Precio</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input id=\"product_price\" name=\"product_price\" type=\"text\" [(ngModel)]=\"product.product_price\"><i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_priority\">Prioridad</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input id=\"product_priority\" name=\"product_priority\" type=\"text\" [(ngModel)]=\"product.product_priority\"><i></i>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label for=\"product_image_url\">Imagen</label>\n                  </section>\n                  <section class=\"col col-sm-12\">\n                    <label class=\"\">\n                      <img *ngIf=\"product.product_image_url\" class=\"product-image\" src=\"{{product.product_image_url}}\">\n                      <img *ngIf=\"!product.product_image_url\" class=\"product-image\" src=\"\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label class=\"input input-file\">\n                      <span class=\"button\">\n                        <input id=\"product_image_url\" name=\"product_image_url\" type=\"file\" (change)=\"changeFilename($event)\">Buscar Imagen\n                      </span>\n                      <input type=\"text\" placeholder=\"\" value=\"{{productImageUrl}}\" readonly>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-12\">\n                <div class=\"row\">\n                  <footer>\n                    <div class=\"btn-footer\">\n                      <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Guardar</button>\n                    </div>\n                  </footer>\n                </div>\n              </div>\n            </div>\n          </form>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>"
 
 /***/ }),
 
