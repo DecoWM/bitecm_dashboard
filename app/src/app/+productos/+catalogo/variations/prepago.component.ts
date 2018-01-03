@@ -63,28 +63,38 @@ export class PrepagoVariationsComponent implements OnInit {
   }
 
   saveAll() {
+    this.onAlert.emit(null);
     const saveVariations = [];
     const updateVariations = [];
     let count = 0;
     this.planForms.forEach((formComp, index) => {
       const variation = formComp.formPrepago.value;
-      if (variation.variation_allowed && formComp.formValidate.valid()) {
+      variation.active = 1;
+      if (formComp.formPrepago.dirty && variation.variation_allowed && formComp.formValidate.valid()) {
         if (variation.product_variation_id) {
+          // variation.active = variation.variation_allowed;
           updateVariations.push(variation);
         } else {
-          saveVariations.push(variation);
+          if (variation.variation_allowed) {
+            saveVariations.push(variation);
+          }
         }
+        formComp.formPrepago.resetForm();
       }
       count++;
-      if (count === this.planForms.length) {
-        console.log(saveVariations);
-        console.log(updateVariations);
+      if (count === this.planForms.length && (saveVariations.length || updateVariations.length)) {
         Observable.zip(
           this.variationService.savePrepaidVariations(this.product_id, saveVariations),
           this.variationService.updatePrepaidVariations(this.product_id, updateVariations)
         ).subscribe(([save, update]: [any, any]) => {
-          this.onAlert.emit(this.getAlert(save, 'agregadas'));
-          this.onAlert.emit(this.getAlert(update, 'actualizadas'));
+          const alerts = [];
+          if (!save.nop) {
+            alerts.push(this.getAlert(save, 'agregadas'));
+          }
+          if (!update.nop) {
+            alerts.push(this.getAlert(update, 'actualizadas'));
+          }
+          this.onAlert.emit(alerts);
           if (save.success || update.success) {
             this.variationService.getPrepaidVariations(this.product_id)
               .subscribe((vars: any) => {
@@ -106,11 +116,11 @@ export class PrepagoVariationsComponent implements OnInit {
     let mode, title, message;
     if (result.success) {
       mode = 'success';
-      title = 'Variaciones prepago' + title_mode;
+      title = 'Variaciones prepago ' + title_mode;
       message = result.result;
     } else {
       mode = 'danger';
-      title = 'Variaciones prepago no ' + title_mode;
+      title = 'Variaciones prepago no pudieron ser ' + title_mode;
       message = result.result;
     }
     return {

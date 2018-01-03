@@ -626,7 +626,7 @@ class ProductController extends ApiController
                   'created_at' => $created_at,
                   'updated_at' => $updated_at,
                   'created_by' => 1,
-                  'active' => 1
+                  'active' => isset($item->active) ? $item->active : 1
               ];
 
               array_push($variation_array, $data);
@@ -692,7 +692,7 @@ class ProductController extends ApiController
                 'product_package' => $item->product_package ? $item->product_package : null,
                 'updated_at' => $updated_at,
                 'updated_by' => 1,
-                'active' => 1
+                'active' => isset($item->active) ? $item->active : 1
             ];
 
             DB::table('tbl_product_variation')->where('product_variation_id', $product_variation_id)->update($data);
@@ -760,7 +760,7 @@ class ProductController extends ApiController
                   'created_at' => $created_at,
                   'updated_at' => $updated_at,
                   'created_by' => 1,
-                  'active' => 1
+                  'active' => isset($item->active) ? $item->active : 1
               ];
 
               array_push($variation_array, $data);
@@ -826,7 +826,7 @@ class ProductController extends ApiController
                 'product_package' => $item->product_package ? $item->product_package : null,
                 'updated_at' => $updated_at,
                 'updated_by' => 1,
-                'active' => 1
+                'active' => isset($item->active) ? $item->active : 1
             ];
 
             DB::table('tbl_product_variation')->where('product_variation_id', $product_variation_id)->update($data);

@@ -24,35 +24,47 @@ export class VariationService {
   }
 
   savePrepaidVariations(product_id, variations) {
+    if (!variations.length) {
+      return Observable.of({ nop: true, success: false });
+    }
+    const formData = new FormData();
+    formData.append('variation', JSON.stringify(variations));
     return this.http
-      .post(this.getUrl([product_id, 'variation', 'prepaid']), {
-        'variation': variations
-      });
+      .post(this.getUrl([product_id, 'variation', 'prepaid']), formData);
   }
 
   updatePrepaidVariations(product_id, variations) {
+    if (!variations.length) {
+      return Observable.of({ nop: true, success: false });
+    }
+    const formData = new FormData();
+    formData.append('variation', JSON.stringify(variations));
+    formData.append('_method', 'put');
     return this.http
-      .post(this.getUrl([product_id, 'variation', 'prepaid']), {
-        'variation': variations,
-        '_method': 'put'
-      });
+      .post(this.getUrl([product_id, 'variation', 'prepaid']), formData);
   }
 
   savePostpaidVariations(product_id, variations, affiliation_id, contract_id) {
+    if (!variations.length) {
+      return Observable.of({ nop: true, success: false });
+    }
+    const formData = new FormData();
+    formData.append('variation', JSON.stringify(variations));
+    formData.append('affiliation_id', affiliation_id);
+    formData.append('contract_id', contract_id);
     return this.http
-      .post(this.getUrl([product_id, 'variation', 'postpaid']), {
-        'variation': variations,
-        'affiliation_id': affiliation_id,
-        'contract_id': contract_id
-      });
+      .post(this.getUrl([product_id, 'variation', 'postpaid']), formData);
   }
 
   updatePostpaidVariations(product_id, variations) {
+    if (!variations.length) {
+      return Observable.of({ nop: true, success: false });
+    }
+    const formData = new FormData();
+    formData.append('variation', JSON.stringify(variations));
+    formData.append('_method', 'put');
     return this.http
-      .post(this.getUrl([product_id, 'variation', 'postpaid']), {
-        'variation': variations,
-        '_method': 'put'
-      });
+      .post(this.getUrl([product_id, 'variation', 'postpaid']), formData);
   }
 
   getPrepaidPlans() {

@@ -15,8 +15,8 @@
               {{plan.plan_name}}
             </div>
             <div class="col col-sm-10">
-              <prepago-form *ngIf="variationsByPlan[plan.plan_id]" [variation]="variationsByPlan[plan.plan_id]"></prepago-form>
-              <prepago-form *ngIf="!variationsByPlan[plan.plan_id]"></prepago-form>
+              <prepago-form *ngIf="variationsByPlan[plan.plan_id]" [variation]="variationsByPlan[plan.plan_id]" [plan_id]="plan.plan_id"></prepago-form>
+              <prepago-form *ngIf="!variationsByPlan[plan.plan_id]" [plan_id]="plan.plan_id"></prepago-form>
             </div>
           </div>
           <div class="row padding-row detalle-registro">
