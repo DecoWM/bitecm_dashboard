@@ -1,0 +1,36 @@
+<!-- MAIN CONTENT -->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[' Producto', subtitle]" icon="cube" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+  </div>
+
+  <ng-container *ngIf="alert">
+    <div *ngFor="let a of alert" class="alert alert-block alert-{{a.mode}}" dismisser="">
+      <h4 class="alert-heading">
+        <i class="fa fa-check-square-o"></i> {{a.title}}
+      </h4>
+      <p>{{a.message}}</p>
+    </div>
+  </ng-container>
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article>
+        <div class="col-sm-5 col-md-5 col-lg-5">
+          <!-- PRODUCT BASIC -->
+          <product-basic [product]="product" (onAlert)="printAlert($event)"></product-basic>
+          <!-- PRODUCT SPECS -->
+          <product-specs></product-specs>
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7">
+          <!-- STOCK MODEL CODES -->
+          <!--stock-models></stock-models-->
+          <!-- PREPAGO VARIATIONS -->
+          <prepago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)"></prepago-variations>
+          <!-- POSTPAGO VARIATIONS -->
+          <postpago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1"></postpago-variations>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

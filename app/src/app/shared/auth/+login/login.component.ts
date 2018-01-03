@@ -66,7 +66,7 @@ export class LoginComponent implements OnInit {
   showInvalidUserPopup() {
     this.notificationService.smartMessageBox({
       title : '<i class="fa fa-user txt-color-orangeDark"></i> Usuario no encontrado',
-      content : 'El usuario indicado no existe o se enuentra inactivo.',
+      content : 'El usuario indicado no existe o se encuentra inactivo.',
       buttons : '[Entendido]'
     });
   }

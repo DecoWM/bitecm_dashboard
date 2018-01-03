@@ -1,0 +1,118 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Información Básica
+          </header>
+          <form #formBasic="ngForm" id="smart-form-register" class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-basic">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-7">
+                <div class="row">
+                  <section class="col col-sm-4">
+                    <label for="category_id" class="select">Categoría</label>
+                  </section>
+                  <section class="col col-sm-8">
+                    <div class="select" [class.state-disabled]="product.product_id">
+                      <select [attr.disabled]="product.product_id ? 'disabled' : null" name="category_id" id="category_id" [(ngModel)]="product.category_id" (change)="onSelectChange($event)">
+                        <option value="">Seleccionar categoría</option>
+                        <option *ngFor="let item of categories" value="{{item.category_id}}">
+                          {{item.category_name}}
+                        </option>
+                      </select> <i></i>
+                      <input *ngIf="product.product_id" type="hidden" name="category_id" value="{{product.category_id}}">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-4">
+                    <label for="brand_id">Marca</label>
+                  </section>
+                  <section class="col col-sm-8">
+                    <div class="select" [class.state-disabled]="product.product_id">
+                      <select [attr.disabled]="product.product_id ? 'disabled' : null" name="brand_id" id="brand_id" [(ngModel)]="product.brand_id" (change)="onSelectChange($event)">
+                        <option value="">Seleccionar marca</option>
+                        <option *ngFor="let item of brands" value="{{item.brand_id}}">
+                          {{item.brand_name}}
+                        </option>
+                      </select> <i></i>
+                      <input *ngIf="product.product_id" type="hidden" name="brand_id" value="{{product.brand_id}}">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-4">
+                    <label for="product_model">Modelo</label>
+                  </section>
+                  <section class="col col-sm-8">
+                    <div class="input" [class.state-disabled]="product.product_id">
+                      <input [attr.disabled]="product.product_id ? 'disabled' : null" id="product_model" name="product_model" type="text" [(ngModel)]="product.product_model"><i></i>
+                      <input *ngIf="product.product_id" type="hidden" name="product_model" value="{{product.product_model}}">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-4">
+                    <label for="product_price">Precio</label>
+                  </section>
+                  <section class="col col-sm-8">
+                    <div class="input">
+                      <input id="product_price" name="product_price" type="text" [(ngModel)]="product.product_price"><i></i>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-4">
+                    <label for="product_priority">Prioridad</label>
+                  </section>
+                  <section class="col col-sm-8">
+                    <div class="input">
+                      <input id="product_priority" name="product_priority" type="text" [(ngModel)]="product.product_priority"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-5">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <div class="">
+                      <img *ngIf="product.product_image_url" class="product-image" src="{{product.product_image_url}}">
+                      <img *ngIf="!product.product_image_url" class="product-image" src="">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <div class="input input-file">
+                      <span class="button">
+                        <input #productImageInput id="product_image" name="product_image" type="file" (change)="changeFilename($event)">Subir
+                      </span>
+                      <input type="text" placeholder="" value="{{productImageUrl}}" readonly>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <footer>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

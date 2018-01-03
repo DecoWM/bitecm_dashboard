@@ -9,19 +9,10 @@ import { AuthService } from './../../shared/auth/auth.service';
 
 @Injectable()
 export class ImportacionService {
-
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    // 'Cache-Control': 'no-cache',
-    // 'Pragma': 'no-cache',
-    // 'Expires': 'Sat, 01 Jan 2000 00:00:00 GMT'
-  });
-
   private url = '/api/admin/importar';
 
   constructor(
-    private http: HttpClient,
-    private authService: AuthService
+    private http: HttpClient
   ) {}
 
   importProducts(formData) {
