@@ -6,7 +6,7 @@
 
   <div *ngIf="alert" class="alert alert-block alert-{{alert.mode}}" dismisser="">
     <h4 class="alert-heading">
-      <i class="fa fa-check-square-o"></i>{{alert.title}}
+      <i class="fa fa-check-square-o"></i> {{alert.title}}
     </h4>
     <p>{{alert.message}}</p>
   </div>
@@ -14,17 +14,17 @@
   <sa-widgets-grid>
     <div class="row">
       <article>
-        <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="col-sm-5 col-md-5 col-lg-5">
           <!-- PRODUCT BASIC -->
-          <product-basic [product]="product"></product-basic>
+          <product-basic [product]="product" (onAlert)="printAlert($event)"></product-basic>
           <!-- PRODUCT SPECS -->
           <product-specs></product-specs>
         </div>
-        <div class="col-sm-6 col-md-6 col-lg-6">
+        <div class="col-sm-7 col-md-7 col-lg-7">
           <!-- STOCK MODEL CODES -->
           <!--stock-models></stock-models-->
           <!-- PREPAGO VARIATIONS -->
-          <prepago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1"></prepago-variations>
+          <prepago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)"></prepago-variations>
           <!-- POSTPAGO VARIATIONS -->
           <postpago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1"></postpago-variations>
         </div>

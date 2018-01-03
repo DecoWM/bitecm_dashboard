@@ -11,14 +11,14 @@
             Información Básica
           </header>
           <form #formBasic="ngForm" id="smart-form-register" class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-basic">
-            <div id="field-detalle-order" class="detalle-registro row">
-              <div class="col col-sm-6">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-7">
                 <div class="row">
                   <section class="col col-sm-4">
                     <label for="category_id" class="select">Categoría</label>
                   </section>
                   <section class="col col-sm-8">
-                    <label class="select" [class.state-disabled]="product.product_id">
+                    <div class="select" [class.state-disabled]="product.product_id">
                       <select [attr.disabled]="product.product_id ? 'disabled' : null" name="category_id" id="category_id" [(ngModel)]="product.category_id" (change)="onSelectChange($event)">
                         <option value="">Seleccionar categoría</option>
                         <option *ngFor="let item of categories" value="{{item.category_id}}">
@@ -26,7 +26,7 @@
                         </option>
                       </select> <i></i>
                       <input *ngIf="product.product_id" type="hidden" name="category_id" value="{{product.category_id}}">
-                    </label>
+                    </div>
                   </section>
                 </div>
                 <div class="row">
@@ -34,7 +34,7 @@
                     <label for="brand_id">Marca</label>
                   </section>
                   <section class="col col-sm-8">
-                    <label class="select" [class.state-disabled]="product.product_id">
+                    <div class="select" [class.state-disabled]="product.product_id">
                       <select [attr.disabled]="product.product_id ? 'disabled' : null" name="brand_id" id="brand_id" [(ngModel)]="product.brand_id" (change)="onSelectChange($event)">
                         <option value="">Seleccionar marca</option>
                         <option *ngFor="let item of brands" value="{{item.brand_id}}">
@@ -42,7 +42,7 @@
                         </option>
                       </select> <i></i>
                       <input *ngIf="product.product_id" type="hidden" name="brand_id" value="{{product.brand_id}}">
-                    </label>
+                    </div>
                   </section>
                 </div>
                 <div class="row">
@@ -50,10 +50,10 @@
                     <label for="product_model">Modelo</label>
                   </section>
                   <section class="col col-sm-8">
-                    <label class="input" [class.state-disabled]="product.product_id">
+                    <div class="input" [class.state-disabled]="product.product_id">
                       <input [attr.disabled]="product.product_id ? 'disabled' : null" id="product_model" name="product_model" type="text" [(ngModel)]="product.product_model"><i></i>
                       <input *ngIf="product.product_id" type="hidden" name="product_model" value="{{product.product_model}}">
-                    </label>
+                    </div>
                   </section>
                 </div>
                 <div class="row">
@@ -61,9 +61,9 @@
                     <label for="product_price">Precio</label>
                   </section>
                   <section class="col col-sm-8">
-                    <label class="input">
+                    <div class="input">
                       <input id="product_price" name="product_price" type="text" [(ngModel)]="product.product_price"><i></i>
-                    </label>
+                    </div>
                   </section>
                 </div>
                 <div class="row">
@@ -71,32 +71,29 @@
                     <label for="product_priority">Prioridad</label>
                   </section>
                   <section class="col col-sm-8">
-                    <label class="input">
+                    <div class="input">
                       <input id="product_priority" name="product_priority" type="text" [(ngModel)]="product.product_priority"><i></i>
-                    </label>
+                    </div>
                   </section>
                 </div>
               </div>
-              <div class="col col-sm-6">
+              <div class="col col-sm-5">
                 <div class="row">
                   <section class="col col-sm-12">
-                    <label for="product_image">Imagen</label>
-                  </section>
-                  <section class="col col-sm-12">
-                    <label class="">
+                    <div class="">
                       <img *ngIf="product.product_image_url" class="product-image" src="{{product.product_image_url}}">
                       <img *ngIf="!product.product_image_url" class="product-image" src="">
-                    </label>
+                    </div>
                   </section>
                 </div>
                 <div class="row">
                   <section class="col col-sm-12">
-                    <label class="input input-file">
+                    <div class="input input-file">
                       <span class="button">
-                        <input #productImageInput id="product_image" name="product_image" type="file" (change)="changeFilename($event)">Buscar Imagen
+                        <input #productImageInput id="product_image" name="product_image" type="file" (change)="changeFilename($event)">Subir
                       </span>
                       <input type="text" placeholder="" value="{{productImageUrl}}" readonly>
-                    </label>
+                    </div>
                   </section>
                 </div>
               </div>

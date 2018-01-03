@@ -1,4 +1,4 @@
-import { Component, OnInit, Type, Input, ViewChild } from '@angular/core';
+import { Component, OnInit, Type, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subject, Observable } from 'rxjs/Rx';
@@ -23,6 +23,7 @@ export class ProductBasicComponent implements OnInit {
   productImageUrl = '';
 
   @Input() product: any = {};
+  @Output() onAlert: EventEmitter<any> = new EventEmitter();
   @ViewChild('formBasic') formBasic;
   @ViewChild('productImageInput') productImageInput;
 
@@ -30,12 +31,36 @@ export class ProductBasicComponent implements OnInit {
     rules: {
       category_id : {
         required : true
+      },
+      brand_id : {
+        required : true
+      },
+      product_model : {
+        required : true
+      },
+      product_price : {
+        required : true
+      },
+      product_priority : {
+        required : true
       }
     },
     messages : {
       category_id : {
         required : 'Debes seleccionar una categoría.'
       },
+      brand_id : {
+        required : 'Debes seleccionar una marca'
+      },
+      product_model : {
+        required : 'Debes ingresar un modelo'
+      },
+      product_price : {
+        required : 'Debes ingresar un precio'
+      },
+      product_priority : {
+        required : 'Debes ingresar una prioridad'
+      }
     }
   };
 
@@ -72,7 +97,6 @@ export class ProductBasicComponent implements OnInit {
   }
 
   onValidationSuccess(e) {
-    console.log(e);
     this.save(e);
   }
 
@@ -80,24 +104,37 @@ export class ProductBasicComponent implements OnInit {
     const fileBrowser = this.productImageInput.nativeElement;
     const formData = new FormData(document.forms.namedItem('form-basic'));
     if (this.product.product_id) {
+      formData.append('_method', 'put');
       this.productService.updateBasic(this.product.product_id, formData)
         .subscribe((data: any) => {
-          if (data.success) {
-            this.product = data.result;
-          }
+          this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
         });
     } else {
       this.productService.saveBasic(formData)
         .subscribe((data: any) => {
+          // this.onAlert.emit(this.getAlert(data, this.product, 'Creación', 'creado'));
           if (data.success) {
-            // this.product = data.result;
-            console.log(data.result);
+            this.router.navigate([data.id], {relativeTo: this.route.parent});
           }
         });
     }
   }
 
-  buildFormData(data: any) {
-
+  getAlert(result, product, title_mode, desc_mode): any {
+    let mode, title, message;
+    if (result.success) {
+      mode = 'success';
+      title = title_mode + ' completada';
+      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido ' + desc_mode;
+    } else {
+      mode = 'danger';
+      title = title_mode + ' fallida';
+      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser ' + desc_mode;
+    }
+    return {
+      'title': title,
+      'message': message,
+      'mode': mode
+    }
   }
 }

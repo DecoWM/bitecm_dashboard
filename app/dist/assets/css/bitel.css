@@ -317,8 +317,9 @@ nav ul li a:active{
   background-color: #169599;
 }
 
-#field-detalle-order{
-  padding: 10px 14px 5px;
+#field-detalle-order,
+.padding-row{
+  padding: 10px 15px 5px;
 }
 
 #field-detalle-order .field-order{

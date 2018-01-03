@@ -180,6 +180,7 @@ class ProductController extends ApiController
 
       return response()->json([
         'result' => 'Producto registrado correctamente.',
+        'id' => $product,
         'success' => true
       ]);
   }

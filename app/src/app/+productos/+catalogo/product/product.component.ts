@@ -17,6 +17,7 @@ import { BlockUIService } from 'ng-block-ui';
 export class ProductComponent implements OnInit {
   subtitle: string;
   product: any = {};
+  alert: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -26,6 +27,7 @@ export class ProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.alert = null;
     const product_id = this.route.snapshot.params.id;
     if (product_id) {
       this.subtitle = 'Nro. #' + product_id;
@@ -41,5 +43,9 @@ export class ProductComponent implements OnInit {
     } else {
       this.subtitle = 'Nuevo producto';
     }
+  }
+
+  printAlert(alert): void {
+    this.alert = alert;
   }
 }

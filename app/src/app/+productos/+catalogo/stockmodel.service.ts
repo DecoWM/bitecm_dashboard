@@ -7,16 +7,20 @@ import { Subject, Observable } from 'rxjs/Rx';
 
 @Injectable()
 export class StockModelService {
-  private url = '/api/admin/importar';
+  private url = '/api/admin/productos';
 
   constructor(
     private http: HttpClient
   ) {}
 
-  getUrl(param = '') {
-    const urlParts = [this.url];
-    if (param.length) {
-      urlParts.push(param);
+  getUrl(params: any = '') {
+    let urlParts = [this.url];
+    if (params.length) {
+      if (typeof params === 'object') {
+        urlParts = urlParts.concat(params);
+      } else {
+        urlParts.push(params);
+      }
     }
     return urlParts.join('/');
   }

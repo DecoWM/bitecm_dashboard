@@ -9,6 +9,7 @@ export class UiValidateDirective {
 
   @Input() saUiValidate: any;
   @Output() onValidationSuccess: EventEmitter<any> = new EventEmitter();
+  @Output() onInitComplete: EventEmitter<any> = new EventEmitter();
 
   constructor(private el: ElementRef) {
     System.import('jquery-validation/dist/jquery.validate.js').then(() => {
@@ -83,7 +84,9 @@ export class UiValidateDirective {
       submitHandler: function(form) {
         self.onValidationSuccess.emit(this);
       }
-    }))
+    }));
+
+    this.onInitComplete.emit($form);
   }
 
 }

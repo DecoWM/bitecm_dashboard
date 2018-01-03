@@ -1,0 +1,36 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Variaciones Prepago
+          </header>
+          <div *ngFor="let plan of plans" class="row padding-row">
+            <div class="col col-sm-2">
+              {{plan.plan_name}}
+            </div>
+            <div class="col col-sm-10">
+              <prepago-form *ngIf="variationsByPlan[plan.plan_id]" [variation]="variationsByPlan[plan.plan_id]"></prepago-form>
+              <prepago-form *ngIf="!variationsByPlan[plan.plan_id]"></prepago-form>
+            </div>
+          </div>
+          <div class="row padding-row detalle-registro">
+            <footer>
+              <div class="btn-footer">
+                <button class="btn btn-primary" (click)="saveAll()" type="button">Guardar</button>
+              </div>
+            </footer>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

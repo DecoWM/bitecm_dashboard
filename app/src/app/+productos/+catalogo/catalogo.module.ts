@@ -18,7 +18,9 @@ import { ProductBasicComponent } from './product/basic.component';
 import { ProductSpecsComponent } from './product/specs.component';
 import { StockModelsComponent } from './stockmodels/stockmodels.component';
 import { PrepagoVariationsComponent } from './variations/prepago.component';
+import { PrepagoFormComponent } from './variations/prepago-form.component';
 import { PostpagoVariationsComponent } from './variations/postpago.component';
+import { PostpagoFormComponent } from './variations/postpago-form.component';
 
 @NgModule({
     declarations: [
@@ -28,7 +30,9 @@ import { PostpagoVariationsComponent } from './variations/postpago.component';
         ProductSpecsComponent,
         StockModelsComponent,
         PrepagoVariationsComponent,
-        PostpagoVariationsComponent
+        PrepagoFormComponent,
+        PostpagoVariationsComponent,
+        PostpagoFormComponent
     ],
     imports: [
         SmartadminModule,

@@ -211,13 +211,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__product_specs_component__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/product/specs.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__stockmodels_stockmodels_component__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/stockmodels/stockmodels.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__variations_prepago_component__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/prepago.component.ts");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__variations_postpago_component__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/postpago.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__variations_prepago_form_component__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/prepago-form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__variations_postpago_component__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/postpago.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__variations_postpago_form_component__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/postpago-form.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
 
 
 
@@ -250,7 +254,9 @@ CatalogoModule = __decorate([
             __WEBPACK_IMPORTED_MODULE_14__product_specs_component__["a" /* ProductSpecsComponent */],
             __WEBPACK_IMPORTED_MODULE_15__stockmodels_stockmodels_component__["a" /* StockModelsComponent */],
             __WEBPACK_IMPORTED_MODULE_16__variations_prepago_component__["a" /* PrepagoVariationsComponent */],
-            __WEBPACK_IMPORTED_MODULE_17__variations_postpago_component__["a" /* PostpagoVariationsComponent */]
+            __WEBPACK_IMPORTED_MODULE_17__variations_prepago_form_component__["a" /* PrepagoFormComponent */],
+            __WEBPACK_IMPORTED_MODULE_18__variations_postpago_component__["a" /* PostpagoVariationsComponent */],
+            __WEBPACK_IMPORTED_MODULE_19__variations_postpago_form_component__["a" /* PostpagoFormComponent */]
         ],
         imports: [
             __WEBPACK_IMPORTED_MODULE_1__shared_smartadmin_module__["a" /* SmartadminModule */],
@@ -399,7 +405,7 @@ var _a;
 /***/ "../../../../../src/app/+productos/+catalogo/product/basic.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Información Básica\n          </header>\n          <form #formBasic=\"ngForm\" id=\"smart-form-register\" class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onValidationSuccess)=\"onValidationSuccess($event)\" name=\"form-basic\">\n            <div id=\"field-detalle-order\" class=\"detalle-registro row\">\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"category_id\" class=\"select\">Categoría</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\" [class.state-disabled]=\"product.product_id\">\n                      <select [attr.disabled]=\"product.product_id ? 'disabled' : null\" name=\"category_id\" id=\"category_id\" [(ngModel)]=\"product.category_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar categoría</option>\n                        <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                          {{item.category_name}}\n                        </option>\n                      </select> <i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"category_id\" value=\"{{product.category_id}}\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"brand_id\">Marca</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"select\" [class.state-disabled]=\"product.product_id\">\n                      <select [attr.disabled]=\"product.product_id ? 'disabled' : null\" name=\"brand_id\" id=\"brand_id\" [(ngModel)]=\"product.brand_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar marca</option>\n                        <option *ngFor=\"let item of brands\" value=\"{{item.brand_id}}\">\n                          {{item.brand_name}}\n                        </option>\n                      </select> <i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"brand_id\" value=\"{{product.brand_id}}\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_model\">Modelo</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\" [class.state-disabled]=\"product.product_id\">\n                      <input [attr.disabled]=\"product.product_id ? 'disabled' : null\" id=\"product_model\" name=\"product_model\" type=\"text\" [(ngModel)]=\"product.product_model\"><i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"product_model\" value=\"{{product.product_model}}\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_price\">Precio</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input id=\"product_price\" name=\"product_price\" type=\"text\" [(ngModel)]=\"product.product_price\"><i></i>\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_priority\">Prioridad</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <label class=\"input\">\n                      <input id=\"product_priority\" name=\"product_priority\" type=\"text\" [(ngModel)]=\"product.product_priority\"><i></i>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-6\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label for=\"product_image\">Imagen</label>\n                  </section>\n                  <section class=\"col col-sm-12\">\n                    <label class=\"\">\n                      <img *ngIf=\"product.product_image_url\" class=\"product-image\" src=\"{{product.product_image_url}}\">\n                      <img *ngIf=\"!product.product_image_url\" class=\"product-image\" src=\"\">\n                    </label>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <label class=\"input input-file\">\n                      <span class=\"button\">\n                        <input #productImageInput id=\"product_image\" name=\"product_image\" type=\"file\" (change)=\"changeFilename($event)\">Buscar Imagen\n                      </span>\n                      <input type=\"text\" placeholder=\"\" value=\"{{productImageUrl}}\" readonly>\n                    </label>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-12\">\n                <div class=\"row\">\n                  <footer>\n                    <div class=\"btn-footer\">\n                      <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Guardar</button>\n                    </div>\n                  </footer>\n                </div>\n              </div>\n            </div>\n          </form>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>"
+module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Información Básica\n          </header>\n          <form #formBasic=\"ngForm\" id=\"smart-form-register\" class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onValidationSuccess)=\"onValidationSuccess($event)\" name=\"form-basic\">\n            <div class=\"detalle-registro row padding-row\">\n              <div class=\"col col-sm-7\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"category_id\" class=\"select\">Categoría</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <div class=\"select\" [class.state-disabled]=\"product.product_id\">\n                      <select [attr.disabled]=\"product.product_id ? 'disabled' : null\" name=\"category_id\" id=\"category_id\" [(ngModel)]=\"product.category_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar categoría</option>\n                        <option *ngFor=\"let item of categories\" value=\"{{item.category_id}}\">\n                          {{item.category_name}}\n                        </option>\n                      </select> <i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"category_id\" value=\"{{product.category_id}}\">\n                    </div>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"brand_id\">Marca</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <div class=\"select\" [class.state-disabled]=\"product.product_id\">\n                      <select [attr.disabled]=\"product.product_id ? 'disabled' : null\" name=\"brand_id\" id=\"brand_id\" [(ngModel)]=\"product.brand_id\" (change)=\"onSelectChange($event)\">\n                        <option value=\"\">Seleccionar marca</option>\n                        <option *ngFor=\"let item of brands\" value=\"{{item.brand_id}}\">\n                          {{item.brand_name}}\n                        </option>\n                      </select> <i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"brand_id\" value=\"{{product.brand_id}}\">\n                    </div>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_model\">Modelo</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <div class=\"input\" [class.state-disabled]=\"product.product_id\">\n                      <input [attr.disabled]=\"product.product_id ? 'disabled' : null\" id=\"product_model\" name=\"product_model\" type=\"text\" [(ngModel)]=\"product.product_model\"><i></i>\n                      <input *ngIf=\"product.product_id\" type=\"hidden\" name=\"product_model\" value=\"{{product.product_model}}\">\n                    </div>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_price\">Precio</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <div class=\"input\">\n                      <input id=\"product_price\" name=\"product_price\" type=\"text\" [(ngModel)]=\"product.product_price\"><i></i>\n                    </div>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-4\">\n                    <label for=\"product_priority\">Prioridad</label>\n                  </section>\n                  <section class=\"col col-sm-8\">\n                    <div class=\"input\">\n                      <input id=\"product_priority\" name=\"product_priority\" type=\"text\" [(ngModel)]=\"product.product_priority\"><i></i>\n                    </div>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-5\">\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <div class=\"\">\n                      <img *ngIf=\"product.product_image_url\" class=\"product-image\" src=\"{{product.product_image_url}}\">\n                      <img *ngIf=\"!product.product_image_url\" class=\"product-image\" src=\"\">\n                    </div>\n                  </section>\n                </div>\n                <div class=\"row\">\n                  <section class=\"col col-sm-12\">\n                    <div class=\"input input-file\">\n                      <span class=\"button\">\n                        <input #productImageInput id=\"product_image\" name=\"product_image\" type=\"file\" (change)=\"changeFilename($event)\">Subir\n                      </span>\n                      <input type=\"text\" placeholder=\"\" value=\"{{productImageUrl}}\" readonly>\n                    </div>\n                  </section>\n                </div>\n              </div>\n              <div class=\"col col-sm-12\">\n                <div class=\"row\">\n                  <footer>\n                    <div class=\"btn-footer\">\n                      <button class=\"btn btn-primary\" name=\"submit\" type=\"submit\">Guardar</button>\n                    </div>\n                  </footer>\n                </div>\n              </div>\n            </div>\n          </form>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>"
 
 /***/ }),
 
@@ -448,9 +454,22 @@ var ProductBasicComponent = (function () {
         this.brands = [];
         this.productImageUrl = '';
         this.product = {};
+        this.onAlert = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         this.validationOptions = {
             rules: {
                 category_id: {
+                    required: true
+                },
+                brand_id: {
+                    required: true
+                },
+                product_model: {
+                    required: true
+                },
+                product_price: {
+                    required: true
+                },
+                product_priority: {
                     required: true
                 }
             },
@@ -458,6 +477,18 @@ var ProductBasicComponent = (function () {
                 category_id: {
                     required: 'Debes seleccionar una categoría.'
                 },
+                brand_id: {
+                    required: 'Debes seleccionar una marca'
+                },
+                product_model: {
+                    required: 'Debes ingresar un modelo'
+                },
+                product_price: {
+                    required: 'Debes ingresar un precio'
+                },
+                product_priority: {
+                    required: 'Debes ingresar una prioridad'
+                }
             }
         };
     }
@@ -482,7 +513,6 @@ var ProductBasicComponent = (function () {
         $(event.currentTarget).blur();
     };
     ProductBasicComponent.prototype.onValidationSuccess = function (e) {
-        console.log(e);
         this.save(e);
     };
     ProductBasicComponent.prototype.save = function (e) {
@@ -490,24 +520,39 @@ var ProductBasicComponent = (function () {
         var fileBrowser = this.productImageInput.nativeElement;
         var formData = new FormData(document.forms.namedItem('form-basic'));
         if (this.product.product_id) {
+            formData.append('_method', 'put');
             this.productService.updateBasic(this.product.product_id, formData)
                 .subscribe(function (data) {
-                if (data.success) {
-                    _this.product = data.result;
-                }
+                _this.onAlert.emit(_this.getAlert(data, _this.product, 'Actualización', 'actualizado'));
             });
         }
         else {
             this.productService.saveBasic(formData)
                 .subscribe(function (data) {
+                // this.onAlert.emit(this.getAlert(data, this.product, 'Creación', 'creado'));
                 if (data.success) {
-                    // this.product = data.result;
-                    console.log(data.result);
+                    _this.router.navigate([data.id], { relativeTo: _this.route.parent });
                 }
             });
         }
     };
-    ProductBasicComponent.prototype.buildFormData = function (data) {
+    ProductBasicComponent.prototype.getAlert = function (result, product, title_mode, desc_mode) {
+        var mode, title, message;
+        if (result.success) {
+            mode = 'success';
+            title = title_mode + ' completada';
+            message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido ' + desc_mode;
+        }
+        else {
+            mode = 'danger';
+            title = title_mode + ' fallida';
+            message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser ' + desc_mode;
+        }
+        return {
+            'title': title,
+            'message': message,
+            'mode': mode
+        };
     };
     return ProductBasicComponent;
 }());
@@ -515,6 +560,10 @@ __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
     __metadata("design:type", Object)
 ], ProductBasicComponent.prototype, "product", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
+], ProductBasicComponent.prototype, "onAlert", void 0);
 __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('formBasic'),
     __metadata("design:type", Object)
@@ -529,10 +578,10 @@ ProductBasicComponent = __decorate([
         template: __webpack_require__("../../../../../src/app/+productos/+catalogo/product/basic.component.html"),
         styles: []
     }),
-    __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_7_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ng_block_ui__["BlockUIService"]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5__product_service__["a" /* ProductService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__product_service__["a" /* ProductService */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_6__shared_utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_utils_notification_service__["a" /* NotificationService */]) === "function" && _e || Object])
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_7_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7_ng_block_ui__["BlockUIService"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_5__product_service__["a" /* ProductService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5__product_service__["a" /* ProductService */]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__shared_utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__shared_utils_notification_service__["a" /* NotificationService */]) === "function" && _f || Object])
 ], ProductBasicComponent);
 
-var _a, _b, _c, _d, _e;
+var _a, _b, _c, _d, _e, _f;
 //# sourceMappingURL=basic.component.js.map
 
 /***/ }),
@@ -540,7 +589,7 @@ var _a, _b, _c, _d, _e;
 /***/ "../../../../../src/app/+productos/+catalogo/product/product.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"[' Producto', subtitle]\" icon=\"cube\" class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\"></sa-big-breadcrumbs>\n  </div>\n\n  <div *ngIf=\"alert\" class=\"alert alert-block alert-{{alert.mode}}\" dismisser=\"\">\n    <h4 class=\"alert-heading\">\n      <i class=\"fa fa-check-square-o\"></i>{{alert.title}}\n    </h4>\n    <p>{{alert.message}}</p>\n  </div>\n\n  <sa-widgets-grid>\n    <div class=\"row\">\n      <article>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- PRODUCT BASIC -->\n          <product-basic [product]=\"product\"></product-basic>\n          <!-- PRODUCT SPECS -->\n          <product-specs></product-specs>\n        </div>\n        <div class=\"col-sm-6 col-md-6 col-lg-6\">\n          <!-- STOCK MODEL CODES -->\n          <!--stock-models></stock-models-->\n          <!-- PREPAGO VARIATIONS -->\n          <prepago-variations *ngIf=\"product.product_id && product.category_id && product.category_id == 1\"></prepago-variations>\n          <!-- POSTPAGO VARIATIONS -->\n          <postpago-variations *ngIf=\"product.product_id && product.category_id && product.category_id == 1\"></postpago-variations>\n        </div>\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>"
+module.exports = "<!-- MAIN CONTENT -->\n<div id=\"content\">\n  <div class=\"row\">\n    <sa-big-breadcrumbs [items]=\"[' Producto', subtitle]\" icon=\"cube\" class=\"col-xs-12 col-sm-12 col-md-12 col-lg-12\"></sa-big-breadcrumbs>\n  </div>\n\n  <div *ngIf=\"alert\" class=\"alert alert-block alert-{{alert.mode}}\" dismisser=\"\">\n    <h4 class=\"alert-heading\">\n      <i class=\"fa fa-check-square-o\"></i> {{alert.title}}\n    </h4>\n    <p>{{alert.message}}</p>\n  </div>\n\n  <sa-widgets-grid>\n    <div class=\"row\">\n      <article>\n        <div class=\"col-sm-5 col-md-5 col-lg-5\">\n          <!-- PRODUCT BASIC -->\n          <product-basic [product]=\"product\" (onAlert)=\"printAlert($event)\"></product-basic>\n          <!-- PRODUCT SPECS -->\n          <product-specs></product-specs>\n        </div>\n        <div class=\"col-sm-7 col-md-7 col-lg-7\">\n          <!-- STOCK MODEL CODES -->\n          <!--stock-models></stock-models-->\n          <!-- PREPAGO VARIATIONS -->\n          <prepago-variations *ngIf=\"product.product_id && product.category_id && product.category_id == 1\" (onAlert)=\"printAlert($event)\"></prepago-variations>\n          <!-- POSTPAGO VARIATIONS -->\n          <postpago-variations *ngIf=\"product.product_id && product.category_id && product.category_id == 1\"></postpago-variations>\n        </div>\n      </article>\n    </div>\n  </sa-widgets-grid>\n</div>"
 
 /***/ }),
 
@@ -580,9 +629,11 @@ var ProductComponent = (function () {
         this.blockui = blockui;
         this.productService = productService;
         this.product = {};
+        this.alert = null;
     }
     ProductComponent.prototype.ngOnInit = function () {
         var _this = this;
+        this.alert = null;
         var product_id = this.route.snapshot.params.id;
         if (product_id) {
             this.subtitle = 'Nro. #' + product_id;
@@ -599,6 +650,9 @@ var ProductComponent = (function () {
         else {
             this.subtitle = 'Nuevo producto';
         }
+    };
+    ProductComponent.prototype.printAlert = function (alert) {
+        this.alert = alert;
     };
     return ProductComponent;
 }());
@@ -691,13 +745,18 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var StockModelService = (function () {
     function StockModelService(http) {
         this.http = http;
-        this.url = '/api/admin/importar';
+        this.url = '/api/admin/productos';
     }
-    StockModelService.prototype.getUrl = function (param) {
-        if (param === void 0) { param = ''; }
+    StockModelService.prototype.getUrl = function (params) {
+        if (params === void 0) { params = ''; }
         var urlParts = [this.url];
-        if (param.length) {
-            urlParts.push(param);
+        if (params.length) {
+            if (typeof params === 'object') {
+                urlParts = urlParts.concat(params);
+            }
+            else {
+                urlParts.push(params);
+            }
         }
         return urlParts.join('/');
     };
@@ -788,13 +847,70 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var VariationService = (function () {
     function VariationService(http) {
         this.http = http;
-        this.url = '/api/admin/importar';
+        this.url = '/api/admin/productos';
     }
-    VariationService.prototype.getUrl = function (param) {
-        if (param === void 0) { param = ''; }
+    VariationService.prototype.getPrepaidVariations = function (product_id) {
+        return this.http
+            .get(this.getUrl([product_id, 'variation', 'prepaid']));
+    };
+    VariationService.prototype.getPostpaidVariations = function (product_id) {
+        return this.http
+            .get(this.getUrl([product_id, 'variation', 'postpaid']));
+    };
+    VariationService.prototype.savePrepaidVariations = function (product_id, variations) {
+        return this.http
+            .post(this.getUrl([product_id, 'variation', 'prepaid']), {
+            'variation': variations
+        });
+    };
+    VariationService.prototype.updatePrepaidVariations = function (product_id, variations) {
+        return this.http
+            .post(this.getUrl([product_id, 'variation', 'prepaid']), {
+            'variation': variations,
+            '_method': 'put'
+        });
+    };
+    VariationService.prototype.savePostpaidVariations = function (product_id, variations, affiliation_id, contract_id) {
+        return this.http
+            .post(this.getUrl([product_id, 'variation', 'postpaid']), {
+            'variation': variations,
+            'affiliation_id': affiliation_id,
+            'contract_id': contract_id
+        });
+    };
+    VariationService.prototype.updatePostpaidVariations = function (product_id, variations) {
+        return this.http
+            .post(this.getUrl([product_id, 'variation', 'postpaid']), {
+            'variation': variations,
+            '_method': 'put'
+        });
+    };
+    VariationService.prototype.getPrepaidPlans = function () {
+        return this.http
+            .get('/api/admin/plan/prepago');
+    };
+    VariationService.prototype.getPostpaidPlans = function () {
+        return this.http
+            .get('/api/admin/plan/postpago');
+    };
+    VariationService.prototype.getAffiliations = function () {
+        return this.http
+            .get('/api/admin/affiliation');
+    };
+    VariationService.prototype.getContracts = function () {
+        return this.http
+            .get('/api/admin/contract');
+    };
+    VariationService.prototype.getUrl = function (params) {
+        if (params === void 0) { params = ''; }
         var urlParts = [this.url];
-        if (param.length) {
-            urlParts.push(param);
+        if (params.length) {
+            if (typeof params === 'object') {
+                urlParts = urlParts.concat(params);
+            }
+            else {
+                urlParts.push(params);
+            }
         }
         return urlParts.join('/');
     };
@@ -807,6 +923,84 @@ VariationService = __decorate([
 
 var _a;
 //# sourceMappingURL=variation.service.js.map
+
+/***/ }),
+
+/***/ "../../../../../src/app/+productos/+catalogo/variations/postpago-form.component.html":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "../../../../../src/app/+productos/+catalogo/variations/postpago-form.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PostpagoFormComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_utils_notification_service__ = __webpack_require__("../../../../../src/app/shared/utils/notification.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng_block_ui__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var PostpagoFormComponent = (function () {
+    function PostpagoFormComponent(route, router, blockui, notificationService) {
+        this.route = route;
+        this.router = router;
+        this.blockui = blockui;
+        this.notificationService = notificationService;
+        this.variation = {};
+        this.onValidation = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.validationOptions = {};
+    }
+    PostpagoFormComponent.prototype.ngOnInit = function () { };
+    PostpagoFormComponent.prototype.onValidationSuccess = function (e) {
+        this.onValidation.emit(this.formPrepago.value);
+    };
+    return PostpagoFormComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], PostpagoFormComponent.prototype, "variation", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
+], PostpagoFormComponent.prototype, "onValidation", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('formPrepago'),
+    __metadata("design:type", Object)
+], PostpagoFormComponent.prototype, "formPrepago", void 0);
+PostpagoFormComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'postpago-form',
+        template: __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/postpago-form.component.html"),
+        styles: []
+    }),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__["BlockUIService"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__shared_utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__shared_utils_notification_service__["a" /* NotificationService */]) === "function" && _e || Object])
+], PostpagoFormComponent);
+
+var _a, _b, _c, _d, _e;
+//# sourceMappingURL=postpago-form.component.js.map
 
 /***/ }),
 
@@ -855,10 +1049,90 @@ PostpagoVariationsComponent = __decorate([
 
 /***/ }),
 
+/***/ "../../../../../src/app/+productos/+catalogo/variations/prepago-form.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<form #formPrepago=\"ngForm\" #form class=\"smart-form\" novalidate=\"novalidate\" [saUiValidate]=\"validationOptions\" (onInitComplete)=\"setValidationRef($event)\">\n  <div class=\"row detalle-registro\">\n    <div class=\"col col-sm-4\">\n      <div class=\"row\">\n        <section class=\"col col-sm-12\">\n          <label class=\"checkbox\" [class.state-disabled]=\"variation.product_variation_id\">\n            <input [attr.disabled]=\"variation.product_variation_id ? 'disabled' : null\" id=\"variation_allowed\" name=\"variation_allowed\" type=\"checkbox\" [(ngModel)]=\"variation.variation_allowed\"><i></i>Habilitado\n          </label>\n          <input *ngIf=\"variation.product_variation_id\" type=\"hidden\" name=\"product_variation_id\" [(ngModel)]=\"variation.product_variation_id\">\n        </section>\n      </div>\n    </div>\n    <div class=\"col col-sm-4\">\n      <div class=\"row\">\n        <section class=\"col col-sm-12\">\n          <div class=\"input\">\n            <input id=\"reason_code\" name=\"reason_code\" type=\"text\" placeholder=\"Reason Code\" [(ngModel)]=\"variation.reason_code\"><i></i>\n          </div>\n        </section>\n      </div>\n    </div>\n    <div class=\"col col-sm-4\">\n      <div class=\"row\">\n        <section class=\"col col-sm-12\">\n          <div class=\"input\">\n            <input id=\"product_package\" name=\"product_package\" type=\"text\" placeholder=\"Product Package\" [(ngModel)]=\"variation.product_package\"><i></i>\n          </div>\n        </section>\n      </div>\n    </div>\n  </div>\n</form>"
+
+/***/ }),
+
+/***/ "../../../../../src/app/+productos/+catalogo/variations/prepago-form.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PrepagoFormComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__shared_utils_notification_service__ = __webpack_require__("../../../../../src/app/shared/utils/notification.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_ng_block_ui__);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
+var PrepagoFormComponent = (function () {
+    function PrepagoFormComponent(route, router, blockui, notificationService) {
+        this.route = route;
+        this.router = router;
+        this.blockui = blockui;
+        this.notificationService = notificationService;
+        this.variation = {};
+        this.onValidation = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.validationOptions = {};
+    }
+    PrepagoFormComponent.prototype.ngOnInit = function () {
+        this.variation.variation_allowed = this.variation.product_variation_id ? true : false;
+    };
+    PrepagoFormComponent.prototype.setValidationRef = function (formValidate) {
+        this.formValidate = formValidate;
+    };
+    return PrepagoFormComponent;
+}());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], PrepagoFormComponent.prototype, "variation", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
+], PrepagoFormComponent.prototype, "onValidation", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChild"])('formPrepago'),
+    __metadata("design:type", Object)
+], PrepagoFormComponent.prototype, "formPrepago", void 0);
+PrepagoFormComponent = __decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
+        selector: 'prepago-form',
+        template: __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/prepago-form.component.html"),
+        styles: []
+    }),
+    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_5_ng_block_ui__["BlockUIService"]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_4__shared_utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_4__shared_utils_notification_service__["a" /* NotificationService */]) === "function" && _e || Object])
+], PrepagoFormComponent);
+
+var _a, _b, _c, _d, _e;
+//# sourceMappingURL=prepago-form.component.js.map
+
+/***/ }),
+
 /***/ "../../../../../src/app/+productos/+catalogo/variations/prepago.component.html":
 /***/ (function(module, exports) {
 
-module.exports = ""
+module.exports = "<sa-widget [editbutton]=\"false\" [custombutton]=\"false\">\n  <!-- widget div-->\n  <div>\n    <!-- widget content -->\n    <div class=\"widget-body no-padding\">\n\n      <div class=\"smart-form\">\n        <div class=\"detalle-order\">\n          <header>\n            <i class=\"icon-prepend fa fa-exclamation-circle\"></i>\n            Variaciones Prepago\n          </header>\n          <div *ngFor=\"let plan of plans\" class=\"row padding-row\">\n            <div class=\"col col-sm-2\">\n              {{plan.plan_name}}\n            </div>\n            <div class=\"col col-sm-10\">\n              <prepago-form *ngIf=\"variationsByPlan[plan.plan_id]\" [variation]=\"variationsByPlan[plan.plan_id]\"></prepago-form>\n              <prepago-form *ngIf=\"!variationsByPlan[plan.plan_id]\"></prepago-form>\n            </div>\n          </div>\n          <div class=\"row padding-row detalle-registro\">\n            <footer>\n              <div class=\"btn-footer\">\n                <button class=\"btn btn-primary\" (click)=\"saveAll()\" type=\"button\">Guardar</button>\n              </div>\n            </footer>\n          </div>\n        </div>\n      </div>\n\n    </div>\n    <!-- end widget content -->\n  </div>\n  <!-- end widget div -->\n</sa-widget>\n"
 
 /***/ }),
 
@@ -868,34 +1142,150 @@ module.exports = ""
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return PrepagoVariationsComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("../../../core/@angular/core.es5.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_router__ = __webpack_require__("../../../router/@angular/router.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__ = __webpack_require__("../../../../rxjs/Rx.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__ = __webpack_require__("../../../../rxjs/add/operator/map.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__ = __webpack_require__("../../../../rxjs/add/operator/catch.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__prepago_form_component__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/prepago-form.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__variation_service__ = __webpack_require__("../../../../../src/app/+productos/+catalogo/variation.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__shared_utils_notification_service__ = __webpack_require__("../../../../../src/app/shared/utils/notification.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng_block_ui__ = __webpack_require__("../../../../ng-block-ui/dist/index.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_ng_block_ui___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_ng_block_ui__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+
+
 
 
 
 var PrepagoVariationsComponent = (function () {
-    function PrepagoVariationsComponent() {
+    function PrepagoVariationsComponent(route, router, blockui, variationService, notificationService) {
+        this.route = route;
+        this.router = router;
+        this.blockui = blockui;
+        this.variationService = variationService;
+        this.notificationService = notificationService;
+        this.plans = [];
+        this.product = {};
+        this.onAlert = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.saveObs = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Subject"]();
+        this.updateObs = new __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Subject"]();
+        this.variations = [];
+        this.variationsByPlan = {};
+        this.validationOptions = {};
     }
     PrepagoVariationsComponent.prototype.ngOnInit = function () {
+        var _this = this;
+        this.product_id = this.route.snapshot.params.id;
+        __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].zip(this.variationService.getPrepaidPlans(), this.variationService.getPrepaidVariations(this.product_id)).subscribe(function (_a) {
+            var plans = _a[0], vars = _a[1];
+            if (plans.success) {
+                _this.plans = plans.result;
+            }
+            if (vars.success) {
+                _this.variations = vars.result;
+                _this.variations.map(function (variation, index) {
+                    _this.variationsByPlan[variation.plan_id] = variation;
+                    return variation;
+                });
+            }
+        });
+    };
+    PrepagoVariationsComponent.prototype.saveAll = function () {
+        var _this = this;
+        var saveVariations = [];
+        var updateVariations = [];
+        var count = 0;
+        this.planForms.forEach(function (formComp, index) {
+            var variation = formComp.formPrepago.value;
+            if (variation.variation_allowed && formComp.formValidate.valid()) {
+                if (variation.product_variation_id) {
+                    updateVariations.push(variation);
+                }
+                else {
+                    saveVariations.push(variation);
+                }
+            }
+            count++;
+            if (count === _this.planForms.length) {
+                console.log(saveVariations);
+                console.log(updateVariations);
+                __WEBPACK_IMPORTED_MODULE_2_rxjs_Rx__["Observable"].zip(_this.variationService.savePrepaidVariations(_this.product_id, saveVariations), _this.variationService.updatePrepaidVariations(_this.product_id, updateVariations)).subscribe(function (_a) {
+                    var save = _a[0], update = _a[1];
+                    _this.onAlert.emit(_this.getAlert(save, 'agregadas'));
+                    _this.onAlert.emit(_this.getAlert(update, 'actualizadas'));
+                    if (save.success || update.success) {
+                        _this.variationService.getPrepaidVariations(_this.product_id)
+                            .subscribe(function (vars) {
+                            if (vars.success) {
+                                _this.variations = vars.result;
+                                _this.variations.map(function (item, i) {
+                                    _this.variationsByPlan[item.plan_id] = item;
+                                    return item;
+                                });
+                            }
+                        });
+                    }
+                });
+            }
+        });
+    };
+    PrepagoVariationsComponent.prototype.getAlert = function (result, title_mode) {
+        var mode, title, message;
+        if (result.success) {
+            mode = 'success';
+            title = 'Variaciones prepago' + title_mode;
+            message = result.result;
+        }
+        else {
+            mode = 'danger';
+            title = 'Variaciones prepago no ' + title_mode;
+            message = result.result;
+        }
+        return {
+            'title': title,
+            'message': message,
+            'mode': mode
+        };
     };
     return PrepagoVariationsComponent;
 }());
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Input"])(),
+    __metadata("design:type", Object)
+], PrepagoVariationsComponent.prototype, "product", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
+], PrepagoVariationsComponent.prototype, "onAlert", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["ViewChildren"])(__WEBPACK_IMPORTED_MODULE_5__prepago_form_component__["a" /* PrepagoFormComponent */]),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["QueryList"]) === "function" && _b || Object)
+], PrepagoVariationsComponent.prototype, "planForms", void 0);
 PrepagoVariationsComponent = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Component"])({
         selector: 'prepago-variations',
         template: __webpack_require__("../../../../../src/app/+productos/+catalogo/variations/prepago.component.html"),
         styles: []
-    })
+    }),
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["a" /* ActivatedRoute */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_router__["c" /* Router */]) === "function" && _d || Object, typeof (_e = typeof __WEBPACK_IMPORTED_MODULE_8_ng_block_ui__["BlockUIService"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_8_ng_block_ui__["BlockUIService"]) === "function" && _e || Object, typeof (_f = typeof __WEBPACK_IMPORTED_MODULE_6__variation_service__["a" /* VariationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_6__variation_service__["a" /* VariationService */]) === "function" && _f || Object, typeof (_g = typeof __WEBPACK_IMPORTED_MODULE_7__shared_utils_notification_service__["a" /* NotificationService */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_7__shared_utils_notification_service__["a" /* NotificationService */]) === "function" && _g || Object])
 ], PrepagoVariationsComponent);
 
+var _a, _b, _c, _d, _e, _f, _g;
 //# sourceMappingURL=prepago.component.js.map
 
 /***/ })

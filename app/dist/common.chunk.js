@@ -1710,6 +1710,7 @@ var UiValidateDirective = (function () {
         var _this = this;
         this.el = el;
         this.onValidationSuccess = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
+        this.onInitComplete = new __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]();
         __webpack_require__.e/* import() */("jquery.validate").then(__webpack_require__.bind(null, "../../../../jquery-validation/dist/jquery.validate.js")).then(function () {
             __webpack_require__.e/* import() */("additional-methods").then(__webpack_require__.bind(null, "../../../../jquery-validation/dist/additional-methods.js")).then(function () {
                 _this.attach();
@@ -1776,6 +1777,7 @@ var UiValidateDirective = (function () {
                 self.onValidationSuccess.emit(this);
             }
         }));
+        this.onInitComplete.emit($form);
     };
     return UiValidateDirective;
 }());
@@ -1787,14 +1789,18 @@ __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
     __metadata("design:type", typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _a || Object)
 ], UiValidateDirective.prototype, "onValidationSuccess", void 0);
+__decorate([
+    Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Output"])(),
+    __metadata("design:type", typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["EventEmitter"]) === "function" && _b || Object)
+], UiValidateDirective.prototype, "onInitComplete", void 0);
 UiValidateDirective = __decorate([
     Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["Directive"])({
         selector: '[saUiValidate]'
     }),
-    __metadata("design:paramtypes", [typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === "function" && _b || Object])
+    __metadata("design:paramtypes", [typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"] !== "undefined" && __WEBPACK_IMPORTED_MODULE_0__angular_core__["ElementRef"]) === "function" && _c || Object])
 ], UiValidateDirective);
 
-var _a, _b;
+var _a, _b, _c;
 //# sourceMappingURL=ui-validate.directive.js.map
 
 /***/ }),
