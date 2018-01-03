@@ -42,7 +42,9 @@ export class ProductBasicComponent implements OnInit {
         required : true
       },
       product_priority : {
-        required : true
+        required : true,
+        number: true,
+        maxlength: 3,
       }
     },
     messages : {
@@ -59,7 +61,9 @@ export class ProductBasicComponent implements OnInit {
         required : 'Debes ingresar un precio'
       },
       product_priority : {
-        required : 'Debes ingresar una prioridad'
+        required : 'Debes ingresar una prioridad',
+        number: 'Debes ingresar un número entero',
+        maxlength: 'Éste número acepta como máximo 3 dígitos',
       }
     }
   };
@@ -104,7 +108,6 @@ export class ProductBasicComponent implements OnInit {
     const fileBrowser = this.productImageInput.nativeElement;
     const formData = new FormData(document.forms.namedItem('form-basic'));
     if (this.product.product_id) {
-      formData.append('_method', 'put');
       this.productService.updateBasic(this.product.product_id, formData)
         .subscribe((data: any) => {
           this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));

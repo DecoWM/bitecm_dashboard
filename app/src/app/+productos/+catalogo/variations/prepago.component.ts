@@ -70,9 +70,9 @@ export class PrepagoVariationsComponent implements OnInit {
     this.planForms.forEach((formComp, index) => {
       const variation = formComp.formPrepago.value;
       variation.active = 1;
-      if (formComp.formPrepago.dirty && variation.variation_allowed && formComp.formValidate.valid()) {
+      if (formComp.formPrepago.dirty && formComp.formValidate.valid()) {
         if (variation.product_variation_id) {
-          // variation.active = variation.variation_allowed;
+          variation.active = variation.variation_allowed ? 1 : 0;
           updateVariations.push(variation);
         } else {
           if (variation.variation_allowed) {

@@ -49,14 +49,15 @@ export class ProductService {
   }
 
   updateBasic(product_id, formData) {
+    formData.append('_method', 'put');
     return this.http
       .post(this.getUrl(product_id), formData);
   }
 
   getUrl(params: any = '') {
     let urlParts = [this.url];
-    if (params.length) {
-      if (typeof params === 'object') {
+    if (params.toString().length) {
+      if (params instanceof Array) {
         urlParts = urlParts.concat(params);
       } else {
         urlParts.push(params);
