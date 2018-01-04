@@ -31,7 +31,21 @@ export class StockModelService {
       .get(this.getUrl([product_id, 'smc']));
   }
 
-  
+  saveStockModel(product_id, formData) {
+    return this.http
+      .post(this.getUrl([product_id, 'smc']), formData);
+  }
+
+  updateStockModel(product_id, formData, stock_model_id) {
+    formData.append('_method', 'put');
+    return this.http
+      .post(this.getUrl([product_id, 'smc', stock_model_id]), formData);
+  }
+
+  removeProductImage(product_image_id) {
+    return this.http
+      .delete(this.getUrl(['image', product_image_id]));
+  }
 
   getUrl(params: any = '') {
     let urlParts = [this.url];

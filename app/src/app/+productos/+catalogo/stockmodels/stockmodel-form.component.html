@@ -1,9 +1,12 @@
-<form #formStockModel="ngForm" #form class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onInitComplete)="referenceValidator($event)">
+<form #formStockModel="ngForm" #form class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onInitComplete)="referenceValidator($event)" (onValidationSuccess)="onValidationSuccess($event)" name="form-stock-model{{stockmodel.stock_model_id}}" style="border: 1px solid #bbb; padding-top: 10px;">
   <input *ngIf="stockmodel.stock_model_id" type="hidden" name="stock_model_id" [(ngModel)]="stockmodel.stock_model_id">
-  <div class="row detalle-registro">
-    <div class="col col-sm-4">
+  <div class="row detalle-registro padding-row">
+    <div class="col col-sm-5">
       <div class="row">
-        <section class="col col-sm-8">
+        <section class="col col-sm-3">
+          <label for="color_id" class="select">Color</label>
+        </section>
+        <section class="col col-sm-9">
           <div class="select">
             <select name="color_id" id="color_id" [(ngModel)]="stockmodel.color_id" (change)="onSelectChange($event)">
               <option value="">Seleccionar color</option>
@@ -17,20 +20,65 @@
     </div>
     <div class="col col-sm-4">
       <div class="row">
-        <section class="col col-sm-12">
+        <section class="col col-sm-3">
+          <label for="color_id">Code</label>
+        </section>
+        <section class="col col-sm-9">
           <div class="input">
             <input id="stock_model_code" name="stock_model_code" type="text" placeholder="Stock Model Code" [(ngModel)]="stockmodel.stock_model_code"><i></i>
           </div>
         </section>
       </div>
     </div>
-    <div class="col col-sm-4">
+    <div class="col col-sm-3">
       <div class="row">
         <section class="col col-sm-12">
-          <label class="checkbox">
+          <label class="checkbox" *ngIf="stockmodel.stock_model_id">
             <input id="active" name="active" type="checkbox" [(ngModel)]="stockmodel.active"><i></i>Habilitado
           </label>
         </section>
+      </div>
+    </div>
+    <div class="col col-sm-12">
+      <div *ngFor="let product_image of stockmodel.product_images" class="row">
+        <input type="hidden" name="product_image_id" [(ngModel)]="product_image.product_image_id">
+        <section class="col col-sm-3">
+          <div class="text-center" style="border: 1px solid #ccc;">
+            <img class="product-image" src="{{product_image.product_image_url}}" style="max-height: 100px">
+          </div>
+        </section>
+        <section class="col col-sm-6">
+          <div class="">
+            <a href="{{product_image.product_image_url}}">{{product_image.product_image_url}}</a>
+          </div>
+        </section>
+        <section class="col col-sm-2">
+          <div class="input">
+            <input id="weight" name="weight" type="text" placeholder="Peso" [(ngModel)]="stockmodel.weight"><i></i>
+          </div>
+        </section>
+        <section class="col col-sm-1">
+          <a class="btn btn-primary btn-xs" (click)="removeImage(product_image)"><i class="fa fa-ban"></i></a>
+        </section>
+      </div>
+      <div *ngFor="let number of allowedImages" class="row">
+        <section class="col col-sm-12">
+          <div class="input input-file">
+            <span class="button">
+              <input #productImageInput name="product_image" type="file" (change)="changeFilename($event)">Subir
+            </span>
+            <input type="text" placeholder="Nueva imagen" value="{{productImageUrl}}" readonly>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="col col-sm-12">
+      <div class="row">
+        <footer>
+          <div class="btn-footer">
+            <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+          </div>
+        </footer>
       </div>
     </div>
   </div>
