@@ -18,6 +18,7 @@ export class ProductComponent implements OnInit {
   subtitle: string;
   product: any = {};
   alert: any = null;
+  active: any = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +28,7 @@ export class ProductComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    this.active = 'tab-r1';
     this.alert = null;
     const product_id = this.route.snapshot.params.id;
     if (product_id) {

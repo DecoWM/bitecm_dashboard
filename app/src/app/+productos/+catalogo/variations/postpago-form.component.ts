@@ -24,7 +24,6 @@ export class PostpagoFormComponent implements OnInit, AfterViewChecked {
     product_package: null
   };
   @Input() plan_id: any = null;
-  @Output() onValidation: EventEmitter<any> = new EventEmitter();
   @ViewChild('formPostpago') formPostpago;
   formValidate: any;
 
