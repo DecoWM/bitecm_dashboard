@@ -74,6 +74,14 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
     if (this.stockmodel.active === null) {
       this.stockmodel.active = false;
     }
+    if (this.stockmodel.stock_model_id) {
+      this.stockmodel.product_images.map((i, x) => {
+        const img_url = i.product_image_url;
+        const img_url_arr = img_url.split('/');
+        i.product_image_name = img_url_arr[img_url_arr.length - 1];
+        return i;
+      });
+    }
   }
 
   ngAfterViewChecked() {}
