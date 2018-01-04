@@ -18,9 +18,9 @@ export class VariationService {
       .get(this.getUrl([product_id, 'variation', 'prepaid']));
   }
 
-  getPostpaidVariations(product_id) {
+  getPostpaidVariations(product_id, affiliation_id, contract_id) {
     return this.http
-      .get(this.getUrl([product_id, 'variation', 'postpaid']));
+      .get(this.getUrl([product_id, 'variation', 'postpaid', affiliation_id, contract_id]));
   }
 
   savePrepaidVariations(product_id, variations) {

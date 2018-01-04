@@ -555,7 +555,6 @@ class ProductController extends ApiController
       $variation_list = DB::table('tbl_product_variation')
           ->where('product_id', $product_id)
           ->where('variation_type_id', 1)
-          ->where('active', 1)
           ->get();
 
       return response()->json([
@@ -564,11 +563,12 @@ class ProductController extends ApiController
       ]);
   }
 
-  public function listPostpaidProductVariation($product_id) {
+  public function listPostpaidProductVariation($product_id, $affiliation_id, $contract_id) {
       $variation_list = DB::table('tbl_product_variation')
           ->where('product_id', $product_id)
+          ->where('affiliation_id', $affiliation_id)
+          ->where('contract_id', $contract_id)
           ->where('variation_type_id', 2)
-          ->where('active', 1)
           ->get();
 
       return response()->json([

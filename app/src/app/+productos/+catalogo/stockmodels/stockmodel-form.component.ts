@@ -12,20 +12,20 @@ import { BlockUIService } from 'ng-block-ui';
 declare var $: any;
 
 @Component({
-  selector: 'prepago-form',
-  templateUrl: './prepago-form.component.html',
+  selector: 'stockmodel-form',
+  templateUrl: './stockmodel-form.component.html',
   styles: []
 })
-export class PrepagoFormComponent implements OnInit, AfterViewChecked {
-  @Input() variation: any = {
-    plan_id: null,
-    product_variation_id: null,
-    reason_code: null,
-    product_package: null
+export class StockModelFormComponent implements OnInit, AfterViewChecked {
+  @Input() stockmodel: any = {
+    stock_model_id: null,
+    color_id: null,
+    stock_model_code: null,
+    active: null
   };
-  @Input() plan_id: any = null;
+  @Input() colors: any = [];
   @Output() onValidation: EventEmitter<any> = new EventEmitter();
-  @ViewChild('formPrepago') formPrepago;
+  @ViewChild('formStockModel') formStockModel;
   formValidate: any;
 
   validationOptions = {};
@@ -37,15 +37,19 @@ export class PrepagoFormComponent implements OnInit, AfterViewChecked {
     private notificationService: NotificationService
   ) {}
 
-  ngOnInit() {}
-
-  ngAfterViewChecked() {
-    if (typeof this.variation.variation_allowed === 'undefined') {
-      this.variation.variation_allowed = this.variation.product_variation_id && this.variation.active ? true : false;
+  ngOnInit() {
+    if (this.stockmodel.active === null) {
+      this.stockmodel.active = false;
     }
   }
 
-  setValidationRef(formValidate) {
+  ngAfterViewChecked() {}
+
+  onSelectChange(event) {
+    $(event.currentTarget).blur();
+  }
+
+  referenceValidator(formValidate) {
     this.formValidate = formValidate;
   }
 }

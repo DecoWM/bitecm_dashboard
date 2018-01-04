@@ -23,12 +23,50 @@
           <product-specs></product-specs>
         </div>
         <div class="col-sm-7 col-md-7 col-lg-7">
-          <!-- STOCK MODEL CODES -->
-          <!--stock-models></stock-models-->
-          <!-- PREPAGO VARIATIONS -->
-          <prepago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)"></prepago-variations>
-          <!-- POSTPAGO VARIATIONS -->
-          <postpago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1"></postpago-variations>
+
+          <sa-widget [editbutton]="false" [custombutton]="false">
+
+            <header>
+              <span class="widget-icon">
+                <i class="glyphicon glyphicon-stats txt-color-darken"></i>
+              </span>
+              
+              <h2>Variaciones </h2>
+
+              <ul class="nav nav-tabs pull-right in" id="myTab">
+                <li class="active">
+                  <a data-toggle="tab" href="#s1"><span class="hidden-mobile hidden-tablet">Stock Models</span></a>
+                </li>
+
+                <li>
+                  <a data-toggle="tab" href="#s2"><span class="hidden-mobile hidden-tablet">Variaciones Prepago</span></a>
+                </li>
+
+                <li>
+                  <a data-toggle="tab" href="#s3"><span class="hidden-mobile hidden-tablet">Variaciones Postpago</span></a>
+                </li>
+              </ul>
+            </header>
+
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="no-padding widget-body">
+                
+                <div id="myTabContent" class="tab-content">
+
+                  <!-- STOCK MODEL CODES -->
+                  <!--stock-models class="tab-pane fade active" id="s1"></stock-models-->
+                  <!-- PREPAGO VARIATIONS -->
+                  <prepago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)" class="tab-pane fade active" id="s2"></prepago-variations>
+                  <!-- POSTPAGO VARIATIONS -->
+                  <postpago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)" class="tab-pane fade" id="s3"></postpago-variations>
+
+                </div>
+              
+              </div>
+            </div>
+          </sa-widget>
         </div>
       </article>
     </div>

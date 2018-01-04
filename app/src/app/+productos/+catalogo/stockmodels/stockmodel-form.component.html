@@ -1,0 +1,37 @@
+<form #formStockModel="ngForm" #form class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onInitComplete)="referenceValidator($event)">
+  <input *ngIf="stockmodel.stock_model_id" type="hidden" name="stock_model_id" [(ngModel)]="stockmodel.stock_model_id">
+  <div class="row detalle-registro">
+    <div class="col col-sm-4">
+      <div class="row">
+        <section class="col col-sm-8">
+          <div class="select">
+            <select name="color_id" id="color_id" [(ngModel)]="stockmodel.color_id" (change)="onSelectChange($event)">
+              <option value="">Seleccionar color</option>
+              <option *ngFor="let item of colors" value="{{item.color_id}}">
+                {{item.color_name}}
+              </option>
+            </select> <i></i>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="col col-sm-4">
+      <div class="row">
+        <section class="col col-sm-12">
+          <div class="input">
+            <input id="stock_model_code" name="stock_model_code" type="text" placeholder="Stock Model Code" [(ngModel)]="stockmodel.stock_model_code"><i></i>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="col col-sm-4">
+      <div class="row">
+        <section class="col col-sm-12">
+          <label class="checkbox">
+            <input id="active" name="active" type="checkbox" [(ngModel)]="stockmodel.active"><i></i>Habilitado
+          </label>
+        </section>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,12 @@
+<ul id="myTab1" class="nav nav-tabs bordered">
+  <li *ngFor="let affiliation of affiliations; let i = index" [class.active]="active == 'tab-r'+i">
+    <a (click)="active = 'tab-r'+i">
+      {{affiliation.affiliation_name}}
+    </a>
+  </li>
+</ul>
+<tabset>
+  <tab *ngFor="let affiliation of affiliations; let i = index" [active]="active == 'tab-r'+i">
+    <postpago-plans [affiliation_id]="affiliation.affiliation_id" [contract_id]="contract_id" (onAlert)="printAlert($event)"></postpago-plans>
+  </tab>
+</tabset>

@@ -1,0 +1,16 @@
+<div class="smart-form">
+  <div class="detalle-order">
+    <header>
+      <i class="icon-prepend fa fa-exclamation-circle"></i>
+      Variaciones Postpago
+    </header>
+    <accordion *ngFor="let contract of contracts" class="smart-accordion-default panel-group" [closeOthers]="true">
+      <accordion-group [isOpen]="true" #group1>
+        <h4 class="panel-title" accordion-heading>
+          <a><i class="pull-right fa fa-lg" [ngClass]="{'fa-angle-down': group1?.isOpen, 'fa-angle-up': !group1?.isOpen}"></i>{{contract.contract_name}}</a>
+        </h4>
+        <postpago-affiliations [contract_id]="contract.contract_id" (onAlert)="printAlert($event)"></postpago-affiliations>
+      </accordion-group>
+    </accordion>
+  </div>
+</div>
