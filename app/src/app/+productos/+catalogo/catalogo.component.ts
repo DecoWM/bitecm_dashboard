@@ -104,7 +104,7 @@ export class CatalogoComponent implements OnInit {
           product.active = 1;
           product.updated_at = res.result.updated_at;
           product.publish_at = res.result.publish_at;
-          this.alert = this.getAlertPublish(res, product);
+          this.printAlert(this.getAlertPublish(res, product));
         }
         this.blockui.stop('content');
       });
@@ -117,7 +117,7 @@ export class CatalogoComponent implements OnInit {
         if (res.success) {
           product.active = 0;
           product.updated_at = res.result.updated_at;
-          this.alert = this.getAlertUnpublish(res, product);
+          this.printAlert(this.getAlertUnpublish(res, product));
         }
         this.blockui.stop('content');
       });
@@ -157,5 +157,12 @@ export class CatalogoComponent implements OnInit {
       'message': message,
       'mode': mode
     }
+  }
+
+  printAlert(alert): void {
+    if (alert && !(alert instanceof Array)) {
+      alert = [alert];
+    }
+    this.alert = alert;
   }
 }

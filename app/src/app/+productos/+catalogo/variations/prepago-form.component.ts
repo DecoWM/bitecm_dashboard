@@ -41,7 +41,7 @@ export class PrepagoFormComponent implements OnInit, AfterViewChecked {
 
   ngAfterViewChecked() {
     if (typeof this.variation.variation_allowed === 'undefined') {
-      this.variation.variation_allowed = this.variation.product_variation_id ? true : false;
+      this.variation.variation_allowed = this.variation.product_variation_id && this.variation.active ? true : false;
     }
   }
 

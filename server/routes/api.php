@@ -44,9 +44,9 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::post('variaciones', 'ImportController@variations');
 	});
 
-	/////////////
+	////////////
 	// PRODUCT //
-	/////////////
+	////////////
 	Route::prefix('productos')->group(function () {
 		//Product list
 		Route::get('', 'ProductController@list');
@@ -75,12 +75,13 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::put('{product_id}/smc/{stock_model_id}', 'ProductController@updateStockModelCode');
 
 		Route::get('{product_id}/variation/prepaid', 'ProductController@listPrepaidProductVariation');
-		Route::get('{product_id}/variation/postpaid', 'ProductController@listPostpaidProductVariation');
+		Route::get('{product_id}/variation/postpaid/{affiliation_id}/{contract_id}', 'ProductController@listPostpaidProductVariation');
 
 		Route::post('{product_id}/variation/prepaid', 'ProductController@storePrepaidVariation');
-		Route::post('{product_id}/variation/postpaid', 'ProductController@storePostpaidVariation');
+		Route::post('{product_id}/variation/postpaid', 'ProductController@storePostpaidProductVariation');
 
 		Route::put('{product_id}/variation/prepaid', 'ProductController@updatePrepaidVariation');
+		Route::put('{product_id}/variation/postpaid', 'ProductController@updatePostpaidProductVariation');
 
 		Route::delete('/image/{product_image_id}', 'ProductController@deleteProductImage');
 	});

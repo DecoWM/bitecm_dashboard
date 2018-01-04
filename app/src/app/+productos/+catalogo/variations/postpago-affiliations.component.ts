@@ -13,12 +13,15 @@ import { BlockUIService } from 'ng-block-ui';
 declare var $: any;
 
 @Component({
-  selector: 'postpago-variations',
-  templateUrl: './postpago.component.html',
+  selector: 'postpago-affiliations',
+  templateUrl: './postpago-affiliations.component.html',
   styles: []
 })
-export class PostpagoVariationsComponent implements OnInit {
-  contracts: any = [];
+export class PostpagoAffiliationsComponent implements OnInit {
+  affiliations: any = [];
+  active: any = null;
+
+  @Input() contract_id: any = null;
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
 
   constructor(
@@ -30,10 +33,11 @@ export class PostpagoVariationsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.variationService.getContracts()
+    this.active = 'tab-r0';
+    this.variationService.getAffiliations()
       .subscribe((data: any) => {
       if (data.success) {
-        this.contracts = data.result;
+        this.affiliations = data.result;
       }
     });
   }

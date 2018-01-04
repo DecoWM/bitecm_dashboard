@@ -355,7 +355,7 @@ class ProductController extends ApiController
           ->where('tbl_stock_model.active', 1)
           ->where('tbl_stock_model.product_id', $product_id)
           ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
-          ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id')
+          ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id', 'tbl_stock_model.active')
           ->get();
 
       foreach ($stock_model_code_list as $stock_model_code) {
@@ -407,12 +407,14 @@ class ProductController extends ApiController
       //Inputs
       $color_id = $request->input('color_id');
       $stock_model_code = $request->input('stock_model_code');
+      $active = $request->input('active', 1);
 
       //Insert
       $stock_model_id = DB::table('tbl_stock_model')->insertGetId([
           'product_id' => $product_id,
           'color_id' => $color_id,
-          'stock_model_code' => $stock_model_code
+          'stock_model_code' => $stock_model_code,
+          'active' => $active
       ]);
 
       //Images
@@ -433,6 +435,7 @@ class ProductController extends ApiController
 
       return response()->json([
         'result' => 'Stock Model Code registrado correctamente.',
+        'id' => $stock_model_id,
         'success' => true
       ]);
   }
@@ -469,12 +472,14 @@ class ProductController extends ApiController
           $color_id = $request->input('color_id');
           $stock_model_code = $request->input('stock_model_code');
           $stock_model_images = json_decode($request->input('stock_model_images'));
+          $active = $request->input('active', 1);
 
           $updated_at = Carbon::now()->toDateTimeString();
 
           $data =  [
               'color_id' => $color_id,
               'stock_model_code' => $stock_model_code,
+              'active' => $active,
               'updated_at' => $updated_at
           ];
 
@@ -555,7 +560,6 @@ class ProductController extends ApiController
       $variation_list = DB::table('tbl_product_variation')
           ->where('product_id', $product_id)
           ->where('variation_type_id', 1)
-          ->where('active', 1)
           ->get();
 
       return response()->json([
@@ -564,11 +568,12 @@ class ProductController extends ApiController
       ]);
   }
 
-  public function listPostpaidProductVariation($product_id) {
+  public function listPostpaidProductVariation($product_id, $affiliation_id, $contract_id) {
       $variation_list = DB::table('tbl_product_variation')
           ->where('product_id', $product_id)
+          ->where('affiliation_id', $affiliation_id)
+          ->where('contract_id', $contract_id)
           ->where('variation_type_id', 2)
-          ->where('active', 1)
           ->get();
 
       return response()->json([
@@ -948,8 +953,7 @@ class ProductController extends ApiController
   public function storeColor(Request $request) {
       $validator = Validator::make($request->all(), [
           'color_name' => 'required|unique:tbl_color',
-          'color_hexcode' => 'required',
-          'color_slug' => 'required|unique:tbl_color'
+          'color_hexcode' => 'required'
       ]);
 
       if($validator->fails()) {
@@ -965,7 +969,7 @@ class ProductController extends ApiController
 
           $color_name = $request->input('color_name');
           $color_hexcode = $request->input('color_hexcode');
-          $color_slug = $request->input('color_slug');
+          $color_slug = str_slug($color_name);
 
           $color = DB::table('tbl_color')->insertGetId([
             'color_name' => $color_name,
