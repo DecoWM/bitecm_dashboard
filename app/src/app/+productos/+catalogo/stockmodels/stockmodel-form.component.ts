@@ -29,6 +29,7 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
   @ViewChild('formStockModel') formStockModel;
   formValidate: any;
+  productImageUrl: any = [];
   _addImages = 5;
 
   validationOptions = {
@@ -71,8 +72,17 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
   ) {}
 
   ngOnInit() {
+    this.productImageUrl = [];
     if (this.stockmodel.active === null) {
       this.stockmodel.active = false;
+    }
+    if (this.stockmodel.stock_model_id) {
+      this.stockmodel.product_images.map((i, x) => {
+        const img_url = i.product_image_url;
+        const img_url_arr = img_url.split('/');
+        i.product_image_name = img_url_arr[img_url_arr.length - 1];
+        return i;
+      });
     }
   }
 
@@ -90,25 +100,41 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
     this.formValidate = formValidate;
   }
 
+  changeFilename(event, ix) {
+    const uploadedFiles = event.srcElement.files;
+    this.productImageUrl[ix] = uploadedFiles[0].name;
+  }
+
   save(e) {
-    if (this.formStockModel.dirty && this.formValidate.valid()) {
+    const formData = new FormData(document.forms.namedItem('form-stock-model' + (this.stockmodel.stock_model_id ? this.stockmodel.stock_model_id : '')));
+    if (this.formStockModel.dirty || formData.has('product_image[]')) {
+      this.productImageUrl = [];
       if (this.stockmodel.stock_model_id) {
-        const formData = new FormData(document.forms.namedItem('form-stock-model' + this.stockmodel.stock_model_id));
         formData.append('stock_model_images', JSON.stringify(this.stockmodel.product_images));
+        formData.set('active', this.stockmodel.active ? '1' : '0');
         this.stockModelService.updateStockModel(this.product_id, formData, this.stockmodel.stock_model_id)
           .subscribe((data: any) => {
             this.onAlert.emit(this.getAlert(data));
             if (data.success) {
-              this.stockmodel.stock_model_id = data.id;
+              this.stockModelService.getStockModel(this.product_id, this.stockmodel.stock_model_id)
+                .subscribe((smc: any) => {
+                  if (smc.success) {
+                    this.stockmodel = smc.result;
+                  }
+                });
             }
           });
       } else {
-        const formData = new FormData(document.forms.namedItem('form-stock-model'));
         this.stockModelService.saveStockModel(this.product_id, this.stockmodel)
           .subscribe((data: any) => {
             this.onAlert.emit(this.getAlert(data));
             if (data.success) {
-              this.stockmodel.stock_model_id = data.id;
+              this.stockModelService.getStockModel(this.product_id, this.stockmodel.stock_model_id)
+                .subscribe((smc: any) => {
+                  if (smc.success) {
+                    this.stockmodel = smc.result;
+                  }
+                });
             }
           });
       }
@@ -120,9 +146,28 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
       .subscribe((data: any) => {
         this.onAlert.emit(this.getAlert(data));
         if (data.success) {
-          // this.stockmodel.stock_model_id = data.id;
+          for (let key in this.stockmodel.product_images) {
+            if (this.stockmodel.product_images[key].product_image_id === product_image.product_image_id) {
+              this.stockmodel.product_images.splice(key, 1);
+            }
+          }
         }
       });
+  }
+
+  showPopupRemoveImage(product_image): void {
+    this.notificationService.smartMessageBox({
+      title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Eliminar imagen
+        <span class="txt-color-orangeDark">
+          <strong>${product_image.product_image_name}</strong>
+        </span>`,
+      content : '¿Seguro que quieres eliminar esta imagen? Desparecerá del detalle del producto.',
+      buttons : '[No][Si]'
+    }, (ButtonPressed) => {
+      if (ButtonPressed === 'Si') {
+        this.removeImage(product_image);
+      }
+    });
   }
 
   getAlert(result): any {

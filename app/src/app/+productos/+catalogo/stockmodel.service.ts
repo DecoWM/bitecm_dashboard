@@ -42,6 +42,11 @@ export class StockModelService {
       .post(this.getUrl([product_id, 'smc', stock_model_id]), formData);
   }
 
+  getStockModel(product_id, stock_model_id) {
+    return this.http
+      .get(this.getUrl([product_id, 'smc', stock_model_id]));
+  }
+
   removeProductImage(product_image_id) {
     return this.http
       .delete(this.getUrl(['image', product_image_id]));

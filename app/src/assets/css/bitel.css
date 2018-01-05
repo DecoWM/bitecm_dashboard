@@ -480,3 +480,8 @@ nav ul li a:active{
 .MsgTitle .txt-color-orangeDark{
   color: #169599;
 }
+
+.product-images .btn {
+  float: none;
+  position: static;
+}

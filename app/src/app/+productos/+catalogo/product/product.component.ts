@@ -47,6 +47,15 @@ export class ProductComponent implements OnInit {
     }
   }
 
+  refreshProduct() {
+    /*this.productService.getProduct(this.product.product_id)
+      .subscribe((data: any) => {
+        if (data.success) {
+          this.product = data.result;
+        }
+      });*/
+  }
+
   printAlert(alert): void {
     if (alert && !(alert instanceof Array)) {
       alert = [alert];

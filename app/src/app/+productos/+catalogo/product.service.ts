@@ -54,6 +54,12 @@ export class ProductService {
       .post(this.getUrl(product_id), formData);
   }
 
+  updateSpecs(product_id, formData) {
+    formData.append('_method', 'put');
+    return this.http
+      .post(this.getUrl([product_id, 'specifications']), formData);
+  }
+
   getUrl(params: any = '') {
     let urlParts = [this.url];
     if (params.toString().length) {

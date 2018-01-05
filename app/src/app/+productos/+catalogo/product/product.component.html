@@ -16,9 +16,9 @@
       <article>
         <div class="col-sm-5 col-md-5 col-lg-5">
           <!-- PRODUCT BASIC -->
-          <product-basic [product]="product" (onAlert)="printAlert($event)"></product-basic>
+          <product-basic [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-basic>
           <!-- PRODUCT SPECS -->
-          <product-specs></product-specs>
+          <product-specs [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-specs>
         </div>
         <div class="col-sm-7 col-md-7 col-lg-7">
 

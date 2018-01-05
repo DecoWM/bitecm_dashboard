@@ -86,12 +86,14 @@ class ProductController extends ApiController
 
   public function showProduct($product_id) {
       $product = DB::table('tbl_product')
+          ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
           ->where('product_id', $product_id)
+          ->select('tbl_product.*', 'tbl_brand.brand_name')
           ->first();
 
       if ($product) {
         $product->product_data_sheet = asset(Storage::url($product->product_data_sheet));
-        $product->product_image_url = asset(Storage::url($product->product_image_url));
+        $product->product_image_url = asset(Storage::url(($product->product_image_url)));
 
         return response()->json([
             'result' => $product,
@@ -140,7 +142,7 @@ class ProductController extends ApiController
       if ($request->file('product_image')->isValid()) {
           $prefix = "productos";
           $extension = $request->file('product_image')->guessExtension();
-          $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product_slug.'.'.$extension);
+          $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product_slug.'.'.$extension, 'public');
       } else {
           $product_image_path = null;
       }
@@ -221,7 +223,7 @@ class ProductController extends ApiController
               if ($request->file('product_image')->isValid()) {
                   $prefix = "productos";
                   $extension = $request->file('product_image')->guessExtension();
-                  $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product->product_slug.'.'.$extension);
+                  $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product->product_slug.'.'.$extension, 'public');
                   $data = array_add($data, 'product_image_url',$product_image_path);
               }
           }
@@ -230,6 +232,7 @@ class ProductController extends ApiController
           try {
               DB::beginTransaction();
               DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
+              DB::table('tbl_product_variation')->where('variation_type_id', '1')->where('product_id', $product->product_id)->update(['product_variation_price' => $product_price]);
               DB::commit();
           } catch (\Illuminate\Database\QueryException $e) {
               DB::rollback();
@@ -320,7 +323,7 @@ class ProductController extends ApiController
               if ($request->file('product_data_sheet')->isValid()) {
                   $prefix = "data_sheets";
                   $extension = $request->file('product_data_sheet')->guessExtension();
-                  $product_data_sheet_path = $request->file('product_data_sheet')->storeAs($prefix, 'Ficha_tecnica_'.$brand->brand_name.'_'.$product->product_slug.'.'.$extension);
+                  $product_data_sheet_path = $request->file('product_data_sheet')->storeAs($prefix, 'Ficha_tecnica_'.$brand->brand_name.'_'.$product->product_slug.'.'.$extension, 'public');
                   $data = array_add($data, 'product_data_sheet', $product_data_sheet_path);
               }
           }
@@ -352,7 +355,6 @@ class ProductController extends ApiController
 
   public function listStockModelCode($product_id) {
       $stock_model_code_list = DB::table('tbl_stock_model')
-          ->where('tbl_stock_model.active', 1)
           ->where('tbl_stock_model.product_id', $product_id)
           ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
           ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id', 'tbl_stock_model.active')
@@ -425,7 +427,7 @@ class ProductController extends ApiController
           if ($item->isValid()) {
               $prefix = "productos";
               $extension = $item->guessExtension();
-              $product_image_path = $item->storeAs($prefix.'/'.$product->brand_name, $product->product_slug.'-'.$index.'.'.$extension);
+              $product_image_path = $item->storeAs($prefix.'/'.$product->brand_name, $product->product_slug.'-'.$index.'.'.$extension, 'public');
               $image_data = ['stock_model_id' => $stock_model_id, 'product_image_url' => $product_image_path, 'weight' => '1'];
               array_push($image_array, $image_data);
           }
@@ -437,6 +439,30 @@ class ProductController extends ApiController
         'result' => 'Stock Model Code registrado correctamente.',
         'id' => $stock_model_id,
         'success' => true
+      ]);
+  }
+
+  public function getStockModelCode(Request $request, $product_id, $stock_model_id) {
+      $stock_model_code = DB::table('tbl_stock_model')
+          ->where('tbl_stock_model.stock_model_id', $stock_model_id)
+          ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
+          ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id', 'tbl_stock_model.active')
+          ->first();
+
+      if ($stock_model_code) {
+          $stock_model_code->product_images = DB::table('tbl_product_image')
+              ->where('active', 1)
+              ->where('stock_model_id', $stock_model_code->stock_model_id)
+              ->select('product_image_id', 'product_image_url', 'weight')->get();
+
+          foreach ($stock_model_code->product_images as $image) {
+              $image->product_image_url = asset(Storage::url($image->product_image_url));
+          }
+      }
+
+      return response()->json([
+          'result' => $stock_model_code,
+          'success' => true
       ]);
   }
 
@@ -505,7 +531,7 @@ class ProductController extends ApiController
                   if ($item->isValid()) {
                       $prefix = "productos";
                       $extension = $item->guessExtension();
-                      $product_image_path = $item->storeAs($prefix.'/'.$product->brand_name, $product->product_slug.'-'.$index.'.'.$extension);
+                      $product_image_path = $item->storeAs($prefix.'/'.$product->brand_name, $product->product_slug.'-'.$index.'.'.$extension, 'public');
                       $image_data = ['stock_model_id' => $stock_model_id, 'product_image_url' => $product_image_path, 'weight' => '1'];
                       array_push($image_array, $image_data);
                   }
