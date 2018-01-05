@@ -93,7 +93,7 @@ class ProductController extends ApiController
 
       if ($product) {
         $product->product_data_sheet = asset(Storage::url($product->product_data_sheet));
-        $product->product_image_url = asset(Storage::url($product->product_image_url));
+        $product->product_image_url = asset(Storage::url(($product->product_image_url)));
 
         return response()->json([
             'result' => $product,
@@ -355,7 +355,6 @@ class ProductController extends ApiController
 
   public function listStockModelCode($product_id) {
       $stock_model_code_list = DB::table('tbl_stock_model')
-          ->where('tbl_stock_model.active', 1)
           ->where('tbl_stock_model.product_id', $product_id)
           ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
           ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id', 'tbl_stock_model.active')

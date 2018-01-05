@@ -24,6 +24,7 @@ export class ProductBasicComponent implements OnInit {
 
   @Input() product: any = {};
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   @ViewChild('formBasic') formBasic;
   @ViewChild('productImageInput') productImageInput;
 
@@ -110,17 +111,20 @@ export class ProductBasicComponent implements OnInit {
     if (this.product.product_id) {
       this.productService.updateBasic(this.product.product_id, formData)
         .subscribe((data: any) => {
-          this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
           this.productImageUrl = '';
+          this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
+          if (data.success && formData.has('product_image')) {
+            this.product.product_image_url = this.product.product_image_url + '?v1';
+          }
         });
     } else {
       this.productService.saveBasic(formData)
         .subscribe((data: any) => {
+          this.productImageUrl = '';
           // this.onAlert.emit(this.getAlert(data, this.product, 'Creación', 'creado'));
           if (data.success) {
             this.router.navigate([data.id], {relativeTo: this.route.parent});
           }
-          this.productImageUrl = '';
         });
     }
   }

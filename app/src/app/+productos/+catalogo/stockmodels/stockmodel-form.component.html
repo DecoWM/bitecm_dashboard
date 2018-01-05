@@ -33,7 +33,7 @@
     <div class="col col-sm-3">
       <div class="row">
         <section class="col col-sm-12">
-          <label class="checkbox" *ngIf="stockmodel.stock_model_id">
+          <label *ngIf="stockmodel.stock_model_id" class="checkbox">
             <input id="active" name="active" type="checkbox" [(ngModel)]="stockmodel.active"><i></i>Habilitado
           </label>
         </section>
@@ -60,13 +60,13 @@
             <input type="hidden" name="product_image_url_{{i}}" [(ngModel)]="product_image.product_image_url">
           </section>
         </div>
-        <div *ngFor="let number of allowedImages" class="row">
+        <div *ngFor="let number of allowedImages; let ix = index" class="row">
           <section class="col col-sm-12">
             <div class="input input-file">
               <span class="button">
-                <input #productImageInput name="product_image" type="file" (change)="changeFilename($event)">Subir
+                <input name="product_image[]" type="file" (change)="changeFilename($event, ix)">Subir
               </span>
-              <input type="text" placeholder="Nueva imagen" value="{{productImageUrl}}" readonly>
+              <input type="text" placeholder="Nueva imagen" value="{{productImageUrl[ix]}}" readonly>
             </div>
           </section>
         </div>

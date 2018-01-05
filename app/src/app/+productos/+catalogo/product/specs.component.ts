@@ -22,6 +22,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
 
   @Input() product: any = {};
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
+  @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   @ViewChild('formSpecs') formSpecs;
   @ViewChild('dataSheetInput') dataSheetInput;
 
@@ -84,6 +85,42 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       const img_url_arr = img_url.split('/');
       this.product.product_data_sheet_name = img_url_arr[img_url_arr.length - 1];
     }
+    if (typeof this.product.product_radio_check === 'undefined') {
+      if (this.product.product_radio === 'Si') {
+        this.product.product_radio_check = 1;
+      } else if (this.product.product_radio === 'No') {
+        this.product.product_radio_check = 0;
+      } else {
+        this.product.product_radio_check = 1;
+      }
+    }
+    if (typeof this.product.product_bluetooth_check === 'undefined') {
+      if (this.product.product_bluetooth === 'Si') {
+        this.product.product_bluetooth_check = 1;
+      } else if (this.product.product_bluetooth === 'No') {
+        this.product.product_bluetooth_check = 0;
+      } else {
+        this.product.product_bluetooth_check = 1;
+      }
+    }
+    if (typeof this.product.product_wlan_check === 'undefined') {
+      if (this.product.product_wlan === 'Si') {
+        this.product.product_wlan_check = 1;
+      } else if (this.product.product_wlan === 'No') {
+        this.product.product_wlan_check = 0;
+      } else {
+        this.product.product_wlan_check = 1;
+      }
+    }
+    if (typeof this.product.product_gps_check === 'undefined') {
+      if (this.product.product_gps === 'Si') {
+        this.product.product_gps_check = 1;
+      } else if (this.product.product_gps === 'No') {
+        this.product.product_gps_check = 0;
+      } else {
+        this.product.product_gps_check = 1;
+      }
+    }
   }
 
   changeFilename(event) {
@@ -102,20 +139,34 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   save(e) {
     const fileBrowser = this.dataSheetInput.nativeElement;
     const formData = new FormData(document.forms.namedItem('form-specs'));
-    if (this.product.product_id) {
-      this.productService.updateBasic(this.product.product_id, formData)
-        .subscribe((data: any) => {
-          this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
-        });
+    if (this.product.product_radio_check) {
+      formData.append('product_radio', 'Si');
     } else {
-      this.productService.saveBasic(formData)
-        .subscribe((data: any) => {
-          // this.onAlert.emit(this.getAlert(data, this.product, 'Creación', 'creado'));
-          if (data.success) {
-            this.router.navigate([data.id], {relativeTo: this.route.parent});
-          }
-        });
+      formData.append('product_radio', 'No');
     }
+    if (this.product.product_bluetooth_check) {
+      formData.append('product_bluetooth', 'Si');
+    } else {
+      formData.append('product_bluetooth', 'No');
+    }
+    if (this.product.product_wlan_check) {
+      formData.append('product_wlan', 'Si');
+    } else {
+      formData.append('product_wlan', 'No');
+    }
+    if (this.product.product_gps_check) {
+      formData.append('product_gps', 'Si');
+    } else {
+      formData.append('product_gps', 'No');
+    }
+    this.productService.updateSpecs(this.product.product_id, formData)
+      .subscribe((data: any) => {
+        this.dataSheetUrl = '';
+        this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
+        if (data.success && formData.has('product_data_sheet')) {
+          this.product.product_data_sheet = this.product.product_data_sheet + '?v1';
+        }
+      });
   }
 
   getAlert(result, product, title_mode, desc_mode): any {

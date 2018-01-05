@@ -72,6 +72,7 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::get('{product_id}/smc', 'ProductController@listStockModelCode');
 		Route::post('{product_id}/smc', 'ProductController@storeStockModelCode');
 
+		Route::get('{product_id}/smc/{stock_model_id}', 'ProductController@getStockModelCode');
 		Route::put('{product_id}/smc/{stock_model_id}', 'ProductController@updateStockModelCode');
 
 		Route::get('{product_id}/variation/prepaid', 'ProductController@listPrepaidProductVariation');
