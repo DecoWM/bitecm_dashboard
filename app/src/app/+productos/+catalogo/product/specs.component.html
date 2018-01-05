@@ -1,0 +1,241 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Especificaciones
+          </header>
+          <form #formSpecs="ngForm" id="smart-form-register" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-specs">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_description">Descripción</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <textarea class="form-control" placeholder="Ingresa una descripción" rows="4" name="product_description" [(ngModel)]="product.product_description"></textarea>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-4">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="external_memory">Memoria Externa</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="select">
+                      <select name="product_external_memory" id="product_external_memory" [(ngModel)]="product.product_external_memory" (change)="onSelectChange($event)">
+                        <option value="">Seleccionar capacidad</option>
+                        <option *ngFor="let item of [16,32,64,128,256,512,1024,2048]" value="{{item}}">
+                          {{item}} GB
+                        </option>
+                      </select> <i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-4">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_internal_memory">Memoria Interna</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="select">
+                      <select name="product_internal_memory" id="product_internal_memory" [(ngModel)]="product.product_internal_memory" (change)="onSelectChange($event)">
+                        <option value="">Seleccionar capacidad</option>
+                        <option *ngFor="let item of [16,32,64,128,256,512,1024,2048]" value="{{item}}">
+                          {{item}} GB
+                        </option>
+                      </select> <i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-4">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_screen_size">Pantalla</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input"> <i class="icon-append fa">"</i>
+                      <input id="product_screen_size" name="product_screen_size" type="text" [(ngModel)]="product.product_screen_size"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-4">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_camera_1">Cámara Principal</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input"> <i class="icon-append fa">MP</i>
+                      <input id="product_camera_1" name="product_camera_1" type="text" [(ngModel)]="product.product_camera_1"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-4">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_camera_2">Cámara Frontal</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input"> <i class="icon-append fa">MP</i>
+                      <input id="product_camera_2" name="product_camera_2" type="text" [(ngModel)]="product.product_camera_2"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-4">
+              </div>
+              <div class="col col-sm-8">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_processor_name">Procesador</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input">
+                      <input id="product_processor_name" name="product_processor_name" type="text" [(ngModel)]="product.product_processor_name"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-4">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_processor_power">Velocidad</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input"> <i class="icon-append fa">GHz</i>
+                      <input id="product_processor_power" name="product_processor_power" type="text" [(ngModel)]="product.product_processor_power"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_os">Sistema Operativo</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input">
+                      <input id="product_os" name="product_os" type="text" [(ngModel)]="product.product_os"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-6">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_battery">Batería</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input"> <i class="icon-append fa">mAh</i>
+                      <input id="product_battery" name="product_battery" type="text" [(ngModel)]="product.product_battery"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-6">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_band">Banda</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input">
+                      <input id="product_band" name="product_band" type="text" [(ngModel)]="product.product_band"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-3">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label class="checkbox">
+                      <input id="product_radio" name="product_radio" type="checkbox" [(ngModel)]="product.product_radio"><i></i>Radio
+                    </label>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-3">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label class="checkbox">
+                      <input id="product_bluetooth" name="product_bluetooth" type="checkbox" [(ngModel)]="product.product_bluetooth"><i></i>Bluetooth
+                    </label>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-3">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label class="checkbox">
+                      <input id="product_wlan" name="product_wlan" type="checkbox" [(ngModel)]="product.product_wlan"><i></i>WLAN
+                    </label>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-3">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label class="checkbox">
+                      <input id="product_gps" name="product_gps" type="checkbox" [(ngModel)]="product.product_gps"><i></i>GPS
+                    </label>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_data_sheet">Especificaciones Técnicas</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <a *ngIf="product.product_data_sheet" href="{{product.product_data_sheet}}" target="_blank">{{product.product_data_sheet_name}}</a>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input input-file">
+                      <span class="button">
+                        <input #dataSheetInput id="product_data_sheet" name="product_data_sheet" type="file" (change)="changeFilename($event)">Subir
+                      </span>
+                      <input type="text" placeholder="" value="{{dataSheetUrl}}" readonly>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_keywords">Palabras Clave</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input form-group">
+                      <input smartTags id="product_keywords" name="product_keywords" [(ngModel)]="product.product_keywords" class="form-control tagsinput" data-role="tagsinput"><i></i>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <footer>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

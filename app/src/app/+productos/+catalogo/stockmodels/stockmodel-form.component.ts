@@ -128,9 +128,28 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
       .subscribe((data: any) => {
         this.onAlert.emit(this.getAlert(data));
         if (data.success) {
-          // this.stockmodel.stock_model_id = data.id;
+          for (let key in this.stockmodel.product_images) {
+            if (this.stockmodel.product_images[key].product_image_id === product_image.product_image_id) {
+              this.stockmodel.product_images.splice(key, 1);
+            }
+          }
         }
       });
+  }
+
+  showPopupRemoveImage(product_image): void {
+    this.notificationService.smartMessageBox({
+      title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Eliminar imagen
+        <span class="txt-color-orangeDark">
+          <strong>${product_image.product_image_name}</strong>
+        </span>`,
+      content : '¿Seguro que quieres eliminar esta imagen? Desparecerá del detalle del producto.',
+      buttons : '[No][Si]'
+    }, (ButtonPressed) => {
+      if (ButtonPressed === 'Si') {
+        this.removeImage(product_image);
+      }
+    });
   }
 
   getAlert(result): any {

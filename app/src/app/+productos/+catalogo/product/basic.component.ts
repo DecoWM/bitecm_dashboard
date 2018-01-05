@@ -111,6 +111,7 @@ export class ProductBasicComponent implements OnInit {
       this.productService.updateBasic(this.product.product_id, formData)
         .subscribe((data: any) => {
           this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
+          this.productImageUrl = '';
         });
     } else {
       this.productService.saveBasic(formData)
@@ -119,6 +120,7 @@ export class ProductBasicComponent implements OnInit {
           if (data.success) {
             this.router.navigate([data.id], {relativeTo: this.route.parent});
           }
+          this.productImageUrl = '';
         });
     }
   }
