@@ -11,7 +11,7 @@
     <div class="row">
       <div class="col-xs-12 col-sm-12 col-md-6">
         <div class="well no-padding">
-          <form class="smart-form client-form">
+          <form id="login-form" class="smart-form client-form" (ngSubmit)="login($event)">
             <header>
               Iniciar Sesión
             </header>
@@ -20,15 +20,15 @@
                 <label class="label">E-mail</label>
                 <label class="input"> <i class="icon-append fa fa-user"></i>
                   <input [(ngModel)]="username" type="email" name="email">
-                  <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i>
-                    Ingresar Correo Electrónico</b></label>
+                  <b class="tooltip tooltip-top-right"><i class="fa fa-user txt-color-teal"></i> Ingresar Correo Electrónico</b>
+                </label>
               </section>
               <section>
                 <label class="label">Password</label>
                 <label class="input"> <i class="icon-append fa fa-lock"></i>
                   <input [(ngModel)]="password" type="password" name="password">
-                  <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Ingresar Clave</b> </label>
-
+                  <b class="tooltip tooltip-top-right"><i class="fa fa-lock txt-color-teal"></i> Ingresar Clave</b>
+                </label>
                 <!-- <div class="note">
                   <a routerLink="/auth/forgot-password">¿Olvidó Clave?</a>
                 </div> -->
@@ -40,7 +40,7 @@
               </section> -->
             </fieldset>
             <footer>
-              <button (click)="login($event)" class="btn btn-primary">
+              <button type="submit" class="btn btn-primary">
                 Entrar
               </button>
             </footer>

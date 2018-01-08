@@ -34,7 +34,6 @@
  #ribbon .breadcrumb li:last-child, #ribbon .breadcrumb>.active{
   color: #169599 !important;
   font-weight: bold;
-
  }
 
 table.dataTable thead .sorting{
@@ -47,11 +46,29 @@ table.dataTable thead .sorting{
   text-align: center;
 }
 
+table.dataTable thead .sorting_disabled {
+  background-color: #169599 !important;
+  color: #ffffff;
+  font-weight: normal;
+  text-align: center;
+}
+
 table.dataTable thead .sorting_asc,
 table.dataTable thead .sorting_desc{
   background-color: #ffe60d !important;
   text-align: center;
   color: #169599;
+}
+
+table.dataTable .btn {
+  background-color: #169599;
+  border: 1px solid transparent;
+  padding: 4px 10px;
+}
+
+table.dataTable .dropdown-menu {
+  left: auto;
+  right: 0;
 }
 
  .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
@@ -104,18 +121,16 @@ table.dataTable thead .sorting_desc{
   border: 1px solid transparent;
  }
 
- .txt-color-blueDark{
+.txt-color-blueDark{
   color: #169599;
   font-size: 16px;
   line-height: 17px;
   font-weight: bold;
+}
 
- }
-
- .vermascol.sorting_asc{
+.vermascol.sorting_asc{
   background: none !important;
- }
-
+}
 
 .page-title span{
   color: #169599;
@@ -123,7 +138,6 @@ table.dataTable thead .sorting_desc{
   line-height: 17px;
   font-weight: bold;
   vertical-align: 0;
-
 }
 
 .table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
@@ -132,6 +146,7 @@ table.dataTable thead .sorting_desc{
 
 table.table-bordered tbody td, table.table-bordered thead th{
   text-align: center;
+  vertical-align: middle;
 }
 
 .vermascol,
@@ -233,12 +248,18 @@ nav ul li a:active{
   width: 100px;
 }
 
+.page-title {
+  font-weight: bold;
+}
+
 .detalle-order{
 
 }
 
 .detalle-order header{
   margin: 4px 14px 0;
+  font-weight: bold;
+  color: #515151;
 }
 
 .detalle-order header .icon-prepend{
@@ -296,8 +317,9 @@ nav ul li a:active{
   background-color: #169599;
 }
 
-#field-detalle-order{
-  padding: 10px 14px 5px;
+#field-detalle-order,
+.padding-row{
+  padding: 10px 15px 5px;
 }
 
 #field-detalle-order .field-order{
@@ -395,7 +417,13 @@ nav ul li a:active{
   margin-bottom: 10px;
 }
 
-.detalle-registro footer{}
+.detalle-registro .row footer{
+  margin-bottom: -14px;
+}
+
+.detalle-registro footer{
+
+}
 .detalle-registro footer .btn{
   float: left;
 }
@@ -454,6 +482,7 @@ nav ul li a:active{
 }
 
 
+
 /* Add Css */
 
 .detalle-registro img.product-image{
@@ -466,3 +495,9 @@ i.icon-append {
     /* font-weight: bold; */
     font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
 }
+
+.product-images .btn {
+  float: none;
+  position: static;
+}
+

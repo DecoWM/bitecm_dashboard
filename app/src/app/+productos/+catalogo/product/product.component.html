@@ -1,0 +1,76 @@
+<!-- MAIN CONTENT -->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[' Producto', subtitle]" icon="cube" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+  </div>
+
+  <ng-container *ngIf="alert">
+    <alert *ngFor="let a of alert" type="{{a.mode}}" dismissible="true">
+      <i class="fa-fw fa fa-check"></i>
+      <strong>{{a.title}}</strong> {{a.message}}
+    </alert>
+  </ng-container>
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article>
+        <div class="col-sm-5 col-md-5 col-lg-5">
+          <!-- PRODUCT BASIC -->
+          <product-basic [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-basic>
+          <!-- PRODUCT SPECS -->
+          <product-specs [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-specs>
+        </div>
+        <div class="col-sm-7 col-md-7 col-lg-7">
+
+          <sa-widget [editbutton]="false" [custombutton]="false">
+
+            <header>
+              <span class="widget-icon">
+                <i class="glyphicon glyphicon-stats txt-color-darken"></i>
+              </span>
+              
+              <h2>Variaciones </h2>
+
+              <ul class="nav nav-tabs pull-right in" id="myTab">
+                <li [class.active]="active == 'tab-r1'">
+                  <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Stock Models</span></a>
+                </li>
+
+                <li [class.active]="active == 'tab-r2'">
+                  <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Variaciones Prepago</span></a>
+                </li>
+
+                <li [class.active]="active == 'tab-r3'">
+                  <a (click)="active = 'tab-r3'"><span class="hidden-mobile hidden-tablet">Variaciones Postpago</span></a>
+                </li>
+              </ul>
+            </header>
+
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="no-padding widget-body">
+                
+                <tabset>
+                  <tab [active]="active == 'tab-r1'">
+                    <!-- STOCK MODEL CODES -->
+                    <stock-models (onAlert)="printAlert($event)"></stock-models>
+                  </tab>
+                  <tab [active]="active == 'tab-r2'">
+                    <!-- PREPAGO VARIATIONS -->
+                    <prepago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)"></prepago-variations>
+                  </tab>
+                  <tab [active]="active == 'tab-r3'">
+                    <!-- POSTPAGO VARIATIONS -->
+                    <postpago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)"></postpago-variations>
+                  </tab>
+                </tabset>
+              
+              </div>
+            </div>
+          </sa-widget>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+</div>

@@ -1,0 +1,33 @@
+<form #formPrepago="ngForm" #form class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onInitComplete)="setValidationRef($event)">
+  <input type="hidden" name="plan_id" [(ngModel)]="plan_id">
+  <input *ngIf="variation.product_variation_id" type="hidden" name="product_variation_id" [(ngModel)]="variation.product_variation_id">
+  <div class="row detalle-registro">
+    <div class="col col-sm-4">
+      <div class="row">
+        <section class="col col-sm-12">
+          <label class="checkbox">
+            <input id="variation_allowed" name="variation_allowed" type="checkbox" [(ngModel)]="variation.variation_allowed"><i></i>Habilitado
+          </label>
+        </section>
+      </div>
+    </div>
+    <div class="col col-sm-4">
+      <div class="row">
+        <section class="col col-sm-12">
+          <div class="input">
+            <input id="reason_code" name="reason_code" type="text" placeholder="Reason Code" [(ngModel)]="variation.reason_code"><i></i>
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="col col-sm-4">
+      <div class="row">
+        <section class="col col-sm-12">
+          <div class="input">
+            <input id="product_package" name="product_package" type="text" placeholder="Product Package" [(ngModel)]="variation.product_package"><i></i>
+          </div>
+        </section>
+      </div>
+    </div>
+  </div>
+</form>

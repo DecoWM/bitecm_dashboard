@@ -4,8 +4,13 @@ import {RouterModule, Routes} from '@angular/router';
 export const routes: Routes = [
     {
         path: '',
-        redirectTo: 'importacion',
+        redirectTo: 'catalogo',
         pathMatch: 'full'
+    },
+    {
+        path: 'catalogo',
+        loadChildren: './+catalogo/catalogo.module#CatalogoModule',
+        data: {pageTitle: 'Catalogo'}
     },
     {
         path: 'importacion',

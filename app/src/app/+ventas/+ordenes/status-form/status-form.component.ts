@@ -15,38 +15,34 @@ declare var $: any;
   templateUrl: './status-form.component.html'
 })
 export class StatusFormComponent implements OnInit {
+  dtTrigger: Subject<any> = new Subject();
   alert: any = null;
-
   order_id: number;
-  status: any = {};
+  status: any = {
+    order_status_id: '',
+    notify_customer: false,
+    comment: ''
+  };
   status_history: any = [];
   status_list: any[];
 
   validationOptions = {
     rules: {
-      order_status_id: {
-        required: true
+      order_status_id : {
+        required : true
       }
     },
-    messages: {
-      order_status_id: {
-        required: 'Selecciona un estado'
-      }
-    },
-    feedbackIcons: {
-      valid: 'glyphicon glyphicon-ok',
-      invalid: 'glyphicon glyphicon-remove',
-      validating: 'glyphicon glyphicon-refresh'
-    },
-    fields: {
-      titulo: {
-        validators: {
-          notEmpty: {
-            message: 'Titulo en cada idioma requerido'
-          }
-        }
-      }
+    messages : {
+      order_status_id : {
+        required : 'Debes seleccionar un estado.'
+      },
     }
+  };
+
+  options = {
+    dom: 'Bfrtip',
+    pageLength: 10,
+    order: [[0, 'desc']]
   };
 
   constructor(
@@ -76,9 +72,7 @@ export class StatusFormComponent implements OnInit {
   }
 
   onSelectChange(event) {
-    const data = event.params.data;
-    const inputName = event.currentTarget.name;
-    this.status[inputName] = data.id;
+    $(event.currentTarget).blur();
   }
 
   onDateChange(event) {
@@ -87,9 +81,8 @@ export class StatusFormComponent implements OnInit {
   }
 
   onValidationSuccess(e) {
-    if (e.type === 'success') {
-      this.save(this.status, e);
-    }
+    console.log(e);
+    this.save(this.status, e);
   }
 
   save(status, e) {
@@ -101,10 +94,17 @@ export class StatusFormComponent implements OnInit {
           console.log(message);
           this.alert = this.getAlert(message);
           if (message.success) {
-            this.status = {};
-            e.target.reset();
+            this.status = {
+              order_status_id: '',
+              notify_customer: false,
+              comment: ''
+            };
+            e.resetForm();
+            $('#select-estado').parent('label').removeClass('state-error').removeClass('state-success');
+          } else {
+            $('#select-estado').parent('label').removeClass('state-success').addClass('state-error');
           }
-          $('button[name="submit"]').prop('disabled', (i, v) => !v);
+          // $('button[name="submit"]').prop('disabled', (i, v) => !v);
           this.ordenesService.getStatusHistory(this.order_id)
             .subscribe((data: any) => {
               if (data.success) {

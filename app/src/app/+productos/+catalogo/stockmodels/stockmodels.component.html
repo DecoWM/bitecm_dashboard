@@ -1,0 +1,17 @@
+<div class="smart-form">
+  <div class="detalle-order">
+    <header>
+      <i class="icon-prepend fa fa-exclamation-circle"></i>
+      Stock Models
+      <label class="btn btn-primary btn-sm pull-right" style="line-height: 12px; margin-right: 5px" (click)="addSMC()">
+        Agregar
+      </label>
+    </header>
+    <div *ngFor="let stockmodel of stockmodels" class="padding-10 margin-top-10">
+      <stockmodel-form [product_id]="product_id" [stockmodel]="stockmodel" [colors]="colors" (onAlert)="printAlert($event)"></stockmodel-form>
+    </div>
+    <div *ngFor="let number of allowedBlocks" class="padding-10 margin-top-10">
+      <stockmodel-form [product_id]="product_id" [colors]="colors" (onAlert)="printAlert($event)"></stockmodel-form>
+    </div>
+  </div>
+</div>
