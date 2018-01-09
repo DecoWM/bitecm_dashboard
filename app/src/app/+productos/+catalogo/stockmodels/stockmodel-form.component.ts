@@ -106,7 +106,8 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
   }
 
   save(e) {
-    const formData = new FormData(document.forms.namedItem('form-stock-model' + (this.stockmodel.stock_model_id ? this.stockmodel.stock_model_id : '')));
+    const formData = new FormData(document.forms
+      .namedItem('form-stock-model' + (this.stockmodel.stock_model_id ? this.stockmodel.stock_model_id : '')));
     if (this.formStockModel.dirty || formData.has('product_image[]')) {
       this.productImageUrl = [];
       if (this.stockmodel.stock_model_id) {

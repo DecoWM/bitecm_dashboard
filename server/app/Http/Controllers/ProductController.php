@@ -466,7 +466,7 @@ class ProductController extends ApiController
       ]);
   }
 
-  public function updateStockModelCode(Request $request, $product_id, $stock_model_id) {
+  public function updateStockModelCode(Request $request, $product_id, $stock_model_id) {die(var_dump($request));
       $product = DB::table('tbl_product')
                     ->where('product_id', $product_id)
                     ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
