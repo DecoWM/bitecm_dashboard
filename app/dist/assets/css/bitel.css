@@ -482,3 +482,22 @@ nav ul li a:active{
 }
 
 
+
+/* Add Css */
+
+.detalle-registro img.product-image{
+  max-width: 100%;
+}
+
+i.icon-append {
+    color: #666;
+    font-size: 11px !important;
+    /* font-weight: bold; */
+    font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+}
+
+.product-images .btn {
+  float: none;
+  position: static;
+}
+

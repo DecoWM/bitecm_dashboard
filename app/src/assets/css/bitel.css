@@ -486,7 +486,7 @@ nav ul li a:active{
 /* Add Css */
 
 .detalle-registro img.product-image{
-  width: 100%;
+  max-width: 100%;
 }
 
 i.icon-append {
