@@ -21,7 +21,7 @@ export class StockModelsComponent implements OnInit {
   colors: any = [];
   stockmodels: any = [];
   product_id: number;
-  _addBlocks = 0;
+  _addBlocks = 1;
 
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
 

@@ -18,9 +18,9 @@
           <!-- PRODUCT BASIC -->
           <product-basic [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-basic>
           <!-- PRODUCT SPECS -->
-          <product-specs [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-specs>
+          <product-specs *ngIf="product.product_id && product.category_id" [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-specs>
         </div>
-        <div class="col-sm-7 col-md-7 col-lg-7">
+        <div *ngIf="product.product_id && product.category_id" class="col-sm-7 col-md-7 col-lg-7">
 
           <sa-widget [editbutton]="false" [custombutton]="false">
 
@@ -32,15 +32,15 @@
               <h2>Variaciones </h2>
 
               <ul class="nav nav-tabs pull-right in" id="myTab">
-                <li [class.active]="active == 'tab-r1'">
+                <li *ngIf="product.product_id && product.category_id" [class.active]="active == 'tab-r1'">
                   <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Stock Models</span></a>
                 </li>
 
-                <li [class.active]="active == 'tab-r2'">
+                <li *ngIf="product.product_id && product.category_id && product.category_id == 1" [class.active]="active == 'tab-r2'">
                   <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Variaciones Prepago</span></a>
                 </li>
 
-                <li [class.active]="active == 'tab-r3'">
+                <li *ngIf="product.product_id && product.category_id && product.category_id == 1" [class.active]="active == 'tab-r3'">
                   <a (click)="active = 'tab-r3'"><span class="hidden-mobile hidden-tablet">Variaciones Postpago</span></a>
                 </li>
               </ul>
@@ -54,7 +54,7 @@
                 <tabset>
                   <tab [active]="active == 'tab-r1'">
                     <!-- STOCK MODEL CODES -->
-                    <stock-models (onAlert)="printAlert($event)"></stock-models>
+                    <stock-models *ngIf="product.product_id && product.category_id" (onAlert)="printAlert($event)"></stock-models>
                   </tab>
                   <tab [active]="active == 'tab-r2'">
                     <!-- PREPAGO VARIATIONS -->

@@ -31,7 +31,7 @@
                     <div class="select">
                       <select name="product_external_memory" id="product_external_memory" [(ngModel)]="product.product_external_memory" (change)="onSelectChange($event)">
                         <option value="">Seleccionar capacidad</option>
-                        <option *ngFor="let item of [16,32,64,128,256,512,1024,2048]" value="{{item}}">
+                        <option *ngFor="let item of [1,2,4,8,16,32,64,128,256,512,1024,2048]" value="{{item}}">
                           {{item}} GB
                         </option>
                       </select> <i></i>
@@ -48,7 +48,7 @@
                     <div class="select">
                       <select name="product_internal_memory" id="product_internal_memory" [(ngModel)]="product.product_internal_memory" (change)="onSelectChange($event)">
                         <option value="">Seleccionar capacidad</option>
-                        <option *ngFor="let item of [16,32,64,128,256,512,1024,2048]" value="{{item}}">
+                        <option *ngFor="let item of [1,2,4,8,16,32,64,128,256,512,1024,2048]" value="{{item}}">
                           {{item}} GB
                         </option>
                       </select> <i></i>

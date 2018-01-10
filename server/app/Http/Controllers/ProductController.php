@@ -405,7 +405,7 @@ class ProductController extends ApiController
       //Validator
       $validator = Validator::make($request->all(), [
           'color_id' => 'required|exists:tbl_color',
-          'stock_model_code' => 'required|unique:tbl_stock_model',
+          'stock_model_code' => 'required',//|unique:tbl_stock_model',
           'product_images' => 'nullable|array',
           'product_images.*' => 'nullable|image'
       ]);
@@ -434,6 +434,23 @@ class ProductController extends ApiController
       $color_id = $request->input('color_id');
       $stock_model_code = $request->input('stock_model_code');
       $active = $request->input('active', 1);
+
+      $result = DB::table('tbl_stock_model')
+        ->where('product_id', $product_id)
+        ->where(function ($subquery) use ($color_id, $stock_model_code) {
+          $subquery
+            ->where('color_id', $color_id)
+            ->orWhere('stock_model_code', $stock_model_code);
+        })
+        ->select('stock_model_id')
+        ->get();
+
+      if (count($result)) {
+        return response()->json([
+          'result' => 'Ya existe un stock model con el mismo color o código',
+          'success' => false
+        ]);
+      }
 
       //Insert
       $stock_model_id = DB::table('tbl_stock_model')->insertGetId([
@@ -478,8 +495,8 @@ class ProductController extends ApiController
           $validator = Validator::make($request->all(), [
               'color_id' => 'required|exists:tbl_color',
               'stock_model_code' => [
-                  'required',
-                  Rule::unique('tbl_stock_model')->ignore($stock_model_id, 'stock_model_id')
+                  'required'/*,
+                  Rule::unique('tbl_stock_model')->ignore($stock_model_id, 'stock_model_id')*/
               ],
               'stock_model_images' => 'required|json',
               'product_images' => 'nullable|array',
@@ -497,6 +514,25 @@ class ProductController extends ApiController
           //Input
           $color_id = $request->input('color_id');
           $stock_model_code = $request->input('stock_model_code');
+
+          $result = DB::table('tbl_stock_model')
+            ->where('product_id', $product_id)
+            ->where('stock_model_id', '<>', $stock_model_id)
+            ->where(function ($subquery) use ($color_id, $stock_model_code) {
+              $subquery
+                ->where('color_id', $color_id)
+                ->orWhere('stock_model_code', $stock_model_code);
+            })
+            ->select('stock_model_id')
+            ->get();
+
+          if (count($result)) {
+            return response()->json([
+              'result' => 'Ya existe un stock model con el mismo color o código',
+              'success' => false
+            ]);
+          }
+
           $stock_model_images = json_decode($request->input('stock_model_images'));
           $active = $request->input('active', 1);
 

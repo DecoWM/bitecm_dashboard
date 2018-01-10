@@ -75,7 +75,7 @@ export class PrepagoVariationsComponent implements OnInit {
             saveVariations.push(variation);
           }
         }
-        formComp.formPrepago.resetForm();
+        // formComp.formPrepago.resetForm();
       }
       count++;
       if (count === this.planForms.length && (saveVariations.length || updateVariations.length)) {

@@ -79,7 +79,7 @@ export class PostpagoPlansComponent implements OnInit {
             saveVariations.push(variation);
           }
         }
-        formComp.formPostpago.resetForm();
+        // formComp.formPostpago.resetForm();
       }
       count++;
       if (count === this.planForms.length && (saveVariations.length || updateVariations.length)) {
