@@ -124,7 +124,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   }
 
   changeFilename(event) {
-    const uploadedFiles = event.srcElement.files;
+    const uploadedFiles = event.target.files;
     this.dataSheetUrl = uploadedFiles[0].name;
   }
 
@@ -159,12 +159,15 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     } else {
       formData.append('product_gps', 'No');
     }
+    if (!this.dataSheetUrl.length) {
+      formData.delete('product_data_sheet');
+    }
     this.productService.updateSpecs(this.product.product_id, formData)
       .subscribe((data: any) => {
         this.dataSheetUrl = '';
         this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
         if (data.success && formData.has('product_data_sheet')) {
-          this.product.product_data_sheet = this.product.product_data_sheet + '?v1';
+          this.product.product_data_sheet = this.product.product_data_sheet + '?v' + (new Date().getTime().toString());
         }
       });
   }

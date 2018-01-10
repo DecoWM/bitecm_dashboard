@@ -114,7 +114,7 @@ export class ProductBasicComponent implements OnInit {
           this.productImageUrl = '';
           this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
           if (data.success && formData.has('product_image')) {
-            this.product.product_image_url = this.product.product_image_url + '?v1';
+            this.product.product_image_url = this.product.product_image_url + '?v' + (new Date().getTime().toString());
           }
         });
     } else {
