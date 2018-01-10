@@ -148,8 +148,13 @@
                     <label for="product_band">Banda</label>
                   </section>
                   <section class="col col-sm-12">
-                    <div class="input">
-                      <input id="product_band" name="product_band" type="text" [(ngModel)]="product.product_band"><i></i>
+                    <div class="select">
+                      <select name="product_band" id="product_band" [(ngModel)]="product.product_band" (change)="onSelectChange($event)">
+                        <option value="">Seleccionar banda</option>
+                        <option *ngFor="let item of ['2G','3G','4G','4G LTE','5G']" value="{{item}}">
+                          {{item}}
+                        </option>
+                      </select> <i></i>
                     </div>
                   </section>
                 </div>
@@ -208,7 +213,7 @@
                   </section>
                 </div>
               </div>
-              <div class="col col-sm-12">
+              <!--div class="col col-sm-12">
                 <div class="row">
                   <section class="col col-sm-12">
                     <label for="product_keywords">Palabras Clave</label>
@@ -219,7 +224,7 @@
                     </div>
                   </section>
                 </div>
-              </div>
+              </div-->>
               <div class="col col-sm-12">
                 <div class="row">
                   <footer>

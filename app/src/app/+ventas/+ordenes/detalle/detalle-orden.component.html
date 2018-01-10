@@ -39,9 +39,9 @@
                       <div class="field-order">
                         <i class="icon-prepend fa fa-list"></i>
                         <p>
-                          Pedido {{order.order_status_name}}
+                          Pedido "{{order.order_status_name}}""
                         </p>
-                        <a class="btn btn-primary btn-xs" (click)="statusHistory()"><i class="fa fa-gear"></i></a>
+                        <a class="btn btn-primary btn-xs" (click)="statusHistory()">Cambiar <i class="fa fa-gear"></i></a>
                       </div>
                       <div class="field-order">
                         <i class="icon-prepend fa fa-building"></i>
@@ -118,9 +118,10 @@
                       <div id="field-detalle-order">
                         <div class="field-order">
                           <i class="icon-prepend fa fa-credit-card"></i>
-                          <p>Crédito: {{order.credit_status}}</p>
+                          <p>Crédito: "{{order.credit_status}}"</p>
                           <div class="btn-group dropdown" dropdown>
                             <button class="btn btn-primary btn-xs dropdown-toggle" dropdownToggle>
+                              Cambiar
                               <i class="fa fa-gear"></i>
                               <i class="fa fa-caret-down"></i>
                             </button>

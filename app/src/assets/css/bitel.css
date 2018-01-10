@@ -357,6 +357,8 @@ nav ul li a:active{
 .detalle-info td .dropdown .dropdown-toggle .caret {
   float: right;
   margin-top: 7px;
+  position: absolute;
+  right: 20px;
 }
 
 .detalle-info td .dropdown .dropdown-menu{

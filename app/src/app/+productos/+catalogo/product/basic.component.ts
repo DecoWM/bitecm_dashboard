@@ -1,4 +1,4 @@
-import { Component, OnInit, Type, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, Type, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subject, Observable } from 'rxjs/Rx';
@@ -17,7 +17,7 @@ declare var $: any;
   templateUrl: './basic.component.html',
   styles: []
 })
-export class ProductBasicComponent implements OnInit {
+export class ProductBasicComponent implements OnInit, AfterViewChecked {
   categories: any = [];
   brands: any = [];
   productImageUrl = '';
@@ -90,6 +90,18 @@ export class ProductBasicComponent implements OnInit {
         this.brands = brands.result;
       }
     });
+  }
+
+  ngAfterViewChecked() {
+    if (typeof this.product.category_id !== 'undefined' && this.product.category_id === null) {
+      this.product.category_id = '';
+    }
+    if (typeof this.product.brand_id !== 'undefined' && this.product.brand_id === null) {
+      this.product.brand_id = '';
+    }
+    if (typeof this.product.product_tag !== 'undefined' && this.product.product_tag === null) {
+      this.product.product_tag = '';
+    }
   }
 
   changeFilename(event) {

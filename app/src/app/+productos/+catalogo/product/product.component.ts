@@ -16,7 +16,12 @@ import { BlockUIService } from 'ng-block-ui';
 })
 export class ProductComponent implements OnInit {
   subtitle: string;
-  product: any = {};
+  product: any = {
+    category_id: '',
+    brand_id: '',
+    product_tag: '',
+    product_band: ''
+  };
   alert: any = null;
   active: any = null;
 
