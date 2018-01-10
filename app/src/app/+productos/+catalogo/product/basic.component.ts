@@ -93,7 +93,7 @@ export class ProductBasicComponent implements OnInit {
   }
 
   changeFilename(event) {
-    const uploadedFiles = event.srcElement.files;
+    const uploadedFiles = event.target.files;
     this.productImageUrl = uploadedFiles[0].name;
   }
 

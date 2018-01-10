@@ -44,9 +44,9 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::post('variaciones', 'ImportController@variations');
 	});
 
-	////////////
+	/////////////
 	// PRODUCT //
-	////////////
+	/////////////
 	Route::prefix('productos')->group(function () {
 		//Product list
 		Route::get('', 'ProductController@list');
@@ -108,9 +108,9 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 
 });
 
-////////////
+/////////////
 // PRODUCT //
-////////////
+/////////////
 Route::prefix('product')->group(function () {
 	//Product list
 	Route::get('', 'ProductController@list');

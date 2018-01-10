@@ -101,15 +101,17 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
   }
 
   changeFilename(event, ix) {
-    const uploadedFiles = event.srcElement.files;
+    const uploadedFiles = event.target.files;
     this.productImageUrl[ix] = uploadedFiles[0].name;
   }
 
   save(e) {
     const formData = new FormData(document.forms
       .namedItem('form-stock-model' + (this.stockmodel.stock_model_id ? this.stockmodel.stock_model_id : '')));
-    if (this.formStockModel.dirty || formData.has('product_image[]')) {
-      this.productImageUrl = [];
+    if (this.formStockModel.dirty || (formData.has('product_images[]') && this.productImageUrl.length)) {
+      if (!this.productImageUrl.length) {
+        formData.delete('product_images[]');
+      }
       if (this.stockmodel.stock_model_id) {
         formData.append('stock_model_images', JSON.stringify(this.stockmodel.product_images));
         formData.set('active', this.stockmodel.active ? '1' : '0');
@@ -117,23 +119,39 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
           .subscribe((data: any) => {
             this.onAlert.emit(this.getAlert(data));
             if (data.success) {
+              this.productImageUrl = [];
               this.stockModelService.getStockModel(this.product_id, this.stockmodel.stock_model_id)
                 .subscribe((smc: any) => {
                   if (smc.success) {
                     this.stockmodel = smc.result;
+                    this.stockmodel.product_images.map((i, x) => {
+                      const img_url = i.product_image_url;
+                      const img_url_arr = img_url.split('/');
+                      i.product_image_name = img_url_arr[img_url_arr.length - 1];
+                      i.product_image_url = i.product_image_url + '?v' + (new Date().getTime().toString());
+                      return i;
+                    });
                   }
                 });
             }
           });
       } else {
-        this.stockModelService.saveStockModel(this.product_id, this.stockmodel)
+        this.stockModelService.saveStockModel(this.product_id, formData)
           .subscribe((data: any) => {
             this.onAlert.emit(this.getAlert(data));
             if (data.success) {
-              this.stockModelService.getStockModel(this.product_id, this.stockmodel.stock_model_id)
+              this.productImageUrl = [];
+              this.stockModelService.getStockModel(this.product_id, data.id)
                 .subscribe((smc: any) => {
                   if (smc.success) {
                     this.stockmodel = smc.result;
+                    this.stockmodel.product_images.map((i, x) => {
+                      const img_url = i.product_image_url;
+                      const img_url_arr = img_url.split('/');
+                      i.product_image_name = img_url_arr[img_url_arr.length - 1];
+                      i.product_image_url = i.product_image_url + '?v' + (new Date().getTime().toString());
+                      return i;
+                    });
                   }
                 });
             }
