@@ -647,7 +647,6 @@ class ProductController extends ApiController
   public function storePrepaidVariation(Request $request, $product_id) {
       $product = DB::table('tbl_product')
           ->where('product_id', $product_id)
-          ->where('active', 1)
           ->select('product_id', 'product_price')
           ->first();
 
@@ -716,7 +715,6 @@ class ProductController extends ApiController
   public function updatePrepaidVariation(Request $request, $product_id) {
     $product = DB::table('tbl_product')
         ->where('product_id', $product_id)
-        ->where('active', 1)
         ->select('product_id', 'product_price')
         ->first();
 
@@ -781,7 +779,6 @@ class ProductController extends ApiController
   public function storePostpaidProductVariation(Request $request, $product_id) {
       $product = DB::table('tbl_product')
           ->where('product_id', $product_id)
-          ->where('active', 1)
           ->select('product_id', 'product_price')
           ->first();
 
@@ -850,7 +847,6 @@ class ProductController extends ApiController
   public function updatePostpaidProductVariation(Request $request, $product_id) {
     $product = DB::table('tbl_product')
         ->where('product_id', $product_id)
-        ->where('active', 1)
         ->select('product_id', 'product_price')
         ->first();
 
