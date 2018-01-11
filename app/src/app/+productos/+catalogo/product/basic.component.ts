@@ -1,4 +1,4 @@
-import { Component, OnInit, Type, Input, Output, ViewChild, EventEmitter } from '@angular/core';
+import { Component, OnInit, AfterViewChecked, Type, Input, Output, ViewChild, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subject, Observable } from 'rxjs/Rx';
@@ -17,7 +17,7 @@ declare var $: any;
   templateUrl: './basic.component.html',
   styles: []
 })
-export class ProductBasicComponent implements OnInit {
+export class ProductBasicComponent implements OnInit, AfterViewChecked {
   categories: any = [];
   brands: any = [];
   productImageUrl = '';
@@ -92,6 +92,18 @@ export class ProductBasicComponent implements OnInit {
     });
   }
 
+  ngAfterViewChecked() {
+    if (typeof this.product.category_id !== 'undefined' && this.product.category_id === null) {
+      this.product.category_id = '';
+    }
+    if (typeof this.product.brand_id !== 'undefined' && this.product.brand_id === null) {
+      this.product.brand_id = '';
+    }
+    if (typeof this.product.product_tag !== 'undefined' && this.product.product_tag === null) {
+      this.product.product_tag = '';
+    }
+  }
+
   changeFilename(event) {
     const uploadedFiles = event.target.files;
     this.productImageUrl = uploadedFiles[0].name;
@@ -114,7 +126,7 @@ export class ProductBasicComponent implements OnInit {
           this.productImageUrl = '';
           this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
           if (data.success && formData.has('product_image')) {
-            this.product.product_image_url = this.product.product_image_url + '?v1';
+            this.product.product_image_url = this.product.product_image_url + '?v' + (new Date().getTime().toString());
           }
         });
     } else {

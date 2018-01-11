@@ -405,7 +405,7 @@ class ProductController extends ApiController
       //Validator
       $validator = Validator::make($request->all(), [
           'color_id' => 'required|exists:tbl_color',
-          'stock_model_code' => 'required|unique:tbl_stock_model',
+          'stock_model_code' => 'required',//|unique:tbl_stock_model',
           'product_images' => 'nullable|array',
           'product_images.*' => 'nullable|image'
       ]);
@@ -434,6 +434,23 @@ class ProductController extends ApiController
       $color_id = $request->input('color_id');
       $stock_model_code = $request->input('stock_model_code');
       $active = $request->input('active', 1);
+
+      $result = DB::table('tbl_stock_model')
+        ->where('product_id', $product_id)
+        ->where(function ($subquery) use ($color_id, $stock_model_code) {
+          $subquery
+            ->where('color_id', $color_id)
+            ->orWhere('stock_model_code', $stock_model_code);
+        })
+        ->select('stock_model_id')
+        ->get();
+
+      if (count($result)) {
+        return response()->json([
+          'result' => 'Ya existe un stock model con el mismo color o código',
+          'success' => false
+        ]);
+      }
 
       //Insert
       $stock_model_id = DB::table('tbl_stock_model')->insertGetId([
@@ -478,8 +495,8 @@ class ProductController extends ApiController
           $validator = Validator::make($request->all(), [
               'color_id' => 'required|exists:tbl_color',
               'stock_model_code' => [
-                  'required',
-                  Rule::unique('tbl_stock_model')->ignore($stock_model_id, 'stock_model_id')
+                  'required'/*,
+                  Rule::unique('tbl_stock_model')->ignore($stock_model_id, 'stock_model_id')*/
               ],
               'stock_model_images' => 'required|json',
               'product_images' => 'nullable|array',
@@ -497,6 +514,25 @@ class ProductController extends ApiController
           //Input
           $color_id = $request->input('color_id');
           $stock_model_code = $request->input('stock_model_code');
+
+          $result = DB::table('tbl_stock_model')
+            ->where('product_id', $product_id)
+            ->where('stock_model_id', '<>', $stock_model_id)
+            ->where(function ($subquery) use ($color_id, $stock_model_code) {
+              $subquery
+                ->where('color_id', $color_id)
+                ->orWhere('stock_model_code', $stock_model_code);
+            })
+            ->select('stock_model_id')
+            ->get();
+
+          if (count($result)) {
+            return response()->json([
+              'result' => 'Ya existe un stock model con el mismo color o código',
+              'success' => false
+            ]);
+          }
+
           $stock_model_images = json_decode($request->input('stock_model_images'));
           $active = $request->input('active', 1);
 
@@ -611,7 +647,6 @@ class ProductController extends ApiController
   public function storePrepaidVariation(Request $request, $product_id) {
       $product = DB::table('tbl_product')
           ->where('product_id', $product_id)
-          ->where('active', 1)
           ->select('product_id', 'product_price')
           ->first();
 
@@ -680,7 +715,6 @@ class ProductController extends ApiController
   public function updatePrepaidVariation(Request $request, $product_id) {
     $product = DB::table('tbl_product')
         ->where('product_id', $product_id)
-        ->where('active', 1)
         ->select('product_id', 'product_price')
         ->first();
 
@@ -745,7 +779,6 @@ class ProductController extends ApiController
   public function storePostpaidProductVariation(Request $request, $product_id) {
       $product = DB::table('tbl_product')
           ->where('product_id', $product_id)
-          ->where('active', 1)
           ->select('product_id', 'product_price')
           ->first();
 
@@ -814,7 +847,6 @@ class ProductController extends ApiController
   public function updatePostpaidProductVariation(Request $request, $product_id) {
     $product = DB::table('tbl_product')
         ->where('product_id', $product_id)
-        ->where('active', 1)
         ->select('product_id', 'product_price')
         ->first();
 
@@ -979,12 +1011,12 @@ class ProductController extends ApiController
   public function storeColor(Request $request) {
       $validator = Validator::make($request->all(), [
           'color_name' => 'required|unique:tbl_color',
-          'color_hexcode' => 'required'
+          'color_hexcode' => 'required|unique:tbl_color'
       ]);
 
       if($validator->fails()) {
         return response()->json([
-          'result' => 'Los datos no cumplen con la validación establecida.',
+          'result' => 'Ya existe un color con el mismo nombre o código',
           'messages' => $validator->errors(),
           'success' => false
         ]);
@@ -1024,6 +1056,7 @@ class ProductController extends ApiController
 
       return response()->json([
         'result' => 'Color registrado correctamente.',
+        'id' => $color,
         'success' => true
       ]);
   }

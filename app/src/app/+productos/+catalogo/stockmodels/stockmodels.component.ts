@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import { StockModelService } from './../stockmodel.service';
 import { NotificationService } from '../../../shared/utils/notification.service';
 
+import { ModalDirective } from 'ngx-bootstrap';
 import { BlockUIService } from 'ng-block-ui';
 
 declare var $: any;
@@ -18,17 +19,42 @@ declare var $: any;
   styles: []
 })
 export class StockModelsComponent implements OnInit {
+  color: any = {};
   colors: any = [];
   stockmodels: any = [];
   product_id: number;
-  _addBlocks = 0;
+  _addBlocks = 1;
 
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
+  @ViewChild('lgModal') public lgModal: ModalDirective;
+  @ViewChild('formColor') formColor;
+  formValidate: any;
+
+  validationOptions = {
+    rules: {
+      color_name : {
+        required : true
+      },
+      color_hexcode : {
+        required : true,
+        maxlength: 6
+      }
+    },
+    messages : {
+      color_name : {
+        required : 'Debes ingresar un nombre de color'
+      },
+      color_hexcode : {
+        required : 'Debes ingresar un código hexadecimal para el color',
+        maxlength: 'El código acepta como máximo 6 caracteres'
+      }
+    }
+  };
 
   public get allowedBlocks(): Array<Number> {
     const foo = [];
     for (let i = 1; i <= this._addBlocks; i++) {
-       foo.push(i);
+      foo.push(i);
     }
     return foo;
   }
@@ -58,6 +84,36 @@ export class StockModelsComponent implements OnInit {
 
   addSMC() {
     this._addBlocks++;
+  }
+
+  showColorModal() {
+    this.lgModal.show();
+  }
+
+  hideColorModal() {
+    this.lgModal.hide();
+    this.formColor.resetForm();
+    this.formValidate.resetForm();
+  }
+
+  addColor(e) {
+    this.stockModelService.saveColor(this.color)
+      .subscribe((data: any) => {
+        this.onAlert.emit(this.getAlert(data));
+        if (data.success) {
+          this.colors.push({
+            color_id: data.id,
+            color_name: this.color.color_name
+          });
+          this.lgModal.hide();
+          this.formColor.resetForm();
+          e.resetForm();
+        }
+      });
+  }
+
+  referenceValidator(formValidate) {
+    this.formValidate = formValidate;
   }
 
   getAlert(result): any {

@@ -357,6 +357,8 @@ nav ul li a:active{
 .detalle-info td .dropdown .dropdown-toggle .caret {
   float: right;
   margin-top: 7px;
+  position: absolute;
+  right: 20px;
 }
 
 .detalle-info td .dropdown .dropdown-menu{
@@ -502,10 +504,18 @@ i.icon-append {
 }
 
 
-/* RESPONSIVE */
-
-
-/*@media screen and (max-width: 1290px){
-  
+.smart-form .state-success input.ng-untouched,
+.smart-form .state-success select.ng-untouched,
+.smart-form .state-success textarea.ng-untouched {
+  border-color: #bdbdbd;
+  background: #fff;
 }
-*/
+
+.smart-form .input-file input[type='text'] {
+  padding-right: 65px;
+}
+
+postpago-variations .panel-body {
+  padding: 0;
+}
+

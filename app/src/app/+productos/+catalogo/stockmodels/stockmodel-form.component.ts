@@ -27,6 +27,7 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
   };
   @Input() colors: any = [];
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
+  @Output() onAddColor: EventEmitter<any> = new EventEmitter();
   @ViewChild('formStockModel') formStockModel;
   formValidate: any;
   productImageUrl: any = [];
@@ -103,6 +104,10 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
   changeFilename(event, ix) {
     const uploadedFiles = event.target.files;
     this.productImageUrl[ix] = uploadedFiles[0].name;
+  }
+
+  addColor() {
+    this.onAddColor.emit();
   }
 
   save(e) {

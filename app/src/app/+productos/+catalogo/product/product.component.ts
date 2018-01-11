@@ -7,6 +7,7 @@ import 'rxjs/add/operator/catch';
 
 import { ProductService } from './../product.service';
 
+import { NotificationService } from '../../../shared/utils/notification.service';
 import { BlockUIService } from 'ng-block-ui';
 
 @Component({
@@ -16,7 +17,12 @@ import { BlockUIService } from 'ng-block-ui';
 })
 export class ProductComponent implements OnInit {
   subtitle: string;
-  product: any = {};
+  product: any = {
+    category_id: '',
+    brand_id: '',
+    product_tag: '',
+    product_band: ''
+  };
   alert: any = null;
   active: any = null;
 
@@ -24,6 +30,7 @@ export class ProductComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
+    private notificationService: NotificationService,
     private productService: ProductService
   ) {}
 
@@ -60,6 +67,28 @@ export class ProductComponent implements OnInit {
     if (alert && !(alert instanceof Array)) {
       alert = [alert];
     }
+    alert.map((item, ix) => {
+      switch (item.mode) {
+        case 'success':
+          item.icon = 'check';
+          item.color = '#8ac38b';
+        break;
+        case 'danger':
+          item.icon = 'warning';
+          item.color = '#c46a69';
+        break;
+      }
+      return item;
+    });
     this.alert = alert;
+    this.alert.forEach((item, ix) => {
+      this.notificationService.smallBox({
+        title: item.title,
+        content: item.message,
+        color: item.color,
+        iconSmall: 'fa-fw fa fa-' + item.icon + ' bounce animated',
+        timeout: 4000
+      });
+    })
   }
 }

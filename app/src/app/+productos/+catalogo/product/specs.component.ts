@@ -28,41 +28,13 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
 
   validationOptions = {
     rules: {
-      category_id : {
-        required : true
-      },
-      brand_id : {
-        required : true
-      },
-      product_model : {
-        required : true
-      },
-      product_price : {
-        required : true
-      },
-      product_priority : {
-        required : true,
-        number: true,
-        maxlength: 3,
+      product_band : {
+        maxlength : 50
       }
     },
     messages : {
-      category_id : {
-        required : 'Debes seleccionar una categoría.'
-      },
-      brand_id : {
-        required : 'Debes seleccionar una marca'
-      },
-      product_model : {
-        required : 'Debes ingresar un modelo'
-      },
-      product_price : {
-        required : 'Debes ingresar un precio'
-      },
-      product_priority : {
-        required : 'Debes ingresar una prioridad',
-        number: 'Debes ingresar un número entero',
-        maxlength: 'Éste número acepta como máximo 3 dígitos',
+      product_band : {
+        maxlength : 'Máximo 50 caracteres'
       }
     }
   };
@@ -84,6 +56,9 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       const img_url = this.product.product_data_sheet;
       const img_url_arr = img_url.split('/');
       this.product.product_data_sheet_name = img_url_arr[img_url_arr.length - 1];
+    }
+    if (typeof this.product.product_band !== 'undefined' && this.product.product_band === null) {
+      this.product.product_band = '';
     }
     if (typeof this.product.product_radio_check === 'undefined') {
       if (this.product.product_radio === 'Si') {
@@ -124,7 +99,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   }
 
   changeFilename(event) {
-    const uploadedFiles = event.srcElement.files;
+    const uploadedFiles = event.target.files;
     this.dataSheetUrl = uploadedFiles[0].name;
   }
 
@@ -159,12 +134,15 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     } else {
       formData.append('product_gps', 'No');
     }
+    if (!this.dataSheetUrl.length) {
+      formData.delete('product_data_sheet');
+    }
     this.productService.updateSpecs(this.product.product_id, formData)
       .subscribe((data: any) => {
         this.dataSheetUrl = '';
         this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
         if (data.success && formData.has('product_data_sheet')) {
-          this.product.product_data_sheet = this.product.product_data_sheet + '?v1';
+          this.product.product_data_sheet = this.product.product_data_sheet + '?v' + (new Date().getTime().toString());
         }
       });
   }

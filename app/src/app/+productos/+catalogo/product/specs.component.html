@@ -31,7 +31,7 @@
                     <div class="select">
                       <select name="product_external_memory" id="product_external_memory" [(ngModel)]="product.product_external_memory" (change)="onSelectChange($event)">
                         <option value="">Seleccionar capacidad</option>
-                        <option *ngFor="let item of [16,32,64,128,256,512,1024,2048]" value="{{item}}">
+                        <option *ngFor="let item of [1,2,4,8,16,32,64,128,256,512,1024,2048]" value="{{item}}">
                           {{item}} GB
                         </option>
                       </select> <i></i>
@@ -48,7 +48,7 @@
                     <div class="select">
                       <select name="product_internal_memory" id="product_internal_memory" [(ngModel)]="product.product_internal_memory" (change)="onSelectChange($event)">
                         <option value="">Seleccionar capacidad</option>
-                        <option *ngFor="let item of [16,32,64,128,256,512,1024,2048]" value="{{item}}">
+                        <option *ngFor="let item of [1,2,4,8,16,32,64,128,256,512,1024,2048]" value="{{item}}">
                           {{item}} GB
                         </option>
                       </select> <i></i>
@@ -101,7 +101,7 @@
                   </section>
                   <section class="col col-sm-12">
                     <div class="input">
-                      <input id="product_processor_name" name="product_processor_name" type="text" [(ngModel)]="product.product_processor_name"><i></i>
+                      <input id="product_processor_name" name="product_processor_name" type="text" [(ngModel)]="product.product_processor_name">
                     </div>
                   </section>
                 </div>
@@ -113,7 +113,7 @@
                   </section>
                   <section class="col col-sm-12">
                     <div class="input"> <i class="icon-append fa">GHz</i>
-                      <input id="product_processor_power" name="product_processor_power" type="text" [(ngModel)]="product.product_processor_power"><i></i>
+                      <input id="product_processor_power" name="product_processor_power" type="text" [(ngModel)]="product.product_processor_power">
                     </div>
                   </section>
                 </div>
@@ -148,8 +148,13 @@
                     <label for="product_band">Banda</label>
                   </section>
                   <section class="col col-sm-12">
-                    <div class="input">
-                      <input id="product_band" name="product_band" type="text" [(ngModel)]="product.product_band"><i></i>
+                    <div class="select">
+                      <select name="product_band" id="product_band" [(ngModel)]="product.product_band" (change)="onSelectChange($event)">
+                        <option value="">Seleccionar banda</option>
+                        <option *ngFor="let item of ['2G','3G','4G','4G LTE','5G']" value="{{item}}">
+                          {{item}}
+                        </option>
+                      </select> <i></i>
                     </div>
                   </section>
                 </div>
@@ -204,18 +209,6 @@
                         <input #dataSheetInput id="product_data_sheet" name="product_data_sheet" type="file" (change)="changeFilename($event)">Subir
                       </span>
                       <input type="text" placeholder="" value="{{dataSheetUrl}}" readonly>
-                    </div>
-                  </section>
-                </div>
-              </div>
-              <div class="col col-sm-12">
-                <div class="row">
-                  <section class="col col-sm-12">
-                    <label for="product_keywords">Palabras Clave</label>
-                  </section>
-                  <section class="col col-sm-12">
-                    <div class="input form-group">
-                      <input smartTags id="product_keywords" name="product_keywords" [(ngModel)]="product.product_keywords" class="form-control tagsinput" data-role="tagsinput"><i></i>
                     </div>
                   </section>
                 </div>
