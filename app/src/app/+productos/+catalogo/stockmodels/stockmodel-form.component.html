@@ -1,7 +1,7 @@
 <form #formStockModel="ngForm" #form class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onInitComplete)="referenceValidator($event)" (onValidationSuccess)="onValidationSuccess($event)" name="form-stock-model{{stockmodel.stock_model_id}}" style="border: 1px solid #bbb; padding-top: 10px;">
   <input *ngIf="stockmodel.stock_model_id" type="hidden" name="stock_model_id" [(ngModel)]="stockmodel.stock_model_id">
   <div class="row detalle-registro padding-row">
-    <div class="col col-sm-4">
+    <div class="col col-sm-10 col-md-4">
       <div class="row">
         <section class="col col-sm-3">
           <label for="color_id" class="select">Color</label>
@@ -18,14 +18,14 @@
         </section>
       </div>
     </div>
-    <div class="col col-sm-1">
+    <div class="col col-sm-10 col-md-1">
       <div class="row">
         <section class="col col-sm-12">
           <a class="btn btn-primary btn-xs" (click)="addColor()" style="float: none;position: static;margin-left: -20px;margin-top: 5px;"><i class="fa fa-plus"></i></a>
         </section>
       </div>
     </div>
-    <div class="col col-sm-4">
+    <div class="col col-sm-10 col-md-4">
       <div class="row">
         <section class="col col-sm-3">
           <label for="color_id">Code</label>
@@ -37,7 +37,7 @@
         </section>
       </div>
     </div>
-    <div class="col col-sm-3">
+    <div class="col col-sm-10 col-md-3">
       <div class="row">
         <section class="col col-sm-12">
           <label *ngIf="stockmodel.stock_model_id" class="checkbox">

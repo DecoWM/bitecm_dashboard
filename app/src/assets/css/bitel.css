@@ -519,3 +519,11 @@ postpago-variations .panel-body {
   padding: 0;
 }
 
+@media screen and (max-width: 979px){
+
+.display-inline.hidden-tablet, .hidden-tablet{
+  display: block !important; 
+}
+
+}
+
