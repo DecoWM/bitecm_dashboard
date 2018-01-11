@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
 use DB;
 use Validator;
+use Carbon\Carbon;
 use App\Http\Controllers\ApiController;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
