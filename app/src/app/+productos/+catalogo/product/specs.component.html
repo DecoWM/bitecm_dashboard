@@ -12,22 +12,22 @@
           </header>
           <form #formSpecs="ngForm" id="smart-form-register" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-specs">
             <div class="detalle-registro row padding-row">
-              <div class="col col-sm-12">
+              <div class="col col-xs-12 col-sm-12">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-3 col-sm-12">
                     <label for="product_description">Descripción</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-9 col-sm-12">
                     <textarea class="form-control" placeholder="Ingresa una descripción" rows="4" name="product_description" [(ngModel)]="product.product_description"></textarea>
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-4">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="external_memory">Memoria Externa</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="select">
                       <select name="product_external_memory" id="product_external_memory" [(ngModel)]="product.product_external_memory" (change)="onSelectChange($event)">
                         <option value="">Seleccionar capacidad</option>
@@ -39,12 +39,12 @@
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-4">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="product_internal_memory">Memoria Interna</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="select">
                       <select name="product_internal_memory" id="product_internal_memory" [(ngModel)]="product.product_internal_memory" (change)="onSelectChange($event)">
                         <option value="">Seleccionar capacidad</option>
@@ -58,96 +58,96 @@
               </div>
               <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-4">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="product_screen_size">Pantalla</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="input"> <i class="icon-append fa">"</i>
                       <input id="product_screen_size" name="product_screen_size" type="text" [(ngModel)]="product.product_screen_size"><i></i>
                     </div>
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-4">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="product_camera_1">Cámara Principal</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="input"> <i class="icon-append fa">MP</i>
                       <input id="product_camera_1" name="product_camera_1" type="text" [(ngModel)]="product.product_camera_1"><i></i>
                     </div>
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-4">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="product_camera_2">Cámara Posterior</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="input"> <i class="icon-append fa">MP</i>
                       <input id="product_camera_2" name="product_camera_2" type="text" [(ngModel)]="product.product_camera_2"><i></i>
                     </div>
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-4">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-8">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-8">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="product_processor_name">Procesador</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="input">
                       <input id="product_processor_name" name="product_processor_name" type="text" [(ngModel)]="product.product_processor_name">
                     </div>
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-4">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="product_processor_power">Velocidad</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="input"> <i class="icon-append fa">GHz</i>
                       <input id="product_processor_power" name="product_processor_power" type="text" [(ngModel)]="product.product_processor_power">
                     </div>
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-12">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col  col-xs-6 col-sm-12">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="product_os">Sistema Operativo</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="input">
                       <input id="product_os" name="product_os" type="text" [(ngModel)]="product.product_os"><i></i>
                     </div>
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-5 col-sm-12">
                     <label for="product_battery">Batería</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-7 col-sm-12">
                     <div class="input"> <i class="icon-append fa">mAh</i>
                       <input id="product_battery" name="product_battery" type="text" [(ngModel)]="product.product_battery"><i></i>
                     </div>
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-4 col-sm-6">
                 <div class="row">
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-4 col-sm-12">
                     <label for="product_band">Banda</label>
                   </section>
-                  <section class="col col-sm-12">
+                  <section class="col col-xs-8 col-sm-12">
                     <div class="select">
                       <select name="product_band" id="product_band" [(ngModel)]="product.product_band" (change)="onSelectChange($event)">
                         <option value="">Seleccionar banda</option>
@@ -159,7 +159,7 @@
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-3">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-2 col-sm-6 col-md-3">
                 <div class="row">
                   <section class="col col-sm-12">
                     <label class="checkbox">
@@ -168,7 +168,7 @@
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-3">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-2 col-sm-6 col-md-3">
                 <div class="row">
                   <section class="col col-sm-12">
                     <label class="checkbox">
@@ -177,7 +177,7 @@
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-3">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-2 col-sm-6 col-md-3">
                 <div class="row">
                   <section class="col col-sm-12">
                     <label class="checkbox">
@@ -186,7 +186,7 @@
                   </section>
                 </div>
               </div>
-              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-3">
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-2 col-sm-6 col-md-3">
                 <div class="row">
                   <section class="col col-sm-12">
                     <label class="checkbox">

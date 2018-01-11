@@ -14,10 +14,10 @@
             <div class="detalle-registro row padding-row">
               <div class="col col-sm-7">
                 <div class="row">
-                  <section class="col col-sm-4">
+                  <section class="col col-xs-5 col-sm-4">
                     <label for="category_id">Categoría</label>
                   </section>
-                  <section class="col col-sm-8">
+                  <section class="col col-xs-7 col-sm-8">
                     <div class="select" [class.state-disabled]="product.product_id">
                       <select [attr.disabled]="product.product_id ? 'disabled' : null" name="category_id" id="category_id" [(ngModel)]="product.category_id" (change)="onSelectChange($event)">
                         <option value="">Seleccionar categoría</option>
@@ -30,10 +30,10 @@
                   </section>
                 </div>
                 <div class="row">
-                  <section class="col col-sm-4">
+                  <section class="col col-xs-7 col-sm-4">
                     <label for="brand_id">Marca</label>
                   </section>
-                  <section class="col col-sm-8">
+                  <section class="col col-xs-5 col-sm-8">
                     <div class="select" [class.state-disabled]="product.product_id">
                       <select [attr.disabled]="product.product_id ? 'disabled' : null" name="brand_id" id="brand_id" [(ngModel)]="product.brand_id" (change)="onSelectChange($event)">
                         <option value="">Seleccionar marca</option>
@@ -46,10 +46,10 @@
                   </section>
                 </div>
                 <div class="row">
-                  <section class="col col-sm-4">
+                  <section class="col col-xs-7 col-sm-4">
                     <label for="product_model">Modelo</label>
                   </section>
-                  <section class="col col-sm-8">
+                  <section class="col col-xs-5 col-sm-8">
                     <div class="input" [class.state-disabled]="product.product_id">
                       <input [attr.disabled]="product.product_id ? 'disabled' : null" id="product_model" name="product_model" type="text" [(ngModel)]="product.product_model"><i></i>
                       <input *ngIf="product.product_id" type="hidden" name="product_model" value="{{product.product_model}}">
@@ -57,10 +57,10 @@
                   </section>
                 </div>
                 <div class="row">
-                  <section class="col col-sm-4">
+                  <section class="col col-xs-7 col-sm-4">
                     <label for="product_tag">Etiqueta</label>
                   </section>
-                  <section class="col col-sm-8">
+                  <section class="col col-xs-5 col-sm-8">
                     <div class="select">
                       <select name="product_tag" id="product_tag" [(ngModel)]="product.product_tag" (change)="onSelectChange($event)">
                         <option value="">Seleccionar etiqueta</option>
@@ -72,20 +72,20 @@
                   </section>
                 </div>
                 <div class="row">
-                  <section class="col col-sm-4">
+                  <section class="col col-xs-7 col-sm-4">
                     <label for="product_price">Precio</label>
                   </section>
-                  <section class="col col-sm-8">
+                  <section class="col col-xs-5 col-sm-8">
                     <div class="input">
                       <input id="product_price" name="product_price" type="text" [(ngModel)]="product.product_price"><i></i>
                     </div>
                   </section>
                 </div>
                 <div class="row">
-                  <section class="col col-sm-4">
+                  <section class="col col-xs-7 col-sm-4">
                     <label for="product_priority">Prioridad</label>
                   </section>
-                  <section class="col col-sm-8">
+                  <section class="col col-xs-5 col-sm-8">
                     <div class="input">
                       <input id="product_priority" name="product_priority" type="text" [(ngModel)]="product.product_priority"><i></i>
                     </div>
