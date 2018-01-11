@@ -6,7 +6,7 @@
 
   <ng-container *ngIf="alert">
     <alert *ngFor="let a of alert" type="{{a.mode}}" dismissible="true">
-      <i class="fa-fw fa fa-check"></i>
+      <i class="fa-fw fa fa-{{a.icon}}"></i>
       <strong>{{a.title}}</strong> {{a.message}}
     </alert>
   </ng-container>

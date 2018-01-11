@@ -1015,12 +1015,12 @@ class ProductController extends ApiController
   public function storeColor(Request $request) {
       $validator = Validator::make($request->all(), [
           'color_name' => 'required|unique:tbl_color',
-          'color_hexcode' => 'required'
+          'color_hexcode' => 'required|unique:tbl_color'
       ]);
 
       if($validator->fails()) {
         return response()->json([
-          'result' => 'Los datos no cumplen con la validación establecida.',
+          'result' => 'Ya existe un color con el mismo nombre o código',
           'messages' => $validator->errors(),
           'success' => false
         ]);
@@ -1060,6 +1060,7 @@ class ProductController extends ApiController
 
       return response()->json([
         'result' => 'Color registrado correctamente.',
+        'id' => $color,
         'success' => true
       ]);
   }

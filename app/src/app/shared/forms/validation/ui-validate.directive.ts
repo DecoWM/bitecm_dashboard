@@ -10,6 +10,7 @@ export class UiValidateDirective {
   @Input() saUiValidate: any;
   @Output() onValidationSuccess: EventEmitter<any> = new EventEmitter();
   @Output() onInitComplete: EventEmitter<any> = new EventEmitter();
+  @Output() onValidationInit: EventEmitter<any> = new EventEmitter();
 
   constructor(private el: ElementRef) {
     System.import('jquery-validation/dist/jquery.validate.js').then(() => {
@@ -80,12 +81,13 @@ export class UiValidateDirective {
 
     const self = this;
 
-    $form.validate($.extend(validateCommonOptions, this.saUiValidate, {
+    const validation = $form.validate($.extend(validateCommonOptions, this.saUiValidate, {
       submitHandler: function(form) {
         self.onValidationSuccess.emit(this);
       }
     }));
 
+    this.onValidationInit.emit(validation);
     this.onInitComplete.emit($form);
   }
 

@@ -503,3 +503,17 @@ i.icon-append {
   position: static;
 }
 
+.smart-form .state-success input.ng-untouched,
+.smart-form .state-success select.ng-untouched,
+.smart-form .state-success textarea.ng-untouched {
+  border-color: #bdbdbd;
+  background: #fff;
+}
+
+.smart-form .input-file input[type='text'] {
+  padding-right: 65px;
+}
+
+postpago-variations .panel-body {
+  padding: 0;
+}
