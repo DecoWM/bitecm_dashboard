@@ -503,6 +503,7 @@ i.icon-append {
   position: static;
 }
 
+
 .smart-form .state-success input.ng-untouched,
 .smart-form .state-success select.ng-untouched,
 .smart-form .state-success textarea.ng-untouched {
@@ -517,3 +518,12 @@ i.icon-append {
 postpago-variations .panel-body {
   padding: 0;
 }
+
+@media screen and (max-width: 979px){
+
+.display-inline.hidden-tablet, .hidden-tablet{
+  display: block !important; 
+}
+
+}
+

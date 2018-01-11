@@ -14,13 +14,13 @@
   <sa-widgets-grid>
     <div class="row">
       <article>
-        <div class="col-sm-5 col-md-5 col-lg-5">
+        <div class="col-sm-6 col-md-5 col-lg-5">
           <!-- PRODUCT BASIC -->
           <product-basic [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-basic>
           <!-- PRODUCT SPECS -->
           <product-specs *ngIf="product.product_id && product.category_id" [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-specs>
         </div>
-        <div *ngIf="product.product_id && product.category_id" class="col-sm-7 col-md-7 col-lg-7">
+        <div *ngIf="product.product_id && product.category_id" class="col-sm-6 col-md-7 col-lg-7">
 
           <sa-widget [editbutton]="false" [custombutton]="false">
 
