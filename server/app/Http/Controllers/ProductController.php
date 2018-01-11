@@ -460,6 +460,9 @@ class ProductController extends ApiController
           'active' => $active
       ]);
 
+      // Update product
+      DB::table('tbl_product')->where('product_id', $product_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
+
       //Images
       $product_images = $request->product_images;
 
@@ -548,6 +551,9 @@ class ProductController extends ApiController
           DB::table('tbl_stock_model')
               ->where('stock_model_id', $stock_model_id)
               ->update($data);
+
+          // Update product
+          DB::table('tbl_product')->where('product_id', $product_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
 
           foreach ($stock_model_images as $image) {
               DB::table('tbl_product_image')
@@ -700,6 +706,9 @@ class ProductController extends ApiController
 
           DB::table('tbl_product_variation')->insert($variation_array);
 
+          // Update product
+          DB::table('tbl_product')->where('product_id', $product_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
+
           return response()->json([
               'result' => 'Variación registrada correctamente.',
               'success' => true
@@ -763,6 +772,8 @@ class ProductController extends ApiController
             DB::table('tbl_product_variation')->where('product_variation_id', $product_variation_id)->update($data);
         }
 
+        // Update product
+        DB::table('tbl_product')->where('product_id', $product_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
 
         return response()->json([
             'result' => 'Variación actualizada correctamente.',
@@ -832,6 +843,9 @@ class ProductController extends ApiController
 
           DB::table('tbl_product_variation')->insert($variation_array);
 
+          // Update product
+          DB::table('tbl_product')->where('product_id', $product_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
+
           return response()->json([
               'result' => 'Variación registrada correctamente.',
               'success' => true
@@ -895,6 +909,8 @@ class ProductController extends ApiController
             DB::table('tbl_product_variation')->where('product_variation_id', $product_variation_id)->update($data);
         }
 
+        // Update product
+        DB::table('tbl_product')->where('product_id', $product_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
 
         return response()->json([
             'result' => 'Variación actualizada correctamente.',

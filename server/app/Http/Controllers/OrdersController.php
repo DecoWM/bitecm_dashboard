@@ -7,6 +7,7 @@ use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use App\Mail\OrderStatusChanged;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class OrdersController extends ApiController
 {
@@ -82,7 +83,8 @@ class OrdersController extends ApiController
     $result = DB::table('tbl_order')
       ->where('order_id', $order_id)
       ->update([
-        'credit_status' => $credit_status
+        'credit_status' => $credit_status,
+        'updated_at' => Carbon::now()->toDateTimeString()
       ]);
 
     return response()->json([
@@ -129,6 +131,9 @@ class OrdersController extends ApiController
     $result = DB::table('tbl_order_item')
             ->where('order_item_id', $order_item_id)
             ->update($set);
+
+    // Update product
+    DB::table('tbl_order')->where('order_id', $order_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
 
     return response()->json([
       'result' => $result,
@@ -280,16 +285,25 @@ class OrdersController extends ApiController
             'notify_customer' => $notify_customer,
             'comment' => $request->input('comment', null)
           ]);
-        $status = DB::table('tbl_order_status')
-          ->where('order_status_id', $desired_status_id)
-          ->select('order_status_name')
-          ->get()[0];
+
         if ($notify_customer) {
+          $status = DB::table('tbl_order_status')
+            ->where('order_status_id', $desired_status_id)
+            ->select('order_status_name')
+            ->get()[0];
           $order = DB::table('tbl_order')
             ->where('order_id', $order_id)
             ->get()[0];
-          Mail::to($order->contact_email)->send(new OrderStatusChanged($order, $status));
+          try {
+            Mail::to($order->contact_email)->send(new OrderStatusChanged($order, $status));
+          } catch (\Exception $e) {
+            Log::warning('Error al enviar correo a '.$order->contact_email.' por cambio de estado de la orden #'.$order_id);
+          }
         }
+
+        // Update product
+        DB::table('tbl_order')->where('order_id', $order_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
+
         return response()->json([
           'result' => 'Cambio de estado realizado con exito',
           'success' => true

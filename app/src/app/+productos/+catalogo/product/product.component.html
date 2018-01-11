@@ -36,11 +36,11 @@
                   <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Stock Models</span></a>
                 </li>
 
-                <li *ngIf="product.product_id && product.category_id && product.category_id == 1" [class.active]="active == 'tab-r2'">
+                <li *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" [class.active]="active == 'tab-r2'">
                   <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Variaciones Prepago</span></a>
                 </li>
 
-                <li *ngIf="product.product_id && product.category_id && product.category_id == 1" [class.active]="active == 'tab-r3'">
+                <li *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" [class.active]="active == 'tab-r3'">
                   <a (click)="active = 'tab-r3'"><span class="hidden-mobile hidden-tablet">Variaciones Postpago</span></a>
                 </li>
               </ul>
@@ -58,11 +58,11 @@
                   </tab>
                   <tab [active]="active == 'tab-r2'">
                     <!-- PREPAGO VARIATIONS -->
-                    <prepago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)"></prepago-variations>
+                    <prepago-variations *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" (onAlert)="printAlert($event)"></prepago-variations>
                   </tab>
                   <tab [active]="active == 'tab-r3'">
                     <!-- POSTPAGO VARIATIONS -->
-                    <postpago-variations *ngIf="product.product_id && product.category_id && product.category_id == 1" (onAlert)="printAlert($event)"></postpago-variations>
+                    <postpago-variations *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" (onAlert)="printAlert($event)"></postpago-variations>
                   </tab>
                 </tabset>
               
