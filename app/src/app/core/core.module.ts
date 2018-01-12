@@ -8,6 +8,7 @@ import { VoiceControlService } from '../shared/voice-control/voice-control.servi
 import { SoundService } from '../shared/sound/sound.service';
 import { SkinService } from '../shared/layout/skin/skin.service';
 import { BlockUIService } from 'ng-block-ui';
+import { SocketIoModule, SocketIoConfig } from 'ng-socket-io';
 
 import { throwIfAlreadyLoaded } from './guards/module-import-guard';
 import { VoiceRecognitionService } from '../shared/voice-control/voice-recognition.service';
@@ -27,6 +28,8 @@ import { TabsModule, ProgressbarModule, TooltipModule, BsDropdownModule, AlertMo
   messagingSenderId: '685849318441'
 };*/
 
+const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
+
 @NgModule({
   imports: [
     CommonModule,
@@ -35,6 +38,7 @@ import { TabsModule, ProgressbarModule, TooltipModule, BsDropdownModule, AlertMo
     ProgressbarModule.forRoot(),
     AlertModule.forRoot(),
     TabsModule.forRoot(),
+    SocketIoModule.forRoot(config),
     // AngularFireModule.initializeApp(firebaseConfig)
     // AuthModule
   ],

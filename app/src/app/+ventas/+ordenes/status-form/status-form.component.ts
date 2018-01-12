@@ -75,11 +75,6 @@ export class StatusFormComponent implements OnInit {
     $(event.currentTarget).blur();
   }
 
-  onDateChange(event) {
-    this[event.currentTarget.name] = event.data;
-    this.status[event.currentTarget.name] = this.ordenesService.fromSimpleDateToISO(event.data);
-  }
-
   onValidationSuccess(e) {
     console.log(e);
     this.save(this.status, e);

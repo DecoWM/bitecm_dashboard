@@ -7,7 +7,9 @@ import 'rxjs/add/operator/catch';
 
 import { OrdenesService } from './ordenes.service';
 
+import { NotificationService } from '../../shared/utils/notification.service';
 import { BlockUIService } from 'ng-block-ui';
+import { Socket } from 'ng-socket-io';
 
 @Component({
   selector: 'ordenes',
@@ -18,6 +20,7 @@ export class OrdenesComponent implements OnInit {
   loadingStatus: string;
   itemsObs: Subject<any> = new Subject();
   dtTrigger: Subject<any> = new Subject();
+  ordenes: any = [];
 
   options = {
     dom: 'Bfrtip',
@@ -34,20 +37,57 @@ export class OrdenesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
-    private ordenesService: OrdenesService
+    private ordenesService: OrdenesService,
+    private notificationService: NotificationService,
+    private socket: Socket
   ) {
     this.loadingStatus = 'Cargando ordenes...';
   }
 
   ngOnInit() {
+    const self = this;
+
+    this.socket.on('connect', function () {
+      console.log('Conectado a socket.io');
+    });
+
+    this.socket.on('order completed', function (event) {
+      console.log('Nueva orden #' + event.order_id);
+      self.ordenesService.getOrdenSimple(event.order_id)
+      .subscribe((data: any) => {
+        console.log(data);
+        if (data.success) {
+          const orden = data.result;
+          self.ordenes.unshift({
+            'order_id': orden.order_id,
+            'created_at' : orden.order_date,
+            'id_number' : orden.id_number,
+            'affiliation_type' : orden.affiliation_type,
+            'service_type' : orden.service_type,
+            'plan_name' : event.plan_name,
+            'order_status_name' : orden.order_status_name,
+            'total_igv' : orden.total_igv,
+            'credit_status' : orden.credit_status
+          });
+          self.notificationService.smallBox({
+            title: 'Nueva orden registrada #' + orden.order_id,
+            content: orden.created_at,
+            color: '#8ac38b',
+            iconSmall: 'fa-fw fa fa-check bounce animated',
+            timeout: 4000
+          });
+        }
+      });
+    });
+
     this.blockui.start('content');
     this.ordenesService.getOrdenes()
       .subscribe((data: any) => {
         // console.log(data);
         this.blockui.stop('content');
-        const items = data.result;
-        this.itemsObs.next(items);
-        if (items.length === 0) {
+        this.ordenes = data.result;
+        this.itemsObs.next(this.ordenes);
+        if (this.ordenes.length === 0) {
           this.loadingStatus = 'No se encontraron registros';
         }
       }, (error) => {

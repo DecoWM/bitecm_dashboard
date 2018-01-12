@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-      this.username = "";
-      this.password = "";
+      this.username = '';
+      this.password = '';
     /*config.skins.find((_skin) => {
       if (_skin.name === config.smartSkin) {
         this.layoutService.onSmartSkin(_skin);

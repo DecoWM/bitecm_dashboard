@@ -89,8 +89,8 @@ export class VariationService {
 
   getUrl(params: any = '') {
     let urlParts = [this.url];
-    if (params.length) {
-      if (typeof params === 'object') {
+    if (params.toString().length) {
+      if (params instanceof Array) {
         urlParts = urlParts.concat(params);
       } else {
         urlParts.push(params);

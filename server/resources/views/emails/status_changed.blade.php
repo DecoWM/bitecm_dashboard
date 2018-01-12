@@ -19,7 +19,7 @@
   <table style="width:100%;max-width:600px;margin:0px auto;border-collapse:collapse">
     <thead style="background: #ffe60d; ">
       <tr>
-        <th width="8%"><img src="{{env('APP_URL')}}/images/email/bg-header.png" alt="lo  gotipo"></th>
+        <th width="8%"><img src="{{env('APP_URL')}}/images/email/bg-header.png" alt="Bitel Perú"></th>
         <th style="height: 40px;color: #008c95; font-size: 19px;padding-top: 20px; padding-bottom: 15px; text-align: right; padding-right: 30px;"><strong>Tu pedido #{{$order->order_id}} ha cambiado de estado</strong></th>
       </tr>
     </thead>

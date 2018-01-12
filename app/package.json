@@ -93,6 +93,7 @@
     "morris.js": "0.5.0",
     "multer": "^1.2.0",
     "ng-block-ui": "^1.0.0-beta.15",
+    "ng-socket-io": "^0.2.4",
     "ngx-bootstrap": "^2.0.0-rc.0",
     "ngx-popover": "0.0.16",
     "nouislider": "9.2.0",

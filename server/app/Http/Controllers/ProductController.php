@@ -115,6 +115,7 @@ class ProductController extends ApiController
           'product_model' => 'required|unique:tbl_product',
           'product_price' => 'required|numeric',
           'product_priority' => 'required|integer',
+          'product_tag' => 'nullable|string',
           'product_image' => 'required|image'
       ]);
 
@@ -132,6 +133,7 @@ class ProductController extends ApiController
       $product_model = $request->input('product_model');
       $product_price = $request->input('product_price');
       $product_priority = $request->input('product_priority');
+      $product_tag = $request->input('product_tag');
 
       //Slug
       $product_slug = str_slug($product_model);
@@ -158,6 +160,7 @@ class ProductController extends ApiController
               'product_model' => $product_model,
               'product_price' => $product_price,
               'product_priority' => $product_priority,
+              'product_tag' => $product_tag,
               'product_slug' => $product_slug,
               'product_image_url' => $product_image_url
           ]);
@@ -197,6 +200,7 @@ class ProductController extends ApiController
           $validator = Validator::make($request->all(), [
               'product_price' => 'required|numeric',
               'product_priority' => 'required|integer',
+              'product_tag' => 'nullable|string',
               'product_image' => 'nullable|image'
           ]);
 
@@ -210,11 +214,13 @@ class ProductController extends ApiController
 
           $product_price = $request->input('product_price');
           $product_priority = $request->input('product_priority');
+          $product_tag = $request->input('product_tag');
           $updated_at = Carbon::now()->toDateTimeString();
 
           $data = [
               'product_price' => $product_price,
               'product_priority' => $product_priority,
+              'product_tag' => $product_tag,
               'updated_at' => $updated_at
           ];
 
@@ -464,7 +470,7 @@ class ProductController extends ApiController
       DB::table('tbl_product')->where('product_id', $product_id)->update([ 'updated_at' => Carbon::now()->toDateTimeString() ]);
 
       //Images
-      $product_images = $request->product_images;
+      $product_images = $request->product_images?:[];
 
       $image_array = [];
       foreach ($product_images as $index => $item) {

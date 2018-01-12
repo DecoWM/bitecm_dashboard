@@ -34,6 +34,11 @@ export class OrdenesService {
       .get(this.getUrl(id));
   }
 
+  getOrdenSimple(id) {
+    return this.http
+      .get(this.getUrl([id, 'simple']));
+  }
+
   updateOrden(orden) {
     return this.http
       .put(this.getUrl(orden.order_id), orden);
@@ -50,7 +55,7 @@ export class OrdenesService {
 
   updateItem(id, item) {
     return this.http
-      .put(this.getUrl(id, 'item'), item);
+      .put(this.getUrl([id, 'item']), item);
   }
 
   deleteItem(id, item) {
@@ -59,53 +64,28 @@ export class OrdenesService {
 
   getStatusList() {
     return this.http
-      .get(this.getUrl(null, 'status'));
+      .get(this.getUrl('status'));
   }
 
   getStatusHistory(id) {
     return this.http
-      .get(this.getUrl(id, 'status'));
+      .get(this.getUrl([id, 'status']));
   }
 
   createStatus(order_id, status) {
     return this.http
-      .post(this.getUrl(order_id, 'status'), status);
+      .post(this.getUrl([order_id, 'status']), status);
   }
 
-  getUrl(id = null, param = '') {
-    const urlParts = [this.url];
-    if (id) {
-      urlParts.push(id);
-    }
-    if (param.length) {
-      urlParts.push(param);
+  getUrl(params: any = '') {
+    let urlParts = [this.url];
+    if (params.toString().length) {
+      if (params instanceof Array) {
+        urlParts = urlParts.concat(params);
+      } else {
+        urlParts.push(params);
+      }
     }
     return urlParts.join('/');
-  }
-
-  formatTime(digitsTime) {
-    let hours = digitsTime.slice(0, -2);
-    const minutes = digitsTime.slice(-2);
-    const meridian = hours > 12 ? 'pm' : 'am';
-    if (hours > 12) { hours -= 12; }
-    return `${hours}:${minutes} ${meridian}`;
-  }
-
-  fromSimpleDateToISO(simpleDate: string) {
-    const dateParts = simpleDate.split('/');
-    const date = new Date(`${dateParts[2]}/${dateParts[1]}/${dateParts[0]}`);
-    date.setDate(parseInt(dateParts[0], 10));
-    date.setHours(0);
-    return date.toISOString();
-  }
-
-  fromISOToSimpleDate(isoDate: string) {
-    const date = new Date(isoDate);
-    const {year, month, day} = {
-      year: date.getFullYear(),
-      month: ('0' + (date.getMonth() + 1)).slice(-2),
-      day: ('0' + (date.getDate())).slice(-2)
-    }
-    return `${day}/${month}/${year}`;
   }
 }

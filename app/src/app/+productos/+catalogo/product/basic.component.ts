@@ -123,18 +123,18 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
     if (this.product.product_id) {
       this.productService.updateBasic(this.product.product_id, formData)
         .subscribe((data: any) => {
-          this.productImageUrl = '';
           this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
           if (data.success && formData.has('product_image')) {
+            this.productImageUrl = '';
             this.product.product_image_url = this.product.product_image_url + '?v' + (new Date().getTime().toString());
           }
         });
     } else {
       this.productService.saveBasic(formData)
         .subscribe((data: any) => {
-          this.productImageUrl = '';
-          // this.onAlert.emit(this.getAlert(data, this.product, 'Creación', 'creado'));
+          this.onAlert.emit(this.getAlert(data, this.product, 'Creación', 'creado'));
           if (data.success) {
+            this.productImageUrl = '';
             this.router.navigate([data.id], {relativeTo: this.route.parent});
           }
         });
@@ -142,15 +142,24 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
   }
 
   getAlert(result, product, title_mode, desc_mode): any {
-    let mode, title, message;
+    let mode, title, message = '';
+    if (!product.brand_name) {
+      product.brand_name = '';
+    }
+    if (result.messages && result.messages.product_image) {
+      message = 'Para un producto nuevo es obligatoria una imagen';
+    }
+    if (result.messages && result.messages.product_model) {
+      message = 'El modelo ingresado ya fue tomado por otro producto';
+    }
     if (result.success) {
       mode = 'success';
       title = title_mode + ' completada';
-      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido ' + desc_mode;
+      message = message.length ? message : 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido ' + desc_mode;
     } else {
       mode = 'danger';
       title = title_mode + ' fallida';
-      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser ' + desc_mode;
+      message = message.length ? message : 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser ' + desc_mode;
     }
     return {
       'title': title,

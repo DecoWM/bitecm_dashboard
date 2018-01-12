@@ -71,6 +71,18 @@ class OrdersController extends ApiController
     ]);
   }
 
+  public function detailSimple($order_id = null) {
+    $result = DB::select('call PA_orderDetail(
+      :order_id
+    )', [
+      'order_id' => $order_id
+    ]);
+    return response()->json([
+      'result' => count($result) ? $result[0] : null,
+      'success' => count($result)
+    ]);
+  }
+
   public function update(Request $request, $order_id = null) {
     $credit_status = $request->input('credit_status', null);
 
