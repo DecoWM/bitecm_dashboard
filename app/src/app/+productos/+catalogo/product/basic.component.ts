@@ -40,12 +40,14 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
         required : true
       },
       product_price : {
-        required : true
+        required : true,
+        number: true
+        // pattern: /\d+(\.\d{1,2})?/
       },
       product_priority : {
         required : true,
         number: true,
-        maxlength: 3,
+        maxlength: 3
       }
     },
     messages : {
@@ -59,11 +61,13 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
         required : 'Debes ingresar un modelo'
       },
       product_price : {
-        required : 'Debes ingresar un precio'
+        required : 'Debes ingresar un precio',
+        number: 'Debes ingresar un número',
+        pattern: 'Solo se aceptan números con 2 decimales'
       },
       product_priority : {
         required : 'Debes ingresar una prioridad',
-        number: 'Debes ingresar un número entero',
+        number: 'Debes ingresar un número',
         maxlength: 'Éste número acepta como máximo 3 dígitos',
       }
     }
