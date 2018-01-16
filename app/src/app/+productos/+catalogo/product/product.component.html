@@ -33,7 +33,7 @@
 
               <ul class="nav nav-tabs pull-right in" id="myTab">
                 <li *ngIf="product.product_id && product.category_id" [class.active]="active == 'tab-r1'">
-                  <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Stock Models</span></a>
+                  <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Modelos de Stock</span></a>
                 </li>
 
                 <li *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" [class.active]="active == 'tab-r2'">

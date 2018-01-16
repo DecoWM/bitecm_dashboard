@@ -30,7 +30,7 @@
                 <section class="col col-sm-12">
                   <div class="input">
                     <i class="icon-append fa">#</i>
-                    <input id="color_hexcode" name="color_hexcode" [(ngModel)]="color.color_hexcode" type="text" placeholder="Valor Hexadecimal">
+                    <input id="color_hexcode" name="color_hexcode" maxlength="6" [(ngModel)]="color.color_hexcode" type="text" placeholder="Valor Hexadecimal">
                   </div>
                 </section>
               </div>
@@ -53,7 +53,7 @@
   <div class="detalle-order">
     <header>
       <i class="icon-prepend fa fa-exclamation-circle"></i>
-      Stock Models
+      Modelos de Stock
       <label class="btn btn-primary btn-sm pull-right" style="line-height: 12px; margin-right: 5px" (click)="addSMC()">
         Agregar
       </label>

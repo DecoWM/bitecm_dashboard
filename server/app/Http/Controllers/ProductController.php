@@ -142,11 +142,11 @@ class ProductController extends ApiController
       $brand = DB::table('tbl_brand')->where('brand_id', $brand_id)->select('brand_name')->first();
 
       if ($request->file('product_image')->isValid()) {
-          $prefix = "productos";
-          $extension = $request->file('product_image')->guessExtension();
-          $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product_slug.'.'.$extension, 'public');
+        $prefix = "productos";
+        $extension = $request->file('product_image')->guessExtension();
+        $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product_slug.'.'.$extension, 'public');
       } else {
-          $product_image_path = null;
+        $product_image_path = null;
       }
 
       $product_image_url = $product_image_path;
@@ -370,7 +370,9 @@ class ProductController extends ApiController
           $stock_model_code->product_images = DB::table('tbl_product_image')
               ->where('active', 1)
               ->where('stock_model_id', $stock_model_code->stock_model_id)
-              ->select('product_image_id', 'product_image_url', 'weight')->get();
+              ->select('product_image_id', 'product_image_url', 'weight')
+              ->orderBy('weight', 'desc')
+              ->get();
 
           foreach ($stock_model_code->product_images as $image) {
               $image->product_image_url = asset(Storage::url($image->product_image_url));
@@ -394,7 +396,9 @@ class ProductController extends ApiController
           $stock_model_code->product_images = DB::table('tbl_product_image')
               ->where('active', 1)
               ->where('stock_model_id', $stock_model_code->stock_model_id)
-              ->select('product_image_id', 'product_image_url', 'weight')->get();
+              ->select('product_image_id', 'product_image_url', 'weight')
+              ->orderBy('weight', 'desc')
+              ->get();
 
           foreach ($stock_model_code->product_images as $image) {
               $image->product_image_url = asset(Storage::url($image->product_image_url));

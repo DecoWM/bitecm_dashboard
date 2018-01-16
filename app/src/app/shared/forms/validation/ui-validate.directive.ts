@@ -1,23 +1,25 @@
-import {Directive, Input, Output, EventEmitter, ElementRef} from '@angular/core';
+import {Directive, OnInit, Input, Output, EventEmitter, ElementRef} from '@angular/core';
 
 declare var $: any;
 
 @Directive({
   selector: '[saUiValidate]'
 })
-export class UiValidateDirective {
+export class UiValidateDirective implements OnInit {
 
   @Input() saUiValidate: any;
   @Output() onValidationSuccess: EventEmitter<any> = new EventEmitter();
   @Output() onInitComplete: EventEmitter<any> = new EventEmitter();
   @Output() onValidationInit: EventEmitter<any> = new EventEmitter();
 
-  constructor(private el: ElementRef) {
+  constructor(private el: ElementRef) {}
+
+  ngOnInit() {
     System.import('jquery-validation/dist/jquery.validate.js').then(() => {
       System.import('jquery-validation/dist/additional-methods.js').then(() => {
         this.attach();
-      })
-    })
+      });
+    });
   }
 
   attach() {

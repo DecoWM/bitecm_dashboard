@@ -28,7 +28,7 @@
     <div class="col col-sm-10 col-md-4">
       <div class="row">
         <section class="col col-sm-3">
-          <label for="color_id">Code</label>
+          <label for="color_id">Código Stock</label>
         </section>
         <section class="col col-sm-9">
           <div class="input">
@@ -61,7 +61,8 @@
                 <a target="_blank" href="{{product_image.product_image_url}}">{{product_image.product_image_name}}</a>
               </div>
               <div class="input margin-top-5">
-                <input name="weight_{{i}}" type="text" placeholder="Peso" [(ngModel)]="product_image.weight"><i></i>
+                <span>Peso</span>
+                <input name="weight_{{i}}" type="text" placeholder="Peso" [(ngModel)]="product_image.weight" style="width: 40px">
               </div>
               <a class="btn btn-primary btn-sm margin-top-5" (click)="showPopupRemoveImage(product_image)">Eliminar</a>
               <input type="hidden" name="product_image_id_{{i}}" [(ngModel)]="product_image.product_image_id">
