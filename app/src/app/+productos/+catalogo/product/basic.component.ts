@@ -68,7 +68,7 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
       product_priority : {
         required : 'Debes ingresar una prioridad',
         number: 'Debes ingresar un número',
-        maxlength: 'Éste número acepta como máximo 3 dígitos',
+        maxlength: 'Éste número acepta como máximo 3 dígitos'
       }
     }
   };

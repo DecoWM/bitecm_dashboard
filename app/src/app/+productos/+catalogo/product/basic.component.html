@@ -51,7 +51,7 @@
                   </section>
                   <section class="col col-xs-5 col-sm-8">
                     <div class="input" [class.state-disabled]="product.product_id">
-                      <input [attr.disabled]="product.product_id ? 'disabled' : null" id="product_model" name="product_model" type="text" [(ngModel)]="product.product_model"><i></i>
+                      <input [attr.disabled]="product.product_id ? 'disabled' : null" id="product_model" name="product_model" type="text" [(ngModel)]="product.product_model">
                       <input *ngIf="product.product_id" type="hidden" name="product_model" value="{{product.product_model}}">
                     </div>
                   </section>
@@ -77,7 +77,7 @@
                   </section>
                   <section class="col col-xs-5 col-sm-8">
                     <div class="input">
-                      <input id="product_price" name="product_price" type="text" [(ngModel)]="product.product_price"><i></i>
+                      <input id="product_price" name="product_price" type="text" [(ngModel)]="product.product_price">
                     </div>
                   </section>
                 </div>
@@ -87,7 +87,7 @@
                   </section>
                   <section class="col col-xs-5 col-sm-8">
                     <div class="input">
-                      <input id="product_priority" name="product_priority" type="text" [(ngModel)]="product.product_priority"><i></i>
+                      <input id="product_priority" name="product_priority" type="text" [(ngModel)]="product.product_priority" maxlength="3">
                     </div>
                   </section>
                 </div>
