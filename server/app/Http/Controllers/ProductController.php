@@ -205,7 +205,7 @@ class ProductController extends ApiController
               'product_price' => 'required|numeric',
               'product_priority' => 'required|integer',
               'product_tag' => 'nullable|string',
-              'product_image' => 'nullable|image'
+              'product_image' => 'nullable|image|max:10240'
           ]);
 
           if($validator->fails()) {
@@ -272,7 +272,7 @@ class ProductController extends ApiController
 
       if ($product) {
           $validator = Validator::make($request->all(), [
-              'product_data_sheet' => 'nullable|mimes:pdf'
+              'product_data_sheet' => 'nullable|mimes:pdf|max:10240'
           ]);
 
           if($validator->fails()) {
@@ -353,6 +353,7 @@ class ProductController extends ApiController
 
           return response()->json([
             'result' => 'Producto actualizado correctamente.',
+            'product_data_sheet_path' => isset($product_data_sheet_path) ? $product_data_sheet_path : null,
             'success' => true
           ]);
       }

@@ -132,6 +132,12 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
             this.productImageUrl = '';
             this.product.product_image_url = this.product.product_image_url + '?v' + (new Date().getTime().toString());
           }
+        }, (error) => {
+          this.onAlert.emit({
+            'title': 'Archivo pesado',
+            'message': 'El archivo de imágen es muy pesado, solo se permiten 10mb',
+            'mode': 'danger'
+          });
         });
     } else {
       this.productService.saveBasic(formData)
@@ -141,6 +147,12 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
             this.productImageUrl = '';
             this.router.navigate([data.id], {relativeTo: this.route.parent});
           }
+        }, (error) => {
+          this.onAlert.emit({
+            'title': 'Archivo pesado',
+            'message': 'El archivo de imágen es muy pesado, solo se permiten 10mb',
+            'mode': 'danger'
+          });
         });
     }
   }

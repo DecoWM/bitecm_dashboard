@@ -45,6 +45,9 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       },
       product_band : {
         maxlength : 50
+      },
+      product_data_sheet: {
+        accept: 'application/pdf'
       }
     },
     messages : {
@@ -65,6 +68,9 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       },
       product_band : {
         maxlength : 'Máximo 50 caracteres'
+      },
+      product_data_sheet: {
+        accept: 'Solo se aceptan archivos PDF'
       }
     }
   };
@@ -180,6 +186,12 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
         if (data.success && formData.has('product_data_sheet')) {
           this.product.product_data_sheet = this.product.product_data_sheet + '?v' + (new Date().getTime().toString());
         }
+      }, (error) => {
+        this.onAlert.emit({
+          'title': 'Archivo pesado',
+          'message': 'El archivo de especificaciones ténicas es muy pesado, solo se permiten 10mb',
+          'mode': 'danger'
+        });
       });
   }
 

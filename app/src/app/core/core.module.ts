@@ -28,7 +28,7 @@ import { TabsModule, ProgressbarModule, TooltipModule, BsDropdownModule, AlertMo
   messagingSenderId: '685849318441'
 };*/
 
-const config: SocketIoConfig = { url: 'http://10.121.5.48:8000', options: {} };
+const config: SocketIoConfig = { url: 'https://10.121.5.48:8000', options: {} };
 // const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
 @NgModule({
