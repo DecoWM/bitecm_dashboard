@@ -21,6 +21,8 @@ export class ProductComponent implements OnInit {
     category_id: '',
     brand_id: '',
     product_tag: '',
+    product_internal_memory: '',
+    product_external_memory: '',
     product_band: ''
   };
   alert: any = null;

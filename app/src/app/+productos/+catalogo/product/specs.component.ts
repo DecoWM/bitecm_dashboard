@@ -28,11 +28,41 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
 
   validationOptions = {
     rules: {
+      product_screen_size: {
+        number: true
+      },
+      product_camera_1: {
+        number: true
+      },
+      product_camera_2: {
+        number: true
+      },
+      product_processor_power: {
+        number: true
+      },
+      product_battery: {
+        number: true
+      },
       product_band : {
         maxlength : 50
       }
     },
     messages : {
+      product_screen_size: {
+        number: 'Debes ingresar un número'
+      },
+      product_camera_1: {
+        number: 'Debes ingresar un número'
+      },
+      product_camera_2: {
+        number: 'Debes ingresar un número'
+      },
+      product_processor_power: {
+        number: 'Debes ingresar un número'
+      },
+      product_battery: {
+        number: 'Debes ingresar un número'
+      },
       product_band : {
         maxlength : 'Máximo 50 caracteres'
       }
@@ -56,6 +86,12 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       const img_url = this.product.product_data_sheet;
       const img_url_arr = img_url.split('/');
       this.product.product_data_sheet_name = img_url_arr[img_url_arr.length - 1];
+    }
+    if (typeof this.product.product_internal_memory !== 'undefined' && this.product.product_internal_memory === null) {
+      this.product.product_internal_memory = '';
+    }
+    if (typeof this.product.product_external_memory !== 'undefined' && this.product.product_external_memory === null) {
+      this.product.product_external_memory = '';
     }
     if (typeof this.product.product_band !== 'undefined' && this.product.product_band === null) {
       this.product.product_band = '';

@@ -25,11 +25,11 @@
               <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
                 <div class="row">
                   <section class="col col-xs-5 col-sm-12">
-                    <label for="external_memory">Memoria Externa</label>
+                    <label for="product_internal_memory">Memoria Interna</label>
                   </section>
                   <section class="col col-xs-7 col-sm-12">
                     <div class="select">
-                      <select name="product_external_memory" id="product_external_memory" [(ngModel)]="product.product_external_memory" (change)="onSelectChange($event)">
+                      <select name="product_internal_memory" id="product_internal_memory" [(ngModel)]="product.product_internal_memory" (change)="onSelectChange($event)">
                         <option value="">Seleccionar capacidad</option>
                         <option *ngFor="let item of [1,2,4,8,16,32,64,128,256,512,1024,2048]" value="{{item}}">
                           {{item}} GB
@@ -42,11 +42,11 @@
               <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
                 <div class="row">
                   <section class="col col-xs-5 col-sm-12">
-                    <label for="product_internal_memory">Memoria Interna</label>
+                    <label for="external_memory">Memoria Externa</label>
                   </section>
                   <section class="col col-xs-7 col-sm-12">
                     <div class="select">
-                      <select name="product_internal_memory" id="product_internal_memory" [(ngModel)]="product.product_internal_memory" (change)="onSelectChange($event)">
+                      <select name="product_external_memory" id="product_external_memory" [(ngModel)]="product.product_external_memory" (change)="onSelectChange($event)">
                         <option value="">Seleccionar capacidad</option>
                         <option *ngFor="let item of [1,2,4,8,16,32,64,128,256,512,1024,2048]" value="{{item}}">
                           {{item}} GB
@@ -200,8 +200,8 @@
                   <section class="col col-sm-12">
                     <label for="product_data_sheet">Especificaciones Técnicas</label>
                   </section>
-                  <section class="col col-sm-12">
-                    <a *ngIf="product.product_data_sheet" href="{{product.product_data_sheet}}" target="_blank">{{product.product_data_sheet_name}}</a>
+                  <section *ngIf="product.product_data_sheet" class="col col-sm-12">
+                    <a href="{{product.product_data_sheet}}" target="_blank">{{product.product_data_sheet_name}}</a>
                   </section>
                   <section class="col col-sm-12">
                     <div class="input input-file">

@@ -92,8 +92,12 @@ class ProductController extends ApiController
           ->first();
 
       if ($product) {
-        $product->product_data_sheet = asset(Storage::url($product->product_data_sheet));
-        $product->product_image_url = asset(Storage::url(($product->product_image_url)));
+        if (!empty($product->product_data_sheet)) {
+          $product->product_data_sheet = asset(Storage::url($product->product_data_sheet));
+        }
+        if (!empty($product->product_image_url)) {
+          $product->product_image_url = asset(Storage::url(($product->product_image_url)));
+        }
 
         return response()->json([
             'result' => $product,
