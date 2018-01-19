@@ -308,25 +308,25 @@ class ProductController extends ApiController
           $updated_at = Carbon::now()->toDateTimeString();
           $data = array_add($data, 'updated_at', $updated_at);
 
-          ($product_description) ? $data = array_add($data, 'product_description', $product_description) : '';
-          ($product_general_specifications) ? $data = array_add($data, 'product_general_specifications', $product_general_specifications) : '';
-          ($product_external_memory) ? $data = array_add($data, 'product_external_memory', $product_external_memory) : '';
-          ($product_internal_memory) ? $data = array_add($data, 'product_internal_memory', $product_internal_memory) : '';
-          ($product_screen_size) ? $data = array_add($data, 'product_screen_size', $product_screen_size) : '';
-          ($product_camera_1) ? $data = array_add($data, 'product_camera_1', $product_camera_1) : '';
-          ($product_camera_2) ? $data = array_add($data, 'product_camera_2', $product_camera_2) : '';
-          ($product_camera_3) ? $data = array_add($data, 'product_camera_3', $product_camera_3) : '';
-          ($product_camera_4) ? $data = array_add($data, 'product_camera_4', $product_camera_4) : '';
-          ($product_processor_name) ? $data = array_add($data, 'product_processor_name', $product_processor_name) : '';
-          ($product_processor_power) ? $data = array_add($data, 'product_processor_power', $product_processor_power) : '';
-          ($product_processor_cores) ? $data = array_add($data, 'product_processor_cores', $product_processor_cores) : '';
-          ($product_band) ? $data = array_add($data, 'product_band', $product_band) : '';
-          ($product_radio) ? $data = array_add($data, 'product_radio', $product_radio) : '';
-          ($product_wlan) ? $data = array_add($data, 'product_wlan', $product_wlan) : '';
-          ($product_bluetooth) ? $data = array_add($data, 'product_bluetooth', $product_bluetooth) : '';
-          ($product_os) ? $data = array_add($data, 'product_os', $product_os) : '';
-          ($product_gps) ? $data = array_add($data, 'product_gps', $product_gps) : '';
-          ($product_battery) ? $data = array_add($data, 'product_battery', $product_battery) : '';
+          $data = array_add($data, 'product_description', $product_description);
+          isset($product_general_specifications) ? $data = array_add($data, 'product_general_specifications', $product_general_specifications) : '';
+          isset($product_external_memory) ? $data = array_add($data, 'product_external_memory', $product_external_memory) : '';
+          isset($product_internal_memory) ? $data = array_add($data, 'product_internal_memory', $product_internal_memory) : '';
+          isset($product_screen_size) ? $data = array_add($data, 'product_screen_size', $product_screen_size) : '';
+          isset($product_camera_1) ? $data = array_add($data, 'product_camera_1', $product_camera_1) : '';
+          isset($product_camera_2) ? $data = array_add($data, 'product_camera_2', $product_camera_2) : '';
+          isset($product_camera_3) ? $data = array_add($data, 'product_camera_3', $product_camera_3) : '';
+          isset($product_camera_4) ? $data = array_add($data, 'product_camera_4', $product_camera_4) : '';
+          isset($product_processor_name) ? $data = array_add($data, 'product_processor_name', $product_processor_name) : '';
+          isset($product_processor_power) ? $data = array_add($data, 'product_processor_power', $product_processor_power) : '';
+          isset($product_processor_cores) ? $data = array_add($data, 'product_processor_cores', $product_processor_cores) : '';
+          isset($product_band) ? $data = array_add($data, 'product_band', $product_band) : '';
+          isset($product_radio) ? $data = array_add($data, 'product_radio', $product_radio) : '';
+          isset($product_wlan) ? $data = array_add($data, 'product_wlan', $product_wlan) : '';
+          isset($product_bluetooth) ? $data = array_add($data, 'product_bluetooth', $product_bluetooth) : '';
+          isset($product_os) ? $data = array_add($data, 'product_os', $product_os) : '';
+          isset($product_gps) ? $data = array_add($data, 'product_gps', $product_gps) : '';
+          isset($product_battery) ? $data = array_add($data, 'product_battery', $product_battery) : '';
 
           if ($request->has('product_data_sheet')) {
               $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();

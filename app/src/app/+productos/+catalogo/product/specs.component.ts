@@ -29,19 +29,24 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   validationOptions = {
     rules: {
       product_screen_size: {
-        number: true
+        number: true,
+        maxlength: 10
       },
       product_camera_1: {
-        number: true
+        // number: true,
+        maxlength: 10
       },
       product_camera_2: {
-        number: true
+        number: true,
+        maxlength: 10
       },
       product_processor_power: {
-        number: true
+        number: true,
+        maxlength: 10
       },
       product_battery: {
-        number: true
+        number: true,
+        maxlength: 10
       },
       product_band : {
         maxlength : 50
@@ -52,19 +57,24 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     },
     messages : {
       product_screen_size: {
-        number: 'Debes ingresar un número'
+        number: 'Debes ingresar un número',
+        maxlength: 'Máximo 10 caracteres'
       },
       product_camera_1: {
-        number: 'Debes ingresar un número'
+        // number: 'Debes ingresar un número',
+        maxlength: 'Máximo 10 caracteres'
       },
       product_camera_2: {
-        number: 'Debes ingresar un número'
+        number: 'Debes ingresar un número',
+        maxlength: 'Máximo 10 caracteres'
       },
       product_processor_power: {
-        number: 'Debes ingresar un número'
+        number: 'Debes ingresar un número',
+        maxlength: 'Máximo 10 caracteres'
       },
       product_battery: {
-        number: 'Debes ingresar un número'
+        number: 'Debes ingresar un número',
+        maxlength: 'Máximo 10 caracteres'
       },
       product_band : {
         maxlength : 'Máximo 50 caracteres'

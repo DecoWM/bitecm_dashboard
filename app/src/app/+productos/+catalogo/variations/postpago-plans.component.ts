@@ -53,9 +53,7 @@ export class PostpagoPlansComponent implements OnInit {
       if (vars.success) {
         this.variations = vars.result;
         this.variations.map((variation, index) => {
-          if (variation.affiliation_id === this.affiliation_id && variation.contract_id === this.contract_id) {
-            this.variationsByPlan[variation.plan_id] = variation;
-          }
+          this.variationsByPlan[variation.plan_id] = variation;
           return variation;
         });
       }
@@ -96,7 +94,7 @@ export class PostpagoPlansComponent implements OnInit {
           }
           this.onAlert.emit(alerts);
           if (save.success || update.success) {
-            this.variationService.getPrepaidVariations(this.product_id)
+            this.variationService.getPostpaidVariations(this.product_id, this.affiliation_id, this.contract_id)
               .subscribe((vars: any) => {
                 if (vars.success) {
                   this.variations = vars.result;

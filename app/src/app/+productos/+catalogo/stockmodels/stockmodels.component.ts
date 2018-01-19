@@ -47,8 +47,8 @@ export class StockModelsComponent implements OnInit {
       },
       color_hexcode : {
         required : 'Debes ingresar un código hexadecimal para el color',
-        minlength: 'El código acepta como mínimo 6 caracteres',
-        maxlength: 'El código acepta como máximo 6 caracteres'
+        minlength: 'El código solo acepta 6 caracteres',
+        maxlength: 'El código solo acepta 6 caracteres'
       }
     }
   };
