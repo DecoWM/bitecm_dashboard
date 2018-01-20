@@ -19,16 +19,7 @@ import { TabsModule, ProgressbarModule, TooltipModule, BsDropdownModule, AlertMo
 // import { AuthModule } from '../shared/auth/auth.module';
 // import { AuthService } from '../shared/auth/auth.service';
 
-/*export const firebaseConfig = {
-  apiKey: 'AIzaSyDN5EwEQCx_kEym8zcbhzHYgFBMdExN2Sc',
-  authDomain: 'plexilabs-e2f3f.firebaseapp.com',
-  databaseURL: 'https://plexilabs-e2f3f.firebaseio.com',
-  projectId: 'plexilabs-e2f3f',
-  storageBucket: 'plexilabs-e2f3f.appspot.com',
-  messagingSenderId: '685849318441'
-};*/
-
-const config: SocketIoConfig = { url: 'https://notif.bitel.com.pe:8000', options: {} };
+const config: SocketIoConfig = { url: 'https://notificacion.bitel.com.pe:8000', options: {} };
 // const config: SocketIoConfig = { url: 'https://10.121.5.48:8000', options: {} };
 // const config: SocketIoConfig = { url: 'http://localhost:8000', options: {} };
 
