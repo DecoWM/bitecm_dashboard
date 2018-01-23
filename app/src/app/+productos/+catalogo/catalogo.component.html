@@ -45,11 +45,8 @@
                     <th class="hasinput" style="width:13%">
                       <input type="text" class="form-control" placeholder="Publicado">
                     </th>
-                    <th class="hasinput" style="width:8%">
-                      <input type="text" class="form-control" placeholder="Activo">
-                    </th>
-                    <th class="hasinput" style="width:10%">
-                    </th>
+                    <th class="hasinput" style="width:8%"></th>
+                    <th class="hasinput" style="width:10%"></th>
                   </tr>
                   <tr>
                     <th data-class="expand" style="width:10%">Nro. Producto</th>
@@ -76,7 +73,7 @@
                       <td>{{ item.product_priority }}</td>
                       <td [attr.data-order]="item.updated_at | moment:'x'">{{ item.updated_at }}</td>
                       <td [attr.data-order]="item.publish_at | moment:'x'">{{ item.publish_at }}</td>
-                      <td>
+                      <td [attr.data-order]="item.active">
                         <span *ngIf="item.active" class="fa fa-check-circle" style="color: green;"></span>
                         <span *ngIf="!item.active" class="fa fa-minus-circle" style="color: red;"></span>
                       </td>
