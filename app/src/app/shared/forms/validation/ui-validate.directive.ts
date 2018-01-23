@@ -32,16 +32,29 @@ export class UiValidateDirective implements OnInit {
       highlight: (element, errorClass, validClass) => {
         $(element).addClass(errorClass).removeClass(validClass);
         $(element).parent().addClass('state-error').removeClass('state-success');
+        const type = $(element).attr('type');
+        if (type && type === 'file') {
+          $(element).parent().parent().addClass('state-error').removeClass('state-success');
+        }
       },
       unhighlight: (element, errorClass, validClass) => {
         $(element).removeClass(errorClass).addClass(validClass);
         $(element).parent().removeClass('state-error').addClass('state-success');
+        const type = $(element).attr('type');
+        if (type && type === 'file') {
+          $(element).parent().parent().removeClass('state-error').addClass('state-success');
+        }
       },
-      errorPlacement: (error, element) => {
+      errorPlacement: (error, element) => {console.log(element.attr('type'));
         if (element.parent('.input-group').length) {
           error.insertAfter(element.parent());
         } else {
-          error.insertAfter(element);
+          const type = element.attr('type');
+          if (type && type === 'file') {
+            error.appendTo(element.parent().parent());
+          } else {
+            error.insertAfter(element);
+          }
         }
       }
     };

@@ -28,58 +28,94 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
 
   validationOptions = {
     rules: {
+      product_description: {
+        required: true
+      },
       product_screen_size: {
+        required: true,
         number: true,
         maxlength: 10
       },
       product_camera_1: {
+        required: true,
         // number: true,
         maxlength: 10
       },
       product_camera_2: {
+        required: true,
         number: true,
         maxlength: 10
       },
+      product_os: {
+        required: true,
+        maxlength: 250
+      },
+      product_processor_name: {
+        required: true,
+        maxlength: 250
+      },
       product_processor_power: {
+        required: true,
         number: true,
         maxlength: 10
       },
       product_battery: {
+        required: true,
         number: true,
         maxlength: 10
       },
       product_band : {
+        required: true,
         maxlength : 50
       },
       product_data_sheet: {
+        // required: true,
         accept: 'application/pdf'
       }
     },
     messages : {
+      product_description: {
+        required: 'Este campo es obligatorio'
+      },
       product_screen_size: {
+        required: 'Este campo es obligatorio',
         number: 'Debes ingresar un número',
         maxlength: 'Máximo 10 caracteres'
       },
       product_camera_1: {
+        required: 'Este campo es obligatorio',
         // number: 'Debes ingresar un número',
         maxlength: 'Máximo 10 caracteres'
       },
       product_camera_2: {
+        required: 'Este campo es obligatorio',
         number: 'Debes ingresar un número',
         maxlength: 'Máximo 10 caracteres'
       },
+      product_os: {
+        required: 'Este campo es obligatorio',
+        maxlength: 'Cadena muy larga'
+      },
+      product_processor_name: {
+        required: 'Este campo es obligatorio',
+        maxlength: 'Cadena muy larga'
+      },
       product_processor_power: {
+        required: 'Este campo es obligatorio',
         number: 'Debes ingresar un número',
         maxlength: 'Máximo 10 caracteres'
       },
       product_battery: {
+        required: 'Este campo es obligatorio',
         number: 'Debes ingresar un número',
         maxlength: 'Máximo 10 caracteres'
       },
       product_band : {
+        required: 'Este campo es obligatorio',
         maxlength : 'Máximo 50 caracteres'
       },
       product_data_sheet: {
+        // required: 'Este campo es obligatorio',
         accept: 'Solo se aceptan archivos PDF'
       }
     }

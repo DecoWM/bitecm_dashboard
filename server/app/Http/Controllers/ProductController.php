@@ -328,7 +328,7 @@ class ProductController extends ApiController
           isset($product_gps) ? $data = array_add($data, 'product_gps', $product_gps) : '';
           isset($product_battery) ? $data = array_add($data, 'product_battery', $product_battery) : '';
 
-          if ($request->has('product_data_sheet')) {
+          if ($request->has('product_data_sheet') && $request->hasFile('product_data_sheet')) {
               $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
               if ($request->file('product_data_sheet')->isValid()) {
                   $prefix = "data_sheets";
