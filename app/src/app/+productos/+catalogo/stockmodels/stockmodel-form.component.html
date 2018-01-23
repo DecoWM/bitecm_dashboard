@@ -60,10 +60,15 @@
               <div>
                 <a target="_blank" href="{{product_image.product_image_url}}">{{product_image.product_image_name}}</a>
               </div>
-              <div class="input margin-top-5">
-                <span>Peso</span>
-                <input name="weight_{{i}}" type="text" placeholder="Peso" [(ngModel)]="product_image.weight" style="width: 40px">
-              </div>
+              <span>Orden</span>
+              <label class="input margin-top-5">
+                <i class="icon-prepend fa fa-question-circle"></i>
+                <input name="weight_{{i}}" type="text" placeholder="Orden" [(ngModel)]="product_image.weight" style="width: 60px">
+                <b class="tooltip tooltip-left">
+                  <i class="fa fa-warning txt-color-teal"></i>
+                  Colocar el orden que desea que aparezca la imagen
+                </b>
+              </label>
               <a class="btn btn-primary btn-sm margin-top-5" (click)="showPopupRemoveImage(product_image)">Eliminar</a>
               <input type="hidden" name="product_image_id_{{i}}" [(ngModel)]="product_image.product_image_id">
               <input type="hidden" name="product_image_url_{{i}}" [(ngModel)]="product_image.product_image_url">

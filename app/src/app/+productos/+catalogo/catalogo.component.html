@@ -21,8 +21,36 @@
           <div>
             <div class="widget-body no-padding">
               <sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
-                [paginationLength]="true" tableClass="table table-striped table-bordered table-hover">
+                [paginationLength]="true" [filter]="true" tableClass="table table-striped table-bordered table-hover">
                 <thead>
+                  <tr>
+                    <th class="hasinput" style="width:10%">
+                      <input type="text" class="form-control" placeholder="Nro. Producto">
+                    </th>
+                    <th class="hasinput" style="width:12%">
+                      <input type="text" class="form-control" placeholder="Categoría">
+                    </th>
+                    <th class="hasinput" style="width:12%">
+                      <input type="text" class="form-control" placeholder="Marca">
+                    </th>
+                    <th class="hasinput" style="width:12%">
+                      <input type="text" class="form-control" placeholder="Modelo">
+                    </th>
+                    <th class="hasinput" style="width:10%">
+                      <input type="text" class="form-control" placeholder="Prioridad">
+                    </th>
+                    <th class="hasinput" style="width:13%">
+                      <input type="text" class="form-control" placeholder="Actualizado">
+                    </th>
+                    <th class="hasinput" style="width:13%">
+                      <input type="text" class="form-control" placeholder="Publicado">
+                    </th>
+                    <th class="hasinput" style="width:8%">
+                      <input type="text" class="form-control" placeholder="Activo">
+                    </th>
+                    <th class="hasinput" style="width:10%">
+                    </th>
+                  </tr>
                   <tr>
                     <th data-class="expand" style="width:10%">Nro. Producto</th>
                     <th style="width:12%">Categoría</th>

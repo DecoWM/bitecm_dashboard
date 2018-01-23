@@ -13,9 +13,9 @@
           <div>
             <div class="widget-body no-padding">
               <sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
-                [paginationLength]="true" tableClass="table table-striped table-bordered table-hover">
+                [paginationLength]="true" [filter]="true" tableClass="table table-striped table-bordered table-hover">
                 <thead>
-                  <!--tr>
+                  <tr>
                     <th class="hasinput" style="width:10%">
                       <input type="text" class="form-control" placeholder="Nro. Pedido">
                     </th>
@@ -43,7 +43,7 @@
                     <th class="hasinput" style="width:12%">
                       <input type="text" class="form-control" placeholder="Evaluación">
                     </th>
-                  </tr-->
+                  </tr>
                   <tr>
                     <th data-class="expand" style="width:10%">Nro. Pedido</th>
                     <th data-hide="phone,tablet" style="width:16%">Fecha</th>

@@ -96,6 +96,17 @@ export class DatatableComponent implements OnInit {
 
     const _dataTable = element.DataTable(options);
 
+    /*_dataTable.columns().every(function () {
+      const that = this;
+      $('input', this.footer()).on('keyup change', function () {
+        if (that.search() !== this.value) {
+          that
+            .search( this.value )
+            .draw();
+        }
+      });
+    });*/
+
     if (this.filter) {
       // Apply the filter
       element.on('keyup change', 'thead th input[type=text]', function () {

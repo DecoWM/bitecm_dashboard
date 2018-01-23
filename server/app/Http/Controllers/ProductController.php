@@ -376,7 +376,7 @@ class ProductController extends ApiController
               ->where('active', 1)
               ->where('stock_model_id', $stock_model_code->stock_model_id)
               ->select('product_image_id', 'product_image_url', 'weight')
-              ->orderBy('weight', 'desc')
+              ->orderBy('weight', 'asc')
               ->get();
 
           foreach ($stock_model_code->product_images as $image) {
@@ -402,7 +402,7 @@ class ProductController extends ApiController
               ->where('active', 1)
               ->where('stock_model_id', $stock_model_code->stock_model_id)
               ->select('product_image_id', 'product_image_url', 'weight')
-              ->orderBy('weight', 'desc')
+              ->orderBy('weight', 'asc')
               ->get();
 
           foreach ($stock_model_code->product_images as $image) {
@@ -462,7 +462,7 @@ class ProductController extends ApiController
 
       if (count($result)) {
         return response()->json([
-          'result' => 'Ya existe un stock model con el mismo color o código',
+          'result' => 'Ya existe un modelo de stock con el mismo color o código',
           'success' => false
         ]);
       }
@@ -495,7 +495,7 @@ class ProductController extends ApiController
       DB::table('tbl_product_image')->insert($image_array);
 
       return response()->json([
-        'result' => 'Stock Model Code registrado correctamente.',
+        'result' => 'Modelo de stock registrado correctamente.',
         'id' => $stock_model_id,
         'success' => true
       ]);
@@ -546,7 +546,7 @@ class ProductController extends ApiController
 
           if (count($result)) {
             return response()->json([
-              'result' => 'Ya existe un stock model con el mismo color o código',
+              'result' => 'Ya existe un modelo de stock con el mismo color o código',
               'success' => false
             ]);
           }
@@ -598,7 +598,7 @@ class ProductController extends ApiController
           }
 
           return response()->json([
-            'result' => 'Stock Model Code actualizado correctamente.',
+            'result' => 'Modelo de stock actualizado correctamente.',
             'success' => true
           ]);
       }
