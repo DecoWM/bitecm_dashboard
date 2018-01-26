@@ -25,10 +25,10 @@ export class CatalogoComponent implements OnInit {
     dom: 'Bfrtip',
     pageLength: 25,
     columnDefs: [ {
-      targets: [ 8 ],
+      targets: [ 7 ],
       orderable: false
     } ],
-    order: [[5, 'desc']],
+    order: [[4, 'desc']],
     // colReorder: true
   };
 

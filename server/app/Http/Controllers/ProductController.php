@@ -641,9 +641,9 @@ class ProductController extends ApiController
 
   public function listPrepaidProductVariation($product_id) {
       $variation_list = DB::table('tbl_product_variation')
-          ->where('product_id', $product_id)
-          ->where('variation_type_id', 1)
-          ->get();
+        ->where('product_id', $product_id)
+        ->where('variation_type_id', 1)
+        ->get();
 
       return response()->json([
         'result' => $variation_list,
@@ -657,6 +657,7 @@ class ProductController extends ApiController
           ->where('affiliation_id', $affiliation_id)
           ->where('contract_id', $contract_id)
           ->where('variation_type_id', 2)
+          ->orderBy('product_variation_id')
           ->get();
 
       return response()->json([

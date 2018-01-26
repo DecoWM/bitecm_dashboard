@@ -24,9 +24,9 @@
                 [paginationLength]="true" [filter]="true" tableClass="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
-                    <th class="hasinput" style="width:10%">
+                    <!--th class="hasinput" style="width:10%">
                       <input type="text" class="form-control" placeholder="Nro. Producto">
-                    </th>
+                    </th-->
                     <th class="hasinput" style="width:12%">
                       <input type="text" class="form-control" placeholder="Categoría">
                     </th>
@@ -49,24 +49,24 @@
                     <th class="hasinput" style="width:10%"></th>
                   </tr>
                   <tr>
-                    <th data-class="expand" style="width:10%">Nro. Producto</th>
-                    <th style="width:12%">Categoría</th>
-                    <th style="width:12%">Marca</th>
-                    <th style="width:12%">Modelo</th>
-                    <th data-hide="phone,tablet" style="width:10%">Prioridad</th>
-                    <th data-hide="phone,tablet" style="width:13%">Actualizado</th>
-                    <th data-hide="phone,tablet" style="width:13%">Publicado</th>
-                    <th data-hide="phone,tablet" style="width:8%">Activo</th>
-                    <th style="width:10%">Acción</th>
+                    <!--th data-class="expand" style="width:10%">Nro. Producto</th-->
+                    <th style="width:13%">Categoría</th>
+                    <th style="width:13%">Marca</th>
+                    <th style="width:13%">Modelo</th>
+                    <th data-hide="phone,tablet" style="width:11%">Prioridad</th>
+                    <th data-hide="phone,tablet" style="width:15%">Actualizado</th>
+                    <th data-hide="phone,tablet" style="width:15%">Publicado</th>
+                    <th data-hide="phone,tablet" style="width:9%">Activo</th>
+                    <th style="width:11%">Acción</th>
                   </tr>
                 </thead>
                 <tbody *ngIf="itemsObs | async as items; else loading">
                   <ng-container *ngFor="let item of items; let last = last" 
                     sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
                     <tr>
-                      <td id="{{ item.product_id }}">
+                      <!--td id="{{ item.product_id }}">
                         {{ item.product_id }}
-                      </td>
+                      </td-->
                       <td>{{ item.category_name }}</td>
                       <td>{{ item.brand_name }}</td>
                       <td>{{ item.product_model }}</td>
