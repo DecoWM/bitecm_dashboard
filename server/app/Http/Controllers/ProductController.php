@@ -367,7 +367,7 @@ class ProductController extends ApiController
   public function listStockModelCode($product_id) {
       $stock_model_code_list = DB::table('tbl_stock_model')
           ->where('tbl_stock_model.product_id', $product_id)
-          ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
+          ->leftJoin('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
           ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id', 'tbl_stock_model.active')
           ->get();
 
@@ -393,7 +393,7 @@ class ProductController extends ApiController
   public function getStockModelCode(Request $request, $product_id, $stock_model_id) {
       $stock_model_code = DB::table('tbl_stock_model')
           ->where('tbl_stock_model.stock_model_id', $stock_model_id)
-          ->join('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
+          ->leftJoin('tbl_color', 'tbl_stock_model.color_id', '=', 'tbl_color.color_id')
           ->select('tbl_stock_model.stock_model_id', 'tbl_stock_model.stock_model_code', 'tbl_stock_model.color_id', 'tbl_stock_model.active')
           ->first();
 
