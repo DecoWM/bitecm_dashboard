@@ -42,9 +42,12 @@ export class LoginComponent implements OnInit {
       this.authService.login(this.username, this.password)
         .subscribe((data) => {
           if (data.success) {
-            if (this.authService.isAgente()) {
+            if (this.authService.isOperador()) {
               this.router
                 .navigate(['/ventas/ordenes']);
+            } else if (this.authService.isEditor()) {
+              this.router
+                .navigate(['/productos/catalogo']);
             }
           }
         }, (error) => {

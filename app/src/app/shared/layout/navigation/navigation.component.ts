@@ -17,8 +17,8 @@ export class NavigationComponent implements OnInit {
     return this.auth.isAdmin();
   }
 
-  isAgente() {
-    return this.auth.isAgente();
+  isEditor() {
+    return this.auth.isEditor();
   }
 
   isOperador() {

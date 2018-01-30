@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import { AuthService } from './../auth.service';
 
 @Injectable()
-export class AgenteGuard implements CanActivate {
+export class EditorGuard implements CanActivate {
 
   constructor(
     private router: Router,
@@ -16,7 +16,7 @@ export class AgenteGuard implements CanActivate {
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | boolean {
-      if (this.auth.isAgente()) {
+      if (this.auth.isEditor()) {
         return true;
       } else {
         this.router.navigate(['/error/404']);

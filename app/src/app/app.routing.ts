@@ -7,7 +7,7 @@ import {EmptyLayoutComponent} from './shared/layout/app-layouts/empty-layout.com
 import {AuthGuard} from './shared/auth/guard/auth.guard';
 import {NoAuthGuard} from './shared/auth/guard/noauth.guard';
 import {AdminGuard} from './shared/auth/guard/admin.guard';
-import {AgenteGuard} from './shared/auth/guard/agente.guard';
+import {EditorGuard} from './shared/auth/guard/editor.guard';
 import {OperadorGuard} from './shared/auth/guard/operador.guard';
 
 export const routes: Routes = [
@@ -24,13 +24,13 @@ export const routes: Routes = [
       },*/
       {
         path: 'ventas',
-        canActivate: [AgenteGuard],
+        canActivate: [OperadorGuard],
         loadChildren: 'app/+ventas/ventas.module#VentasModule',
         data: { pageTitle: 'Ventas' }
       },
       {
         path: 'productos',
-        canActivate: [AgenteGuard],
+        canActivate: [EditorGuard],
         loadChildren: 'app/+productos/productos.module#ProductosModule',
         data: { pageTitle: 'Productos' }
       }

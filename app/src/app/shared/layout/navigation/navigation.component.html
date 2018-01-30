@@ -11,7 +11,7 @@
     -->
 
     <ul saSmartMenu>
-      <li routerLinkActive="active" *ngIf="isAgente()">
+      <li routerLinkActive="active" *ngIf="isOperador()">
         <a title="Ventas"><i class="fa fa-lg fa-fw fa-shopping-cart"></i> <span
           class="menu-item-parent">{{'Ventas' | i18n}}</span></a>
         <ul>
@@ -20,7 +20,7 @@
           </li>
         </ul>
       </li>
-      <li routerLinkActive="active" *ngIf="isAgente()">
+      <li routerLinkActive="active" *ngIf="isEditor()">
         <a title="Productos"><i class="fa fa-lg fa-fw fa-cube"></i> <span
           class="menu-item-parent">{{'Productos' | i18n}}</span></a>
         <ul>
