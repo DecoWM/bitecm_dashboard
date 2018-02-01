@@ -173,17 +173,20 @@ class ProductController extends ApiController
       DB::rollback();
       return response()->json([
         'result' => 'No se pudo registrar el producto.',
-        'success' => false
+        'success' => false,
+        'error' => $e->getMessage()
       ]);
     } catch (\PDOException $e){
       return response()->json([
         'result' => 'No se pudo conectar a la base de datos.',
-        'success' => false
+        'success' => false,
+        'error' => $e->getMessage()
       ]);
     } catch (\Exception $e) {
       return response()->json([
         'result' => 'Se produjo un error al registrar el producto.',
-        'success' => false
+        'success' => false,
+        'error' => $e->getMessage()
       ]);
     }
 
@@ -248,7 +251,8 @@ class ProductController extends ApiController
         DB::rollback();
         return response()->json([
           'result' => 'No se pudo actualizar el producto.',
-          'success' => false
+          'success' => false,
+          'error' => $e->getMessage()
         ]);
       }
 
@@ -347,7 +351,8 @@ class ProductController extends ApiController
         DB::rollback();
         return response()->json([
           'result' => 'No se pudo actualizar el producto.',
-          'success' => false
+          'success' => false,
+          'error' => $e->getMessage()
         ]);
       }
 
@@ -726,6 +731,7 @@ class ProductController extends ApiController
           $product_variation_id = DB::table('tbl_product_variation')->insertGetId($data);
 
           if (isset($product_variation_id)) {
+            if(!isset($item->promo_id)) $item->promo_id = null;
             $this->saveVariationPromo($product_id, $product_variation_id, $item->promo_id, $item->promo_price, $item->promo_discount);
           }
         }
@@ -736,20 +742,23 @@ class ProductController extends ApiController
         DB::commit();
       } catch (\Illuminate\Database\QueryException $e) {
         DB::rollback();
-        return [
+        return response()->json([
           'result' => 'No se pudieron guardar las variaciones.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       } catch (\PDOException $e){
-        return [
+        return response()->json([
           'result' => 'No se pudo conectar a la base de datos.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       } catch (\Exception $e) {
-        return [
+        return response()->json([
           'result' => 'Se produjo un error al guardar las variaciones.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       }
 
       return response()->json([
@@ -817,6 +826,7 @@ class ProductController extends ApiController
 
           DB::table('tbl_product_variation')->where('product_variation_id', $product_variation_id)->update($data);
 
+          if(!isset($item->promo_id)) $item->promo_id = null;
           $this->saveVariationPromo($product_id, $product_variation_id, $item->promo_id, $item->promo_price, $item->promo_discount);
         }
 
@@ -826,20 +836,23 @@ class ProductController extends ApiController
         DB::commit();
       } catch (\Illuminate\Database\QueryException $e) {
         DB::rollback();
-        return [
+        return response()->json([
           'result' => 'No se pudieron guardar las variaciones.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       } catch (\PDOException $e){
-        return [
+        return response()->json([
           'result' => 'No se pudo conectar a la base de datos.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       } catch (\Exception $e) {
-        return [
+        return response()->json([
           'result' => 'Se produjo un error al guardar las variaciones.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       }
 
       return response()->json([
@@ -909,6 +922,7 @@ class ProductController extends ApiController
           $product_variation_id = DB::table('tbl_product_variation')->insertGetId($data);
 
           if (isset($product_variation_id)) {
+            if(!isset($item->promo_id)) $item->promo_id = null;
             $this->saveVariationPromo($product_id, $product_variation_id, $item->promo_id, $item->promo_price, $item->promo_discount);
           }
         }
@@ -919,20 +933,23 @@ class ProductController extends ApiController
         DB::commit();
       } catch (\Illuminate\Database\QueryException $e) {
         DB::rollback();
-        return [
+        return response()->json([
           'result' => 'No se pudieron guardar las variaciones.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       } catch (\PDOException $e){
-        return [
+        return response()->json([
           'result' => 'No se pudo conectar a la base de datos.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       } catch (\Exception $e) {
-        return [
+        return response()->json([
           'result' => 'Se produjo un error al guardar las variaciones.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       }
 
       return response()->json([
@@ -978,7 +995,7 @@ class ProductController extends ApiController
       $updated_at = Carbon::now()->toDateTimeString();
 
       $variation = json_decode($request->variation);
-
+      
       try {
         DB::beginTransaction();
 
@@ -1000,6 +1017,7 @@ class ProductController extends ApiController
 
           DB::table('tbl_product_variation')->where('product_variation_id', $product_variation_id)->update($data);
 
+          if(!isset($item->promo_id)) $item->promo_id = null;
           $this->saveVariationPromo($product_id, $product_variation_id, $item->promo_id, $item->promo_price, $item->promo_discount);
         }
 
@@ -1009,20 +1027,23 @@ class ProductController extends ApiController
         DB::commit();
       } catch (\Illuminate\Database\QueryException $e) {
         DB::rollback();
-        return [
+        return response()->json([
           'result' => 'No se pudieron actualizar las variaciones.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       } catch (\PDOException $e){
-        return [
+        return response()->json([
           'result' => 'No se pudo conectar a la base de datos.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
       } catch (\Exception $e) {
-        return [
+        return response()->json([
           'result' => 'Se produjo un error al actualizar las variaciones.',
-          'success' => false
-        ];
+          'success' => false ,
+          'error' => $e->getMessage()
+        ]);
       }
 
       return response()->json([
@@ -1169,17 +1190,20 @@ class ProductController extends ApiController
       DB::rollback();
       return response()->json([
         'result' => 'No se pudo registrar el color.',
-        'success' => false
+        'success' => false,
+        'error' => $e->getMessage()
       ]);
     } catch (\PDOException $e){
       return response()->json([
         'result' => 'No se pudo conectar a la base de datos.',
-        'success' => false
+        'success' => false,
+        'error' => $e->getMessage()
       ]);
     } catch (\Exception $e) {
       return response()->json([
         'result' => 'Se produjo un error al registrar el color.',
-        'success' => false
+        'success' => false,
+        'error' => $e->getMessage()
       ]);
     }
 
@@ -1209,67 +1233,79 @@ class ProductController extends ApiController
         ];
       } else {
         try {
-          DB::beginTransaction();
           $promo_id = DB::table('tbl_promo')->insertGetId([
             'product_id' => $product_id,
             'product_variation_id' => $product_variation_id,
             'promo_price' => floatval($promo_price),
             'promo_discount' => floatval($promo_discount),
+            'promo_start_date' => Carbon::now()->toDateTimeString(),
+            'promo_expiration_date' => Carbon::now()->toDateTimeString(),
+            'publish_at' => Carbon::now()->toDateTimeString(),
+            'publish_by' => 1,
             'active' => 1
           ]);
-          DB::commit();
         } catch (\Illuminate\Database\QueryException $e) {
-          DB::rollback();
-          return [
+          throw $e;
+          /*return [
             'result' => 'No se pudo registrar la promoción.',
-            'success' => false
-          ];
-        } catch (\PDOException $e){
-          return [
+            'success' => false,
+            'error' => $e->getMessage()
+          ];*/
+        } catch (\PDOException $e) {
+          throw $e;
+          /*return [
             'result' => 'No se pudo conectar a la base de datos.',
-            'success' => false
-          ];
+            'success' => false,
+            'error' => $e->getMessage()
+          ];*/
         } catch (\Exception $e) {
-          return [
+          throw $e;
+          /*return [
             'result' => 'Se produjo un error al registrar la promoción.',
-            'success' => false
-          ];
+            'success' => false,
+            'error' => $e->getMessage()
+          ];*/
         }
       }
     } else {
       try {
-        DB::beginTransaction();
         $result = DB::table('tbl_promo')
           ->where('promo_id', $promo_id)
           ->update([
             'promo_price' => empty($promo_price) ? null : floatval($promo_price),
             'promo_discount' => empty($promo_discount) ? null : floatval($promo_discount),
+            'updated_at' => Carbon::now()->toDateTimeString(),
+            'updated_by' => 1,
             'active' => !empty($promo_price) && !empty($promo_discount)
           ]);
-        DB::commit();
       } catch (\Illuminate\Database\QueryException $e) {
-        DB::rollback();
-        return [
+        throw $e;
+        /*return [
           'result' => 'No se pudo actualizar la promoción.',
-          'success' => false
-        ];
-      } catch (\PDOException $e){
-        return [
+          'success' => false,
+          'error' => $e->getMessage()
+        ];*/
+      } catch (\PDOException $e) {
+        throw $e;
+        /*return [
           'result' => 'No se pudo conectar a la base de datos.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ];*/
       } catch (\Exception $e) {
-        return [
+        throw $e;
+        /*return [
           'result' => 'Se produjo un error al actualizar la promoción.',
-          'success' => false
-        ];
+          'success' => false,
+          'error' => $e->getMessage()
+        ];*/
       }
     }
 
-    return [
+    /*return [
       'result' => 'Promoción guardada correctamente.',
       'id' => $promo_id,
       'success' => true
-    ];
+    ];*/
   }  
 }
