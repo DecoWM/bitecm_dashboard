@@ -527,3 +527,20 @@ postpago-variations .panel-body {
 
 }
 
+
+.images-content {
+
+  display: flex;
+  align-items: center;
+
+}
+
+.images-content span.label-content {
+
+  width: 20%;
+
+}
+
+.images-content .input-content {
+  width: 80%;
+}

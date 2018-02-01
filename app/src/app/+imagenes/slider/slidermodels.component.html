@@ -1,0 +1,5 @@
+<div>
+	<div *ngFor="let slidermodel of slidermodels" class="padding-10 margin-top-10">
+		<slider-form [slidermodel]="slidermodel"  (onAlert)="printAlert($event)"></slider-form>
+	</div>
+</div>

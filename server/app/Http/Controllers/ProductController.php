@@ -480,7 +480,7 @@ class ProductController extends ApiController
 
       //Images
       $product_images = $request->product_images?:[];
-
+      
       $image_array = [];
       foreach ($product_images as $index => $item) {
           if ($item->isValid()) {

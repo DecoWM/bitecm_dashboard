@@ -14,7 +14,7 @@ export const routes: Routes = [
   {
     path: '',
     canActivate: [AuthGuard],
-    component: MainLayoutComponent,
+    component: MainLayoutComponent, 
     data: { pageTitle: '' },
     children: [
       /*{
@@ -33,6 +33,11 @@ export const routes: Routes = [
         canActivate: [AgenteGuard],
         loadChildren: 'app/+productos/productos.module#ProductosModule',
         data: { pageTitle: 'Productos' }
+      },{
+        path: 'imagenes',
+        canActivate: [AgenteGuard],
+        loadChildren: 'app/+imagenes/imagenes.module#ImagenesModule',
+        data: { pageTitle: 'Imagenes' }
       }
     ]
   },
