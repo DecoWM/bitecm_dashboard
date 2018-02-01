@@ -21,7 +21,9 @@ export class PostpagoFormComponent implements OnInit, AfterViewChecked {
     plan_id: null,
     product_variation_id: null,
     reason_code: null,
-    product_package: null
+    product_package: null,
+    promo_price: null,
+    promo_discount: null
   };
   @Input() plan_id: any = null;
   @ViewChild('formPostpago') formPostpago;
@@ -31,12 +33,18 @@ export class PostpagoFormComponent implements OnInit, AfterViewChecked {
     rules: {
       product_variation_price : {
         required : true
-      }
+      }/*,
+      promo_discount: {
+        number: true
+      }*/
     },
     messages : {
       product_variation_price : {
         required : 'Debes ingresar un precio para la variación'
-      }
+      }/*,
+      promo_discount: {
+        number: 'Debes colocar un número'
+      }*/
     }
   };
 
@@ -57,5 +65,13 @@ export class PostpagoFormComponent implements OnInit, AfterViewChecked {
 
   setValidationRef(formValidate) {
     this.formValidate = formValidate;
+  }
+
+  calcDiscount() {
+    this.variation.promo_discount = (1 - (parseFloat(this.variation.promo_price) / parseFloat(this.variation.product_variation_price))).toFixed(2);
+  }
+
+  calcPrice() {
+    this.variation.promo_price = (parseFloat(this.variation.product_variation_price) * (1 - parseFloat(this.variation.promo_discount))).toFixed(2);
   }
 }
