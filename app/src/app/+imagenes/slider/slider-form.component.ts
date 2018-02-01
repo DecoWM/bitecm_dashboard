@@ -34,6 +34,20 @@ export class SliderFormComponent implements OnInit, AfterViewChecked {
   sliderImageUrl: any = [];
 
 
+  validationOptions = {
+    rules: {
+      slider_link : {
+        required : true
+      }
+    },
+    messages : {
+      slider_link : {
+        required : 'Debes ingresar un link'
+      }
+    }
+  };
+
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,

@@ -88,7 +88,7 @@ export class AuthService {
     return this.user && this.user.roles.includes(1);
   }
 
-  isAgente() {
+  isEditor() {
     return this.user && (this.user.roles.includes(1) || this.user.roles.includes(2));
   }
 
@@ -97,7 +97,7 @@ export class AuthService {
   }
 
   getAuthorizationHeader() {
-     return 'Bearer ' + this.token;
+    return 'Bearer ' + this.token;
   }
 
   login(user: string, password: string) {

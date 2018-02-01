@@ -36,7 +36,7 @@ class AuthController extends Controller
             }
 
             $user = JWTAuth::setToken($token)->authenticate();
-            $user['roles'] = [1];
+            $user['roles'] = [intval($user['user_rol'])];
 
             return response()->json([
             	'result' => [

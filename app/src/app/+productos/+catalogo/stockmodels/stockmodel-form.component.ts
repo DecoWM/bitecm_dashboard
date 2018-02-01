@@ -73,6 +73,10 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
   ) {}
 
   ngOnInit() {
+    if (!this.stockmodel.color_id) {
+      this.stockmodel.color_id = '';
+    }
+
     this.productImageUrl = [];
     if (this.stockmodel.active === null) {
       this.stockmodel.active = false;

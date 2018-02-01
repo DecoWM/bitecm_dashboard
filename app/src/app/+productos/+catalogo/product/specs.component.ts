@@ -29,7 +29,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   validationOptions = {
     rules: {
       product_description: {
-        required: true
+        // required: true
       },
       product_screen_size: {
         required: true,
@@ -75,7 +75,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     },
     messages : {
       product_description: {
-        required: 'Este campo es obligatorio'
+        // required: 'Este campo es obligatorio'
       },
       product_screen_size: {
         required: 'Este campo es obligatorio',

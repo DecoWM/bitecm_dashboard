@@ -1,39 +1,61 @@
 <form #formPostpago="ngForm" #form class="smart-form" novalidate="novalidate" [saUiValidate]="validationOptions" (onInitComplete)="setValidationRef($event)">
   <input type="hidden" name="plan_id" [(ngModel)]="plan_id">
   <input *ngIf="variation.product_variation_id" type="hidden" name="product_variation_id" [(ngModel)]="variation.product_variation_id">
+  <input *ngIf="variation.promo_id" type="hidden" name="promo_id" [(ngModel)]="variation.promo_id">
   <div class="row detalle-registro">
-    <div class="col col-sm-3">
+    <div class="col col-sm-4">
+      <div class="row">
+        <section class="col col-sm-12">
+          <div class="input"> <i class="icon-append fa">#</i>
+            <input id="reason_code" name="reason_code" type="text" placeholder="Reason Code" [(ngModel)]="variation.reason_code">
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="col col-sm-4">
+      <div class="row">
+        <section class="col col-sm-12">
+          <div class="input"> <i class="icon-append fa">#</i>
+            <input id="product_package" name="product_package" type="text" placeholder="Product Package" [(ngModel)]="variation.product_package">
+          </div>
+        </section>
+      </div>
+    </div>
+    <div class="col col-sm-4">
       <div class="row">
         <section class="col col-sm-12">
           <label class="checkbox">
-            <input id="variation_allowed" name="variation_allowed" type="checkbox" [(ngModel)]="variation.variation_allowed"><i></i>Habilitado
+            <input id="variation_allowed" name="variation_allowed" type="checkbox" [(ngModel)]="variation.variation_allowed"><i></i>Habilitar Plan
           </label>
         </section>
       </div>
     </div>
-    <div class="col col-sm-3">
+  </div>
+  <div class="row detalle-registro">
+    <div class="col col-sm-4">
       <div class="row">
         <section class="col col-sm-12">
-          <div class="input">
-            <input id="product_variation_price" name="product_variation_price" type="text" placeholder="Variation Price" [(ngModel)]="variation.product_variation_price"><i></i>
+          <div class="input"> <i class="icon-append fa">S/</i>
+            <input id="product_variation_price" name="product_variation_price" type="text" placeholder="Variation Price" [(ngModel)]="variation.product_variation_price">
           </div>
         </section>
       </div>
     </div>
-    <div class="col col-sm-3">
+    <div class="col col-sm-4">
       <div class="row">
         <section class="col col-sm-12">
-          <div class="input">
-            <input id="reason_code" name="reason_code" type="text" placeholder="Reason Code" [(ngModel)]="variation.reason_code"><i></i>
+          <div class="input"> <i class="icon-append fa">S/</i>
+            <input id="promo_price" name="promo_price" type="text" placeholder="Promo Price" [(ngModel)]="variation.promo_price" (keyup)="calcDiscount()">
           </div>
         </section>
       </div>
     </div>
-    <div class="col col-sm-3">
+    <div class="col col-sm-4">
       <div class="row">
         <section class="col col-sm-12">
-          <div class="input">
-            <input id="product_package" name="product_package" type="text" placeholder="Product Package" [(ngModel)]="variation.product_package"><i></i>
+          <div class="input"> <i class="icon-append fa">%</i>
+            <input id="promo_discount" name="promo_discount_calc" type="text" placeholder="Promo Discount" [(ngModel)]="variation.promo_discount_calc" (keyup)="calcPrice()">
+            <input type="hidden" name="promo_discount" [(ngModel)]="variation.promo_discount">
           </div>
         </section>
       </div>

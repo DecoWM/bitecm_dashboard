@@ -66,6 +66,9 @@ export class ProductComponent implements OnInit {
   }
 
   printAlert(alert): void {
+    if (!alert) {
+      alert = [];
+    }
     if (alert && !(alert instanceof Array)) {
       alert = [alert];
     }

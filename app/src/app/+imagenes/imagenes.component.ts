@@ -16,10 +16,11 @@ import { BlockUIService } from 'ng-block-ui';
 })
 export class ImagenesComponent implements OnInit {
   alert: any = null;
-
+  active: any = null;
+  
   ngOnInit() {
     this.alert = null;
-    
+    this.active = 'tab-r1';
   }
 
   getAlert(data): any {
