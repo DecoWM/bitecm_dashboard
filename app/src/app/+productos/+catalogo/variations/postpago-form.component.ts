@@ -33,18 +33,24 @@ export class PostpagoFormComponent implements OnInit, AfterViewChecked {
     rules: {
       product_variation_price : {
         required : true
-      }/*,
-      promo_discount: {
+      },
+      promo_price: {
         number: true
-      }*/
+      },
+      promo_discount_calc: {
+        number: true
+      }
     },
     messages : {
       product_variation_price : {
         required : 'Debes ingresar un precio para la variación'
-      }/*,
-      promo_discount: {
+      },
+      promo_price: {
         number: 'Debes colocar un número'
-      }*/
+      },
+      promo_discount_calc: {
+        number: 'Debes colocar un número'
+      }
     }
   };
 

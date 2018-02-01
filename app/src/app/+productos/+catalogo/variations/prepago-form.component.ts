@@ -30,7 +30,24 @@ export class PrepagoFormComponent implements OnInit, AfterViewChecked {
   @ViewChild('formPrepago') formPrepago;
   formValidate: any;
 
-  validationOptions = {};
+  validationOptions = {
+    rules: {
+      promo_price: {
+        number: true
+      },
+      promo_discount_calc: {
+        number: true
+      }
+    },
+    messages : {
+      promo_price: {
+        number: 'Debes colocar un número'
+      },
+      promo_discount_calc: {
+        number: 'Debes colocar un número'
+      }
+    }
+  };
 
   constructor(
     private route: ActivatedRoute,
