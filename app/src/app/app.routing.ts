@@ -33,7 +33,8 @@ export const routes: Routes = [
         canActivate: [EditorGuard],
         loadChildren: 'app/+productos/productos.module#ProductosModule',
         data: { pageTitle: 'Productos' }
-      },{
+      },
+      {
         path: 'imagenes',
         canActivate: [EditorGuard],
         loadChildren: 'app/+imagenes/imagenes.module#ImagenesModule',
