@@ -33,6 +33,7 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::get('{id}/status', 'OrdersController@statusHistory');
 		Route::post('{id}/status', 'OrdersController@createStatus');
 
+		Route::post('reportes/general_orders', 'OrdersController@reportGeneralOrders');
 		Route::post('reportes/general_sales', 'OrdersController@reportGeneralSales');
 		Route::post('reportes/best_sellers', 'OrdersController@reportBestSellers');
 	});
