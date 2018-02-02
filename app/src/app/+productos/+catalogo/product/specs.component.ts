@@ -31,6 +31,12 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       product_description: {
         // required: true
       },
+      product_internal_memory: {
+        required: true
+      },
+      product_external_memory: {
+        required: true
+      },
       product_screen_size: {
         required: true,
         number: true,
@@ -76,6 +82,12 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     messages : {
       product_description: {
         // required: 'Este campo es obligatorio'
+      },
+      product_internal_memory: {
+        required: 'Este campo es obligatorio'
+      },
+      product_external_memory: {
+        required: 'Este campo es obligatorio'
       },
       product_screen_size: {
         required: 'Este campo es obligatorio',
