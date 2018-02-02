@@ -105,6 +105,8 @@ export class BannerModelFormComponent implements OnInit, AfterViewChecked {
             this.onAlert.emit(this.getAlert(data));
             if (data.success) {
               this.bannerImageUrl = [];
+              this.bannermodel.image_url = this.bannermodel.image_url + '?v' + (new Date().getTime().toString());
+              
             // this.sliderModelService.getImage(data.id)
             //   .subscribe((smc: any) => {
             //     if (smc.success) {

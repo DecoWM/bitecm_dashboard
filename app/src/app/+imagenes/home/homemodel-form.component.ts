@@ -104,19 +104,20 @@ export class HomeModelFormComponent implements OnInit, AfterViewChecked {
             this.onAlert.emit(this.getAlert(data));
             if (data.success) {
               this.homeImageUrl = [];
-            // this.sliderModelService.getImage(data.id)
-            //   .subscribe((smc: any) => {
-            //     if (smc.success) {
-            //       this.slidermodel = smc.result;
-            //       this.slidermodel.slider_images.map((i, x) => {
-            //         const img_url = i.product_image_url;
-            //         const img_url_arr = img_url.split('/');
-            //         i.product_image_name = img_url_arr[img_url_arr.length - 1];
-            //         i.product_image_url = i.product_image_url + '?v' + (new Date().getTime().toString());
-            //         return i;
-            //       });
-            //     }
-            //   });
+              this.homemodel.image_url = this.homemodel.image_url + '?v' + (new Date().getTime().toString());
+              // this.sliderModelService.getImage(data.id)
+              //   .subscribe((smc: any) => {
+              //     if (smc.success) {
+              //       this.slidermodel = smc.result;
+              //       this.slidermodel.slider_images.map((i, x) => {
+              //         const img_url = i.product_image_url;
+              //         const img_url_arr = img_url.split('/');
+              //         i.product_image_name = img_url_arr[img_url_arr.length - 1];
+              //         i.product_image_url = i.product_image_url + '?v' + (new Date().getTime().toString());
+              //         return i;
+              //       });
+              //     }
+              //   });
             }
           });
       }

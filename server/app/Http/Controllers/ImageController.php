@@ -69,15 +69,17 @@ class ImageController extends ApiController
 
       }else{
 
-      	DB::table('tbl_image')->insert($image_array);
+      	$image_id =  DB::table('tbl_image')->insertGetID($image_array);
         $mensaje = 'Imagen registrada correctamente';
+
+        //$image = DB::table('tbl_image')->where('image_id', $id)->get();
 
       }
 
-
       return response()->json([
         'result' => $mensaje,
-        'id' => '0',
+        //'image' => $image,
+        'id' => $image_id,
         'success' => true
       ]);
   }
