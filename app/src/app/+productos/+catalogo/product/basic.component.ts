@@ -83,6 +83,7 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.productImageUrl = '';
+    this.blockui.start('content');
     Observable.zip(
       this.productService.getCategories(),
       this.productService.getBrands()
@@ -93,6 +94,7 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
       if (brands.success) {
         this.brands = brands.result;
       }
+      this.blockui.stop('content');
     });
   }
 
@@ -124,6 +126,7 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
   save(e) {
     const fileBrowser = this.productImageInput.nativeElement;
     const formData = new FormData(document.forms.namedItem('form-basic'));
+    this.blockui.start('content');
     if (this.product.product_id) {
       this.productService.updateBasic(this.product.product_id, formData)
         .subscribe((data: any) => {
@@ -132,12 +135,14 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
             this.productImageUrl = '';
             this.product.product_image_url = this.product.product_image_url + '?v' + (new Date().getTime().toString());
           }
+          this.blockui.stop('content');
         }, (error) => {
           this.onAlert.emit({
             'title': 'Archivo pesado',
             'message': 'El archivo de imágen es muy pesado, solo se permiten 10mb',
             'mode': 'danger'
           });
+          this.blockui.stop('content');
         });
     } else {
       this.productService.saveBasic(formData)
@@ -147,12 +152,14 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
             this.productImageUrl = '';
             this.router.navigate([data.id], {relativeTo: this.route.parent});
           }
+          this.blockui.stop('content');
         }, (error) => {
           this.onAlert.emit({
             'title': 'Archivo pesado',
             'message': 'El archivo de imágen es muy pesado, solo se permiten 10mb',
             'mode': 'danger'
           });
+          this.blockui.stop('content');
         });
     }
   }

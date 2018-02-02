@@ -118,6 +118,7 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
     const formData = new FormData(document.forms
       .namedItem('form-stock-model' + (this.stockmodel.stock_model_id ? this.stockmodel.stock_model_id : '')));
     if (this.formStockModel.dirty || (formData.has('product_images[]') && this.productImageUrl.length)) {
+      this.blockui.start('content');
       if (!this.productImageUrl.length) {
         formData.delete('product_images[]');
       }
@@ -126,7 +127,6 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
         formData.set('active', this.stockmodel.active ? '1' : '0');
         this.stockModelService.updateStockModel(this.product_id, formData, this.stockmodel.stock_model_id)
           .subscribe((data: any) => {
-            this.onAlert.emit(this.getAlert(data));
             if (data.success) {
               this.productImageUrl = [];
               this.stockModelService.getStockModel(this.product_id, this.stockmodel.stock_model_id)
@@ -141,13 +141,16 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
                       return i;
                     });
                   }
+                  this.blockui.stop('content');
                 });
+            } else {
+              this.blockui.stop('content');
             }
+            this.onAlert.emit(this.getAlert(data));
           });
       } else {
         this.stockModelService.saveStockModel(this.product_id, formData)
           .subscribe((data: any) => {
-            this.onAlert.emit(this.getAlert(data));
             if (data.success) {
               this.productImageUrl = [];
               this.stockModelService.getStockModel(this.product_id, data.id)
@@ -162,14 +165,19 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
                       return i;
                     });
                   }
+                  this.blockui.stop('content');
                 });
+            } else {
+              this.blockui.stop('content');
             }
+            this.onAlert.emit(this.getAlert(data));
           });
       }
     }
   }
 
   removeImage(product_image) {
+    this.blockui.start('content');
     this.stockModelService.removeProductImage(product_image.product_image_id)
       .subscribe((data: any) => {
         this.onAlert.emit(this.getAlert(data));
@@ -179,6 +187,7 @@ export class StockModelFormComponent implements OnInit, AfterViewChecked {
               this.stockmodel.product_images.splice(key, 1);
             }
           }
+          this.blockui.stop('content');
         }
       });
   }

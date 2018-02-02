@@ -41,6 +41,7 @@ export class PrepagoVariationsComponent implements OnInit {
 
   ngOnInit() {
     this.product_id = this.route.snapshot.params.id;
+    this.blockui.start('content');
     Observable.zip(
       this.variationService.getPrepaidPlans(),
       this.variationService.getPrepaidVariations(this.product_id)
@@ -55,6 +56,7 @@ export class PrepagoVariationsComponent implements OnInit {
           return variation;
         });
       }
+      this.blockui.stop('content');
     });
   }
 
@@ -79,6 +81,7 @@ export class PrepagoVariationsComponent implements OnInit {
       }
       count++;
       if (count === this.planForms.length && (saveVariations.length || updateVariations.length)) {
+        this.blockui.start('content');
         Observable.zip(
           this.variationService.savePrepaidVariations(this.product_id, saveVariations),
           this.variationService.updatePrepaidVariations(this.product_id, updateVariations)
@@ -90,7 +93,6 @@ export class PrepagoVariationsComponent implements OnInit {
           if (!update.nop) {
             alerts.push(this.getAlert(update, 'actualizadas'));
           }
-          this.onAlert.emit(alerts);
           if (save.success || update.success) {
             this.variationService.getPrepaidVariations(this.product_id)
               .subscribe((vars: any) => {
@@ -101,8 +103,12 @@ export class PrepagoVariationsComponent implements OnInit {
                     return item;
                   });
                 }
+                this.blockui.stop('content');
               });
+          } else {
+            this.blockui.stop('content');
           }
+          this.onAlert.emit(alerts);
         });
       }
     });

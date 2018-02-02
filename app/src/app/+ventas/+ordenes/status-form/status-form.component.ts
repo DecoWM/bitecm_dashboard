@@ -82,6 +82,7 @@ export class StatusFormComponent implements OnInit {
 
   save(status, e) {
     if (status) {
+      this.blockui.start('content');
       this.ordenesService.createStatus(this.order_id, status)
         .subscribe((message: any) => {
           this.alert = this.getAlert(message);
@@ -96,12 +97,15 @@ export class StatusFormComponent implements OnInit {
           } else {
             $('#select-estado').parent('label').removeClass('state-success').addClass('state-error');
           }
+          this.blockui.stop('content');
+          this.blockui.start('content');
           // $('button[name="submit"]').prop('disabled', (i, v) => !v);
           this.ordenesService.getStatusHistory(this.order_id)
             .subscribe((data: any) => {
               if (data.success) {
                 this.status_history = data.result;
               }
+              this.blockui.stop('content');
             });
       });
     }

@@ -225,6 +225,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     if (!this.dataSheetUrl.length) {
       formData.delete('product_data_sheet');
     }
+    this.blockui.start('content');
     this.productService.updateSpecs(this.product.product_id, formData)
       .subscribe((data: any) => {
         this.dataSheetUrl = '';
@@ -232,12 +233,14 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
         if (data.success && formData.has('product_data_sheet')) {
           this.product.product_data_sheet = this.product.product_data_sheet + '?v' + (new Date().getTime().toString());
         }
+        this.blockui.stop('content');
       }, (error) => {
         this.onAlert.emit({
           'title': 'Archivo pesado',
           'message': 'El archivo de especificaciones ténicas es muy pesado, solo se permiten 10mb',
           'mode': 'danger'
         });
+        this.blockui.stop('content');
       });
   }
 
