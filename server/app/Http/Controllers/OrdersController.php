@@ -381,7 +381,7 @@ class OrdersController extends ApiController
       $excel->sheet('Reporte', function($sheet) use($data) {
           $sheet->fromArray($data, 'N/A', 'A1', true, true);
       });
-    })->store('xlsx', storage_path('public/storage/reportes'));
+    })->store('xlsx', storage_path('app/public/reportes'));
 
     $file = [
       'file_name' => $file_name.'.xlsx',
@@ -431,7 +431,7 @@ class OrdersController extends ApiController
       $excel->sheet('Reporte', function($sheet) use($data) {
           $sheet->fromArray($data, 'N/A', 'A1', true, true);
       });
-    })->store('xlsx', storage_path('public/storage/reportes'));
+    })->store('xlsx', storage_path('app/public/reportes'));
 
     $file = [
       'file_name' => $file_name.'.xlsx',
