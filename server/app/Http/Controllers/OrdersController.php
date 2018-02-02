@@ -359,14 +359,32 @@ class OrdersController extends ApiController
         'success' => false
       ]);
     }
+    // Recibir valores para la consulta
+    $file_name = 'reporte_general_ventas_'.Carbon::now()->timestamp;
+    $begin_date = Carbon::parse($request->input('begin_date'))->format('Y-m-d');
+    $end_date = Carbon::parse($request->input('end_date'))->format('Y-m-d');
 
-    // AQUI CREAR LA LÓGICA DE GENERACIÓN DEL REPORTE Y GRABAR EL EXCEL GENERADO EN EL STORAGE
+    // Llamar al procedimiento que devolverá los valores
+    $result = DB::select('call PA_orderReport(
+      :start_date, :end_date
+    )', [
+      'start_date' => $begin_date,
+      'end_date' => $end_date
+    ]);
+
+    // Exportar reporte a Excel
+    Excel::create($file_name, function($excel) use($result) {
+      $excel->sheet('Sheetname', function($sheet) use($result) {
+          $sheet->fromArray($result, 'N/A', 'A1', true, true);
+      });
+    })->store('xlsx', storage_path('storage/reportes'));
 
     $file = [
-      'file_name' => 'reporte_general_ventas_'.Carbon::now()->timestamp.'.xlsx',
-      'file_url' => asset(Storage::url('reportes/prueba.xlsx'))
+      'file_name' => $file_name.'.xlsx',
+      'file_url' => asset(Storage::url('reportes/'.$file_name.'.xlsx'))
     ];
 
+    // Devolver URL para descargar el Excel
     return response()->json([
       'result' => $file,
       'success' => true
@@ -387,13 +405,32 @@ class OrdersController extends ApiController
       ]);
     }
 
-    // AQUI CREAR LA LÓGICA DE GENERACIÓN DEL REPORTE Y GRABAR EL EXCEL GENERADO EN EL STORAGE
+    // Recibir valores para la consulta
+    $file_name = 'reporte_productos_mas_vendidos_'.Carbon::now()->timestamp;
+    $begin_date = Carbon::parse($request->input('begin_date'))->format('Y-m-d');
+    $end_date = Carbon::parse($request->input('end_date'))->format('Y-m-d');
+
+    // Llamar al procedimiento que devolverá los valores
+    $result = DB::select('call PA_productBestSellers(
+      :start_date, :end_date
+    )', [
+      'start_date' => $begin_date,
+      'end_date' => $end_date
+    ]);
+
+    // Exportar reporte a Excel
+    Excel::create($file_name, function($excel) use($result) {
+      $excel->sheet('Sheetname', function($sheet) use($result) {
+          $sheet->fromArray($result, 'N/A', 'A1', true, true);
+      });
+    })->store('xlsx', storage_path('storage/reportes'));
 
     $file = [
-      'file_name' => 'reporte_productos_mas_vendidos_'.Carbon::now()->timestamp.'.xlsx',
-      'file_url' => asset(Storage::url('reportes/prueba.xlsx'))
+      'file_name' => $file_name.'.xlsx',
+      'file_url' => asset(Storage::url('reportes/'.$file_name.'.xlsx'))
     ];
 
+    // Devolver URL para descargar el Excel
     return response()->json([
       'result' => $file,
       'success' => true
