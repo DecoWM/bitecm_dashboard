@@ -19,7 +19,9 @@ declare var $: any;
   styles: []
 })
 export class SliderModelsComponent implements OnInit {
+	
 	slidermodels: any = [];
+	@Output() onAlert: EventEmitter<any> = new EventEmitter();
 
 	constructor(
 	private route: ActivatedRoute,
@@ -38,6 +40,8 @@ export class SliderModelsComponent implements OnInit {
 	});
 	}
 
-  
+  	printAlert(alert) {
+    this.onAlert.emit(alert);
+  	}
 
 }

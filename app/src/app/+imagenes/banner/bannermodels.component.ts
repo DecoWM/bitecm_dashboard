@@ -5,6 +5,7 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
+import { SliderModelService } from './../slidermodel.service';
 import { NotificationService } from '../../shared/utils/notification.service';
 
 import { ModalDirective } from 'ngx-bootstrap';
@@ -19,8 +20,29 @@ declare var $: any;
 })
 export class BannerModelsComponent implements OnInit {
 
-  ngOnInit() {
-    
-  }
+  bannermodels: any = [];
+  	@Output() onAlert: EventEmitter<any> = new EventEmitter();
+
+	constructor(
+	private route: ActivatedRoute,
+	private router: Router,
+	private blockui: BlockUIService,
+	private sliderModelService: SliderModelService,
+	private notificationService: NotificationService
+	) {}
+
+	ngOnInit() {
+
+	  this.sliderModelService.getImages('BANNERS').subscribe(( bannermodels: any ) => {
+	  if (bannermodels.success) {
+	  	console.log(bannermodels);
+	    this.bannermodels = bannermodels.result;
+	  }
+	});
+	}
+
+	printAlert(alert) {
+    this.onAlert.emit(alert);
+  	}
 
 }

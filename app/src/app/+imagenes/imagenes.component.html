@@ -4,12 +4,12 @@
     <sa-big-breadcrumbs [items]="[' Importación de Imágenes']" icon="sign-in" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
   </div>
 
-  <div *ngIf="alert" class="alert alert-block alert-{{alert.mode}}" dismisser="">
-    <h4 class="alert-heading">
-      <i class="fa fa-check-square-o"></i> Importación {{alert.title}}
-    </h4>
-    <p>{{alert.message}}</p>
-  </div>
+  <ng-container *ngIf="alert">
+    <alert *ngFor="let a of alert" type="{{a.mode}}" dismissible="true">
+      <i class="fa-fw fa fa-{{a.icon}}"></i>
+      <strong>{{a.title}}</strong> {{a.message}}
+    </alert>
+  </ng-container>
 
   <!-- widget grid -->
   <sa-widget [editbutton]="false" [custombutton]="false">
@@ -22,15 +22,15 @@
               <h2>Imágenes </h2>
 
               <ul class="nav nav-tabs pull-right in" id="myTab">
-                <li >
+                <li [class.active]="active == 'tab-r1'">
                   <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Slider Principal</span></a>
                 </li>
 
-                <li >
+                <li [class.active]="active == 'tab-r2'">
                   <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Imágenes Home</span></a>
                 </li>
 
-                <li >
+                <li [class.active]="active == 'tab-r3'">
                   <a (click)="active = 'tab-r3'"><span class="hidden-mobile hidden-tablet">Banners</span></a>
                 </li>
               </ul>
@@ -44,15 +44,15 @@
                 <tabset>
                   <tab [active]="active == 'tab-r1'">
                     <!-- STOCK MODEL CODES -->
-                    <slider-models ></slider-models>
+                    <slider-models  (onAlert)="printAlert($event)"></slider-models>
                   </tab>
                   <tab [active]="active == 'tab-r2'">
                     <!--HOME  -->
-                    <home-models ></home-models>
+                    <home-models (onAlert)="printAlert($event)"></home-models>
                   </tab>
                   <tab [active]="active == 'tab-r3'">
                     <!--HOME  -->
-                    <banner-models ></banner-models>
+                    <banner-models (onAlert)="printAlert($event)"></banner-models>
                   </tab>
                 </tabset>
               

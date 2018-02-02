@@ -26,7 +26,7 @@ class ImageController extends ApiController
       ]);
 
       //Images
-      $slider_images = $request->slider_images?:[];
+      $array_images = $request->slider_images?:[];
 
       $slider_link = $request->slider_link;
 
@@ -35,6 +35,7 @@ class ImageController extends ApiController
       $image_name = 'img-'. $type;
 
       $image_id = DB::table('tbl_image')->where('image_name', $image_name)->value('image_id');
+      
 
       $image_array = [];
 
@@ -42,7 +43,7 @@ class ImageController extends ApiController
 
       $mensaje = '';
 
-      foreach ($slider_images as $index => $item) {
+      foreach ($array_images as $index => $item) {
           if ($item->isValid()) {
               $prefix = "images";
               $extension = $item->guessExtension();
@@ -54,16 +55,22 @@ class ImageController extends ApiController
 
       if ($image_id != null) {
 
+        $image_description = DB::table('tbl_image')->where('image_name', $image_name)->value('image_description');
+
+        $image_description =  substr($image_description, 3);
+
       	DB::table('tbl_image')
             ->where('image_name', $image_name)
             ->update(['image_url' => $slider_image_path, 'image_link' => $slider_link, 'active' => $active ]);
 
-        $mensaje = 'Banner Principal Actualizado Correctamente';
+
+        $mensaje =  $image_description . ' actualizado correctamente';
+
 
       }else{
 
       	DB::table('tbl_image')->insert($image_array);
-        $mensaje = 'Banner Principal Registrado Correctamente';
+        $mensaje = 'Imagen registrada correctamente';
 
       }
 
@@ -83,12 +90,24 @@ class ImageController extends ApiController
           ->select('tbl_image.image_id', 'tbl_image.image_name', 'tbl_image.image_description', 'tbl_image.image_url', 'tbl_image.image_link', 'active')
           ->get();
 
+
+       $image_array = [];
+
       foreach ($image_list as $image) {
               $image->image_url = asset(Storage::url($image->image_url));
+
+              $image_demo = asset(Storage::url('rutademo'));
+
+              $image_data = ['image_id' => $image->image_id ,'image_name' => $image->image_name , 'image_description' => $image->image_description ,'image_url' => $image->image_url, 'image_link' => $image->image_link , 'active' => $image->active, 'image_demo' => $image_demo];
+
+              array_push($image_array, $image_data);
+
           }
 
+
+
       return response()->json([
-          'result' => $image_list,
+          'result' => $image_array,
           'success' => true
       ]);
   }
