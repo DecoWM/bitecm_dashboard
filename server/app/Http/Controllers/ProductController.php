@@ -585,6 +585,10 @@ class ProductController extends ApiController
       }
 
       if ($request->has('product_images')) {
+        $max = DB::table('tbl_product_image')
+          ->where('stock_model_id', $stock_model_id)
+          ->count();
+
         //Images
         $product_images = $request->product_images;
 
@@ -593,7 +597,7 @@ class ProductController extends ApiController
           if ($item->isValid()) {
             $prefix = "productos";
             $extension = $item->guessExtension();
-            $product_image_path = $item->storeAs($prefix.'/'.$product->brand_name, $stock_model_id.'-'.$product->product_slug.'-'.($index+count($stock_model_images)+1).'.'.$extension, 'public');
+            $product_image_path = $item->storeAs($prefix.'/'.$product->brand_name, $stock_model_id.'-'.$product->product_slug.'-'.($index+$max+1).'.'.$extension, 'public');
             $image_data = ['stock_model_id' => $stock_model_id, 'product_image_url' => $product_image_path, 'weight' => '1'];
             array_push($image_array, $image_data);
           }

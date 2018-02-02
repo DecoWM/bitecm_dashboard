@@ -1,0 +1,62 @@
+<!-- MAIN CONTENT -->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[' Importación de Imágenes']" icon="sign-in" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+  </div>
+
+  <div *ngIf="alert" class="alert alert-block alert-{{alert.mode}}" dismisser="">
+    <h4 class="alert-heading">
+      <i class="fa fa-check-square-o"></i> Importación {{alert.title}}
+    </h4>
+    <p>{{alert.message}}</p>
+  </div>
+
+  <!-- widget grid -->
+  <sa-widget [editbutton]="false" [custombutton]="false">
+
+            <header>
+              <span class="widget-icon">
+                <i class="glyphicon glyphicon-picture txt-color-darken"></i>
+              </span>
+              
+              <h2>Imágenes </h2>
+
+              <ul class="nav nav-tabs pull-right in" id="myTab">
+                <li >
+                  <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Slider Principal</span></a>
+                </li>
+
+                <li >
+                  <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Imágenes Home</span></a>
+                </li>
+
+                <li >
+                  <a (click)="active = 'tab-r3'"><span class="hidden-mobile hidden-tablet">Banners</span></a>
+                </li>
+              </ul>
+            </header>
+
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="no-padding widget-body">
+                
+                <tabset>
+                  <tab [active]="active == 'tab-r1'">
+                    <!-- STOCK MODEL CODES -->
+                    <slider-models ></slider-models>
+                  </tab>
+                  <tab [active]="active == 'tab-r2'">
+                    <!--HOME  -->
+                    <home-models ></home-models>
+                  </tab>
+                  <tab [active]="active == 'tab-r3'">
+                    <!--HOME  -->
+                    <banner-models ></banner-models>
+                  </tab>
+                </tabset>
+              
+              </div>
+            </div>
+          </sa-widget>
+</div>

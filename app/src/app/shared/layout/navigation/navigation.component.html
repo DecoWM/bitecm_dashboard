@@ -35,6 +35,10 @@
           </li>
         </ul>
       </li>
+      <li routerLinkActive="active" *ngIf="isEditor()">
+        <a routerLink="/imagenes" title="Imagenes"><i class="fa fa-lg fa-fw fa-image"></i> <span
+          class="menu-item-parent">{{'Imágenes' | i18n}}</span></a>
+      </li>
     </ul>    
   </nav>
 
