@@ -42,19 +42,19 @@
     <tbody>
       <tr>
         <td style="vertical-align: top;"><img src="{{config('app.mail_url')}}/images/email/icon-email.png" width="8px" alt="icon" style="margin-right: 9px"></td>
-        <td>El pago del plan son de 2 rentas adelantadas.</td></tr>
+        <td>Dependiendo de la evaluación del asesor telefónico se pagarán rentas adelantadas.</td>
+      </tr>
       <tr>
         <td style="vertical-align: top;"><img src="{{config('app.mail_url')}}/images/email/icon-email.png" width="8px" alt="icon" style="margin-right: 9px"></td>
-        <td>La coordinación con el asesor telefónico se realizará dentro de</td></tr>
+        <td>La coordinación con el asesor telefónico se realizará dentro de 6 horas después de haber realizado la solicitud en la plataforma web.</td>
+      </tr>
       <tr>
         <td style="vertical-align: top;"><img src="{{config('app.mail_url')}}/images/email/icon-email.png" width="8px" alt="icon" style="margin-right: 9px"></td>
-        <td>24 horas después de haber realizado la solicitud en la plataforma web.</td></tr>
-      <tr>
-        <td style="vertical-align: top;"><img src="{{config('app.mail_url')}}/images/email/icon-email.png" width="8px" alt="icon" style="margin-right: 9px"></td>
-        <td>El costo de envío es gratis.</td></tr>
+        <td>El costo de envío es gratis.</td>
+      </tr>
       <tr>
         <td style="vertical-align: top;"><img src="{{config('app.mail_url')}}/images/email/icon-email.png" width="8px" alt="icon" style="margin-right: 9px">
-        <td>Para poder ver los términos y condiciones de uso de la tienda virtual Bitel</td>
+        <td>Para poder ver los términos y condiciones de uso de la tienda virtual Bitel.</td>
       </tr>
       <tr>
         <td style="vertical-align: top;"><img src="{{config('app.mail_url')}}/images/email/icon-email.png" width="8px" alt="icon" style="margin-right: 9px"></td>
