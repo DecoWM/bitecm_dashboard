@@ -31,6 +31,12 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       product_description: {
         // required: true
       },
+      product_internal_memory: {
+        required: true
+      },
+      product_external_memory: {
+        required: true
+      },
       product_screen_size: {
         required: true,
         number: true,
@@ -76,6 +82,12 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     messages : {
       product_description: {
         // required: 'Este campo es obligatorio'
+      },
+      product_internal_memory: {
+        required: 'Este campo es obligatorio'
+      },
+      product_external_memory: {
+        required: 'Este campo es obligatorio'
       },
       product_screen_size: {
         required: 'Este campo es obligatorio',
@@ -225,6 +237,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     if (!this.dataSheetUrl.length) {
       formData.delete('product_data_sheet');
     }
+    this.blockui.start('content');
     this.productService.updateSpecs(this.product.product_id, formData)
       .subscribe((data: any) => {
         this.dataSheetUrl = '';
@@ -232,12 +245,14 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
         if (data.success && formData.has('product_data_sheet')) {
           this.product.product_data_sheet = this.product.product_data_sheet + '?v' + (new Date().getTime().toString());
         }
+        this.blockui.stop('content');
       }, (error) => {
         this.onAlert.emit({
           'title': 'Archivo pesado',
           'message': 'El archivo de especificaciones ténicas es muy pesado, solo se permiten 10mb',
           'mode': 'danger'
         });
+        this.blockui.stop('content');
       });
   }
 

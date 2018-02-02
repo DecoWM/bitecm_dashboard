@@ -211,7 +211,7 @@
                           </div>
                           <div class="col-sm-6">
                             <div class="field-order">
-                              <p class="field">Número: </p>
+                              <p class="field">Número a portar: </p>
                               <p>{{order.porting_phone}}</p>
                             </div>
                             <div class="field-order">
@@ -274,15 +274,10 @@
                                 <span>{{item.promo_price}}</span>
                                 <span class="normal-price">{{item.product_price}}</span>
                               </td>
-                              <td>{{item.subtotal}}</td>
+                              <td>{{item.subtotal_igv}}</td>
                             </tr>
                           </tbody>
                           <tfoot>
-                            <tr>
-                              <td colspan="6"></td>
-                              <td>Total</td>
-                              <td>{{order.total}}</td>
-                            </tr>
                             <tr>
                               <td colspan="6"></td>
                               <td>Total + IGV</td>

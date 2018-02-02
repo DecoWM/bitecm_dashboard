@@ -71,6 +71,7 @@ export class StockModelsComponent implements OnInit {
 
   ngOnInit() {
     this.product_id = this.route.snapshot.params.id;
+    this.blockui.start('content');
     Observable.zip(
       this.stockModelService.getColors(),
       this.stockModelService.getStockModels(this.product_id)
@@ -81,6 +82,7 @@ export class StockModelsComponent implements OnInit {
       if (stockmodels.success) {
         this.stockmodels = stockmodels.result;
       }
+      this.blockui.stop('content');
     });
   }
 
@@ -99,6 +101,7 @@ export class StockModelsComponent implements OnInit {
   }
 
   addColor(e) {
+    this.blockui.start('content');
     this.stockModelService.saveColor(this.color)
       .subscribe((data: any) => {
         this.onAlert.emit(this.getAlert(data));
@@ -111,6 +114,7 @@ export class StockModelsComponent implements OnInit {
           this.formColor.resetForm();
           e.resetForm();
         }
+        this.blockui.stop('content');
       });
   }
 

@@ -51,6 +51,23 @@ export class ExportComponent implements OnInit {
     this.alert = null;
   }
 
+  exportGeneralOrders(e) {
+    const formData = new FormData(document.forms.namedItem('form-general-orders'));
+    this.reportesService.exportGeneralOrders(formData)
+      .subscribe((data: any) => {
+        if (data.success) {
+          this.getAlert(data, 'Reporte General de Ordenes');
+          const link = document.createElement('a');
+          link.href = data.result.file_url;
+          link.download = data.result.file_name;
+          link.style.display = 'none';
+          document.body.appendChild(link);
+          link.click();
+          $(link).remove();
+        }
+      });
+  }
+
   exportGeneralSales(e) {
     const formData = new FormData(document.forms.namedItem('form-general-sales'));
     this.reportesService.exportGeneralSales(formData)

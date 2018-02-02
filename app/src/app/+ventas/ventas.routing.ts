@@ -1,6 +1,8 @@
 import {ModuleWithProviders} from '@angular/core'
 import {RouterModule, Routes} from '@angular/router';
 
+import {AdminGuard} from './../shared/auth/guard/admin.guard';
+
 export const routes: Routes = [
     {
         path: '',
@@ -14,6 +16,7 @@ export const routes: Routes = [
     },
     {
         path: 'reportes',
+        canActivate: [AdminGuard],
         loadChildren: './+reportes/reportes.module#ReportesModule',
         data: {pageTitle: 'Reportes'}
     }

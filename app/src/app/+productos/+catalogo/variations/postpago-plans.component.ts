@@ -43,6 +43,7 @@ export class PostpagoPlansComponent implements OnInit {
 
   ngOnInit() {
     this.product_id = this.route.snapshot.params.id;
+    this.blockui.start('content');
     Observable.zip(
       this.variationService.getPostpaidPlans(),
       this.variationService.getPostpaidVariations(this.product_id, this.affiliation_id, this.contract_id)
@@ -57,6 +58,7 @@ export class PostpagoPlansComponent implements OnInit {
           return variation;
         });
       }
+      this.blockui.stop('content');
     });
   }
 
@@ -81,6 +83,7 @@ export class PostpagoPlansComponent implements OnInit {
       }
       count++;
       if (count === this.planForms.length && (saveVariations.length || updateVariations.length)) {
+        this.blockui.start('content');
         Observable.zip(
           this.variationService.savePostpaidVariations(this.product_id, saveVariations, this.affiliation_id, this.contract_id),
           this.variationService.updatePostpaidVariations(this.product_id, updateVariations)
@@ -92,7 +95,6 @@ export class PostpagoPlansComponent implements OnInit {
           if (!update.nop) {
             alerts.push(this.getAlert(update, 'actualizadas'));
           }
-          this.onAlert.emit(alerts);
           if (save.success || update.success) {
             this.variationService.getPostpaidVariations(this.product_id, this.affiliation_id, this.contract_id)
               .subscribe((vars: any) => {
@@ -103,8 +105,12 @@ export class PostpagoPlansComponent implements OnInit {
                     return item;
                   });
                 }
+                this.blockui.stop('content');
               });
+          } else {
+            this.blockui.stop('content');
           }
+          this.onAlert.emit(alerts);
         });
       }
     });
