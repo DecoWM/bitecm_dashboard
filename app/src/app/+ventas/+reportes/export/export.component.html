@@ -15,7 +15,7 @@
     <div class="row">
       <article>
         <div class="col-sm-12">
-          <!-- FORM GENERAL SALES -->
+          <!-- FORM GENERAL ORDERS -->
           <sa-widget [editbutton]="false" [custombutton]="false">
             <!-- widget div-->
             <div>
@@ -25,9 +25,9 @@
                   <div class="detalle-order">
                     <header>
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
-                      Reporte General de Ventas
+                      Reporte General de Ordenes
                     </header>
-                    <form #formGeneralSales="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralSales($event)" name="form-general-sales">
+                    <form #formGeneralOrders="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralOrders($event)" name="form-general-orders">
                       <div class="detalle-registro row padding-row">
                         <div class="col col-sm-4">
                           <div class="form-group">
@@ -75,7 +75,7 @@
               </div>
             </div>
           </sa-widget>
-          <!-- FORM BEST SELLERS -->
+          <!-- FORM GENERAL SALES -->
           <sa-widget [editbutton]="false" [custombutton]="false">
             <!-- widget div-->
             <div>
@@ -85,9 +85,9 @@
                   <div class="detalle-order">
                     <header>
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
-                      Reporte de Productos mas Vendidos
+                      Reporte General de Ventas
                     </header>
-                    <form #formBestSellers="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportBestSellers($event)" name="form-best-sellers">
+                    <form #formGeneralSales="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralSales($event)" name="form-general-sales">
                       <div class="detalle-registro row padding-row">
                         <div class="col col-sm-4">
                           <div class="form-group">
@@ -114,6 +114,66 @@
                                 changesMonth: true,
                                 numberOfMonth: 3,
                                 maxRestrict: '#begin_date_2'
+                               }" type="text" placeholder="Fecha de Fin">
+                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col col-sm-12">
+                          <div class="row">
+                            <footer>
+                              <div class="btn-footer">
+                                <button class="btn btn-primary" name="submit" type="submit">Exportar</button>
+                              </div>
+                            </footer>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </sa-widget>
+          <!-- FORM BEST SELLERS -->
+          <sa-widget [editbutton]="false" [custombutton]="false">
+            <!-- widget div-->
+            <div>
+              <!-- widget content -->
+              <div class="no-padding widget-body">
+                <div class="smart-form">
+                  <div class="detalle-order">
+                    <header>
+                      <i class="icon-prepend fa fa-exclamation-circle"></i>
+                      Reporte de Productos mas Vendidos
+                    </header>
+                    <form #formBestSellers="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportBestSellers($event)" name="form-best-sellers">
+                      <div class="detalle-registro row padding-row">
+                        <div class="col col-sm-4">
+                          <div class="form-group">
+                            <label>Fecha de Inicio</label>
+                            <div class="input-group">
+                              <input class="form-control" id="begin_date_3" name="begin_date" [saUiDatepicker]="{
+                                dateFormat: 'dd/mm/yy',
+                                defaultDate: '-1w',
+                                changesMonth: true,
+                                numberOfMonth: 3,
+                                minRestrict: '#end_date_3'
+                               }" type="text" placeholder="Fecha de Inicio">
+                              <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col col-sm-4">
+                          <div class="form-group">
+                            <label>Fecha de Fin</label>
+                            <div class="input-group">
+                              <input class="form-control" id="end_date_3" name="end_date" [saUiDatepicker]="{
+                                dateFormat: 'dd/mm/yy',
+                                defaultDate: 'now',
+                                changesMonth: true,
+                                numberOfMonth: 3,
+                                maxRestrict: '#begin_date_3'
                                }" type="text" placeholder="Fecha de Fin">
                               <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
                             </div>

@@ -17,6 +17,11 @@ export class ReportesService {
     private authService: AuthService
   ) {}
 
+  exportGeneralOrders(formData) {
+    return this.http
+      .post(this.getUrl('general_orders'), formData);
+  }
+
   exportGeneralSales(formData) {
     return this.http
       .post(this.getUrl('general_sales'), formData);
