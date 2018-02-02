@@ -45,7 +45,7 @@ export class UiValidateDirective implements OnInit {
           $(element).parent().parent().removeClass('state-error').addClass('state-success');
         }
       },
-      errorPlacement: (error, element) => {console.log(element.attr('type'));
+      errorPlacement: (error, element) => {
         if (element.parent('.input-group').length) {
           error.insertAfter(element.parent());
         } else {

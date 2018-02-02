@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use DB;
+use Validator;
 use Carbon\Carbon;
 use App\Http\Controllers\ApiController;
 use Illuminate\Http\Request;
 use App\Mail\OrderStatusChanged;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
+use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Storage;
 
 class OrdersController extends ApiController
 {
@@ -340,6 +343,60 @@ class OrdersController extends ApiController
     return response()->json([
       'result' => count($status_list) ? $status_list : [],
       'success' => count($status_list)
+    ]);
+  }
+
+  public function reportGeneralSales(Request $request) {
+    $validator = Validator::make($request->all(), [
+      'begin_date' => 'required',
+      'end_date' => 'required',
+    ]);
+
+    if($validator->fails()) {
+      return response()->json([
+        'result' => 'Las fechas on requeridas',
+        'messages' => $validator->errors(),
+        'success' => false
+      ]);
+    }
+
+    // AQUI CREAR LA LÓGICA DE GENERACIÓN DEL REPORTE Y GRABAR EL EXCEL GENERADO EN EL STORAGE
+
+    $file = [
+      'file_name' => 'reporte_general_ventas_'.Carbon::now()->timestamp.'.xlsx',
+      'file_url' => asset(Storage::url('reportes/prueba.xlsx'))
+    ];
+
+    return response()->json([
+      'result' => $file,
+      'success' => true
+    ]);
+  }
+
+  public function reportBestSellers(Request $request) {
+    $validator = Validator::make($request->all(), [
+      'begin_date' => 'required',
+      'end_date' => 'required',
+    ]);
+
+    if($validator->fails()) {
+      return response()->json([
+        'result' => 'Las fechas on requeridas',
+        'messages' => $validator->errors(),
+        'success' => false
+      ]);
+    }
+
+    // AQUI CREAR LA LÓGICA DE GENERACIÓN DEL REPORTE Y GRABAR EL EXCEL GENERADO EN EL STORAGE
+
+    $file = [
+      'file_name' => 'reporte_productos_mas_vendidos_'.Carbon::now()->timestamp.'.xlsx',
+      'file_url' => asset(Storage::url('reportes/prueba.xlsx'))
+    ];
+
+    return response()->json([
+      'result' => $file,
+      'success' => true
     ]);
   }
 

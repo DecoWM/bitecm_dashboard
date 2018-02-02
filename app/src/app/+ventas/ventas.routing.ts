@@ -11,6 +11,11 @@ export const routes: Routes = [
         path: 'ordenes',
         loadChildren: './+ordenes/ordenes.module#OrdenesModule',
         data: {pageTitle: 'Ordenes'}
+    },
+    {
+        path: 'reportes',
+        loadChildren: './+reportes/reportes.module#ReportesModule',
+        data: {pageTitle: 'Reportes'}
     }
 ];
 

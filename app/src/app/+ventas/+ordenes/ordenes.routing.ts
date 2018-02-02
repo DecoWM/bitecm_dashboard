@@ -1,5 +1,5 @@
 import { ModuleWithProviders } from '@angular/core'
-import {RouterModule, Routes} from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 
 import { OrdenesComponent } from './ordenes.component';
 import { StatusFormComponent } from './status-form/status-form.component';

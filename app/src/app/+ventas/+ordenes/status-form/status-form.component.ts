@@ -81,9 +81,7 @@ export class StatusFormComponent implements OnInit {
   }
 
   save(status, e) {
-    console.log(e);
     if (status) {
-      console.log(status);
       this.ordenesService.createStatus(this.order_id, status)
         .subscribe((message: any) => {
           this.alert = this.getAlert(message);

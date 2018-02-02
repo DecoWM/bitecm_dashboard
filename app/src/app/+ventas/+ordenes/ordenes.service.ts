@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpResponse, HttpRequest } from '@angular/common/http';
+import { HttpClient, HttpResponse, HttpRequest } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/catch';
@@ -9,13 +9,6 @@ import { AuthService } from './../../shared/auth/auth.service';
 
 @Injectable()
 export class OrdenesService {
-
-  private headers = new HttpHeaders({
-    'Content-Type': 'application/json',
-    // 'Cache-Control': 'no-cache',
-    // 'Pragma': 'no-cache',
-    // 'Expires': 'Sat, 01 Jan 2000 00:00:00 GMT'
-  });
 
   private url = '/api/admin/ordenes';
 

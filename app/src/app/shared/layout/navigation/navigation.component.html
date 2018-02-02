@@ -18,6 +18,9 @@
           <li routerLinkActive="active">
             <a routerLink="/ventas/ordenes">{{'Ordenes' | i18n}}</a>
           </li>
+          <li routerLinkActive="active" *ngIf="isAdmin()">
+            <a routerLink="/ventas/reportes">{{'Reportes' | i18n}}</a>
+          </li>
         </ul>
       </li>
       <li routerLinkActive="active" *ngIf="isEditor()">
