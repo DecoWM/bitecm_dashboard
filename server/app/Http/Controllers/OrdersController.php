@@ -373,9 +373,13 @@ class OrdersController extends ApiController
     ]);
 
     // Exportar reporte a Excel
-    Excel::create($file_name, function($excel) use($result) {
-      $excel->sheet('Sheetname', function($sheet) use($result) {
-          $sheet->fromArray($result, 'N/A', 'A1', true, true);
+    $data = array();
+    foreach ($result as $row) {
+       $data[] = (array)$row;
+    }
+    Excel::create($file_name, function($excel) use($data) {
+      $excel->sheet('Reporte', function($sheet) use($data) {
+          $sheet->fromArray($data, 'N/A', 'A1', true, true);
       });
     })->store('xlsx', storage_path('storage/reportes'));
 
@@ -419,9 +423,13 @@ class OrdersController extends ApiController
     ]);
 
     // Exportar reporte a Excel
-    Excel::create($file_name, function($excel) use($result) {
-      $excel->sheet('Sheetname', function($sheet) use($result) {
-          $sheet->fromArray($result, 'N/A', 'A1', true, true);
+    $data = array();
+    foreach ($result as $row) {
+       $data[] = (array)$row;
+    }
+    Excel::create($file_name, function($excel) use($data) {
+      $excel->sheet('Reporte', function($sheet) use($data) {
+          $sheet->fromArray($data, 'N/A', 'A1', true, true);
       });
     })->store('xlsx', storage_path('storage/reportes'));
 
