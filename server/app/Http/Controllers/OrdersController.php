@@ -362,7 +362,7 @@ class OrdersController extends ApiController
     // Recibir valores para la consulta
     $file_name = 'reporte_general_ordenes_'.Carbon::now()->timestamp;
     $begin_date = Carbon::createFromFormat('d/m/Y', $request->input('begin_date'))->format('Y-m-d');
-    $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->format('Y-m-d');
+    $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->addDays(1)->format('Y-m-d');
 
     // Llamar al procedimiento que devolverá los valores
     $result = DB::select('call PA_orderReport(
@@ -411,7 +411,7 @@ class OrdersController extends ApiController
     // Recibir valores para la consulta
     $file_name = 'reporte_general_ventas_'.Carbon::now()->timestamp;
     $begin_date = Carbon::createFromFormat('d/m/Y', $request->input('begin_date'))->format('Y-m-d');
-    $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->format('Y-m-d');
+    $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->addDays(1)->format('Y-m-d');
 
     // Llamar al procedimiento que devolverá los valores
     $result = DB::select('call PA_orderCompletedReport(
@@ -461,7 +461,7 @@ class OrdersController extends ApiController
     // Recibir valores para la consulta
     $file_name = 'reporte_productos_mas_vendidos_'.Carbon::now()->timestamp;
     $begin_date = Carbon::createFromFormat('d/m/Y', $request->input('begin_date'))->format('Y-m-d');
-    $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->format('Y-m-d');
+    $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->addDays(1)->format('Y-m-d');
 
     // Llamar al procedimiento que devolverá los valores
     $result = DB::select('call PA_productBestSellers(
