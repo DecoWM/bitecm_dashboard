@@ -346,6 +346,55 @@ class OrdersController extends ApiController
     ]);
   }
 
+  public function reportGeneralOrders(Request $request) {
+    $validator = Validator::make($request->all(), [
+      'begin_date' => 'required',
+      'end_date' => 'required',
+    ]);
+
+    if($validator->fails()) {
+      return response()->json([
+        'result' => 'Las fechas on requeridas',
+        'messages' => $validator->errors(),
+        'success' => false
+      ]);
+    }
+    // Recibir valores para la consulta
+    $file_name = 'reporte_general_ordenes_'.Carbon::now()->timestamp;
+    $begin_date = Carbon::createFromFormat('d/m/Y', $request->input('begin_date'))->format('Y-m-d');
+    $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->format('Y-m-d');
+
+    // Llamar al procedimiento que devolverá los valores
+    $result = DB::select('call PA_orderReport(
+      :start_date, :end_date
+    )', [
+      'start_date' => $begin_date,
+      'end_date' => $end_date
+    ]);
+
+    // Exportar reporte a Excel
+    $data = array();
+    foreach ($result as $row) {
+       $data[] = (array)$row;
+    }
+    Excel::create($file_name, function($excel) use($data) {
+      $excel->sheet('Reporte', function($sheet) use($data) {
+          $sheet->fromArray($data, 'N/A', 'A1', true, true);
+      });
+    })->store('xlsx', storage_path('app/public/reportes'));
+
+    $file = [
+      'file_name' => $file_name.'.xlsx',
+      'file_url' => asset(Storage::url('reportes/'.$file_name.'.xlsx'))
+    ];
+
+    // Devolver URL para descargar el Excel
+    return response()->json([
+      'result' => $file,
+      'success' => true
+    ]);
+  }
+
   public function reportGeneralSales(Request $request) {
     $validator = Validator::make($request->all(), [
       'begin_date' => 'required',
@@ -365,7 +414,7 @@ class OrdersController extends ApiController
     $end_date = Carbon::createFromFormat('d/m/Y', $request->input('end_date'))->format('Y-m-d');
 
     // Llamar al procedimiento que devolverá los valores
-    $result = DB::select('call PA_orderReport(
+    $result = DB::select('call PA_orderCompletedReport(
       :start_date, :end_date
     )', [
       'start_date' => $begin_date,
