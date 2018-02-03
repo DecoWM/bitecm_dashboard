@@ -22,7 +22,7 @@ export class MiniGeneralOrdersComponent implements OnInit {
   @Output() onDateChanged: EventEmitter<any> = new EventEmitter();
 
   validationOptions = {
-    rules: {
+    /*rules: {
       begin_date : {
         required : true
       },
@@ -37,7 +37,7 @@ export class MiniGeneralOrdersComponent implements OnInit {
       end_date : {
         required : 'Debes seleccionar una fecha de fin'
       }
-    }
+    }*/
   };
 
   constructor(
@@ -50,25 +50,31 @@ export class MiniGeneralOrdersComponent implements OnInit {
 
   ngOnInit() {}
 
-  exportGeneralOrders(e) {
+  exportGeneralOrders(f) {
     const formData = new FormData(document.forms.namedItem('form-general-orders'));
-    this.reportesService.exportGeneralOrders(formData)
-      .subscribe((data: any) => {
-        if (data.success) {
-          this.onAlert.emit(this.getAlert(data, 'Reporte General de Ordenes'));
-          const link = document.createElement('a');
-          link.href = data.result.file_url;
-          link.download = data.result.file_name;
-          link.style.display = 'none';
-          document.body.appendChild(link);
-          link.click();
-          $(link).remove();
-        }
-      });
+    if (formData.get('begin_date').toString().length &&
+      formData.get('end_date').toString().length) {
+      this.reportesService.exportGeneralOrders(formData)
+        .subscribe((data: any) => {
+          if (data.success) {
+            this.onAlert.emit(this.getAlert(data, 'Reporte General de Ordenes'));
+            const link = document.createElement('a');
+            link.href = data.result.file_url;
+            link.download = data.result.file_name;
+            link.style.display = 'none';
+            document.body.appendChild(link);
+            link.click();
+            $(link).remove();
+          }
+        });
+    }
   }
 
-  dateChanged(event) {
-    console.log('date changed ', event);
+  datesChanged(event) {
+    this.onDateChanged.emit();
+  }
+
+  valuesChanged(event) { console.log('values changed');
     this.onDateChanged.emit();
   }
 

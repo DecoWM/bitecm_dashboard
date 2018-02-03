@@ -110,7 +110,6 @@ export class OrdenesComponent implements OnInit {
   }
 
   filterByDateRange() {
-    console.log('filter by date range');
     if (this.dtObj) {
       this.dtObj.draw();
     }

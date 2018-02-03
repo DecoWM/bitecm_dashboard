@@ -1,15 +1,16 @@
-<form #formGeneralOrders="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralOrders($event)" name="form-general-orders">
+<!--form #formGeneralOrders="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralOrders($event)" name="form-general-orders"-->
+<form #formGeneralOrders="ngForm" (ngSubmit)="exportGeneralOrders(formGeneralOrders)" class="smart-form margin-top-10" novalidate="novalidate" name="form-general-orders">
   <div class="detalle-registro row padding-row">
     <div class="col col-sm-4">
       <div class="form-group">
         <div class="input-group">
-          <input class="form-control" id="begin_date" name="begin_date" [saUiDatepicker]="{
+          <input class="form-control" id="begin_date" name="begin_date" (keyup)="valuesChanged($event)" [saUiDatepicker]="{
             dateFormat: 'dd/mm/yy',
             defaultDate: '-1w',
             changesMonth: true,
             numberOfMonth: 3,
             minRestrict: '#end_date'
-           }" (onSmartDatepickerChange)="dateChanged($event)" type="text" placeholder="Fecha de Inicio">
+           }" (onSmartDatepickerChange)="datesChanged($event)" type="text" placeholder="Fecha de Inicio">
           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
       </div>
@@ -17,13 +18,13 @@
     <div class="col col-sm-4">
       <div class="form-group">
         <div class="input-group">
-          <input class="form-control" id="end_date" name="end_date" [saUiDatepicker]="{
+          <input class="form-control" id="end_date" name="end_date" (keyup)="valuesChanged($event)" [saUiDatepicker]="{
             dateFormat: 'dd/mm/yy',
             defaultDate: 'now',
             changesMonth: true,
             numberOfMonth: 3,
             maxRestrict: '#begin_date'
-           }" (onSmartDatepickerChange)="dateChanged($event)" type="text" placeholder="Fecha de Fin">
+           }" (onSmartDatepickerChange)="datesChanged($event)" type="text" placeholder="Fecha de Fin">
           <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
         </div>
       </div>

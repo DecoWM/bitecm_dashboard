@@ -126,11 +126,23 @@ export class DatatableComponent implements OnInit {
               return false;
             }
 
-            const min = moment($(opt.from).val(), 'DD/MM/YYYY');
-            const max = moment($(opt.to).val(), 'DD/MM/YYYY');
+            let from = $(opt.from).val();
+            let to = $(opt.to).val();
+
+            const from_l = from.toString().length;
+            if (from_l > 0 && from_l !== 10) {
+              from = 0;
+            }
+            const to_l = to.toString().length;
+            if (to_l > 0 && to_l !== 10) {
+              to = 0;
+            }
+
+            const min = moment(from, 'DD/MM/YYYY');
+            const max = moment(to, 'DD/MM/YYYY');
 
             const min_x = min.format('x');
-            const max_x = max.format('x');
+            const max_x = max.add(1, 'days').format('x');
             const val_x = val.format('x');
 
             if ( ( !min._isValid && !max._isValid ) ||
