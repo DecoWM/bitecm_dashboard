@@ -10,10 +10,12 @@ import { Select2Module } from '../../shared/forms/input/select2/select2.module';
 import { ReportesService } from './reportes.service';
 import { routing } from './reportes.routing';
 import { ExportComponent } from './export/export.component';
+import { MiniGeneralOrdersComponent } from './mini/mini-general-orders.component';
 
 @NgModule({
     declarations: [
         ExportComponent,
+        MiniGeneralOrdersComponent
     ],
     imports: [
         SmartadminModule,
@@ -23,6 +25,9 @@ import { ExportComponent } from './export/export.component';
         FormContainerModule,
         Select2Module,
         routing
+    ],
+    exports: [
+        MiniGeneralOrdersComponent
     ],
     providers: [
         ReportesService

@@ -1,5 +1,6 @@
-import { ModuleWithProviders } from '@angular/core'
+import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+// import { ModuleWithProviders } from '@angular/core'
 
 import { OrdenesComponent } from './ordenes.component';
 import { StatusFormComponent } from './status-form/status-form.component';
@@ -23,4 +24,8 @@ export const routes: Routes = [
     }
 ];
 
-export const routing = RouterModule.forChild(routes)
+@NgModule({
+   imports: [RouterModule.forChild(routes)],
+   exports: [RouterModule]
+})
+export class routing {}

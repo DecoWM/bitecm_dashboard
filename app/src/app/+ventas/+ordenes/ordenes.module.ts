@@ -6,6 +6,7 @@ import { SmartadminValidationModule } from '../../shared/forms/validation/smarta
 import { SmartadminInputModule } from '../../shared/forms/input/smartadmin-input.module';
 import { FormContainerModule } from '../../shared/forms/custom/form-container/form-container.module';
 import { Select2Module } from '../../shared/forms/input/select2/select2.module';
+import { ReportesModule } from '../+reportes/reportes.module';
 
 import { OrdenesService } from './ordenes.service';
 import { routing } from './ordenes.routing';
@@ -26,7 +27,8 @@ import { StatusFormComponent } from './status-form/status-form.component';
         SmartadminInputModule,
         FormContainerModule,
         Select2Module,
-        routing
+        routing,
+        ReportesModule
     ],
     providers: [
         OrdenesService

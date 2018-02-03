@@ -1,9 +1,11 @@
-import {Component, Input, ElementRef, AfterContentInit, OnInit} from '@angular/core';
+import {Component, Input, Output, EventEmitter, ElementRef, AfterContentInit, OnInit} from '@angular/core';
 import { Subject, Observable } from 'rxjs/Rx';
 
 import { BlockUIService } from 'ng-block-ui';
 
 declare var $: any;
+declare var _: any;
+declare var moment: any;
 
 @Component({
   selector: 'sa-datatable',
@@ -30,6 +32,10 @@ export class DatatableComponent implements OnInit {
   @Input() public tableClass: string;
   @Input() public width = '100%';
 
+  @Input() public dateRangeOptions = [];
+
+  @Output() onInit: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private el: ElementRef,
     private blockui: BlockUIService
@@ -39,6 +45,7 @@ export class DatatableComponent implements OnInit {
     this.dtTrigger.subscribe(() => {
       Promise.all([
         System.import('script-loader!smartadmin-plugins/datatables/datatables.min.js'),
+        System.import('script-loader!jszip/dist/jszip.min.js'),
         this.blockui.start('content')
       ]).then(() => {
         this.blockui.stop('content');
@@ -48,19 +55,28 @@ export class DatatableComponent implements OnInit {
   }
 
   render() {
-    let element = $(this.el.nativeElement.children[0]);
+    const element = $(this.el.nativeElement.children[0]);
     let options = this.options || {}
 
-    let toolbar = '';
-    if (options.buttons)
-      toolbar += 'B';
-    if (this.paginationLength)
-      toolbar += 'l';
-    if (this.columnsHide)
-      toolbar += 'C';
+    let toolbar_arr = [];
+    if (options.buttons) {
+      toolbar_arr.push('B');
+    }
+    if (this.paginationLength) {
+      toolbar_arr.push('l');
+    }
+    if (this.columnsHide) {
+      toolbar_arr.push('C');
+    }
+
+    if (options.toolbar) {
+      toolbar_arr = _.union(toolbar_arr, options.toolbar);
+    }
+
+    const toolbar = toolbar_arr.join('');
 
     if (typeof options.ajax === 'string') {
-      let url = options.ajax;
+      const url = options.ajax;
       options.ajax = {
         url: url,
         // complete: function (xhr) {
@@ -76,8 +92,8 @@ export class DatatableComponent implements OnInit {
       language: {
         search: "<span class='input-group-addon'><i class='glyphicon glyphicon-search'></i></span>_INPUT_",
         searchPlaceholder: "Buscar...",
-        lengthMenu: "Mostrar _MENU_",
-        info: "Mostrando página _PAGE_ de _PAGES_",
+        lengthMenu: "&nbsp;&nbsp;Mostrar &nbsp;_MENU_",
+        info: "Mostrando _START_ de _END_ de _TOTAL_",
         infoFiltered: "(filtrado de _MAX_ registros)",
         paginate: {
           first: "Primero",
@@ -94,7 +110,45 @@ export class DatatableComponent implements OnInit {
       }
     });
 
+    if (!this.dateRangeOptions) {
+      this.dateRangeOptions = [];
+    }
+    if (this.dateRangeOptions && !(this.dateRangeOptions instanceof Array)) {
+      this.dateRangeOptions = [this.dateRangeOptions];
+    }
+    this.dateRangeOptions.forEach((opt, ix) => {
+      if (opt.from && opt.to && opt.column) {
+        $.fn.dataTable.ext.search.push(
+          function( settings, data, dataIndex ) {
+            const val = moment(data[opt.column]);
+
+            if (!val._isValid) {
+              return false;
+            }
+
+            const min = moment($(opt.from).val(), 'DD/MM/YYYY');
+            const max = moment($(opt.to).val(), 'DD/MM/YYYY');
+
+            const min_x = min.format('x');
+            const max_x = max.format('x');
+            const val_x = val.format('x');
+
+            if ( ( !min._isValid && !max._isValid ) ||
+                 ( !min._isValid && val_x <= max_x ) ||
+                 ( min_x <= val_x && !max._isValid ) ||
+                 ( min_x <= val_x && val_x <= max_x ) ) {
+              return true;
+            }
+
+            return false;
+          }
+        );
+      }
+    });
+
     const _dataTable = element.DataTable(options);
+
+    this.onInit.emit(_dataTable);
 
     /*_dataTable.columns().every(function () {
       const that = this;

@@ -11,6 +11,8 @@ import { NotificationService } from '../../shared/utils/notification.service';
 import { BlockUIService } from 'ng-block-ui';
 import { Socket } from 'ng-socket-io';
 
+declare var $: any;
+
 @Component({
   selector: 'ordenes',
   templateUrl: './ordenes.component.html',
@@ -21,16 +23,20 @@ export class OrdenesComponent implements OnInit {
   itemsObs: Subject<any> = new Subject();
   dtTrigger: Subject<any> = new Subject();
   ordenes: any = [];
+  alert: any = null;
 
+  dtObj: any = null;
   options = {
-    dom: 'Bfrtip',
+    buttons: [
+      {extend: 'excel', text: 'Exportar filtrado'}
+    ],
     pageLength: 25,
-    /*columnDefs: [ {
-      targets: [0, 8],
-      orderable: false
-    } ],*/
-    order: [[1, 'desc']],
-    // colReorder: true
+    order: [[1, 'desc']]
+  };
+  dateRangeOptions = {
+    from: '#begin_date',
+    to: '#end_date',
+    column: 1
   };
 
   constructor(
@@ -46,6 +52,7 @@ export class OrdenesComponent implements OnInit {
 
   ngOnInit() {
     const self = this;
+    this.alert = null;
 
     this.socket.on('connect', function () {
       console.log('Conectado a socket.io');
@@ -98,7 +105,50 @@ export class OrdenesComponent implements OnInit {
       });
   }
 
+  initDtObj(dtObj) {
+    this.dtObj = dtObj;
+  }
+
+  filterByDateRange() {
+    console.log('filter by date range');
+    if (this.dtObj) {
+      this.dtObj.draw();
+    }
+  }
+
   detail(data: any): void {
     this.router.navigate([data.order_id], {relativeTo: this.route});
+  }
+
+  printAlert(alert): void {
+    if (!alert) {
+      alert = [];
+    }
+    if (alert && !(alert instanceof Array)) {
+      alert = [alert];
+    }
+    alert.map((item, ix) => {
+      switch (item.mode) {
+        case 'success':
+          item.icon = 'check';
+          item.color = '#8ac38b';
+        break;
+        case 'danger':
+          item.icon = 'warning';
+          item.color = '#c46a69';
+        break;
+      }
+      return item;
+    });
+    this.alert = alert;
+    this.alert.forEach((item, ix) => {
+      this.notificationService.smallBox({
+        title: item.title,
+        content: item.message,
+        color: item.color,
+        iconSmall: 'fa-fw fa fa-' + item.icon + ' bounce animated',
+        timeout: 4000
+      });
+    })
   }
 }
