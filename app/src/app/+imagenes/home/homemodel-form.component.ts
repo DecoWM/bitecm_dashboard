@@ -18,7 +18,6 @@ declare var $: any;
   styles: []
 })
 export class HomeModelFormComponent implements OnInit, AfterViewChecked {
-  
   @Input() homemodel: any = {
     image_id: null,
     image_name: null,
@@ -34,7 +33,6 @@ export class HomeModelFormComponent implements OnInit, AfterViewChecked {
 
   homeImageUrl: any = [];
 
-
   validationOptions = {
     rules: {
       slider_link : {
@@ -48,7 +46,6 @@ export class HomeModelFormComponent implements OnInit, AfterViewChecked {
     }
   };
 
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -61,8 +58,7 @@ export class HomeModelFormComponent implements OnInit, AfterViewChecked {
     if (this.homemodel.active === null) {
       this.homemodel.active = false;
     }
-
-    this.homemodel.image_demo = this.homemodel.image_demo.replace('rutademo', 'images//home-demo-' + this.homemodel.image_id+ '.png');
+    this.homemodel.image_demo = this.homemodel.image_demo.replace('rutademo', 'images/home-demo-' + this.homemodel.image_id + '.png');
     this.homeImageUrl = [];
   }
 
@@ -92,35 +88,19 @@ export class HomeModelFormComponent implements OnInit, AfterViewChecked {
       if (!this.homeImageUrl.length) {
         formData.delete('slider_images[]');
       }
-      if (this.homemodel.stock_model_id) {
-
-      } else {
-
-        //formData.set('active', this.homemodel.active ? '1' : '0');
-        formData.set('active', '1');
-        const type = 'home-' + this.homemodel.image_id;
-        this.sliderModelService.saveImage(type, formData)
-          .subscribe((data: any) => {
-            this.onAlert.emit(this.getAlert(data));
-            if (data.success) {
-              this.homeImageUrl = [];
-              this.homemodel.image_url = this.homemodel.image_url + '?v' + (new Date().getTime().toString());
-              // this.sliderModelService.getImage(data.id)
-              //   .subscribe((smc: any) => {
-              //     if (smc.success) {
-              //       this.slidermodel = smc.result;
-              //       this.slidermodel.slider_images.map((i, x) => {
-              //         const img_url = i.product_image_url;
-              //         const img_url_arr = img_url.split('/');
-              //         i.product_image_name = img_url_arr[img_url_arr.length - 1];
-              //         i.product_image_url = i.product_image_url + '?v' + (new Date().getTime().toString());
-              //         return i;
-              //       });
-              //     }
-              //   });
-            }
-          });
-      }
+      // formData.set('active', this.homemodel.active ? '1' : '0');
+      formData.set('active', '1');
+      const type = 'home-' + this.homemodel.image_id;
+      this.blockui.start('content');
+      this.sliderModelService.saveImage(type, formData)
+        .subscribe((data: any) => {
+          this.onAlert.emit(this.getAlert(data));
+          if (data.success) {
+            this.homeImageUrl = [];
+            this.homemodel.image_url = this.homemodel.image_url + '?v' + (new Date().getTime().toString());
+          }
+          this.blockui.stop('content');
+        });
     }
   }
 
@@ -141,5 +121,4 @@ export class HomeModelFormComponent implements OnInit, AfterViewChecked {
       'mode': mode
     }
   }
-  
 }

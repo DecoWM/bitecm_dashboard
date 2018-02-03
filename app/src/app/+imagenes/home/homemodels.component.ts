@@ -19,30 +19,28 @@ declare var $: any;
   styles: []
 })
 export class HomeModelsComponent implements OnInit {
+  homemodels: any = [];
+  @Output() onAlert: EventEmitter<any> = new EventEmitter();
 
-  	homemodels: any = [];
-  	@Output() onAlert: EventEmitter<any> = new EventEmitter();
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private blockui: BlockUIService,
+    private sliderModelService: SliderModelService,
+    private notificationService: NotificationService
+  ) {}
 
-	constructor(
-	private route: ActivatedRoute,
-	private router: Router,
-	private blockui: BlockUIService,
-	private sliderModelService: SliderModelService,
-	private notificationService: NotificationService
-	) {}
+  ngOnInit() {
+    this.blockui.start('content');
+    this.sliderModelService.getImages('HOME').subscribe(( homemodels: any ) => {
+      if (homemodels.success) {
+        this.homemodels = homemodels.result;
+      }
+      this.blockui.stop('content');
+    });
+  }
 
-	ngOnInit() {
-
-	  this.sliderModelService.getImages('HOME').subscribe(( homemodels: any ) => {
-	  if (homemodels.success) {
-	  	console.log(homemodels);
-	    this.homemodels = homemodels.result;
-	  }
-	});
-	}
-
-	printAlert(alert) {
+  printAlert(alert) {
     this.onAlert.emit(alert);
-  	}
-
+  }
 }

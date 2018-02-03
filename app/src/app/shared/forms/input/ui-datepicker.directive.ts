@@ -24,6 +24,14 @@ export class UiDatepickerDirective implements OnInit {
     const saUiDatepicker = this.saUiDatepicker || {};
     const element = $(this.el.nativeElement);
 
+    element.keydown((e) => {
+      if (e.keyCode === 8 || e.keyCode === 46) {
+        $.datepicker._clearDate(element);
+      } else {
+        return false;
+      }
+    })
+
     if (saUiDatepicker.minRestrict) {
       onSelectCallbacks.push((selectedDate) => {
         $(saUiDatepicker.minRestrict).datepicker('option', 'minDate', selectedDate);

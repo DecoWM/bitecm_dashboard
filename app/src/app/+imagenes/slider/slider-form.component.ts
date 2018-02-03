@@ -18,7 +18,6 @@ declare var $: any;
   styles: []
 })
 export class SliderFormComponent implements OnInit, AfterViewChecked {
-  
   @Input() slidermodel: any = {
     image_id: null,
     image_name: null,
@@ -33,7 +32,6 @@ export class SliderFormComponent implements OnInit, AfterViewChecked {
 
   sliderImageUrl: any = [];
 
-
   validationOptions = {
     rules: {
       slider_link : {
@@ -46,7 +44,6 @@ export class SliderFormComponent implements OnInit, AfterViewChecked {
       }
     }
   };
-
 
   constructor(
     private route: ActivatedRoute,
@@ -89,35 +86,18 @@ export class SliderFormComponent implements OnInit, AfterViewChecked {
       if (!this.sliderImageUrl.length) {
         formData.delete('slider_images[]');
       }
-      if (this.slidermodel.stock_model_id) {
-
-      } else {
-
-        formData.set('active', this.slidermodel.active ? '1' : '0');
-        const type = 'slider-' + this.slidermodel.image_id;
-        this.sliderModelService.saveImage(type, formData)
-          .subscribe((data: any) => {
-            this.onAlert.emit(this.getAlert(data));
-            if (data.success) {
-              this.sliderImageUrl = [];
-              this.slidermodel.image_url = this.slidermodel.image_url + '?v' + (new Date().getTime().toString());
-              
-            // this.sliderModelService.getImage(data.id)
-            //   .subscribe((smc: any) => {
-            //     if (smc.success) {
-            //       this.slidermodel = smc.result;
-            //       this.slidermodel.slider_images.map((i, x) => {
-            //         const img_url = i.product_image_url;
-            //         const img_url_arr = img_url.split('/');
-            //         i.product_image_name = img_url_arr[img_url_arr.length - 1];
-            //         i.product_image_url = i.product_image_url + '?v' + (new Date().getTime().toString());
-            //         return i;
-            //       });
-            //     }
-            //   });
-            }
-          });
-      }
+      formData.set('active', this.slidermodel.active ? '1' : '0');
+      const type = 'slider-' + this.slidermodel.image_id;
+      this.blockui.start('content');
+      this.sliderModelService.saveImage(type, formData)
+        .subscribe((data: any) => {
+          this.onAlert.emit(this.getAlert(data));
+          if (data.success) {
+            this.sliderImageUrl = [];
+            this.slidermodel.image_url = this.slidermodel.image_url + '?v' + (new Date().getTime().toString());
+          }
+          this.blockui.stop('content');
+        });
     }
   }
 
@@ -138,7 +118,4 @@ export class SliderFormComponent implements OnInit, AfterViewChecked {
       'mode': mode
     }
   }
-
-
-  
 }

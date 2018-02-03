@@ -19,30 +19,29 @@ declare var $: any;
   styles: []
 })
 export class BannerModelsComponent implements OnInit {
-
   bannermodels: any = [];
-  	@Output() onAlert: EventEmitter<any> = new EventEmitter();
+  @Output() onAlert: EventEmitter<any> = new EventEmitter();
 
-	constructor(
-	private route: ActivatedRoute,
-	private router: Router,
-	private blockui: BlockUIService,
-	private sliderModelService: SliderModelService,
-	private notificationService: NotificationService
-	) {}
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private blockui: BlockUIService,
+    private sliderModelService: SliderModelService,
+    private notificationService: NotificationService
+  ) {}
 
-	ngOnInit() {
+  ngOnInit() {
+    this.blockui.start('content');
+    this.sliderModelService.getImages('BANNERS')
+      .subscribe(( bannermodels: any ) => {
+        if (bannermodels.success) {
+          this.bannermodels = bannermodels.result;
+        }
+        this.blockui.stop('content');
+      });
+  }
 
-	  this.sliderModelService.getImages('BANNERS').subscribe(( bannermodels: any ) => {
-	  if (bannermodels.success) {
-	  	console.log(bannermodels);
-	    this.bannermodels = bannermodels.result;
-	  }
-	});
-	}
-
-	printAlert(alert) {
+  printAlert(alert) {
     this.onAlert.emit(alert);
-  	}
-
+  }
 }

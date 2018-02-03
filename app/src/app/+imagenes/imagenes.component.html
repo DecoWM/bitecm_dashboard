@@ -13,50 +13,49 @@
 
   <!-- widget grid -->
   <sa-widget [editbutton]="false" [custombutton]="false">
+    <header>
+      <span class="widget-icon">
+        <i class="glyphicon glyphicon-picture txt-color-darken"></i>
+      </span>
+      
+      <h2>Imágenes</h2>
 
-            <header>
-              <span class="widget-icon">
-                <i class="glyphicon glyphicon-picture txt-color-darken"></i>
-              </span>
-              
-              <h2>Imágenes </h2>
+      <ul class="nav nav-tabs pull-right in" id="myTab">
+        <li [class.active]="active == 'tab-r1'">
+          <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Slider Principal</span></a>
+        </li>
 
-              <ul class="nav nav-tabs pull-right in" id="myTab">
-                <li [class.active]="active == 'tab-r1'">
-                  <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Slider Principal</span></a>
-                </li>
+        <li [class.active]="active == 'tab-r2'">
+          <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Imágenes Home</span></a>
+        </li>
 
-                <li [class.active]="active == 'tab-r2'">
-                  <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Imágenes Home</span></a>
-                </li>
+        <li [class.active]="active == 'tab-r3'">
+          <a (click)="active = 'tab-r3'"><span class="hidden-mobile hidden-tablet">Banners</span></a>
+        </li>
+      </ul>
+    </header>
 
-                <li [class.active]="active == 'tab-r3'">
-                  <a (click)="active = 'tab-r3'"><span class="hidden-mobile hidden-tablet">Banners</span></a>
-                </li>
-              </ul>
-            </header>
-
-            <!-- widget div-->
-            <div>
-              <!-- widget content -->
-              <div class="no-padding widget-body">
-                
-                <tabset>
-                  <tab [active]="active == 'tab-r1'">
-                    <!-- STOCK MODEL CODES -->
-                    <slider-models  (onAlert)="printAlert($event)"></slider-models>
-                  </tab>
-                  <tab [active]="active == 'tab-r2'">
-                    <!--HOME  -->
-                    <home-models (onAlert)="printAlert($event)"></home-models>
-                  </tab>
-                  <tab [active]="active == 'tab-r3'">
-                    <!--HOME  -->
-                    <banner-models (onAlert)="printAlert($event)"></banner-models>
-                  </tab>
-                </tabset>
-              
-              </div>
-            </div>
-          </sa-widget>
+    <!-- widget div-->
+    <div>
+      <!-- widget content -->
+      <div class="no-padding widget-body">
+        
+        <tabset>
+          <tab [active]="active == 'tab-r1'">
+            <!-- STOCK MODEL CODES -->
+            <slider-models (onAlert)="printAlert($event)"></slider-models>
+          </tab>
+          <tab [active]="active == 'tab-r2'">
+            <!--HOME  -->
+            <home-models (onAlert)="printAlert($event)"></home-models>
+          </tab>
+          <tab [active]="active == 'tab-r3'">
+            <!--HOME  -->
+            <banner-models (onAlert)="printAlert($event)"></banner-models>
+          </tab>
+        </tabset>
+      
+      </div>
+    </div>
+  </sa-widget>
 </div>

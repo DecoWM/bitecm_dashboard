@@ -62,7 +62,6 @@ export class OrdenesComponent implements OnInit {
       console.log('Nueva orden #' + event.order_id);
       self.ordenesService.getOrdenSimple(event.order_id)
       .subscribe((data: any) => {
-        console.log(data);
         if (data.success) {
           const orden = data.result;
           self.ordenes.unshift({

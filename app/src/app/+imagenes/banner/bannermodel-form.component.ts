@@ -5,7 +5,6 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-
 import { SliderModelService } from './../slidermodel.service';
 import { NotificationService } from '../../shared/utils/notification.service';
 
@@ -19,7 +18,6 @@ declare var $: any;
   styles: []
 })
 export class BannerModelFormComponent implements OnInit, AfterViewChecked {
-  
   @Input() bannermodel: any = {
     image_id: null,
     image_name: null,
@@ -35,7 +33,6 @@ export class BannerModelFormComponent implements OnInit, AfterViewChecked {
 
   bannerImageUrl: any = [];
 
-
   validationOptions = {
     rules: {
       slider_link : {
@@ -49,7 +46,6 @@ export class BannerModelFormComponent implements OnInit, AfterViewChecked {
     }
   };
 
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -62,8 +58,8 @@ export class BannerModelFormComponent implements OnInit, AfterViewChecked {
     if (this.bannermodel.active === null) {
       this.bannermodel.active = false;
     }
-
-    this.bannermodel.image_demo = this.bannermodel.image_demo.replace('rutademo', 'images//banner-demo-' + this.bannermodel.image_id+ '.png');
+    this.bannermodel.image_demo = this.bannermodel.image_demo
+      .replace('rutademo', 'images/banner-demo-' + this.bannermodel.image_id + '.png');
     this.bannerImageUrl = [];
   }
 
@@ -93,36 +89,19 @@ export class BannerModelFormComponent implements OnInit, AfterViewChecked {
       if (!this.bannerImageUrl.length) {
         formData.delete('slider_images[]');
       }
-      if (this.bannermodel.stock_model_id) {
-
-      } else {
-
-        //formData.set('active', this.homemodel.active ? '1' : '0');
-        formData.set('active', '1');
-        const type = 'banner-' + this.bannermodel.image_id;
-        this.sliderModelService.saveImage(type, formData)
-          .subscribe((data: any) => {
-            this.onAlert.emit(this.getAlert(data));
-            if (data.success) {
-              this.bannerImageUrl = [];
-              this.bannermodel.image_url = this.bannermodel.image_url + '?v' + (new Date().getTime().toString());
-              
-            // this.sliderModelService.getImage(data.id)
-            //   .subscribe((smc: any) => {
-            //     if (smc.success) {
-            //       this.slidermodel = smc.result;
-            //       this.slidermodel.slider_images.map((i, x) => {
-            //         const img_url = i.product_image_url;
-            //         const img_url_arr = img_url.split('/');
-            //         i.product_image_name = img_url_arr[img_url_arr.length - 1];
-            //         i.product_image_url = i.product_image_url + '?v' + (new Date().getTime().toString());
-            //         return i;
-            //       });
-            //     }
-            //   });
-            }
-          });
-      }
+      // formData.set('active', this.homemodel.active ? '1' : '0');
+      formData.set('active', '1');
+      const type = 'banner-' + this.bannermodel.image_id;
+      this.blockui.start('content');
+      this.sliderModelService.saveImage(type, formData)
+        .subscribe((data: any) => {
+          this.onAlert.emit(this.getAlert(data));
+          if (data.success) {
+            this.bannerImageUrl = [];
+            this.bannermodel.image_url = this.bannermodel.image_url + '?v' + (new Date().getTime().toString());
+          }
+          this.blockui.stop('content');
+        });
     }
   }
 
@@ -143,5 +122,4 @@ export class BannerModelFormComponent implements OnInit, AfterViewChecked {
       'mode': mode
     }
   }
-  
 }

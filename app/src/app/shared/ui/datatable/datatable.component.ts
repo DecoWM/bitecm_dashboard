@@ -21,7 +21,6 @@ declare var moment: any;
   ]
 })
 export class DatatableComponent implements OnInit {
-
   @Input() public options: any;
   @Input() public filter: any;
   @Input() public detailsFormat: any;
@@ -110,10 +109,12 @@ export class DatatableComponent implements OnInit {
       }
     });
 
+    $.fn.dataTable.ext.search = [];
+
     if (!this.dateRangeOptions) {
       this.dateRangeOptions = [];
     }
-    if (this.dateRangeOptions && !(this.dateRangeOptions instanceof Array)) {
+    if (!(this.dateRangeOptions instanceof Array)) {
       this.dateRangeOptions = [this.dateRangeOptions];
     }
     this.dateRangeOptions.forEach((opt, ix) => {

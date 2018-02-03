@@ -19,29 +19,28 @@ declare var $: any;
   styles: []
 })
 export class SliderModelsComponent implements OnInit {
-	
-	slidermodels: any = [];
-	@Output() onAlert: EventEmitter<any> = new EventEmitter();
+  slidermodels: any = [];
+  @Output() onAlert: EventEmitter<any> = new EventEmitter();
 
-	constructor(
-	private route: ActivatedRoute,
-	private router: Router,
-	private blockui: BlockUIService,
-	private sliderModelService: SliderModelService,
-	private notificationService: NotificationService
-	) {}
+  constructor(
+  private route: ActivatedRoute,
+  private router: Router,
+  private blockui: BlockUIService,
+  private sliderModelService: SliderModelService,
+  private notificationService: NotificationService
+  ) {}
 
-	ngOnInit() {
+  ngOnInit() {
+    this.blockui.start('content');
+    this.sliderModelService.getImages('SLIDER').subscribe(( slidermodels: any ) => {
+      if (slidermodels.success) {
+        this.slidermodels = slidermodels.result;
+      }
+      this.blockui.stop('content');
+    });
+  }
 
-	  this.sliderModelService.getImages('SLIDER').subscribe(( slidermodels: any ) => {
-	  if (slidermodels.success) {
-	    this.slidermodels = slidermodels.result;
-	  }
-	});
-	}
-
-  	printAlert(alert) {
+  printAlert(alert) {
     this.onAlert.emit(alert);
-  	}
-
+  }
 }

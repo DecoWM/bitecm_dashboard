@@ -74,10 +74,6 @@ export class MiniGeneralOrdersComponent implements OnInit {
     this.onDateChanged.emit();
   }
 
-  valuesChanged(event) { console.log('values changed');
-    this.onDateChanged.emit();
-  }
-
   getAlert(data, title_mode): any {
     let mode, title, message = '';
     if (data.success) {
