@@ -1,0 +1,5 @@
+<div>
+  <div *ngFor="let imagen of imagenes" class="padding-10 margin-top-10">
+    <imagen-form [imagen]="imagen" (onAlert)="printAlert($event)"></imagen-form>
+  </div>
+</div>

@@ -5,8 +5,8 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { SliderModelService } from './../slidermodel.service';
-import { NotificationService } from '../../shared/utils/notification.service';
+import { ImagenesService } from './imagenes.service';
+import { NotificationService } from '../shared/utils/notification.service';
 
 import { ModalDirective } from 'ngx-bootstrap';
 import { BlockUIService } from 'ng-block-ui';
@@ -14,30 +14,34 @@ import { BlockUIService } from 'ng-block-ui';
 declare var $: any;
 
 @Component({
-  selector: 'home-models',
-  templateUrl: './homemodels.component.html',
+  selector: 'imagenes-bytype',
+  templateUrl: './imagenes-bytype.component.html',
   styles: []
 })
-export class HomeModelsComponent implements OnInit {
-  homemodels: any = [];
+export class ImagenesByTypeComponent implements OnInit {
+  imagenes: any = [];
+  @Input() type: any = null;
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
-    private sliderModelService: SliderModelService,
+    private imagenesService: ImagenesService,
     private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
-    this.blockui.start('content');
-    this.sliderModelService.getImages('HOME').subscribe(( homemodels: any ) => {
-      if (homemodels.success) {
-        this.homemodels = homemodels.result;
-      }
-      this.blockui.stop('content');
-    });
+    if (this.type) {
+      this.blockui.start('content');
+      this.imagenesService.getImages(this.type)
+        .subscribe((imagenes: any) => {
+          if (imagenes.success) {
+            this.imagenes = imagenes.result;
+          }
+          this.blockui.stop('content');
+        });
+    }
   }
 
   printAlert(alert) {

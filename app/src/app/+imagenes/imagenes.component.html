@@ -1,7 +1,7 @@
 <!-- MAIN CONTENT -->
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="[' Importación de Imágenes']" icon="sign-in" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="[' Administración de Imágenes']" icon="sign-in" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
   </div>
 
   <ng-container *ngIf="alert">
@@ -42,16 +42,16 @@
         
         <tabset>
           <tab [active]="active == 'tab-r1'">
-            <!-- STOCK MODEL CODES -->
-            <slider-models (onAlert)="printAlert($event)"></slider-models>
+            <!-- SLIDERS -->
+            <imagenes-bytype [type]="'SLIDER'" (onAlert)="printAlert($event)"></imagenes-bytype>
           </tab>
           <tab [active]="active == 'tab-r2'">
-            <!--HOME  -->
-            <home-models (onAlert)="printAlert($event)"></home-models>
+            <!-- HOME -->
+            <imagenes-bytype [type]="'HOME'" (onAlert)="printAlert($event)"></imagenes-bytype>
           </tab>
           <tab [active]="active == 'tab-r3'">
-            <!--HOME  -->
-            <banner-models (onAlert)="printAlert($event)"></banner-models>
+            <!-- BANNERS -->
+            <imagenes-bytype [type]="'BANNERS'" (onAlert)="printAlert($event)"></imagenes-bytype>
           </tab>
         </tabset>
       

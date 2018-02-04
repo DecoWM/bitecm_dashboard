@@ -20,7 +20,12 @@ export class SliderModelService {
 
   saveImage(type, formData) {
     return this.http
-      .post(this.getUrl([type]),formData);
+      .post(this.getUrl([type]), formData);
+  }
+
+  updateImage(image_id, formData) {
+    return this.http
+      .post(this.getUrl(image_id), formData);
   }
 
   getImages(type) {

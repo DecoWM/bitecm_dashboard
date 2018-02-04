@@ -237,8 +237,11 @@ class ProductController extends ApiController
           $prefix = "productos";
           $extension = $request->file('product_image')->guessExtension();
           $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product->product_slug.'.'.$extension, 'public');
-          $data = array_add($data, 'product_image_url',$product_image_path);
+          $data = array_add($data, 'product_image_url', $product_image_path);
+          $product_image_path = asset(Storage::url($image_data['product_image_url']));
         }
+      } else {
+        $product_image_path = null;
       }
 
       //Insert
@@ -258,6 +261,7 @@ class ProductController extends ApiController
 
       return response()->json([
         'result' => 'Producto actualizado correctamente.',
+        'product_image_url' => $product_image_path,
         'success' => true
       ]);
     }

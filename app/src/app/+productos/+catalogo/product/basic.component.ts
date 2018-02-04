@@ -133,7 +133,9 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
           this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
           if (data.success && formData.has('product_image')) {
             this.productImageUrl = '';
-            this.product.product_image_url = this.product.product_image_url + '?v' + (new Date().getTime().toString());
+            if (data.product_image_url) {
+              this.product.product_image_url = data.product_image_url + '?v' + (new Date().getTime().toString());  
+            }
           }
           this.blockui.stop('content');
         }, (error) => {

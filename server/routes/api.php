@@ -54,15 +54,12 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	// IMAGES //
 	/////////////
 
-	Route::prefix('images')->group(function() {
-
+	Route::prefix('imagenes')->group(function() {
 		//Slider
-		//Route::get('{image_id}', 'ImageController@listStockModelCode');
-		Route::post('{type}', 'ImageController@storeImage');
+		Route::post('', 'ImageController@storeImage');
+		Route::put('{id}', 'ImageController@updateImage');
 
 		Route::get('{type}', 'ImageController@listImages');
-		//Route::post('{type}', 'ImageController@storeStockModelCode');
-
 	});
 
 	/////////////

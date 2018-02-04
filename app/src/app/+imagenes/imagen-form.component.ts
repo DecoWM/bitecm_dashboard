@@ -5,41 +5,42 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { SliderModelService } from './../slidermodel.service';
-import { NotificationService } from '../../shared/utils/notification.service';
+import { ImagenesService } from './imagenes.service';
+import { NotificationService } from '../shared/utils/notification.service';
 
 import { BlockUIService } from 'ng-block-ui';
 
 declare var $: any;
 
 @Component({
-  selector: 'slider-form',
-  templateUrl: './slider-form.component.html',
+  selector: 'imagen-form',
+  templateUrl: './imagen-form.component.html',
   styles: []
 })
-export class SliderFormComponent implements OnInit, AfterViewChecked {
-  @Input() slidermodel: any = {
+export class ImagenFormComponent implements OnInit, AfterViewChecked {
+  @Input() imagen: any = {
     image_id: null,
     image_name: null,
     image_description: null,
     image_url: null,
+    image_demo: null,
     image_link: null,
     active: null
   };
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
-  @ViewChild('formSlider') formSliderModel;
+  @ViewChild('formImagen') formImagen;
   formValidate: any;
 
-  sliderImageUrl: any = [];
+  imagenUrl = '';
 
   validationOptions = {
     rules: {
-      slider_link : {
+      image_link : {
         required : true
       }
     },
     messages : {
-      slider_link : {
+      image_link : {
         required : 'Debes ingresar un link'
       }
     }
@@ -49,15 +50,15 @@ export class SliderFormComponent implements OnInit, AfterViewChecked {
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
-    private sliderModelService: SliderModelService,
+    private imagenesService: ImagenesService,
     private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
-    if (this.slidermodel.active === null) {
-      this.slidermodel.active = false;
+    if (this.imagen.active === null) {
+      this.imagen.active = '';
     }
-    this.sliderImageUrl = [];
+    this.imagenUrl = '';
   }
 
   ngAfterViewChecked() {}
@@ -74,27 +75,27 @@ export class SliderFormComponent implements OnInit, AfterViewChecked {
     $(event.currentTarget).blur();
   }
 
-  changeFilename(event, ix) {
+  changeFilename(event) {
     const uploadedFiles = event.target.files;
-    this.sliderImageUrl[ix] = uploadedFiles[0].name;
+    this.imagenUrl = uploadedFiles[0].name;
   }
 
   save(e) {
-    const formData = new FormData(document.forms
-      .namedItem('form-slider-' + this.slidermodel.image_id + (this.slidermodel.slider_model_id ? this.slidermodel.slider_model_id : '')));
-    if (this.formSliderModel.dirty || (formData.has('slider_images[]') && this.sliderImageUrl.length)) {
-      if (!this.sliderImageUrl.length) {
-        formData.delete('slider_images[]');
+    const formData = new FormData(document.forms.namedItem('form-imagen' + this.imagen.image_id));
+    if (this.formImagen.dirty || (formData.has('image_file') && this.imagenUrl.length)) {
+      if (!this.imagenUrl.length) {
+        formData.delete('image_file');
       }
-      formData.set('active', this.slidermodel.active ? '1' : '0');
-      const type = 'slider-' + this.slidermodel.image_id;
+      formData.set('active', this.imagen.active ? '1' : '0');
       this.blockui.start('content');
-      this.sliderModelService.saveImage(type, formData)
+      this.imagenesService.updateImage(this.imagen.image_id, formData)
         .subscribe((data: any) => {
           this.onAlert.emit(this.getAlert(data));
           if (data.success) {
-            this.sliderImageUrl = [];
-            this.slidermodel.image_url = this.slidermodel.image_url + '?v' + (new Date().getTime().toString());
+            this.imagenUrl = '';
+            if (data.image_url) {
+              this.imagen.image_url = data.image_url + '?v' + (new Date().getTime().toString());
+            }
           }
           this.blockui.stop('content');
         });

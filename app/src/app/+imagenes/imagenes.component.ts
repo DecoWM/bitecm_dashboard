@@ -18,14 +18,16 @@ import { BlockUIService } from 'ng-block-ui';
 export class ImagenesComponent implements OnInit {
   alert: any = null;
   active: any = null;
-  
+  sliders: any = [];
+  home_images: any = [];
+  banners: any = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
     private notificationService: NotificationService,
-    private imagesService: ImagenesService
+    private imagenesService: ImagenesService
   ) {}
 
   ngOnInit() {
@@ -33,24 +35,7 @@ export class ImagenesComponent implements OnInit {
     this.active = 'tab-r1';
   }
 
-  getAlert(data): any {
-    let mode, title;
-    if (data.success) {
-      mode = 'success';
-      title = 'Completada';
-    } else {
-      mode = 'danger';
-      title = 'Fallida';
-    }
-    return {
-      'title': title,
-      'message': data.result,
-      'mode': mode
-    }
-  }
-
   printAlert(alert): void {
-
     if (!alert) {
       alert = [];
     }

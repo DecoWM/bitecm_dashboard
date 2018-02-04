@@ -27,7 +27,7 @@
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
                       Reporte General de Ordenes
                     </header>
-                    <form #formGeneralOrders="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralOrders($event)" name="form-general-orders">
+                    <form #formGeneralOrders="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralOrders($event)" name="form-general-orders" autocomplete="off">
                       <div class="detalle-registro row padding-row">
                         <div class="col col-sm-4">
                           <div class="form-group">
@@ -87,7 +87,7 @@
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
                       Reporte General de Ventas
                     </header>
-                    <form #formGeneralSales="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralSales($event)" name="form-general-sales">
+                    <form #formGeneralSales="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralSales($event)" name="form-general-sales" autocomplete="off">
                       <div class="detalle-registro row padding-row">
                         <div class="col col-sm-4">
                           <div class="form-group">
@@ -147,7 +147,7 @@
                       <i class="icon-prepend fa fa-exclamation-circle"></i>
                       Reporte de Productos mas Vendidos
                     </header>
-                    <form #formBestSellers="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportBestSellers($event)" name="form-best-sellers">
+                    <form #formBestSellers="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportBestSellers($event)" name="form-best-sellers" autocomplete="off">
                       <div class="detalle-registro row padding-row">
                         <div class="col col-sm-4">
                           <div class="form-group">
