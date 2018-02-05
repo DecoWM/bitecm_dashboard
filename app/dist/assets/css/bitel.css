@@ -491,9 +491,9 @@ nav ul li a:active{
   max-width: 100%;
 }
 
-i.icon-append {
+product-specs i.icon-append {
     color: #666;
-    font-size: 11px !important;
+    font-size: 10px !important;
     /* font-weight: bold; */
     font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
 }
