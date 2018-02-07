@@ -32,7 +32,8 @@ export class PostpagoFormComponent implements OnInit, AfterViewChecked {
   validationOptions = {
     rules: {
       product_variation_price : {
-        required : true
+        required : true,
+        number: true
       },
       promo_price: {
         number: true
@@ -43,7 +44,8 @@ export class PostpagoFormComponent implements OnInit, AfterViewChecked {
     },
     messages : {
       product_variation_price : {
-        required : 'Debes ingresar un precio para la variación'
+        required : 'Debes ingresar un precio para la variación',
+        number: 'Debes colocar un número'
       },
       promo_price: {
         number: 'Debes colocar un número'
