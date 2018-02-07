@@ -58,7 +58,7 @@
       </tr>
       <tr>
         <td style="vertical-align: top;"><img src="{{config('app.mail_url')}}/images/email/icon-email.png" width="8px" alt="icon" style="margin-right: 9px"></td>
-        <td>ingresa al siguiente link: https://tienda.bitel.com.pe/terminosycondiciones</td>
+        <td>Ingresa al siguiente link: https://tienda.bitel.com.pe/terminosycondiciones</td>
       </tr>
       <tr>
         <td style="vertical-align: top;"><img src="{{config('app.mail_url')}}/images/email/icon-email.png" width="8px" alt="icon" style="margin-right: 9px"></td>

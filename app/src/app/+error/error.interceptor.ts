@@ -22,12 +22,16 @@ export class ErrorInterceptor implements HttpInterceptor {
       .map(event => {
         // console.log(event);
         if (event instanceof HttpResponse) {
+          console.log(event);
           if (!event.ok) {
             this.router.navigate(['/error', event.status]);
-            return null;
           } else {
-            return event;
+            if (event.body.message === 'Token has expired') {
+              auth.logout();
+              this.router.navigate(['/auth/login']);
+            }
           }
+          return event;
         }
       })
       .catch(error => {
