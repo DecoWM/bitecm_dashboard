@@ -22,7 +22,7 @@
 
       <ul class="nav nav-tabs pull-right in" id="myTab">
         <li [class.active]="active == 'tab-r1'">
-          <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Slider Principal</span></a>
+          <a (click)="active = 'tab-r1'"><span c  lass="hidden-mobile hidden-tablet">Slider Principal</span></a>
         </li>
 
         <li [class.active]="active == 'tab-r2'">
@@ -43,7 +43,9 @@
         <tabset>
           <tab [active]="active == 'tab-r1'">
             <!-- SLIDERS -->
+            <!-- <imagenes-tabfox [type]="'SLIDER'" (onAlert)="printAlert($event)"></imagenes-tabfox> -->
             <imagenes-bytype [type]="'SLIDER'" (onAlert)="printAlert($event)"></imagenes-bytype>
+            <!-- <imagenes-bytype [type]="'SLIDERM'" (onAlert)="printAlert($event)"></imagenes-bytype> -->
           </tab>
           <tab [active]="active == 'tab-r2'">
             <!-- HOME -->
@@ -57,5 +59,6 @@
       
       </div>
     </div>
+
   </sa-widget>
 </div>

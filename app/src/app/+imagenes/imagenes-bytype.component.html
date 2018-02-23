@@ -1,5 +1,27 @@
 <div>
   <div *ngFor="let imagen of imagenes" class="padding-10 margin-top-10">
-    <imagen-form [imagen]="imagen" (onAlert)="printAlert($event)"></imagen-form>
+
+  		<!-- <sa-widget [editbutton]="false" [custombutton]="false">
+	<header>
+      <span class="widget-icon">
+        <i class="glyphicon glyphicon-picture txt-color-darken"></i>
+      </span>
+      
+      <h2>Imágenes</h2>
+	    <ul class="nav nav-tabs pull-right in" id="myTab">
+        <li [class.active]="active == 'tab-r1'">
+          <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Web</span></a>
+        </li>
+
+        <li [class.active]="active == 'tab-r2'">
+          <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Movil</span></a>
+        </li>
+
+      </ul>
+	</header>
+     </sa-widget> -->
+
+    <imagen-form [imagen]="imagen" (onAlert)="printAlert($event)"></imagen-form> 
+
   </div>
 </div>

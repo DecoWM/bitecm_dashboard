@@ -23,6 +23,7 @@ export class ImagenFormComponent implements OnInit, AfterViewChecked {
     image_name: null,
     image_description: null,
     image_url: null,
+    imagem_url: null,
     image_demo: null,
     image_link: null,
     active: null
@@ -32,6 +33,7 @@ export class ImagenFormComponent implements OnInit, AfterViewChecked {
   formValidate: any;
 
   imagenUrl = '';
+  imagenmUrl = '';
 
   validationOptions = {
     rules: {
@@ -59,6 +61,7 @@ export class ImagenFormComponent implements OnInit, AfterViewChecked {
       this.imagen.active = '';
     }
     this.imagenUrl = '';
+    this.imagenmUrl = '';
   }
 
   ngAfterViewChecked() {}
@@ -75,9 +78,14 @@ export class ImagenFormComponent implements OnInit, AfterViewChecked {
     $(event.currentTarget).blur();
   }
 
-  changeFilename(event) {
+  changeFilenameW(event) {
     const uploadedFiles = event.target.files;
     this.imagenUrl = uploadedFiles[0].name;
+  }
+
+  changeFilenameM(event) {
+    const uploadedFiles = event.target.files;
+    this.imagenmUrl = uploadedFiles[0].name;
   }
 
   save(e) {
@@ -100,6 +108,26 @@ export class ImagenFormComponent implements OnInit, AfterViewChecked {
           this.blockui.stop('content');
         });
     }
+    
+    if (this.formImagen.dirty || (formData.has('imagem_file') && this.imagenmUrl.length)) {
+      if (!this.imagenmUrl.length) {
+        formData.delete('imagem_file');
+      }
+      formData.set('active', this.imagen.active ? '1' : '0');
+      this.blockui.start('content');
+      this.imagenesService.updateImage(this.imagen.image_id, formData)
+        .subscribe((data: any) => {
+          this.onAlert.emit(this.getAlert(data));
+          if (data.success) {
+            this.imagenmUrl = '';
+            if (data.imagem_url) {
+              this.imagen.imagem_url = data.imagem_url + '?v' + (new Date().getTime().toString());
+            }
+          }
+          this.blockui.stop('content');
+        });
+    }
+
   }
 
   getAlert(result): any {

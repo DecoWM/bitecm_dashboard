@@ -1,0 +1,44 @@
+<div>
+  <div *ngFor="let imagen of imagenes" class="padding-10 margin-top-10">
+
+	<sa-widget [editbutton]="false" [custombutton]="false">
+	<header>
+      <span class="widget-icon">
+        <i class="glyphicon glyphicon-picture txt-color-darken"></i>
+      </span>
+      
+      <h2>Imágenes</h2>
+	    <ul class="nav nav-tabs pull-right in">
+        <li [class.active]="active == 'tab-r1'" id="1{{imagen.image_id}}">
+          <a (click)="active = 'tab-r1'"><span class="hidden-mobile hidden-tablet">Web</span></a>
+        </li>
+
+        <li [class.active]="active == 'tab-r2'" id="2{{imagen.image_id}}">
+          <a (click)="active = 'tab-r2'"><span class="hidden-mobile hidden-tablet">Movil</span></a>
+        </li>
+
+      </ul>
+	</header>
+	
+	<div>
+      <!-- widget content -->
+      <div class="no-padding widget-body">
+        
+        <tabset>
+          <tab [active]="active == 'tab-r1'" id="1{{imagen.image_id}}">
+            <!-- SLIDERS -->
+            <imagenes-bytype [type]="'SLIDER'" (onAlert)="printAlert($event)"></imagenes-bytype>
+          </tab>
+          <tab [active]="active == 'tab-r2'" id="2{{imagen.image_id}}">
+            <!-- HOME -->
+            <imagenes-bytype [type]="'HOME'" (onAlert)="printAlert($event)"></imagenes-bytype>
+          </tab>
+        </tabset>
+      
+      </div>
+    </div>
+
+    </sa-widget>
+
+  </div>
+</div>

@@ -9,6 +9,7 @@ import { FormContainerModule } from '../shared/forms/custom/form-container/form-
 import { Select2Module } from '../shared/forms/input/select2/select2.module';
 import { ImagenFormComponent } from './imagen-form.component';
 import { ImagenesByTypeComponent } from './imagenes-bytype.component';
+import { ImagenesTabFoxComponent } from './imagenes-tabfox.component';
 import { ImagenesComponent } from './imagenes.component';
 
 import { ImagenesService } from './imagenes.service';
@@ -16,6 +17,7 @@ import { ImagenesService } from './imagenes.service';
 @NgModule({
     declarations: [
         ImagenesComponent,
+        ImagenesTabFoxComponent,
         ImagenesByTypeComponent,
         ImagenFormComponent
     ],
