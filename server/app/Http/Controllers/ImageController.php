@@ -35,39 +35,39 @@ class ImageController extends ApiController
     ];
 
     if ($request->hasFile('image_file') && $request->file('image_file')->isValid()) {
-      error_log('entro11'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+      // error_log('entro11'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
       $prefix = "images";
       $extension = $request->file('image_file')->guessExtension();
-      error_log('entro12:'.$extension."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+      // error_log('entro12:'.$extension."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
       $image_data['image_url'] = $request->file('image_file')->storeAs($prefix, $image_name.'.'.$extension, 'public');
-      error_log('entro13'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+      // error_log('entro13'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
       $image_url = asset(Storage::url($image_data['image_url']));
     } else {
       $image_url = null;
     }
 
-    $cadena = $image_id.'-'.$image_name.'-'. $image_link.'-'.$active.'-'.$extension;
-    error_log($cadena."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+    // $cadena = $image_id.'-'.$image_name.'-'. $image_link.'-'.$active.'-'.$extension;
+    // error_log($cadena."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
 
     //----------------------------------
     // CLES 23-02-2018
     // subir imagen para los moviles
     //----------------------------------
     if ($request->hasFile('imagem_file') && $request->file('imagem_file')->isValid()) {
-      error_log('entro21'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+      // error_log('entro21'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
       $prefix = "images";
       $extension = $request->file('imagem_file')->guessExtension();
-      error_log('entro22'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+      // error_log('entro22'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
       $image_data['imagem_url'] = $request->file('imagem_file')->storeAs($prefix, 'm'.$image_name.'.'.$extension, 'public');
-      error_log('entro23'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+      // error_log('entro23'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
       $imagem_url = asset(Storage::url($image_data['imagem_url']));
     } else {
       $imagem_url = null;
     }
     //----------------------------------
 
-    $cadena = $image_id.'-'.$image_name.'-'. $image_link.'-'.$active.'-'.$extension;
-    error_log($cadena."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+    // $cadena = $image_id.'-'.$image_name.'-'. $image_link.'-'.$active.'-'.$extension;
+    // error_log($cadena."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
 
     $image_description = DB::table('tbl_image')
       ->where('image_id', $image_id)
