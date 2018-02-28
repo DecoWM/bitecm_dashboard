@@ -8,8 +8,9 @@ import { SmartadminInputModule } from '../shared/forms/input/smartadmin-input.mo
 import { FormContainerModule } from '../shared/forms/custom/form-container/form-container.module';
 import { Select2Module } from '../shared/forms/input/select2/select2.module';
 import { ImagenFormComponent } from './imagen-form.component';
+import { ImagenFormHomeComponent } from './imagen-formHome.component';
 import { ImagenesByTypeComponent } from './imagenes-bytype.component';
-import { ImagenesTabFoxComponent } from './imagenes-tabfox.component';
+import { ImagenesByTypeHomeComponent } from './imagenes-bytypehome.component';
 import { ImagenesComponent } from './imagenes.component';
 
 import { ImagenesService } from './imagenes.service';
@@ -17,8 +18,9 @@ import { ImagenesService } from './imagenes.service';
 @NgModule({
     declarations: [
         ImagenesComponent,
-        ImagenesTabFoxComponent,
         ImagenesByTypeComponent,
+        ImagenesByTypeHomeComponent,
+        ImagenFormHomeComponent,
         ImagenFormComponent
     ],
     imports: [

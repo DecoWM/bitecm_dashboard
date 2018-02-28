@@ -14,26 +14,11 @@
               <section class="col col-sm-9">
                 <div class="input input-file">
                   <span class="button">
-                    <input id="image_file" name="image_file" type="file" (change)="changeFilenameW($event)">Subir
+                    <input id="image_file" name="image_file" type="file" (change)="changeFilename($event)">Subir
                   </span>
                   <input type="text" placeholder="Nueva imagen" value="{{imagenUrl}}" readonly>
                 </div>
               </section>
-
-              <!-- CLES 23-02-2018-->
-              <section class="col col-sm-3">
-                <label for="imagem_file">Imagen Móvil</label>
-              </section>
-              <section class="col col-sm-9">
-                <div class="input input-file">
-                  <span class="button">
-                    <input id="imagem_file" name="imagem_file" type="file" (change)="changeFilenameM($event)">Subir
-                  </span>
-                  <input type="text" placeholder="Nueva imagen" value="{{imagenmUrl}}" readonly>
-                </div>
-              </section>
-              <!--  -->
-              
               <section class="col col-sm-3">
                 <label for="image_link">Link</label>
               </section>
