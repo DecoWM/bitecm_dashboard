@@ -9,6 +9,7 @@ import { FormContainerModule } from '../shared/forms/custom/form-container/form-
 import { Select2Module } from '../shared/forms/input/select2/select2.module';
 import { ImagenFormComponent } from './imagen-form.component';
 import { ImagenFormHomeComponent } from './imagen-formHome.component';
+import { ImagenesTabFoxComponent } from './imagenes-tabfox.component';
 import { ImagenesByTypeComponent } from './imagenes-bytype.component';
 import { ImagenesByTypeHomeComponent } from './imagenes-bytypehome.component';
 import { ImagenesComponent } from './imagenes.component';
@@ -20,6 +21,7 @@ import { ImagenesService } from './imagenes.service';
         ImagenesComponent,
         ImagenesByTypeComponent,
         ImagenesByTypeHomeComponent,
+        ImagenesTabFoxComponent,
         ImagenFormHomeComponent,
         ImagenFormComponent
     ],
