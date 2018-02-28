@@ -63,22 +63,25 @@
               <img src="{{imagen.image_url}}" style="max-width: 100%; max-height: 100%">
             </div>
           </section>
-          <!-- SLIDER-->
+          <!-- SLIDER WEB-->
           <section *ngIf="!imagen.image_demo" class="col col-sm-3 text-center">
             <div style="width: 100%; height: 110px; text-align: center">
               <img src="{{imagen.image_url}}" style="max-width: 100%; max-height: 100%">
             </div>
           </section>
-          <!-- SLIDERM CLES 23-02-2018-->
+          <!-- SLIDER MOBILE CLES 23-02-2018-->
           <section *ngIf="!imagen.image_demo" class="col col-sm-3 text-center">
             <div style="width: 100%; height: 110px; text-align: center">
               <img src="{{imagen.imagem_url}}" style="max-width: 100%; max-height: 100%">
             </div>
           </section>
           <!-- HOME-->
-          <section *ngIf="imagen.image_demo" class="col col-sm-3 text-center">
+          <!-- <section *ngIf="imagen.image_demo" class="col col-sm-3 text-center">
             <img src="{{imagen.image_demo}}" width="120" height="180">
-          </section>          
+          </section>  -->   
+          <section *ngIf="imagen.image_demo" class="col col-sm-3 text-center">
+            <img src="{{imagen.imagem_url}}" width="120" height="180">
+          </section>       
         </div>
       </div>
     </div>
