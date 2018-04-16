@@ -1,0 +1,175 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Información Básica
+          </header>
+          <form #formBasic="ngForm" #form class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-basic">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-7">
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="product_name">Nombre</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="input">
+                      <input id="product_name" name="product_name" type="text" value="{{product.plan_name}}">
+                    </div>
+                  </section>
+                </div>
+                 <div class="row">
+                  <section class="col col-xs-5 col-sm-4">
+                    <label for="variation_type_id">Modalidad</label>
+                  </section>
+                  <section class="col col-xs-7 col-sm-8">
+                    <div class="select" [class.state-disabled]="product.plan_id">
+                      <select [attr.disabled]="product.plan_id ? 'disabled' : null"  name="variation_type_id" id="variation_type_id" [(ngModel)]="product.variation_type_id" (change)="onSelectChange($event)">
+                        <option value="">Seleccionar modalidad</option>
+                        <option *ngFor="let item of variations" value="{{item.variation_type_id}}">
+                          {{item.variation_type_name}}
+                        </option>
+                      </select> <i></i>
+                      <input *ngIf="product.plan_id" type="hidden" name="variation_type_id" value="{{product.variation_type_id}}">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="product_price">Precio mensual</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="input">
+                      <input id="product_price" name="product_price" type="text" value="{{product.plan_price}}">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_price">Disponible en:</label>
+                  </section>
+                  <section class="col col-sm-12">
+    
+                    <div *ngFor="let item of affiliations_plan" >
+
+                    <div *ngIf="item.affiliation_id == 2">
+                     <div *ngIf="item.value_id == 1; then linea_nueva_check; else linea_nueva_uncheck"></div>
+                        <ng-template #linea_nueva_check>
+                          <label class="checkbox" >
+                            <input id="affiliation{{item.affiliation_id}}" name="affiliation{{item.affiliation_id}}" type="checkbox" checked><i></i>{{item.affiliation_name}}
+                          </label>
+                        </ng-template>
+                        <ng-template #linea_nueva_uncheck>
+                          <label class="checkbox" >
+                            <input id="affiliation{{item.affiliation_id}}" name="affiliation{{item.affiliation_id}}" type="checkbox"><i></i>{{item.affiliation_name}}
+                          </label>
+                        </ng-template>
+                    </div> 
+
+                    <div *ngIf="item.affiliation_id == 3">
+                     <div *ngIf="item.value_id == 1; then renovacion_check; else renovacion_uncheck"></div>
+                        <ng-template #renovacion_check>
+                          <label class="checkbox">
+                            <input id="affiliation{{item.affiliation_id}}" name="affiliation{{item.affiliation_id}}" type="checkbox" checked><i></i>{{item.affiliation_name}}
+                          </label>
+                        </ng-template>
+                        <ng-template #renovacion_uncheck>
+                          <label class="checkbox">
+                            <input id="affiliation{{item.affiliation_id}}" name="affiliation{{item.affiliation_id}}" type="checkbox"><i></i>{{item.affiliation_name}}
+                          </label>
+                        </ng-template>
+                    </div> 
+
+                    <div *ngIf="item.affiliation_id == 1">
+                     <div *ngIf="item.value_id == 1; then portabilidad_check; else portabilidad_uncheck"></div>
+                        <ng-template #portabilidad_check>
+                          <label class="checkbox">
+                            <input id="affiliation{{item.affiliation_id}}" name="affiliation{{item.affiliation_id}}" type="checkbox" checked><i></i>{{item.affiliation_name}}
+                          </label>
+                        </ng-template>
+                        <ng-template #portabilidad_uncheck>
+                          <label class="checkbox">
+                            <input id="affiliation{{item.affiliation_id}}" name="affiliation{{item.affiliation_id}}" type="checkbox"><i></i>{{item.affiliation_name}}
+                          </label>
+                        </ng-template>
+                    </div> 
+
+                   </div> 
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-5">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label class="checkbox">
+                      <input id="se_vende_en_chip" name="se_vende_en_chip" type="checkbox" [checked]="product.vende_en_chip == 'Si'"><i></i>¿Se vende en Chip?
+                    </label>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <div class="text-center" style="border: 1px solid #ccc;">
+                      <img *ngIf="product.product_image_url" class="product-image" src="{{product.product_image_url}}">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <div class="input input-file">
+                      <span class="button">
+                        <input #productImageInput id="product_image" name="product_image" type="file" (change)="changeFilename($event)">Subir
+                      </span>
+                      <input type="text" placeholder="" value="" readonly>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label class="checkbox">
+                      <input id="solo_disponible_en_chip" name="solo_disponible_en_chip" type="checkbox" [checked]="product.disponible_en_chip == 'Si'"><i></i>Solo disponible en Chip
+                    </label>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_tag">Especificaciones comerciales</label>
+                  </section>
+                    <section *ngIf="product.product_data_sheet" class="col col-sm-12">
+                    <a href="{{product.product_data_sheet}}" target="_blank">{{product.product_data_sheet}}</a>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input input-file">
+                      <span class="button">
+                        <input #productImageInput id="product_image" name="product_image" type="file" (change)="changeFilename($event)">Subir
+                      </span>
+                      <input type="text" placeholder="" value="" readonly>
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <footer>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

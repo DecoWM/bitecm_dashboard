@@ -6,6 +6,7 @@ Route::get('auth/login', 'AuthController@test');
 Route::post('auth/login', 'AuthController@authenticate');
 
 Route::prefix('admin')->middleware('jwt.auth')->group(function () {
+
 	///////////
 	// USERS //
 	///////////
@@ -53,7 +54,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	/////////////
 	// IMAGES //
 	/////////////
-
 	Route::prefix('imagenes')->group(function() {
 		//Slider
 		Route::post('', 'ImageController@storeImage');
@@ -103,6 +103,31 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::put('{product_id}/variation/postpaid', 'ProductController@updatePostpaidProductVariation');
 
 		Route::delete('/image/{product_image_id}', 'ProductController@deleteProductImage');
+	});
+
+	///////////
+	// PLAN  //
+	///////////
+	// CLES 05-04-2018
+	Route::prefix('planes')->group(function () {
+		//Product list
+		Route::get('', 'PlanController@list');
+		Route::get('variation', 'PlanController@listVariationPlan');
+		Route::get('affiliation', 'PlanController@listAffiliationPlan');
+		Route::put('{product_id}/publish', 'PlanController@publishPlan');
+		Route::put('{product_id}/hide', 'PlanController@hidePlan');
+		Route::get('{product_id}', 'PlanController@showPlan');
+
+		Route::put('{plan_infocomercial_id}', 'PlanController@savePlanInfoComercial');
+		Route::post('', 'PlanController@saveBasic');
+		Route::post('{plan_id}', 'PlanController@insertarPlanInfoComercial');
+
+		Route::put('{plan_infocomercial_id}/publishinfocomercial', 'PlanController@publishPlanInfoComercial');
+		Route::put('{plan_infocomercial_id}/hideinfocomercial', 'PlanController@hidePlanInfoComercial');
+
+		Route::get('{product_id}/getAffiliationsPlan', 'PlanController@getAffiliationsPlan');
+
+		Route::get('{product_id}/getInformacionComercialPorPlan', 'PlanController@getInformacionComercialPorPlan');
 	});
 
 	Route::prefix('plan')->group(function () {

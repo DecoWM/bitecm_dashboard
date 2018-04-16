@@ -42,7 +42,8 @@ class ImageController extends ApiController
       $image_data['image_url'] = $request->file('image_file')->storeAs($prefix, $image_name.'.'.$extension, 'public');
       // error_log('entro13'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
       $image_url = asset(Storage::url($image_data['image_url']));
-    } else {
+    } 
+    else {
       $image_url = null;
     }
 

@@ -1,0 +1,29 @@
+<!-- MAIN CONTENT -->
+<div id="content">
+  <div class="row">
+    <sa-big-breadcrumbs [items]="[' Planes', subtitle]" icon="cube" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+  </div>
+
+  <ng-container *ngIf="alert">
+    <alert *ngFor="let a of alert" type="{{a.mode}}" dismissible="true">
+      <i class="fa-fw fa fa-{{a.icon}}"></i>
+      <strong>{{a.title}}</strong> {{a.message}}
+    </alert>
+  </ng-container>
+
+  <sa-widgets-grid>
+    <div class="row">
+      <article>
+        <div class="col-sm-6 col-md-5 col-lg-5">
+          <!-- PRODUCT BASIC -->
+          <product-basic [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-basic>
+        </div>
+        <div class="col-sm-6 col-md-7 col-lg-7">  
+          <!-- PRODUCT INFO COMERCIAL -->
+          <product-infocomercial [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-infocomercial>
+        </div>
+      </article>
+    </div>
+  </sa-widgets-grid>
+
+</div>

@@ -73,7 +73,9 @@ export class OrdenesComponent implements OnInit {
             'plan_name' : event.plan_name,
             'order_status_name' : orden.order_status_name,
             'total_igv' : orden.total_igv,
-            'credit_status' : orden.credit_status
+            'credit_status' : orden.credit_status,
+            'equipo_plan' : orden.equipo_plan,
+            'product_model': orden.product_model 
           });
           self.notificationService.smallBox({
             title: 'Nueva orden registrada #' + orden.order_id,

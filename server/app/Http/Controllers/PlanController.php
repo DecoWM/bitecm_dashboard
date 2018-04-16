@@ -10,20 +10,29 @@ use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 
-class ProductController extends ApiController
+class PlanController extends ApiController
 {
   public function __construct() {
     parent::__construct();
   }
 
  // carga los productos en el catalogo
+  // public function list() {
+  //   $product_list = DB::table('tbl_product')
+  //     ->whereNotIn('tbl_product.category_id',[4])
+  //     ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
+  //     ->join('tbl_category', 'tbl_product.category_id', '=', 'tbl_category.category_id')
+  //     ->select('tbl_product.product_id', 'tbl_product.product_priority', DB::raw('IFNULL(tbl_product.updated_at, tbl_product.created_at) as updated_at'), 'tbl_category.category_name', 'tbl_brand.brand_name','tbl_product.product_model', 'tbl_product.publish_at', 'tbl_product.active')
+  //     ->get();
+
+  //   return response()->json([
+  //     'result' => $product_list,
+  //     'success' => true
+  //   ]);
+  // }
+
   public function list() {
-    $product_list = DB::table('tbl_product')
-      ->whereNotIn('tbl_product.category_id',[4])
-      ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
-      ->join('tbl_category', 'tbl_product.category_id', '=', 'tbl_category.category_id')
-      ->select('tbl_product.product_id', 'tbl_product.product_priority', DB::raw('IFNULL(tbl_product.updated_at, tbl_product.created_at) as updated_at'), 'tbl_category.category_name', 'tbl_brand.brand_name','tbl_product.product_model', 'tbl_product.publish_at', 'tbl_product.active')
-      ->get();
+    $product_list = DB::table('tbl_plan')->select('tbl_plan.plan_id', 'tbl_plan.plan_type', 'tbl_plan.plan_name', 'tbl_plan.plan_price', 'tbl_plan.created_at', 'tbl_plan.updated_at', 'tbl_plan.active')->get();
 
     return response()->json([
       'result' => $product_list,
@@ -31,22 +40,21 @@ class ProductController extends ApiController
     ]);
   }
 
-  public function publishProduct($product_id) {
-    $product = DB::table('tbl_product')
-      ->where('product_id', $product_id)
-      ->select('product_id', 'publish_at')
+  public function publishPlan($product_id) {
+    $product = DB::table('tbl_plan')
+      ->where('plan_id', $product_id)
+      ->select('plan_id')
       ->first();
 
     if ($product) {
-      $publish_at = ($product->publish_at) ? $product->publish_at : Carbon::now()->toDateTimeString() ;
+      //$publish_at = ($product->updated_at) ? $product->updated_at : Carbon::now()->toDateTimeString() ;
 
       $data = [
         'active' => 1,
-        'publish_at' => $publish_at,
         'updated_at' => Carbon::now()->toDateTimeString()
       ];
 
-      DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
+      DB::table('tbl_plan')->where('plan_id', $product->plan_id)->update($data);
 
       return response()->json([
         'result' => $data,
@@ -55,16 +63,13 @@ class ProductController extends ApiController
     }
 
     return response()->json([
-      'result' => 'No se pudo publicar el producto.',
+      'result' => 'No se pudo publicar el plan.',
       'success' => false
     ]);
   }
 
-  public function hideProduct($product_id) {
-    $product = DB::table('tbl_product')
-      ->where('product_id', $product_id)
-      ->select('product_id')
-      ->first();
+  public function hidePlan($product_id) {
+    $product = DB::table('tbl_plan')->where('plan_id', $product_id)->select('plan_id')->first();
 
     if ($product) {
       $data = [
@@ -72,7 +77,7 @@ class ProductController extends ApiController
         'updated_at' => Carbon::now()->toDateTimeString()
       ];
 
-      DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
+      DB::table('tbl_plan')->where('plan_id', $product->plan_id)->update($data);
 
       return response()->json([
         'result' => $data,
@@ -86,11 +91,22 @@ class ProductController extends ApiController
     ]);
   }
 
-  public function showProduct($product_id) {
-    $product = DB::table('tbl_product')
-      ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
-      ->where('product_id', $product_id)
-      ->select('tbl_product.*', 'tbl_brand.brand_name')
+  public function showPlan($product_id) {
+
+    // $product_chip = 42;
+    // $product = DB::table('tbl_product_variation')
+    //   ->join('tbl_plan', 'tbl_product_variation.plan_id', '=', 'tbl_plan.plan_id')
+    //   ->join('tbl_product', 'tbl_product_variation.product_id', '=', 'tbl_product.product_id')
+    //   ->where('tbl_product_variation.product_id', $product_chip)
+    //   ->where('tbl_product_variation.plan_id', $product_id)
+    //   ->select('tbl_product_variation.product_variation_id', 'tbl_product_variation.variation_type_id', 'tbl_product_variation.product_id', 'tbl_product_variation.affiliation_id', 'tbl_product_variation.contract_id', 'tbl_product.product_image_url', 'tbl_product.product_data_sheet', 'tbl_plan.plan_id', 'tbl_plan.plan_type', 'tbl_plan.plan_name','tbl_plan.plan_price','tbl_plan.plan_data_cap','tbl_plan.plan_unlimited_calls', 'tbl_plan.plan_unlimited_rpb', 'tbl_plan.plan_unlimited_sms', 'tbl_plan.plan_unlimited_whatsapp' , 'tbl_plan.plan_free_facebook', 'tbl_plan.active', 'tbl_plan.vende_en_chip', 'tbl_plan.disponible_en_chip')
+    //   ->first();
+
+    $product = DB::table('tbl_product_variation')
+      ->join('tbl_plan', 'tbl_product_variation.plan_id', '=', 'tbl_plan.plan_id')
+      ->join('tbl_product', 'tbl_product_variation.product_id', '=', 'tbl_product.product_id')
+      ->where('tbl_product_variation.plan_id', $product_id)
+      ->select('tbl_product_variation.product_variation_id', 'tbl_product_variation.variation_type_id', 'tbl_product_variation.product_id', 'tbl_product_variation.affiliation_id', 'tbl_product_variation.contract_id', 'tbl_product.product_image_url', 'tbl_product.product_data_sheet', 'tbl_plan.plan_id', 'tbl_plan.plan_type', 'tbl_plan.plan_name','tbl_plan.plan_price','tbl_plan.plan_data_cap','tbl_plan.plan_unlimited_calls', 'tbl_plan.plan_unlimited_rpb', 'tbl_plan.plan_unlimited_sms', 'tbl_plan.plan_unlimited_whatsapp' , 'tbl_plan.plan_free_facebook', 'tbl_plan.active', 'tbl_plan.vende_en_chip', 'tbl_plan.disponible_en_chip')
       ->first();
 
     if ($product) {
@@ -101,6 +117,22 @@ class ProductController extends ApiController
         $product->product_image_url = asset(Storage::url(($product->product_image_url)));
       }
 
+      if (!empty($product->img_plan_unlimited_calls)) {
+        $product->img_plan_unlimited_calls = asset(Storage::url(($product->img_plan_unlimited_calls)));
+      }
+      if (!empty($product->img_plan_unlimited_rpb)) {
+        $product->img_plan_unlimited_rpb = asset(Storage::url(($product->img_plan_unlimited_rpb)));
+      }
+      if (!empty($product->img_plan_unlimited_sms)) {
+        $product->img_plan_unlimited_sms = asset(Storage::url(($product->img_plan_unlimited_sms)));
+      }
+      if (!empty($product->img_plan_unlimited_whatsapp)) {
+        $product->img_plan_unlimited_whatsapp = asset(Storage::url(($product->img_plan_unlimited_whatsapp)));
+      }
+      if (!empty($product->img_plan_free_facebook)) {
+        $product->img_plan_free_facebook = asset(Storage::url(($product->img_plan_free_facebook)));
+      }
+
       return response()->json([
         'result' => $product,
         'success' => true
@@ -108,8 +140,302 @@ class ProductController extends ApiController
     }
 
     return response()->json([
-      'result' => 'No se pudo encontrar el produto.',
+      'result' => 'No se pudo encontrar el producto1.',
       'success' => false
+    ]);
+  }
+
+ public function getInformacionComercialPorPlan($product_id){
+    $product = DB::table('tbl_plan_infocomercial')
+      ->where('tbl_plan_infocomercial.plan_id', $product_id)
+      ->select('tbl_plan_infocomercial.plan_infocomercial_id', 'tbl_plan_infocomercial.plan_id', 'tbl_plan_infocomercial.plan_infocomercial_img_url', 'tbl_plan_infocomercial.plan_infocomercial_descripcion', 'tbl_plan_infocomercial.plan_infocomercial_informacion_adicional', 'tbl_plan_infocomercial.plan_infocomercial_flag_cantidad', 'tbl_plan_infocomercial.active')
+      ->get();
+
+    if ($product) {
+
+      $i = 0;
+      while($i < count($product)){
+        if (!empty($product[$i]->plan_infocomercial_img_url)) {
+          $product[$i]->plan_infocomercial_img_url = asset(Storage::url(($product[$i]->plan_infocomercial_img_url)));
+        }
+        $i++;
+      }
+
+      return response()->json([
+        'result' => $product,
+        'success' => true
+      ]);
+    }
+
+    return response()->json([
+      'result' => 'No se pudo encontrar el producto1.',
+      'success' => false
+    ]);
+ }
+
+  public function listVariationPlan() {
+    $variation_list = DB::table('tbl_variation_type')
+      ->where('tbl_variation_type.active', 1)
+      ->select('tbl_variation_type.variation_type_id', 'tbl_variation_type.variation_type_name')
+      ->get();
+
+    return response()->json([
+      'result' => $variation_list,
+      'success' => true
+    ]);
+  }
+
+  public function listAffiliationPlan() {
+    $affiliation_list = DB::table('tbl_affiliation')
+      ->where('active', 1)
+      ->select('affiliation_id', 'affiliation_name')
+      ->get();
+
+    return response()->json([
+      'result' => $affiliation_list,
+      'success' => true
+    ]);
+  }
+
+ public function publishPlanInfoComercial($plan_infocomercial_id) {
+    $product = DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $plan_infocomercial_id)->select('plan_infocomercial_id')->first();
+
+    if ($product) {
+      //$publish_at = ($product->updated_at) ? $product->updated_at : Carbon::now()->toDateTimeString() ;
+
+      $data = [
+        'active' => 1,
+        'updated_at' => Carbon::now()->toDateTimeString()
+      ];
+
+      DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $product->plan_infocomercial_id)->update($data);
+
+      return response()->json([
+        'result' => $data,
+        'success' => true
+      ]);
+    }
+
+    return response()->json([
+      'result' => 'No se pudo activar la información comercial del plan.',
+      'success' => false
+    ]);
+  }
+
+  public function hidePlanInfoComercial($plan_infocomercial_id){
+    $product = DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $plan_infocomercial_id)->select('plan_infocomercial_id')->first();
+
+    if ($product) {
+
+      $data = [
+        'active' => 0,
+        'updated_at' => Carbon::now()->toDateTimeString()
+      ];
+
+      DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $product->plan_infocomercial_id)->update($data);
+
+      return response()->json([
+        'result' => $data,
+        'success' => true
+      ]);
+    }
+
+    return response()->json([
+      'result' => 'No se pudo desactivar la información comercial del plan.',
+      'success' => false
+    ]);
+  }
+
+ // permite actualizar los datos de una informacion adicional
+  public function savePlanInfoComercial(Request $request, $plan_infocomercial_id){
+
+   // input de los objetos del formulario
+    $plan_id = $request->input('plan_id');
+    $descripcion = $request->input('descripcion');
+    $informacion_adicional = $request->input('informacion_adicional');
+    $flag_cantidad = $request->input('flag_cantidad');
+
+    // validacion del plan
+    $product = DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $plan_infocomercial_id)->select('plan_infocomercial_id')->first();
+
+    if ($product) {
+
+      $data = [
+        'plan_infocomercial_descripcion' => $descripcion,
+        'plan_infocomercial_informacion_adicional' => $informacion_adicional,
+        'plan_infocomercial_flag_cantidad' => $flag_cantidad,
+        'updated_at' => Carbon::now()->toDateTimeString()
+      ];
+
+      if ($request->hasFile('image_file') && $request->file('image_file')->isValid()) {
+        $prefix = "images";
+        $extension = $request->file('image_file')->guessExtension();
+        $image_name = $request->file('image_file')->getClientOriginalName();
+        $data['plan_infocomercial_img_url'] = $request->file('image_file')->storeAs($prefix, $image_name, 'public');
+        $image_url = asset(Storage::url($data['plan_infocomercial_img_url']));
+      } 
+      else {
+        $image_url = null;
+      }
+
+      DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $product->plan_infocomercial_id)->update($data);
+
+      return response()->json([
+        'result' => $data,
+        'descripcion' => $descripcion,
+        'informacion_adicional' => $informacion_adicional,
+        'flag_cantidad' => $flag_cantidad,
+        'img_infocomercial' => $image_url,
+        'success' => true
+      ]);
+    }
+   
+    return response()->json([
+      'result' => 'No se pudo actualizar la información comercial del plan.',
+      'success' => false
+    ]);
+  } 
+
+  // permite el registro de una nueva informacion adicional
+  public function insertarPlanInfoComercial(Request $request, $plan_id){
+    
+    // input de los objetos del formulario
+    $plan_id = $request->input('plan_id_insertar');
+    $descripcion = $request->input('descripcion_insertar');
+    $informacion_adicional = $request->input('informacion_adicional_insertar');
+    $flag_cantidad = $request->input('flag_cantidad_insertar');
+
+    $product = DB::table('tbl_plan')->where('plan_id', $plan_id)->select('plan_id')->first();
+
+    if ($product) {
+
+      if ($request->hasFile('image_file_insertar') && $request->file('image_file_insertar')->isValid()) {
+        $prefix = "images";
+        $extension = $request->file('image_file_insertar')->guessExtension();
+        $image_name = $request->file('image_file_insertar')->getClientOriginalName();
+        $img_infocomercial = $request->file('image_file_insertar')->storeAs($prefix, $image_name, 'public');
+        $image_url = asset(Storage::url($img_infocomercial));
+      } 
+      else {
+        $image_url = null;
+      }
+
+    try {
+      DB::beginTransaction();
+      $id = DB::table('tbl_plan_infocomercial')->insertGetId([
+        'plan_id' => $plan_id,
+        'plan_infocomercial_descripcion' => $descripcion,
+        'plan_infocomercial_informacion_adicional' => $informacion_adicional,
+        'plan_infocomercial_flag_cantidad' => $flag_cantidad,
+        'plan_infocomercial_img_url' => $img_infocomercial,
+        'created_at' => Carbon::now()->toDateTimeString(),
+        'active' => 1
+      ]);
+      DB::commit();
+    } catch (\Illuminate\Database\QueryException $e) {
+      DB::rollback();
+      return response()->json([
+        'result' => 'No se pudo registrar la información comercial.',
+        'success' => false,
+        'error' => $e->getMessage()
+      ]);
+    } catch (\PDOException $e){
+      return response()->json([
+        'result' => 'No se pudo conectar a la base de datos.',
+        'success' => false,
+        'error' => $e->getMessage()
+      ]);
+    } catch (\Exception $e) {
+      return response()->json([
+        'result' => 'Se produjo un error al registrar la información comercial.',
+        'success' => false,
+        'error' => $e->getMessage()
+      ]);
+    }
+
+    return response()->json([
+      'result' => 'Información comercial registrada correctamente.',
+      'id' => $id,
+      'descripcion' => $descripcion,
+      'success' => true
+    ]);
+
+    }
+
+  }
+
+  // permite el registro de una nueva informacion adicional
+  public function saveBasic(Request $request){
+    
+    // // input de los objetos del formulario
+    // $plan_id = $request->input('plan_id_insertar');
+    // $descripcion = $request->input('descripcion_insertar');
+    // $informacion_adicional = $request->input('informacion_adicional_insertar');
+    // $flag_cantidad = $request->input('flag_cantidad_insertar');
+
+    // $product = DB::table('tbl_plan')->where('plan_id', $plan_id)->select('plan_id')->first();
+
+    // if ($product) {
+
+    //   if ($request->hasFile('image_file_insertar') && $request->file('image_file_insertar')->isValid()) {
+    //     $prefix = "images";
+    //     $extension = $request->file('image_file_insertar')->guessExtension();
+    //     $image_name = $request->file('image_file_insertar')->getClientOriginalName();
+    //     $img_infocomercial = $request->file('image_file_insertar')->storeAs($prefix, $image_name, 'public');
+    //     $image_url = asset(Storage::url($img_infocomercial));
+    //   } 
+    //   else {
+    //     $image_url = null;
+    //   }
+
+    // try {
+    //   DB::beginTransaction();
+    //   $id = DB::table('tbl_plan_infocomercial')->insertGetId([
+    //     'plan_id' => $plan_id,
+    //     'plan_infocomercial_descripcion' => $descripcion,
+    //     'plan_infocomercial_informacion_adicional' => $informacion_adicional,
+    //     'plan_infocomercial_flag_cantidad' => $flag_cantidad,
+    //     'plan_infocomercial_img_url' => $img_infocomercial,
+    //     'created_at' => Carbon::now()->toDateTimeString(),
+    //     'active' => 1
+    //   ]);
+    //   DB::commit();
+    // } catch (\Illuminate\Database\QueryException $e) {
+    //   DB::rollback();
+    //   return response()->json([
+    //     'result' => 'No se pudo registrar la información comercial.',
+    //     'success' => false,
+    //     'error' => $e->getMessage()
+    //   ]);
+    // } catch (\PDOException $e){
+    //   return response()->json([
+    //     'result' => 'No se pudo conectar a la base de datos.',
+    //     'success' => false,
+    //     'error' => $e->getMessage()
+    //   ]);
+    // } catch (\Exception $e) {
+    //   return response()->json([
+    //     'result' => 'Se produjo un error al registrar la información comercial.',
+    //     'success' => false,
+    //     'error' => $e->getMessage()
+    //   ]);
+    // }
+
+    return response()->json([
+      'result' => 'Información comercial registrada correctamente.',
+      'id' => 1,
+      'success' => true
+    ]);
+
+  }
+
+  public function getAffiliationsPlan($product_id){
+    $results = DB::select( DB::raw("SELECT `tbl_affiliation`.`affiliation_id`, `tbl_affiliation`.`affiliation_name`, CASE COUNT(`tbl_product_variation`.`affiliation_id`) WHEN 0 THEN 0 ELSE 1 END AS `value_id`
+                                    FROM `tbl_product_variation`
+                                    RIGHT JOIN tbl_affiliation ON  `tbl_product_variation`.`affiliation_id` = `tbl_affiliation`.`affiliation_id` AND `tbl_product_variation`.`plan_id` = ".$product_id." GROUP BY `tbl_affiliation`.`affiliation_id` ORDER BY `tbl_affiliation`.`affiliation_id` ASC"));
+    return response()->json([
+      'result' => $results,
+      'success' => true
     ]);
   }
 
@@ -269,7 +595,7 @@ class ProductController extends ApiController
     }
 
     return response()->json([
-      'result' => 'No se pudo encontrar el producto.',
+      'result' => 'No se pudo encontrar el producto2.',
       'success' => false
     ]);
   }
@@ -370,7 +696,7 @@ class ProductController extends ApiController
     }
 
     return response()->json([
-      'result' => 'No se pudo encontrar el producto.',
+      'result' => 'No se pudo encontrar el producto3.',
       'success' => false
     ]);
   }
@@ -619,7 +945,7 @@ class ProductController extends ApiController
     }
 
     return response()->json([
-        'result' => 'No se pudo encontrar el producto.',
+        'result' => 'No se pudo encontrar el producto4.',
         'success' => false
     ]);
   }
@@ -1096,18 +1422,6 @@ class ProductController extends ApiController
     ]);
   }
 
-  public function listAffiliation() {
-    $affiliation_list = DB::table('tbl_affiliation')
-      ->where('active', 1)
-      ->select('affiliation_id', 'affiliation_name')
-      ->get();
-
-    return response()->json([
-      'result' => $affiliation_list,
-      'success' => true
-    ]);
-  }
-
   public function listContract() {
     $contract_list = DB::table('tbl_contract')
       ->where('active', 1)
@@ -1152,18 +1466,6 @@ class ProductController extends ApiController
 
     return response()->json([
       'result' => $color_list,
-      'success' => true
-    ]);
-  }
-
-  public function listVariation() {
-    $variation_list = DB::table('tbl_variation_type')
-      ->where('active', 1)
-      ->select('variation_type_id', 'variation_type_name')
-      ->get();
-
-    return response()->json([
-      'result' => $variation_list,
       'success' => true
     ]);
   }

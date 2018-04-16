@@ -11,11 +11,11 @@ import { NotificationService } from '../../shared/utils/notification.service';
 import { BlockUIService } from 'ng-block-ui';
 
 @Component({
-  selector: 'catalogo',
-  templateUrl: './catalogo.component.html',
+  selector: 'planes',
+  templateUrl: './planes.component.html',
   styles: []
 })
-export class CatalogoComponent implements OnInit {
+export class PlanesComponent implements OnInit {
   loadingStatus: string;
   itemsObs: Subject<any> = new Subject();
   dtTrigger: Subject<any> = new Subject();
@@ -23,9 +23,9 @@ export class CatalogoComponent implements OnInit {
 
   options = {
     dom: 'Bfrtip',
-    pageLength: 10,
+    pageLength: 25,
     columnDefs: [ {
-      targets: [ 7 ],
+      targets: [ 6 ],
       orderable: false
     } ],
     order: [[4, 'desc']],
@@ -63,16 +63,16 @@ export class CatalogoComponent implements OnInit {
   }
 
   detail(product: any): void {
-    this.router.navigate([product.product_id], {relativeTo: this.route});
+    this.router.navigate([product.plan_id], {relativeTo: this.route});
   }
 
   showPopupPublish(product): void {
     this.notificationService.smartMessageBox({
       title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Publicar 
         <span class="txt-color-orangeDark">
-          <strong>${product.brand_name} ${product.product_model}</strong>
+          <strong>${product.plan_name} ${product.plan_price}</strong>
         </span>`,
-      content : '¿Seguro que quieres publicar este producto? Aparecerá en la tienda para poder ser adquirido.',
+      content : '¿Seguro que quieres publicar este plan?.',
       buttons : '[No][Si]'
     }, (ButtonPressed) => {
       if (ButtonPressed === 'Si') {
@@ -85,9 +85,9 @@ export class CatalogoComponent implements OnInit {
     this.notificationService.smartMessageBox({
       title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Despublicar 
         <span class="txt-color-orangeDark">
-          <strong>${product.brand_name} ${product.product_model}</strong>
+          <strong>${product.plan_name} ${product.plan_price}</strong>
         </span>`,
-      content : '¿Seguro que quieres despublicar este producto? Desaparecerá de la tienda y ya no podrá ser adquirido.',
+      content : '¿Seguro que quieres despublicar este plan?.',
       buttons : '[No][Si]'
     }, (ButtonPressed) => {
       if (ButtonPressed === 'Si') {
@@ -98,12 +98,11 @@ export class CatalogoComponent implements OnInit {
 
   publish(product: any): void {
     this.blockui.start('content');
-    this.productService.publishProduct(product.product_id)
+    this.productService.publishProduct(product.plan_id)
       .subscribe((res: any) => {
         if (res.success) {
           product.active = 1;
           product.updated_at = res.result.updated_at;
-          product.publish_at = res.result.publish_at;
           this.printAlert(this.getAlertPublish(res, product));
         }
         this.blockui.stop('content');
@@ -112,7 +111,7 @@ export class CatalogoComponent implements OnInit {
 
   unpublish(product: any): void {
     this.blockui.start('content');
-    this.productService.unpublishProduct(product.product_id)
+    this.productService.unpublishProduct(product.plan_id)
       .subscribe((res: any) => {
         if (res.success) {
           product.active = 0;
@@ -128,11 +127,11 @@ export class CatalogoComponent implements OnInit {
     if (result.success) {
       mode = 'success';
       title = 'Publicación completada';
-      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido publicado';
+      message = 'El plan ' + product.plan_name + ' ' + product.plan_price + ' ha sido publicado';
     } else {
       mode = 'danger';
       title = 'Publicación fallida';
-      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser publicado';
+      message = 'El plan ' + product.plan_name + ' ' + product.plan_price + ' no pudo ser publicado';
     }
     return {
       'title': title,
@@ -146,11 +145,11 @@ export class CatalogoComponent implements OnInit {
     if (result.success) {
       mode = 'success';
       title = 'Despublicación completada';
-      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' ha sido despublicado';
+      message = 'El plan ' + product.plan_name + ' ' + product.plan_price + ' ha sido despublicado';
     } else {
       mode = 'danger';
       title = 'Despublicación fallida';
-      message = 'El producto ' + product.brand_name + ' ' + product.product_model + ' no pudo ser despublicado';
+      message = 'El plan ' + product.plan_name + ' ' + product.plan_price + ' no pudo ser despublicado';
     }
     return {
       'title': title,

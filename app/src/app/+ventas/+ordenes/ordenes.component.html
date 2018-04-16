@@ -40,6 +40,9 @@
                       <input type="text" class="form-control" placeholder="Servicio">
                     </th>
                     <th class="hasinput" style="width:10%">
+                      <input type="text" class="form-control" placeholder="Equipo">
+                    </th>
+                    <th class="hasinput" style="width:10%">
                       <input type="text" class="form-control" placeholder="Plan">
                     </th>
                     <th class="hasinput" style="width:12%">
@@ -58,6 +61,7 @@
                     <th data-hide="phone,tablet" style="width:10%">Cliente / DNI</th>
                     <th data-hide="phone,tablet" style="width:10%">Tipo de Linea</th>
                     <th data-hide="phone,tablet" style="width:10%">Servicio</th>
+                    <th data-hide="phone,tablet" style="width:10%">Equipo</th>
                     <th data-hide="phone,tablet" style="width:10%">Plan</th>
                     <!--<th data-hide="phone,tablet">Sucursal</th>-->
                     <th data-hide="phone,tablet" style="width:12%">Estado</th>
@@ -76,6 +80,8 @@
                       <td>{{ item.id_number }}</td>
                       <td>{{ item.affiliation_type }}</td>
                       <td>{{ item.service_type }}</td>
+                      <td *ngIf="item.equipo_plan === 0">{{ item.product_model }}</td>
+                      <td *ngIf="item.equipo_plan === 1">SOLO PLAN</td>
                       <td>{{ item.plan_name }}</td>
                       <!--<td>{{ item.branch_name }}</td>-->
                       <td>{{ item.order_status_name }}</td>
