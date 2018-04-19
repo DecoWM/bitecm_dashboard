@@ -67,6 +67,7 @@ class PlanController extends ApiController
           'plan_slug' => $plan_slug,
           'product_code' => $product_code,
           'created_at' => Carbon::now()->toDateTimeString(),
+          'updated_at' => Carbon::now()->toDateTimeString(),
           'active' => 1
         ]);
         DB::commit();
@@ -167,7 +168,9 @@ class PlanController extends ApiController
         'updated_at' => Carbon::now()->toDateTimeString()
       ];
 
-      DB::table('tbl_plan')->where('plan_id', $plan->plan_id)->update($data);
+      DB::table('tbl_plan')
+        ->where('plan_id', $plan->plan_id)
+        ->update($data);
 
       return response()->json([
         'result' => $data,
@@ -190,7 +193,9 @@ class PlanController extends ApiController
         'updated_at' => Carbon::now()->toDateTimeString()
       ];
 
-      DB::table('tbl_plan')->where('plan_id', $plan->plan_id)->update($data);
+      DB::table('tbl_plan')
+        ->where('plan_id', $plan->plan_id)
+        ->update($data);
 
       return response()->json([
         'result' => $data,
@@ -206,13 +211,6 @@ class PlanController extends ApiController
 
   public function showPlan($plan_id) {
     $cat_chip_id = 4;
-
-    /*$product = DB::table('tbl_product_variation')
-      ->join('tbl_plan', 'tbl_product_variation.plan_id', '=', 'tbl_plan.plan_id')
-      ->join('tbl_product', 'tbl_product_variation.product_id', '=', 'tbl_product.product_id')
-      ->where('tbl_product_variation.plan_id', $plan_id)
-      ->select('tbl_product_variation.product_variation_id', 'tbl_product_variation.variation_type_id', 'tbl_product_variation.product_id', 'tbl_product_variation.affiliation_id', 'tbl_product_variation.contract_id', 'tbl_product.product_image_url', 'tbl_product.product_data_sheet', 'tbl_plan.plan_id', 'tbl_plan.plan_type', 'tbl_plan.plan_name','tbl_plan.plan_price','tbl_plan.plan_data_cap','tbl_plan.plan_unlimited_calls', 'tbl_plan.plan_unlimited_rpb', 'tbl_plan.plan_unlimited_sms', 'tbl_plan.plan_unlimited_whatsapp' , 'tbl_plan.plan_free_facebook', 'tbl_plan.active', 'tbl_plan.vende_en_chip', 'tbl_plan.disponible_en_chip')
-      ->first();*/
 
     $product = DB::table('tbl_product')
       ->where('category_id', $cat_chip_id)
@@ -282,7 +280,7 @@ class PlanController extends ApiController
   public function getInformacionComercialPorPlan($plan_id) {
     $info_comercial = DB::table('tbl_plan_infocomercial')
       ->where('plan_id', $plan_id)
-      ->where('active', 1)
+      //->where('active', 1)
       ->get();
 
     if ($info_comercial) {
@@ -328,17 +326,26 @@ class PlanController extends ApiController
   }
 
  public function publishPlanInfoComercial($plan_infocomercial_id) {
-    $product = DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $plan_infocomercial_id)->select('plan_infocomercial_id')->first();
+    $product = DB::table('tbl_plan_infocomercial')
+      ->where('plan_infocomercial_id', $plan_infocomercial_id)
+      ->select('plan_infocomercial_id', 'plan_id')
+      ->first();
 
     if ($product) {
-      //$publish_at = ($product->updated_at) ? $product->updated_at : Carbon::now()->toDateTimeString() ;
-
       $data = [
         'active' => 1,
         'updated_at' => Carbon::now()->toDateTimeString()
       ];
 
-      DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $product->plan_infocomercial_id)->update($data);
+      DB::table('tbl_plan_infocomercial')
+        ->where('plan_infocomercial_id', $product->plan_infocomercial_id)
+        ->update($data);
+
+      DB::table('tbl_plan')
+        ->where('plan_id', $product->plan_id)
+        ->update([
+          'updated_at' => Carbon::now()->toDateTimeString()
+        ]);
 
       return response()->json([
         'result' => $data,
@@ -353,16 +360,26 @@ class PlanController extends ApiController
   }
 
   public function hidePlanInfoComercial($plan_infocomercial_id) {
-    $product = DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $plan_infocomercial_id)->select('plan_infocomercial_id')->first();
+    $product = DB::table('tbl_plan_infocomercial')
+      ->where('plan_infocomercial_id', $plan_infocomercial_id)
+      ->select('plan_infocomercial_id', 'plan_id')
+      ->first();
 
     if ($product) {
-
       $data = [
         'active' => 0,
         'updated_at' => Carbon::now()->toDateTimeString()
       ];
 
-      DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $product->plan_infocomercial_id)->update($data);
+      DB::table('tbl_plan_infocomercial')
+        ->where('plan_infocomercial_id', $product->plan_infocomercial_id)
+        ->update($data);
+
+      DB::table('tbl_plan')
+        ->where('plan_id', $product->plan_id)
+        ->update([
+          'updated_at' => Carbon::now()->toDateTimeString()
+        ]);
 
       return response()->json([
         'result' => $data,
@@ -385,10 +402,12 @@ class PlanController extends ApiController
     $flag_cantidad = $request->input('flag_cantidad');
 
     // validacion del plan
-    $product = DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $plan_infocomercial_id)->select('plan_infocomercial_id')->first();
+    $product = DB::table('tbl_plan_infocomercial')
+      ->where('plan_infocomercial_id', $plan_infocomercial_id)
+      ->select('plan_infocomercial_id')
+      ->first();
 
     if ($product) {
-
       $data = [
         'plan_infocomercial_descripcion' => $descripcion,
         'plan_infocomercial_informacion_adicional' => $informacion_adicional,
@@ -407,7 +426,15 @@ class PlanController extends ApiController
         $image_url = null;
       }
 
-      DB::table('tbl_plan_infocomercial')->where('plan_infocomercial_id', $product->plan_infocomercial_id)->update($data);
+      DB::table('tbl_plan_infocomercial')
+        ->where('plan_infocomercial_id', $product->plan_infocomercial_id)
+        ->update($data);
+
+      DB::table('tbl_plan')
+        ->where('plan_id', $plan_id)
+        ->update([
+          'updated_at' => Carbon::now()->toDateTimeString()
+        ]);
 
       return response()->json([
         'result' => $data,
@@ -433,7 +460,10 @@ class PlanController extends ApiController
     $informacion_adicional = $request->input('informacion_adicional_insertar');
     $flag_cantidad = $request->input('flag_cantidad_insertar');
 
-    $product = DB::table('tbl_plan')->where('plan_id', $plan_id)->select('plan_id')->first();
+    $product = DB::table('tbl_plan')
+      ->where('plan_id', $plan_id)
+      ->select('plan_id')
+      ->first();
 
     if ($product) {
       if ($request->hasFile('image_file_insertar') && $request->file('image_file_insertar')->isValid()) {
@@ -458,6 +488,11 @@ class PlanController extends ApiController
           'created_at' => Carbon::now()->toDateTimeString(),
           'active' => 1
         ]);
+        DB::table('tbl_plan')
+          ->where('plan_id', $plan_id)
+          ->update([
+            'updated_at' => Carbon::now()->toDateTimeString()
+          ]);
         DB::commit();
       } catch (\Illuminate\Database\QueryException $e) {
         DB::rollback();
@@ -490,9 +525,8 @@ class PlanController extends ApiController
   }
 
   public function getAffiliationsPlan($plan_id) {
-    $results = DB::select( DB::raw("SELECT `tbl_affiliation`.`affiliation_id`, `tbl_affiliation`.`affiliation_name`, CASE COUNT(`tbl_product_variation`.`affiliation_id`) WHEN 0 THEN 0 ELSE 1 END AS `value_id`
-                                    FROM `tbl_product_variation`
-                                    RIGHT JOIN tbl_affiliation ON  `tbl_product_variation`.`affiliation_id` = `tbl_affiliation`.`affiliation_id` AND `tbl_product_variation`.`plan_id` = ".$plan_id." GROUP BY `tbl_affiliation`.`affiliation_id` ORDER BY `tbl_affiliation`.`affiliation_id` ASC"));
+    $results = DB::select( DB::raw("SELECT `tbl_affiliation`.`affiliation_id`, `tbl_affiliation`.`affiliation_name`, CASE COUNT(`tbl_product_variation`.`affiliation_id`) WHEN 0 THEN 0 ELSE 1 END AS `value_id` FROM `tbl_product_variation`
+      RIGHT JOIN tbl_affiliation ON `tbl_product_variation`.`affiliation_id` = `tbl_affiliation`.`affiliation_id` AND `tbl_product_variation`.`plan_id` = ".$plan_id." GROUP BY `tbl_affiliation`.`affiliation_id` ORDER BY `tbl_affiliation`.`affiliation_id` ASC"));
     return response()->json([
       'result' => $results,
       'success' => true
