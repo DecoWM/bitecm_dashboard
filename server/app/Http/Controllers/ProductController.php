@@ -1317,5 +1317,23 @@ class ProductController extends ApiController
       'id' => $promo_id,
       'success' => true
     ];*/
-  }  
+  }
+
+  public function showChip() {
+    $cat_chip_id = 4;
+
+    $chip = DB::table('tbl_product')
+      ->where('category_id', $cat_chip_id)
+      ->select('product_id')
+      ->first();
+
+    if ($chip) {
+      return $this->showProduct($chip->product_id);
+    }
+
+    return response()->json([
+      'result' => 'No se pudo encontrar el produto chip.',
+      'success' => false
+    ]);
+  } 
 }

@@ -5,7 +5,7 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { ProductService } from './../product.service';
+import { PlanService } from './../plan.service';
 import { NotificationService } from '../../../shared/utils/notification.service';
 
 import { BlockUIService } from 'ng-block-ui';
@@ -13,7 +13,7 @@ import { BlockUIService } from 'ng-block-ui';
 declare var $: any;
 
 @Component({
-  selector: 'product-infocomercial',
+  selector: 'plan-infocomercial',
   templateUrl: './infocomercial.component.html',
   styles: []
 })
@@ -38,7 +38,7 @@ export class InfocomercialComponent implements OnInit {
     // colReorder: true
   };
 
-  @Input() product: any = {};
+  @Input() plan: any = {};
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
   @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   @ViewChild('formBasic') formBasic;
@@ -69,54 +69,53 @@ export class InfocomercialComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
-    private productService: ProductService,
+    private planService: PlanService,
     private notificationService: NotificationService
   ) { }
 
- //-----------------------------------------------------
- // Inicializar los datos en el formulario o pantalla
- //-----------------------------------------------------
+  // -----------------------------------------------------
+  // Inicializar los datos en el formulario o pantalla
+  // -----------------------------------------------------
   ngOnInit() {
     this.productImageUrl = '';
-    const product_id = this.route.snapshot.params.id
-    if (product_id) {
+    const plan_id = this.route.snapshot.params.id
+    if (plan_id) {
       this.blockui.start('content');
-      this.productService.getInformacionComercialPorPlan(product_id)
-      .subscribe((data: any) => {
-        console.log(data);
-        this.blockui.stop('content');
-        const items = data.result;
-        this.itemsObs.next(items);
-        if (items.length === 0) {
-          this.loadingStatus = 'No se encontraron registros';
-        }
-      }, (error) => {
-        this.blockui.stop('content');
-        if (error.status === 401) {
-        // this.authService.logout(true);
-        }
-      });
-    }
-    else{
-       //this.subtitle = 'Nuevo producto';
+      this.planService.getInformacionComercialPorPlan(plan_id)
+        .subscribe((data: any) => {
+          console.log(data);
+          this.blockui.stop('content');
+          const items = data.result;
+          this.itemsObs.next(items);
+          if (items.length === 0) {
+            this.loadingStatus = 'No se encontraron registros';
+          }
+        }, (error) => {
+          this.blockui.stop('content');
+          if (error.status === 401) {
+          // this.authService.logout(true);
+          }
+        });
+    } else {
+       // this.subtitle = 'Nuevo producto';
     }
   }
 
- //-------------------------------------
- // Actualizar informacion comercial
- //-------------------------------------
- // mostrar los datos del modal
+  // -------------------------------------
+  // Actualizar informacion comercial
+  // -------------------------------------
+  // mostrar los datos del modal
   detailInfoComercialModalEditar(item): void {
-    $("#plan_id").val(item.plan_infocomercial_id);    
-    $("#descripcion").val($("#fdescripcion" + item.plan_infocomercial_id).html());
-    $("#informacion_adicional").val($("#finformacion_adicional" + item.plan_infocomercial_id).html());
-    $("#flag_cantidad").val($("#fflag_cantidad" + item.plan_infocomercial_id).html());
-    $("#imagen_icon").attr("src",$('#fimagen_icons' + item.plan_infocomercial_id).attr('src'));
-    $("#myModalEditar").modal('show');
+    $('#plan_id').val(item.plan_infocomercial_id);
+    $('#descripcion').val($('#fdescripcion' + item.plan_infocomercial_id).html());
+    $('#informacion_adicional').val($('#finformacion_adicional' + item.plan_infocomercial_id).html());
+    $('#flag_cantidad').val($('#fflag_cantidad' + item.plan_infocomercial_id).html());
+    $('#imagen_icon').attr('src', $('#fimagen_icons' + item.plan_infocomercial_id).attr('src'));
+    $('#myModalEditar').modal('show');
   }
 
-  // validar la actualizacion de los datos
-  showModalEditarInformacionComercial(): void{
+  // Validar la actualizacion de los datos
+  showModalEditarInformacionComercial(): void {
     this.notificationService.smartMessageBox({
       title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Grabar 
         <span class="txt-color-orangeDark">
@@ -131,36 +130,36 @@ export class InfocomercialComponent implements OnInit {
     });
   }
 
-  // captura la url de la imagen del modal
+  // Captura la url de la imagen del modal
   changeFilenameUpdate(event) {
     const uploadedFiles = event.target.files;
     this.imagenUrl = uploadedFiles[0].name;
   }
 
-  // grabar los datos en base de datos y mostrar los cambios en pantalla
-  saveInfoComercial(){
+  // Grabar los datos en base de datos y mostrar los cambios en pantalla
+  saveInfoComercial() {
     const formData = new FormData(document.forms.namedItem('form-modal-update'));
     if (this.formImagen.dirty || (formData.has('image_file') && this.imagenUrl.length)) {
       if (!this.imagenUrl.length) {
         formData.delete('image_file');
       }
       this.blockui.start('content');
-      var plan_infocomercial_id = $("#plan_id").val();
-      this.productService.savePlanInfoComercial(plan_infocomercial_id, formData)
-      .subscribe((data: any) => {
-        if (data.success) {
-          $("#fdescripcion" + plan_infocomercial_id).html(data.descripcion);
-          $("#finformacion_adicional" + plan_infocomercial_id).html(data.informacion_adicional);
-          $("#fflag_cantidad" + plan_infocomercial_id).html(data.flag_cantidad);
-          $("#fimagen_icons" + plan_infocomercial_id).attr("src",data.img_infocomercial);
-          this.onAlert.emit(this.getAlertSaveInformacionComercial(data,data.descripcion));
-        }
-        this.blockui.stop('content');
-      });
+      const plan_infocomercial_id = $('#plan_id').val();
+      this.planService.savePlanInfoComercial(plan_infocomercial_id, formData)
+        .subscribe((data: any) => {
+          if (data.success) {
+            $('#fdescripcion' + plan_infocomercial_id).html(data.descripcion);
+            $('#finformacion_adicional' + plan_infocomercial_id).html(data.informacion_adicional);
+            $('#fflag_cantidad' + plan_infocomercial_id).html(data.flag_cantidad);
+            $('#fimagen_icons' + plan_infocomercial_id).attr('src', data.img_infocomercial);
+            this.onAlert.emit(this.getAlertSaveInformacionComercial(data, data.descripcion));
+          }
+          this.blockui.stop('content');
+        });
     }
   }
 
- // mostrar el mensaje al usuario
+  // Mostrar el mensaje al usuario
   getAlertSaveInformacionComercial(result, descripcion): any {
     let mode, title, message;
     if (result.success) {
@@ -179,23 +178,23 @@ export class InfocomercialComponent implements OnInit {
     }
   }
 
- //----------------------------------------
- // Ingresar nueva informacion comercial
- //----------------------------------------
- // mostrar los datos del modal
+  // ----------------------------------------
+  // Ingresar nueva informacion comercial
+  // ----------------------------------------
+  // Mostrar los datos del modal
   detailInfoComercialModalNuevo(): void {
-    var plan_id = this.route.snapshot.params.id;
-    $("#plan_id_insertar").val(plan_id);
-    $("#myModalNuevo").modal('show');
+    const plan_id = this.route.snapshot.params.id;
+    $('#plan_id_insertar').val(plan_id);
+    $('#myModalNuevo').modal('show');
   }
 
-  // captura la url de la imagen del modal
+  // Captura la url de la imagen del modal
   changeFilenameInsert(event) {
     const uploadedFiles = event.target.files;
     this.imagenUrl = uploadedFiles[0].name;
   }
 
-  // validar los inputs del formulario
+  // Validar los inputs del formulario
   onValidationSuccess(e) {
     this.showModalInsertarInformacionComercial();
   }
@@ -204,8 +203,8 @@ export class InfocomercialComponent implements OnInit {
     this.formValidate = formValidate;
   }
 
-  // confirmar la insercion de los datos
-  showModalInsertarInformacionComercial(): void{
+  // Confirmar la insercion de los datos
+  showModalInsertarInformacionComercial(): void {
     this.notificationService.smartMessageBox({
       title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Grabar 
         <span class="txt-color-orangeDark">
@@ -220,7 +219,7 @@ export class InfocomercialComponent implements OnInit {
     });
   }
 
- // grabar los datos en base de datos y mostrar los cambios en pantalla
+  // Grabar los datos en base de datos y mostrar los cambios en pantalla
   saveInsertarInfoComercial() {
     const formData = new FormData(document.forms.namedItem('form-modal-insert'));
     if (this.formImagen.dirty || (formData.has('image_file_insertar') && this.imagenUrl.length)) {
@@ -228,12 +227,12 @@ export class InfocomercialComponent implements OnInit {
         formData.delete('image_file_insertar');
       }
       this.blockui.start('resultados');
-      var plan_id = $("#plan_id_insertar").val();
-      this.productService.insertarPlanInfoComercial(plan_id,formData)
+      const plan_id = $('#plan_id_insertar').val();
+      this.planService.insertarPlanInfoComercial(plan_id, formData)
         .subscribe((res: any) => {
           if (res.success) {
             this.onAlert.emit(this.getAlertSaveInsertarInformacionComercial(res, res.descripcion))         
-            this.productService.getInformacionComercialPorPlan(plan_id)
+            this.planService.getInformacionComercialPorPlan(plan_id)
               .subscribe((data: any) => {
               const items = data.result;
               this.itemsObs.next(items);
@@ -252,7 +251,7 @@ export class InfocomercialComponent implements OnInit {
     }
   }
 
- // mostrar el mensaje al usuario
+  // Mostrar el mensaje al usuario
   getAlertSaveInsertarInformacionComercial(result, descripcion): any {
     let mode, title, message;
     if (result.success) {
@@ -271,9 +270,9 @@ export class InfocomercialComponent implements OnInit {
     }
   }
 
- //-----------------------------------
- // Activar informacion comercial
- //-----------------------------------
+  // -----------------------------------
+  // Activar informacion comercial
+  // -----------------------------------
   showPopupPublishInfoComercial(product: any): void {
     this.notificationService.smartMessageBox({
       title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Activar 
@@ -291,7 +290,7 @@ export class InfocomercialComponent implements OnInit {
 
   publishInfoComercial(product: any): void {
     this.blockui.start('content');
-    this.productService.publishProductInfoComercial(product.plan_infocomercial_id)
+    this.planService.publishProductInfoComercial(product.plan_infocomercial_id)
       .subscribe((res: any) => {
         if (res.success) {
           product.active = 1;
@@ -319,9 +318,9 @@ export class InfocomercialComponent implements OnInit {
     }
   }
 
- //-----------------------------------
- // Desactivar informacion comercial
- //-----------------------------------
+  // -----------------------------------
+  // Desactivar informacion comercial
+  // -----------------------------------
   showPopupUnpublishInfoComercial(product: any): void {
     this.notificationService.smartMessageBox({
       title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Desactivar 
@@ -339,7 +338,7 @@ export class InfocomercialComponent implements OnInit {
 
   unpublishInfoComercial(product: any): void {
     this.blockui.start('content');
-    this.productService.unpublishProductInfoComercial(product.plan_infocomercial_id)
+    this.planService.unpublishProductInfoComercial(product.plan_infocomercial_id)
       .subscribe((res: any) => {
         if (res.success) {
           product.active = 0;
@@ -373,5 +372,4 @@ export class InfocomercialComponent implements OnInit {
     }
     this.alert = alert;
   }
-
 }

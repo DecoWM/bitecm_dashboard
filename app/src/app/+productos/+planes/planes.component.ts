@@ -5,7 +5,7 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { ProductService } from './product.service';
+import { PlanService } from './plan.service';
 import { NotificationService } from '../../shared/utils/notification.service';
 
 import { BlockUIService } from 'ng-block-ui';
@@ -36,7 +36,7 @@ export class PlanesComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
-    private productService: ProductService,
+    private planService: PlanService,
     private notificationService: NotificationService
   ) {
     this.loadingStatus = 'Cargando productos...';
@@ -45,7 +45,7 @@ export class PlanesComponent implements OnInit {
   ngOnInit() {
     this.alert = null;
     this.blockui.start('content');
-    this.productService.getProducts()
+    this.planService.getPlans()
       .subscribe((data: any) => {
         console.log(data);
         this.blockui.stop('content');
@@ -98,7 +98,7 @@ export class PlanesComponent implements OnInit {
 
   publish(product: any): void {
     this.blockui.start('content');
-    this.productService.publishProduct(product.plan_id)
+    this.planService.publishProduct(product.plan_id)
       .subscribe((res: any) => {
         if (res.success) {
           product.active = 1;
@@ -111,7 +111,7 @@ export class PlanesComponent implements OnInit {
 
   unpublish(product: any): void {
     this.blockui.start('content');
-    this.productService.unpublishProduct(product.plan_id)
+    this.planService.unpublishProduct(product.plan_id)
       .subscribe((res: any) => {
         if (res.success) {
           product.active = 0;

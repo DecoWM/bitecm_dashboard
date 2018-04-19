@@ -6,33 +6,33 @@ import 'rxjs/add/operator/catch';
 import { Subject, Observable } from 'rxjs/Rx';
 
 @Injectable()
-export class ProductService {
+export class PlanService {
   private url = '/api/admin/planes';
 
   constructor(
     private http: HttpClient
   ) {}
 
-  getProducts() {
+  getPlans() {
     return this.http
       .get(this.url);
   }
 
-  getProduct(product_id) {
+  getPlan(plan_id) {
     return this.http
-      .get(this.getUrl(product_id));
+      .get(this.getUrl(plan_id));
   }
 
   getAffiliationsPlan() {
     return this.http
       // .get(this.getUrl(product_id));
       .get(this.getUrl('affiliation'));
-      //.get(this.getUrl([product_id, 'getAffiliationsPlan']), {});
+      // .get(this.getUrl([product_id, 'getAffiliationsPlan']), {});
   }
 
-  getInformacionComercialPorPlan(product_id){
+  getInformacionComercialPorPlan(plan_id) {
       return this.http
-      .get(this.getUrl([product_id, 'getInformacionComercialPorPlan']), {});
+      .get(this.getUrl([plan_id, 'getInformacionComercialPorPlan']), {});
   }
 
  // actualizar los datos de una informacion adicional del plan
@@ -43,7 +43,7 @@ export class ProductService {
   }
 
  // insertar una nueva informacion adicional del plan
-  insertarPlanInfoComercial(plan_id,formData2){
+  insertarPlanInfoComercial(plan_id, formData2) {
     formData2.append('_method', 'post');
     return this.http
       .post(this.getUrl(plan_id), formData2);

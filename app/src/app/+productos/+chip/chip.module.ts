@@ -8,20 +8,15 @@ import { FormContainerModule } from '../../shared/forms/custom/form-container/fo
 import { Select2Module } from '../../shared/forms/input/select2/select2.module';
 import { AccordionModule, CarouselModule } from 'ngx-bootstrap';
 
-import { PlanService } from './plan.service';
+import { CatalogoModule } from '../+catalogo/catalogo.module'
+import { ChipService } from './chip.service';
 
-import { routing } from './planes.routing';
-import { PlanesComponent } from './planes.component';
-import { PlanComponent } from './plan/plan.component';
-import { PlanBasicComponent } from './plan/basic.component';
-import { InfocomercialComponent } from './plan/infocomercial.component';
+import { routing } from './chip.routing';
+import { ChipComponent } from './chip.component';
 
 @NgModule({
     declarations: [
-        PlanesComponent,
-        PlanComponent,
-        PlanBasicComponent,
-        InfocomercialComponent
+        ChipComponent
     ],
     imports: [
         SmartadminModule,
@@ -31,10 +26,11 @@ import { InfocomercialComponent } from './plan/infocomercial.component';
         FormContainerModule,
         Select2Module,
         AccordionModule.forRoot(),
-        routing
+        routing,
+        CatalogoModule
     ],
     providers: [
-        PlanService
+        ChipService
     ]
  })
- export class PlanesModule {}
+ export class ChipModule {}

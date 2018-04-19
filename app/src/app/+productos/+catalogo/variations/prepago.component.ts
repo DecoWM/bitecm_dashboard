@@ -8,6 +8,7 @@ import 'rxjs/add/operator/catch';
 import { PrepagoFormComponent } from './prepago-form.component';
 
 import { VariationService } from './../variation.service';
+import { ProductService } from './../product.service';
 import { NotificationService } from '../../../shared/utils/notification.service';
 
 import { BlockUIService } from 'ng-block-ui';
@@ -36,11 +37,15 @@ export class PrepagoVariationsComponent implements OnInit {
     private router: Router,
     private blockui: BlockUIService,
     private variationService: VariationService,
+    private productService: ProductService,
     private notificationService: NotificationService
   ) {}
 
   ngOnInit() {
     this.product_id = this.route.snapshot.params.id;
+    if (!this.product_id) {
+      this.product_id = this.productService.getProductId();
+    }
     this.blockui.start('content');
     Observable.zip(
       this.variationService.getPrepaidPlans(),

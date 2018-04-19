@@ -51,6 +51,12 @@ import { PostpagoFormComponent } from './variations/postpago-form.component';
         AccordionModule.forRoot(),
         routing
     ],
+    exports: [
+        ProductBasicComponent,
+        ProductSpecsComponent,
+        PrepagoVariationsComponent,
+        PostpagoVariationsComponent
+    ],
     providers: [
         ProductService,
         StockModelService,

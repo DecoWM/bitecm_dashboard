@@ -5,39 +5,26 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { ProductService } from './../product.service';
+import { PlanService } from './../plan.service';
 
 import { NotificationService } from '../../../shared/utils/notification.service';
 import { BlockUIService } from 'ng-block-ui';
 
 @Component({
-  selector: 'product',
-  templateUrl: './product.component.html',
+  selector: 'plan',
+  templateUrl: './plan.component.html',
   styles: []
 })
-export class ProductComponent implements OnInit {
+export class PlanComponent implements OnInit {
   subtitle: string;
-  product: any = {
-    product_variation_id: '',
-    variation_type_id: '',
-    product_id: '',
-    affiliation_id: '',
-    contract_id: '',
-    product_image_url: '',
-    product_data_sheet: '',
-    plan_id: '',
+  plan: any = {
+    product: {},
+    product_variations: [],
+    infos_comerciales: [],
     plan_type: '',
     plan_name: '',
     plan_price: '',
-    plan_datacap: '',
-    plan_unlimited_calls: '',
-    plan_unlimited_rpb: '',
-    plan_unlimited_sms: '',
-    plan_unlimited_whatsapp: '',
-    plan_free_facebook: '',
-    active: '',
-    vende_en_chip: '',
-    disponible_en_chip: ''
+    only_chip: false
   };
   alert: any = null;
   active: any = null;
@@ -47,22 +34,21 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private blockui: BlockUIService,
     private notificationService: NotificationService,
-    private productService: ProductService
+    private planService: PlanService
   ) {}
 
- // this.productService.getAffiliationsPlan(product_id)
   ngOnInit() {
     this.active = 'tab-r1';
     this.alert = null;
-    const product_id = this.route.snapshot.params.id;
-    if (product_id) {
-      this.subtitle = 'Nro. #' + product_id;
+    const plan_id = this.route.snapshot.params.id;
+    if (plan_id) {
+      this.subtitle = 'Nro. #' + plan_id;
       this.blockui.start('content');
-      this.productService.getProduct(product_id)
+      this.planService.getPlan(plan_id)
         .subscribe((data: any) => {
           console.log(data);
           if (data.success) {
-            this.product = data.result;
+            this.plan = data.result;
           }
           this.blockui.stop('content');
         });
@@ -72,7 +58,7 @@ export class ProductComponent implements OnInit {
   }
 
   refreshProduct() {
-    /*this.productService.getProduct(this.product.product_id)
+    /*this.planService.getProduct(this.product.product_id)
       .subscribe((data: any) => {
         if (data.success) {
           this.product = data.result;

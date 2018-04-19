@@ -2,7 +2,7 @@ import { ModuleWithProviders } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router';
 
 import { PlanesComponent } from './planes.component';
-import { ProductComponent } from './product/product.component';
+import { PlanComponent } from './plan/plan.component';
 
 export const routes: Routes = [
     {
@@ -12,12 +12,12 @@ export const routes: Routes = [
     },
     {
         path: 'nuevo',
-        component: ProductComponent,
+        component: PlanComponent,
         data: { pageTitle: 'Nuevo Plan' }
     },
     {
         path: ':id',
-        component: ProductComponent,
+        component: PlanComponent,
         data: { pageTitle: 'Editar Plan' }
     }
 ];

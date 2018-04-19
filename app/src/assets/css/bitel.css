@@ -490,6 +490,9 @@ nav ul li a:active{
 .detalle-registro img.product-image{
   max-width: 100%;
 }
+.detalle-registro td img.product-image {
+  max-width: 30px;
+}
 
 product-specs i.icon-append {
     color: #666;

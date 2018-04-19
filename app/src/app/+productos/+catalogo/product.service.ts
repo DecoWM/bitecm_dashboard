@@ -8,10 +8,19 @@ import { Subject, Observable } from 'rxjs/Rx';
 @Injectable()
 export class ProductService {
   private url = '/api/admin/productos';
+  private product_id;
 
   constructor(
     private http: HttpClient
   ) {}
+
+  setProductId(product_id) {
+    this.product_id = product_id;
+  }
+
+  getProductId() {
+    return this.product_id;
+  }
 
   getProducts() {
     return this.http

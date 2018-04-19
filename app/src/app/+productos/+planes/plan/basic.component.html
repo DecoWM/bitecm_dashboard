@@ -1,0 +1,145 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Información Básica
+          </header>
+          <form #formBasic="ngForm" #form class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-basic">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-7">
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="plan_name">Nombre</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="plan.plan_id" class="input">
+                      <input [attr.disabled]="plan.plan_id ? 'disabled' : null" id="plan_name" name="plan_name" type="text" [(ngModel)]="plan.plan_name">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-5 col-sm-4">
+                    <label for="plan_type">Modalidad</label>
+                  </section>
+                  <section class="col col-xs-7 col-sm-8">
+                    <div class="select" [class.state-disabled]="plan.plan_id">
+                      <select [attr.disabled]="plan.plan_id ? 'disabled' : null" name="plan_type" id="plan_type" [(ngModel)]="plan.plan_type" (change)="onSelectChange($event)">
+                        <option value="">Seleccionar modalidad</option>
+                        <option *ngFor="let item of variations" value="{{item.variation_type_name}}">
+                          {{item.variation_type_name}}
+                        </option>
+                      </select> <i></i>
+                      <input *ngIf="plan.plan_id" type="hidden" name="plan_type" value="{{plan.plan_type}}">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="product_price">Precio mensual</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="plan.plan_id" class="input">
+                      <input [attr.disabled]="plan.plan_id ? 'disabled' : null" id="plan_price" name="plan_price" type="text" [(ngModel)]="plan.plan_price">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="product_price">Product Code</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="plan.plan_id" class="input">
+                      <input [attr.disabled]="plan.plan_id ? 'disabled' : null" id="product_code" name="product_code" type="text" [(ngModel)]="plan.product_code">
+                    </div>
+                  </section>
+                </div>
+                <!--<div class="row">
+                  <section class="col col-sm-12">
+                    <label for="">Disponible en:</label>
+                  </section>
+                  <section class="col col-sm-12">
+                    <label *ngFor="let affiliation of affiliations_plan" class="checkbox" >
+                      <input id="affiliation{{affiliation.affiliation_id}}" name="affiliations" [(ngModel)]="plan.product_variations[affiliation_id]" type="checkbox"><i></i>{{affiliation.affiliation_name}}
+                    </label>
+                  </section>
+                </div>-->
+              </div>
+              <div class="col col-sm-5">
+                <!--<div class="row">
+                  <section class="col col-sm-12">
+                    <label class="checkbox">
+                      <input *ngIf="plan.product_variations.length > 0" id="chip_product" name="chip_product" type="checkbox" checked>
+                      <input *ngIf="plan.product_variations.length == 0" id="chip_product" name="chip" type="checkbox">
+                      <i></i>¿Se vende en Chip?
+                    </label>
+                  </section>
+                </div>-->
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <div class="text-center" style="border: 1px solid #ccc;">
+                      <img *ngIf="plan.product.product_image_url" class="product-image" src="{{plan.product.product_image_url}}">
+                    </div>
+                  </section>
+                </div>
+                <!--<div class="row">
+                  <section class="col col-sm-12">
+                    <div class="input input-file">
+                      <span class="button">
+                        <input #productImageInput id="product_image" name="product_image" type="file" (change)="changeFilename($event)">Subir
+                      </span>
+                      <input type="text" placeholder="" value="" readonly>
+                    </div>
+                  </section>
+                </div>-->
+                <!--<div class="row">
+                  <section class="col col-sm-12">
+                    <label class="checkbox">
+                      <input id="only_chip" name="only_chip" type="checkbox" [(ngModel)]="plan.plan_only_chip">
+                      <i></i>Solo disponible en Chip
+                    </label>
+                  </section>
+                </div>-->
+              </div>
+              <!--<div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_tag">Especificaciones comerciales</label>
+                  </section>
+                  <section *ngIf="plan.product.product_data_sheet" class="col col-sm-12">
+                    <a href="{{plan.product.product_data_sheet}}" target="_blank">{{plan.product.product_data_sheet}}</a>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input input-file">
+                      <span class="button">
+                        <input #productImageInput id="product_image" name="product_image" type="file" (change)="changeFilename($event)">Subir
+                      </span>
+                      <input type="text" placeholder="" value="" readonly>
+                    </div>
+                  </section>
+                </div>
+              </div>-->
+              <div *ngIf="!plan.plan_id" class="col col-sm-12">
+                <div class="row">
+                  <footer>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

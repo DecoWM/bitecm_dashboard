@@ -16,11 +16,11 @@
       <article>
         <div class="col-sm-6 col-md-5 col-lg-5">
           <!-- PRODUCT BASIC -->
-          <product-basic [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-basic>
+          <plan-basic [plan]="plan" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></plan-basic>
         </div>
-        <div class="col-sm-6 col-md-7 col-lg-7">  
+        <div *ngIf="plan.plan_id" class="col-sm-6 col-md-7 col-lg-7">  
           <!-- PRODUCT INFO COMERCIAL -->
-          <product-infocomercial [product]="product" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></product-infocomercial>
+          <plan-infocomercial [plan]="plan" (onAlert)="printAlert($event)" (onUpdate)="refreshProduct()"></plan-infocomercial>
         </div>
       </article>
     </div>

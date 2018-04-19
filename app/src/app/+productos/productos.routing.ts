@@ -13,6 +13,11 @@ export const routes: Routes = [
         data: {pageTitle: 'Catalogo'}
     },
     {
+        path: 'chip',
+        loadChildren: './+chip/chip.module#ChipModule',
+        data: {pageTitle: 'Chip'}
+    },
+    {
         path: 'importacion',
         loadChildren: './+importacion/importacion.module#ImportacionModule',
         data: {pageTitle: 'Importación'}
@@ -20,7 +25,7 @@ export const routes: Routes = [
     {
         path: 'planes',
         loadChildren: './+planes/planes.module#PlanesModule',
-        data: {pageTitle: 'Planes y Chips'}
+        data: {pageTitle: 'Planes'}
     }
 ];
 
