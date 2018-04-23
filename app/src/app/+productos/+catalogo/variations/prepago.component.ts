@@ -29,7 +29,7 @@ export class PrepagoVariationsComponent implements OnInit {
 
   variations: any = [];
   variationsByPlan: any = {};
-
+  best_plan = "";
   validationOptions = {};
 
   constructor(
@@ -42,6 +42,7 @@ export class PrepagoVariationsComponent implements OnInit {
   ) {}
 
   ngOnInit() {
+    const self = this;
     this.product_id = this.route.snapshot.params.id;
     if (!this.product_id) {
       this.product_id = this.productService.getProductId();
@@ -61,19 +62,50 @@ export class PrepagoVariationsComponent implements OnInit {
           return variation;
         });
       }
+      if(plans.success && vars.success && this.variations.length > 0){
+          this.plans.forEach((plan, index) => {
+            if(typeof self.variationsByPlan[plan.plan_id] !== 'undefined' && self.variationsByPlan[plan.plan_id] !== null){
+              if(self.variationsByPlan[plan.plan_id].best_plan.toString() == "1") {                  
+                 self.best_plan = plan.plan_id;
+                 return;
+              }
+            }
+          });
+      }
       this.blockui.stop('content');
     });
   }
 
   saveAll() {
+    const self = this;
     this.onAlert.emit(null);
     const saveVariations = [];
     const updateVariations = [];
     let count = 0;
+
+    this.plans.forEach((plan, index) => {
+        if(plan.plan_id.toString() == self.best_plan.toString()){
+          if(typeof self.variationsByPlan[plan.plan_id] !== 'undefined' && self.variationsByPlan[plan.plan_id] !== null){
+            self.variationsByPlan[plan.plan_id].best_plan = 1;
+          }
+        }
+        else{
+          if(typeof self.variationsByPlan[plan.plan_id] !== 'undefined' && self.variationsByPlan[plan.plan_id] !== null){
+            self.variationsByPlan[plan.plan_id].best_plan = 0;
+          }
+        }
+    });
+
     this.planForms.forEach((formComp, index) => {
       const variation = formComp.formPrepago.value;
+
+      if(typeof self.variationsByPlan[variation.plan_id] !== 'undefined' && self.variationsByPlan[variation.plan_id] !== null){
+        variation.best_plan = self.variationsByPlan[variation.plan_id].best_plan;
+      }
+
       variation.active = 1;
-      if (formComp.formPrepago.dirty && formComp.formValidate.valid()) {
+      //if (formComp.formPrepago.dirty && formComp.formValidate.valid()) {
+      if (formComp.formValidate.valid()) {  
         if (variation.product_variation_id) {
           variation.active = variation.variation_allowed ? 1 : 0;
           updateVariations.push(variation);

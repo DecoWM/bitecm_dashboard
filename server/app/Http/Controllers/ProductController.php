@@ -732,6 +732,7 @@ class ProductController extends ApiController
               'product_variation_price' => array_has($item, 'product_variation_price') ? $item->product_variation_price : $product->product_price,
               'reason_code' => $item->reason_code ? $item->reason_code : null,
               'product_package' => $item->product_package ? $item->product_package : null,
+              'best_plan' => $item->best_plan,
               'created_at' => $created_at,
               'updated_at' => $updated_at,
               'created_by' => 1,
@@ -829,6 +830,7 @@ class ProductController extends ApiController
             'product_variation_price' => array_has($item, 'product_variation_price') ? $item->product_variation_price : $product->product_price,
             'reason_code' => $item->reason_code ? $item->reason_code : null,
             'product_package' => $item->product_package ? $item->product_package : null,
+            'best_plan' => $item->best_plan,
             'updated_at' => $updated_at,
             'updated_by' => 1,
             'active' => isset($item->active) ? $item->active : 1
@@ -923,6 +925,7 @@ class ProductController extends ApiController
             'product_variation_price' => $item->product_variation_price,
             'reason_code' => $item->reason_code ? $item->reason_code : null,
             'product_package' => $item->product_package ? $item->product_package : null,
+            'best_plan' => $item->best_plan,
             'created_at' => $created_at,
             'updated_at' => $updated_at,
             'created_by' => 1,
@@ -975,6 +978,9 @@ class ProductController extends ApiController
   }
 
   public function updatePostpaidProductVariation(Request $request, $product_id) {
+
+    //error_log('entro', 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
+
     $product = DB::table('tbl_product')
       ->where('product_id', $product_id)
       ->select('product_id', 'product_price')
@@ -1020,6 +1026,7 @@ class ProductController extends ApiController
             'product_variation_price' => array_has($item, 'product_variation_price') ? $item->product_variation_price : $product->product_price,
             'reason_code' => $item->reason_code ? $item->reason_code : null,
             'product_package' => $item->product_package ? $item->product_package : null,
+            'best_plan' => $item->best_plan,
             'updated_at' => $updated_at,
             'updated_by' => 1,
             'active' => isset($item->active) ? $item->active : 1
