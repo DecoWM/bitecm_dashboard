@@ -104,9 +104,9 @@
       <div class="modal-body">
       <form #formImagen="ngForm" #form role="form" name="form-modal-update">
         <div class="form-group">
-          <div class="form-inline">
+          <div class="form-inline row">
             <div class="col col-sm-8">
-              <div class="form-group">
+              <div class="input-group">
                 Imagen de apoyo : 
                 <input type='file' name='image_file' id='image_file' class='form-control' (change)="changeFilenameUpdate($event)"/><br>
               </div>
@@ -114,15 +114,15 @@
             <div class="col col-sm-4">
               <div class="form-group">
                 Pre-visualización : 
-                <div id='upload'><img id='imagen_icon' class="product-image" src=""></div>
+                <div id='upload'><img id='imagen_icon' class="product-image" src="" style="max-width: 100px;"></div>
               </div>
             </div>
           </div>
         </div>
-        <br/><br/><br/>
         <div class="form-group">
            <label for="inputlg">Descripción</label>
            <input id="plan_id" type="hidden" name="plan_id" value="">
+           <input id="plan_info_id" type="hidden" name="plan_info_id" value="">
            <input class="form-control input-sm" id="inputlg" type="text" id="descripcion" name="descripcion" value="">
         </div>
         <div class="form-group">
@@ -153,12 +153,13 @@
       <div class="modal-body">
       <form #formImagen="ngForm" #form role="form" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-modal-insert" id="form-modal-insert">
         <div class="form-group">
-          <div class="form-inline">
+          <div class="form-inline row">
             <div class="col col-sm-8">
-              <div class="form-group">
+              <div class="input-group">
                 Imagen de apoyo : 
                 <input type='file' name='image_file_insertar' id='image_file_insertar' class='form-control' (change)="changeFilenameInsert($event)"/>
               </div>
+              <em id="end_date_1-error" class="invalid">Campo obligatorio</em>
             </div>
             <div class="col col-sm-4">
               <div class="form-group">
@@ -168,7 +169,6 @@
             </div>      
           </div>
         </div>
-        <br/><br/><br/>
         <div class="form-group">
           <label for="inputlg">Descripción</label>
           <input id="plan_id_insertar" type="hidden" name="plan_id_insertar" value="">

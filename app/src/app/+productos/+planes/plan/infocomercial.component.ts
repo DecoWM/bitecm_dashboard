@@ -106,7 +106,8 @@ export class InfocomercialComponent implements OnInit {
   // -------------------------------------
   // mostrar los datos del modal
   detailInfoComercialModalEditar(item): void {
-    $('#plan_id').val(item.plan_infocomercial_id);
+    $('#plan_id').val(this.route.snapshot.params.id);
+    $('#plan_info_id').val(item.plan_infocomercial_id);
     $('#descripcion').val($('#fdescripcion' + item.plan_infocomercial_id).html());
     $('#informacion_adicional').val($('#finformacion_adicional' + item.plan_infocomercial_id).html());
     $('#flag_cantidad').val($('#fflag_cantidad' + item.plan_infocomercial_id).html());
@@ -139,12 +140,12 @@ export class InfocomercialComponent implements OnInit {
   // Grabar los datos en base de datos y mostrar los cambios en pantalla
   saveInfoComercial() {
     const formData = new FormData(document.forms.namedItem('form-modal-update'));
-    if (this.formImagen.dirty || (formData.has('image_file') && this.imagenUrl.length)) {
-      if (!this.imagenUrl.length) {
+    //if (this.formImagen.dirty || (formData.has('image_file') && this.imagenUrl.length)) {
+      /*if (!this.imagenUrl.length) {
         formData.delete('image_file');
-      }
+      }*/
       this.blockui.start('content');
-      const plan_infocomercial_id = $('#plan_id').val();
+      const plan_infocomercial_id = $('#plan_info_id').val();
       this.planService.savePlanInfoComercial(plan_infocomercial_id, formData)
         .subscribe((data: any) => {
           if (data.success) {
@@ -156,7 +157,7 @@ export class InfocomercialComponent implements OnInit {
           }
           this.blockui.stop('content');
         });
-    }
+    //}
   }
 
   // Mostrar el mensaje al usuario
@@ -231,7 +232,7 @@ export class InfocomercialComponent implements OnInit {
       this.planService.insertarPlanInfoComercial(plan_id, formData)
         .subscribe((res: any) => {
           if (res.success) {
-            this.onAlert.emit(this.getAlertSaveInsertarInformacionComercial(res, res.descripcion))         
+            this.onAlert.emit(this.getAlertSaveInsertarInformacionComercial(res, res.descripcion));
             this.planService.getInformacionComercialPorPlan(plan_id)
               .subscribe((data: any) => {
               const items = data.result;
