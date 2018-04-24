@@ -71,6 +71,7 @@
                     </div>
                   </section>
                 </div>
+                 <input  *ngIf="product.category_id && product.category_id == 4"  id="product_tag" name="product_tag" type="hidden" value="Nuevo">
                 <div class="row">
                   <section class="col col-xs-7 col-sm-4">
                     <label for="product_price">Precio</label>
@@ -91,6 +92,7 @@
                     </div>
                   </section>
                 </div>
+                <input  *ngIf="product.category_id && product.category_id == 4"  id="product_priority" name="product_priority" type="hidden" value="1">
               </div>
               <div class="col col-sm-5">
                 <div class="row">

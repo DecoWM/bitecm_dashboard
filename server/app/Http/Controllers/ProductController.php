@@ -200,18 +200,29 @@ class ProductController extends ApiController
   }
 
   public function updateProduct(Request $request, $product_id) {
+
+    //error_log('ENTRO1', 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
+
+
     $product = DB::table('tbl_product')
       ->where('product_id', $product_id)
       ->select('product_id', 'product_slug', 'brand_id')
       ->first();
 
+    //error_log(print_r($product, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
+
     if ($product) {
+
+      //error_log('ENTRO2', 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
+
       $validator = Validator::make($request->all(), [
         'product_price' => 'required|numeric',
         'product_priority' => 'required|integer',
         'product_tag' => 'nullable|string',
-        'product_image' => 'nullable|image|max:10240'
+        'product_image' => 'nullable|image'
       ]);
+
+      // error_log(print_r($validator, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
 
       if($validator->fails()) {
         return response()->json([
@@ -220,6 +231,8 @@ class ProductController extends ApiController
           'success' => false
         ]);
       }
+
+      //error_log('ENTRO3', 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
 
       $product_price = $request->input('product_price');
       $product_priority = $request->input('product_priority');
@@ -232,6 +245,8 @@ class ProductController extends ApiController
         'product_tag' => $product_tag,
         'updated_at' => $updated_at
       ];
+
+      //error_log(print_r($data, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
 
       if ($request->has('product_image')) {
         $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
@@ -718,11 +733,18 @@ class ProductController extends ApiController
       $updated_at = $created_at;
 
       $variation = json_decode($request->variation);
+      //error_log(print_r($variation, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
 
       try {
         DB::beginTransaction();
 
         foreach ($variation as $item) {
+
+          $best_plan = 0;
+          if(array_key_exists('best_plan', $variation)){
+            $best_plan = $item->best_plan;
+          }
+
           $data = [
               'variation_type_id' => $variation_type_id,
               'product_id' => $product_id,
@@ -732,7 +754,7 @@ class ProductController extends ApiController
               'product_variation_price' => array_has($item, 'product_variation_price') ? $item->product_variation_price : $product->product_price,
               'reason_code' => $item->reason_code ? $item->reason_code : null,
               'product_package' => $item->product_package ? $item->product_package : null,
-              'best_plan' => $item->best_plan,
+              'best_plan' => $best_plan,
               'created_at' => $created_at,
               'updated_at' => $updated_at,
               'created_by' => 1,
@@ -916,6 +938,12 @@ class ProductController extends ApiController
         DB::beginTransaction();
 
         foreach ($variation as $item) {
+
+          $best_plan = 0;
+          if(array_key_exists('best_plan', $variation)){
+            $best_plan = $item->best_plan;
+          }
+
           $data = [
             'variation_type_id' => $variation_type_id,
             'product_id' => $product_id,
@@ -925,7 +953,7 @@ class ProductController extends ApiController
             'product_variation_price' => $item->product_variation_price,
             'reason_code' => $item->reason_code ? $item->reason_code : null,
             'product_package' => $item->product_package ? $item->product_package : null,
-            'best_plan' => $item->best_plan,
+            'best_plan' => $best_plan,
             'created_at' => $created_at,
             'updated_at' => $updated_at,
             'created_by' => 1,

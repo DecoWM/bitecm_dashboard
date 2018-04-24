@@ -108,8 +108,8 @@ export class InfocomercialComponent implements OnInit {
   detailInfoComercialModalEditar(item): void {
     $('#plan_id').val(this.route.snapshot.params.id);
     $('#plan_info_id').val(item.plan_infocomercial_id);
-    $('#descripcion').val($('#fdescripcion' + item.plan_infocomercial_id).html());
-    $('#informacion_adicional').val($('#finformacion_adicional' + item.plan_infocomercial_id).html());
+    $('#descripcion').val($('#fdescripcion' + item.plan_infocomercial_id).text());
+    $('#informacion_adicional').val($('#finformacion_adicional' + item.plan_infocomercial_id).text());
     $('#flag_cantidad').val($('#fflag_cantidad' + item.plan_infocomercial_id).html());
     $('#imagen_icon').attr('src', $('#fimagen_icons' + item.plan_infocomercial_id).attr('src'));
     $('#myModalEditar').modal('show');
@@ -149,8 +149,8 @@ export class InfocomercialComponent implements OnInit {
       this.planService.savePlanInfoComercial(plan_infocomercial_id, formData)
         .subscribe((data: any) => {
           if (data.success) {
-            $('#fdescripcion' + plan_infocomercial_id).html(data.descripcion);
-            $('#finformacion_adicional' + plan_infocomercial_id).html(data.informacion_adicional);
+            $('#fdescripcion' + plan_infocomercial_id).text(data.descripcion);
+            $('#finformacion_adicional' + plan_infocomercial_id).text(data.informacion_adicional);
             $('#fflag_cantidad' + plan_infocomercial_id).html(data.flag_cantidad);
             $('#fimagen_icons' + plan_infocomercial_id).attr('src', data.img_infocomercial);
             this.onAlert.emit(this.getAlertSaveInformacionComercial(data, data.descripcion));

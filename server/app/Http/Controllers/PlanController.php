@@ -93,7 +93,7 @@ class PlanController extends ApiController
       }
     } else {
       return response()->json([
-        'error' => 'Un plan con este nombre o código de producto ya existe.',
+        'result' => 'Un plan con este nombre o código de producto ya existe.',
         'success' => false
       ]);
     }
