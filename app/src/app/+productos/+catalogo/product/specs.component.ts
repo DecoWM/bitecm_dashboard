@@ -52,6 +52,11 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
         number: true,
         maxlength: 10
       },
+      product_memory_ram: {
+        required: true,
+        number: true,
+        maxlength: 5
+      },
       product_os: {
         required: true,
         maxlength: 250
@@ -103,6 +108,11 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
         required: 'Este campo es obligatorio',
         number: 'Debes ingresar un número',
         maxlength: 'Máximo 10 caracteres'
+      },
+      product_memory_ram: {
+        required: 'Este campo es obligatorio',
+        number: 'Debes ingresar un número',
+        maxlength: 'Máximo 5 caracteres'
       },
       product_os: {
         required: 'Este campo es obligatorio',
