@@ -20,6 +20,7 @@ export class PostpagoFormComponent implements OnInit, AfterViewChecked {
   @Input() variation: any = {
     plan_id: null,
     product_variation_id: null,
+    product_variation_price: '',
     reason_code: null,
     product_package: null,
     promo_price: null,

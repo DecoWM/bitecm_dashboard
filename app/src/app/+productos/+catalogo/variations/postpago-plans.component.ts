@@ -110,17 +110,19 @@ export class PostpagoPlansComponent implements OnInit {
 
       variation.active = 1;
       // if (formComp.formPostpago.dirty && formComp.formValidate.valid()) {
-      if (formComp.formValidate.valid()) {
+      if(variation.variation_allowed === true || variation.product_variation_price.length > 0){  
+        if (formComp.formValidate.valid()) {
   
-        if (variation.product_variation_id) {
-          variation.active = variation.variation_allowed ? 1 : 0;
-          updateVariations.push(variation);
-        } else {
-          if (variation.variation_allowed) {
-            saveVariations.push(variation);
+          if (variation.product_variation_id) {
+            variation.active = variation.variation_allowed ? 1 : 0;
+            updateVariations.push(variation);
+          } else {
+            if (variation.variation_allowed) {
+              saveVariations.push(variation);
+            }
           }
-        }
         // formComp.formPostpago.resetForm();
+        }
       }
       count++;
       if (count === this.planForms.length && (saveVariations.length || updateVariations.length)) {

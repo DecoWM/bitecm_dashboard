@@ -19,7 +19,7 @@ export class StatusFormComponent implements OnInit {
   alert: any = null;
   order_id: number;
   status: any = {
-    order_status_id: '',
+    order_status_id: '1',
     notify_customer: false,
     comment: ''
   };

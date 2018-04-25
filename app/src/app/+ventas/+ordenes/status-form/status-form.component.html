@@ -76,7 +76,7 @@
                             <label class="select">
                               <select name="order_status_id" id="select-estado" [(ngModel)]="status.order_status_id" (change)="onSelectChange($event)">
                                 <option value="">Seleccionar estado</option>
-                                <option *ngFor="let item of status_list" value="{{item.order_status_id}}">
+                                <option *ngFor="let item of status_list" [selected]="item.order_status_id == 1" [value]="item.order_status_id">
                                   {{item.order_status_name}}
                                 </option>
                               </select> <i></i>
