@@ -27,40 +27,74 @@ export class InfocomercialComponent implements OnInit {
 
   imagenUrl = '';
 
-  options = {
-    dom: 'Bfrtip',
-    pageLength: 10,
-    columnDefs: [ {
-      targets: [ 5 ],
-      orderable: false
-    } ],
-    order: [[4, 'desc']],
-    // colReorder: true
-  };
-
   @Input() plan: any = {};
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
   @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   @ViewChild('formBasic') formBasic;
   @ViewChild('productImageInput') productImageInput;
   @ViewChild('formImagen') formImagen;
-  formValidate: any;
+  @ViewChild('formInfoComercialInsert') formInfoComercialInsert;
+  @ViewChild('formInfoComercialUpdate') formInfoComercialUpdate;
 
-  validationOptions = {
+  formValidateUpdate: any;
+  formValidateInsert: any;
+
+  validationOptionsInsert = {
     rules: {
+      image_file_insertar : {
+        required : true
+      },
       descripcion_insertar : {
         required : true
       },
-      flag_cantidad_insertar : {
+      informacion_adicional_insertar : {
         required : true
+      },
+      flag_cantidad_insertar : {
+        required : true,
+        number: true 
       }
     },
     messages : {
+      image_file_insertar : {
+        required : 'Debes seleccionar una imagen'
+      },
       descripcion_insertar : {
         required : 'Debes ingresar una descripcion'
       },
+      informacion_adicional_insertar : {
+        required : 'Debes ingresar una información adicional'
+      },
       flag_cantidad_insertar : {
-        required : 'Debes ingresar un flag cantidad'
+        required : 'Debes ingresar un flag cantidad',
+        number: 'Debes ingresar un número',
+      }
+    }
+  };
+
+  validationOptionsUpdate = {
+    rules: {
+      descripcion : {
+        required : true
+      },
+      informacion_adicional : {
+        required : true
+      },
+      flag_cantidad : {
+        required : true,
+        number: true 
+      }
+    },
+    messages : {
+      descripcion : {
+        required : 'Debes ingresar una descripcion'
+      },
+      informacion_adicional : {
+        required : 'Debes ingresar una información adicional'
+      },
+      flag_cantidad : {
+        required : 'Debes ingresar un flag cantidad',
+        number: 'Debes ingresar un número',
       }
     }
   };
@@ -83,7 +117,7 @@ export class InfocomercialComponent implements OnInit {
       this.blockui.start('content');
       this.planService.getInformacionComercialPorPlan(plan_id)
         .subscribe((data: any) => {
-          console.log(data);
+          //console.log(data);
           this.blockui.stop('content');
           const items = data.result;
           this.itemsObs.next(items);
@@ -115,6 +149,21 @@ export class InfocomercialComponent implements OnInit {
     $('#myModalEditar').modal('show');
   }
 
+  setValidationRefUpdate(formValidateUpdate) {
+    this.formValidateUpdate = formValidateUpdate;
+  }
+
+  // Validar los inputs del formulario
+  onValidationSuccessUpdate() {
+    if (this.formValidateUpdate.valid()) {
+      this.showModalEditarInformacionComercial();
+    }
+    else{
+      var result = { danger: 'false' };
+      this.onAlert.emit(this.getAlertSaveInformacionComercial(result, ''));
+    }
+  }
+
   // Validar la actualizacion de los datos
   showModalEditarInformacionComercial(): void {
     this.notificationService.smartMessageBox({
@@ -139,11 +188,7 @@ export class InfocomercialComponent implements OnInit {
 
   // Grabar los datos en base de datos y mostrar los cambios en pantalla
   saveInfoComercial() {
-    const formData = new FormData(document.forms.namedItem('form-modal-update'));
-    //if (this.formImagen.dirty || (formData.has('image_file') && this.imagenUrl.length)) {
-      /*if (!this.imagenUrl.length) {
-        formData.delete('image_file');
-      }*/
+      const formData = new FormData(document.forms.namedItem('form-modal-update'));
       this.blockui.start('content');
       const plan_infocomercial_id = $('#plan_info_id').val();
       this.planService.savePlanInfoComercial(plan_infocomercial_id, formData)
@@ -152,12 +197,14 @@ export class InfocomercialComponent implements OnInit {
             $('#fdescripcion' + plan_infocomercial_id).text(data.descripcion);
             $('#finformacion_adicional' + plan_infocomercial_id).text(data.informacion_adicional);
             $('#fflag_cantidad' + plan_infocomercial_id).html(data.flag_cantidad);
-            $('#fimagen_icons' + plan_infocomercial_id).attr('src', data.img_infocomercial);
+            // valida si la imagen que se carga es diferente a la que ya esta cargada
+            if(data.img_infocomercial != $('#imagen_icon' + plan_infocomercial_id).attr('src')){
+              $('#fimagen_icons' + plan_infocomercial_id).attr('src', data.img_infocomercial);
+            }
             this.onAlert.emit(this.getAlertSaveInformacionComercial(data, data.descripcion));
           }
           this.blockui.stop('content');
         });
-    //}
   }
 
   // Mostrar el mensaje al usuario
@@ -184,6 +231,10 @@ export class InfocomercialComponent implements OnInit {
   // ----------------------------------------
   // Mostrar los datos del modal
   detailInfoComercialModalNuevo(): void {
+    $('#image_file_insertar').val(null);
+    $('#descripcion_insertar').val('');
+    $('#informacion_adicional_insertar').val('');
+    $('#flag_cantidad_insertar').val(1);
     const plan_id = this.route.snapshot.params.id;
     $('#plan_id_insertar').val(plan_id);
     $('#myModalNuevo').modal('show');
@@ -195,17 +246,24 @@ export class InfocomercialComponent implements OnInit {
     this.imagenUrl = uploadedFiles[0].name;
   }
 
-  // Validar los inputs del formulario
-  onValidationSuccess(e) {
-    this.showModalInsertarInformacionComercial();
+  setValidationRefInsert(formValidateInsert) {
+    this.formValidateInsert = formValidateInsert;
   }
 
-  referenceValidator(formValidate) {
-    this.formValidate = formValidate;
+  // Validar los inputs del formulario
+  onValidationSuccessInsert() {
+    if (this.formValidateInsert.valid()) {
+      this.showModalInsertarInformacionComercial();
+    }
+    else{
+      var result = { danger: 'false' };
+      this.onAlert.emit(this.getAlertSaveInsertarInformacionComercial(result, ''));
+    }
   }
 
   // Confirmar la insercion de los datos
   showModalInsertarInformacionComercial(): void {
+    $('#myModalEditar').modal('hide');
     this.notificationService.smartMessageBox({
       title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Grabar 
         <span class="txt-color-orangeDark">
@@ -223,11 +281,11 @@ export class InfocomercialComponent implements OnInit {
   // Grabar los datos en base de datos y mostrar los cambios en pantalla
   saveInsertarInfoComercial() {
     const formData = new FormData(document.forms.namedItem('form-modal-insert'));
-    if (this.formImagen.dirty || (formData.has('image_file_insertar') && this.imagenUrl.length)) {
+    if (this.formInfoComercialInsert.dirty || (formData.has('image_file_insertar') && this.imagenUrl.length)) {
       if (!this.imagenUrl.length) {
         formData.delete('image_file_insertar');
       }
-      this.blockui.start('resultados');
+      //this.blockui.start('resultados');
       const plan_id = $('#plan_id_insertar').val();
       this.planService.insertarPlanInfoComercial(plan_id, formData)
         .subscribe((res: any) => {
@@ -235,11 +293,8 @@ export class InfocomercialComponent implements OnInit {
             this.onAlert.emit(this.getAlertSaveInsertarInformacionComercial(res, res.descripcion));
             this.planService.getInformacionComercialPorPlan(plan_id)
               .subscribe((data: any) => {
-              const items = data.result;
-              this.itemsObs.next(items);
-              if (items.length === 0) {
-                  this.loadingStatus = 'No se encontraron registros';
-              }
+                const items = data.result;
+                this.itemsObs.next(items);
             }, (error) => {
               // this.blockui.stop('resultados');
               if (error.status === 401) {
@@ -247,8 +302,11 @@ export class InfocomercialComponent implements OnInit {
             }
           });
         }
-        // this.blockui.stop('resultados');
       });
+    }
+    else{
+      var result = { danger: 'false' };
+      this.onAlert.emit(this.getAlertSaveInsertarInformacionComercial(result, ''));
     }
   }
 

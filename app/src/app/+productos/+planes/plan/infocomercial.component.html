@@ -1,7 +1,5 @@
 <sa-widget [editbutton]="false" [custombutton]="false">
-  <!-- widget div-->
   <div>
-    <!-- widget content -->
     <div class="widget-body no-padding">
 
       <div class="smart-form">
@@ -16,16 +14,15 @@
               <div class="row">
                   <sa-widget class="well" color="darken">
                     <div class="widget-body">
-                      <sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
-                        [paginationLength]="true" [filter]="true" tableClass="table table-striped table-bordered table-hover">
+                      <table class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th style="width:13%">Imagen</th>
-                            <th style="width:13%">Descripción</th>
-                            <th style="width:13%">Información adicional</th>
-                            <th style="width:13%">Flag-Cantidad</th>
-                            <th style="width:9%">Activo</th>
-                            <th style="width:11%">Acción</th>
+                            <th style="width:13%;background:#169599;color:white;">Imagen</th>
+                            <th style="width:13%;background:#169599;color:white;">Descripción</th>
+                            <th style="width:13%;background:#169599;color:white;">Información adicional</th>
+                            <th style="width:13%;background:#169599;color:white;">Flag-Cantidad</th>
+                            <th style="width:9%;background:#169599;color:white;">Activo</th>
+                            <th style="width:11%;background:#169599;color:white;">Acción</th>
                           </tr>
                         </thead>
                         <tbody *ngIf="itemsObs | async as items; else loading">
@@ -69,7 +66,7 @@
                             </td>
                           </tr>
                         </ng-template>
-                      </sa-datatable>
+                      </table>
                     </div>
                   </sa-widget>
                 </div>
@@ -89,9 +86,7 @@
       </div>
 
     </div>
-    <!-- end widget content -->
   </div>
-  <!-- end widget div -->
 </sa-widget>
 
 <div class="modal fade" id="myModalEditar" tabindex="-1" role="dialog">
@@ -102,7 +97,7 @@
         <h4 class="modal-title">Editar Detalle Comercial</h4>
       </div>
       <div class="modal-body">
-      <form #formImagen="ngForm" #form role="form" name="form-modal-update">
+      <form #formInfoComercialUpdate="ngForm" #form role="form" novalidate="novalidate" [saUiValidate]="validationOptionsUpdate" (onInitComplete)="setValidationRefUpdate($event)" name="form-modal-update">
         <div class="form-group">
           <div class="form-inline row">
             <div class="col col-sm-8">
@@ -123,21 +118,21 @@
            <label for="inputlg">Descripción</label>
            <input id="plan_id" type="hidden" name="plan_id" value="">
            <input id="plan_info_id" type="hidden" name="plan_info_id" value="">
-           <input class="form-control input-sm" id="inputlg" type="text" id="descripcion" name="descripcion" value="">
+           <input class="form-control input-sm" id="inputlg" type="text" id="descripcion" name="descripcion" value="" required>
         </div>
         <div class="form-group">
           <label for="inputlg">Información adicional</label>
-          <input class="form-control input-sm" id="inputlg" type="text" id="informacion_adicional" name="informacion_adicional" value="">
+          <input class="form-control input-sm" id="inputlg" type="text" id="informacion_adicional" name="informacion_adicional" value="" required>
         </div>
         <div class="form-group">
           <label for="inputlg">Flag-Cantidad</label>
-          <input class="form-control input-sm" id="inputlg" type="text" id="flag_cantidad" name="flag_cantidad" value="1">
+          <input class="form-control input-sm" id="inputlg" type="text" id="flag_cantidad" name="flag_cantidad" value="1" maxlength="3" required>
         </div>
       </form>  
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="showModalEditarInformacionComercial()">Guardar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onValidationSuccessUpdate()">Guardar</button>
       </div>
     </div>
   </div>
@@ -151,13 +146,13 @@
         <h4 class="modal-title">Agregar Detalle Comercial</h4>
       </div>
       <div class="modal-body">
-      <form #formImagen="ngForm" #form role="form" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-modal-insert" id="form-modal-insert">
+      <form #formInfoComercialInsert="ngForm" #form role="form" novalidate="novalidate" [saUiValidate]="validationOptionsInsert" (onInitComplete)="setValidationRefInsert($event)" name="form-modal-insert" id="form-modal-insert">
         <div class="form-group">
           <div class="form-inline row">
             <div class="col col-sm-8">
               <div class="input-group">
                 Imagen de apoyo : 
-                <input type='file' name='image_file_insertar' id='image_file_insertar' class='form-control' (change)="changeFilenameInsert($event)"/>
+                <input type='file' name='image_file_insertar' id='image_file_insertar' class='form-control' required  (change)="changeFilenameInsert($event)"/>
               </div>
               <em id="end_date_1-error" class="invalid">Campo obligatorio</em>
             </div>
@@ -172,21 +167,21 @@
         <div class="form-group">
           <label for="inputlg">Descripción</label>
           <input id="plan_id_insertar" type="hidden" name="plan_id_insertar" value="">
-          <input class="form-control input-sm" id="inputlg" type="text" id="descripcion_insertar" name="descripcion_insertar" value="">
+          <input class="form-control input-sm" id="inputlg" type="text" id="descripcion_insertar" name="descripcion_insertar" value="" requerid>
         </div>
         <div class="form-group">
           <label for="inputlg">Información adicional</label>
-          <input class="form-control input-sm" id="inputlg" type="text" id="informacion_adicional_insertar" name="informacion_adicional_insertar" value="">
+          <input class="form-control input-sm" id="inputlg" type="text" id="informacion_adicional_insertar" name="informacion_adicional_insertar" value="" required>
         </div>
         <div class="form-group">
           <label for="inputlg">Flag-Cantidad</label>
-          <input class="form-control input-sm" id="inputlg" type="text" id="flag_cantidad_insertar" name="flag_cantidad_insertar" value="">
+          <input class="form-control input-sm" id="inputlg" type="text" id="flag_cantidad_insertar" name="flag_cantidad_insertar" value="1" maxlength="3" required>
         </div>
       </form>  
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="showModalInsertarInformacionComercial()">Guardar</button>
+        <button type="button" class="btn btn-primary" data-dismiss="modal" (click)="onValidationSuccessInsert()">Guardar</button>
       </div>
     </div>
   </div>
