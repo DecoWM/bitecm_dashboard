@@ -12,13 +12,14 @@
               {{plan.plan_name}}
             </section>  
           </div>
-          <div class="row">
+
+        <!-- <div class="row"">
             <section class="col col-sm-12">
               <label  *ngIf="variationsByPlan[plan.plan_id]" class="radiobuttom">
                 <input type="radio" id="mejor_plan1" name="mejor_plan1" [value]="variationsByPlan[plan.plan_id].plan_id" [(ngModel)]="best_plan">Mejor Plan
               </label>  
             </section> 
-          </div>  
+          </div>  -->
         </div>
         <div class="col col-sm-10">
           <prepago-form *ngIf="variationsByPlan[plan.plan_id]" [variation]="variationsByPlan[plan.plan_id]" [plan_id]="plan.plan_id"></prepago-form>
