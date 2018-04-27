@@ -193,6 +193,7 @@ export class InfocomercialComponent implements OnInit {
       const plan_infocomercial_id = $('#plan_info_id').val();
       this.planService.savePlanInfoComercial(plan_infocomercial_id, formData)
         .subscribe((data: any) => {
+          this.onAlert.emit(this.getAlertSaveInformacionComercial(data, data.descripcion));
           if (data.success) {
             $('#fdescripcion' + plan_infocomercial_id).text(data.descripcion);
             $('#finformacion_adicional' + plan_infocomercial_id).text(data.informacion_adicional);
@@ -201,7 +202,6 @@ export class InfocomercialComponent implements OnInit {
             if(data.img_infocomercial != $('#imagen_icon' + plan_infocomercial_id).attr('src')){
               $('#fimagen_icons' + plan_infocomercial_id).attr('src', data.img_infocomercial);
             }
-            this.onAlert.emit(this.getAlertSaveInformacionComercial(data, data.descripcion));
           }
           this.blockui.stop('content');
         });
@@ -285,21 +285,19 @@ export class InfocomercialComponent implements OnInit {
       if (!this.imagenUrl.length) {
         formData.delete('image_file_insertar');
       }
-      //this.blockui.start('resultados');
       const plan_id = $('#plan_id_insertar').val();
       this.planService.insertarPlanInfoComercial(plan_id, formData)
         .subscribe((res: any) => {
+          this.onAlert.emit(this.getAlertSaveInsertarInformacionComercial(res, res.descripcion));
           if (res.success) {
-            this.onAlert.emit(this.getAlertSaveInsertarInformacionComercial(res, res.descripcion));
             this.planService.getInformacionComercialPorPlan(plan_id)
-              .subscribe((data: any) => {
+            .subscribe((data: any) => {
                 const items = data.result;
                 this.itemsObs.next(items);
             }, (error) => {
-              // this.blockui.stop('resultados');
+              console.log(error);
               if (error.status === 401) {
-              // this.authService.logout(true);
-            }
+              }
           });
         }
       });

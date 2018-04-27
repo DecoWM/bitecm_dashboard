@@ -395,6 +395,25 @@ class PlanController extends ApiController
 
  // permite actualizar los datos de una informacion adicional
   public function savePlanInfoComercial(Request $request, $plan_infocomercial_id) {
+
+    $validator = Validator::make($request->all(), [
+        'descripcion' => 'required|string',
+        'informacion_adicional' => 'required|string',
+        'flag_cantidad' => 'required|integer',
+        'image_file' => 'nullable|image'
+    ]);
+
+    // error_log(print_r($validator, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
+
+    if($validator->fails()) {
+      return response()->json([
+        'result' => 'Los datos no cumplen con la validación establecida.',
+        'messages' => $validator->errors(),
+        'descripcion' => '',
+        'success' => false
+      ]);
+    }
+
    // input de los objetos del formulario
     $plan_id = $request->input('plan_id');
     $descripcion = $request->input('descripcion');
@@ -454,6 +473,23 @@ class PlanController extends ApiController
 
   // permite el registro de una nueva informacion adicional
   public function insertarPlanInfoComercial(Request $request, $plan_id) {
+
+     $validator = Validator::make($request->all(), [
+      'descripcion_insertar' => 'required|string',
+      'informacion_adicional_insertar' => 'required|string',
+      'flag_cantidad_insertar' => 'required|integer',
+      'image_file_insertar' => 'required|mimes:jpeg,jpg,png,svg|image|max:1024'
+    ]);
+
+    if($validator->fails()) {
+      return response()->json([
+        'result' => 'Los datos no cumplen con la validación establecida.',
+        'messages' => $validator->errors(),
+        'descripcion' => '',
+        'success' => false
+      ]);
+    }
+
     // input de los objetos del formulario
     $plan_id = $request->input('plan_id_insertar');
     $descripcion = $request->input('descripcion_insertar');
