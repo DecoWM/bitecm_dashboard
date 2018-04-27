@@ -297,14 +297,18 @@ class ProductController extends ApiController
   }
 
   public function updateSpecifications(Request $request, $product_id) {
+
+    //error_log("entro", 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
+
     $product = DB::table('tbl_product')
       ->where('product_id', $product_id)
       ->select('product_id', 'product_slug', 'brand_id')
       ->first();
 
     if ($product) {
+
       $validator = Validator::make($request->all(), [
-        'product_data_sheet' => 'nullable|mimes:pdf|max:10240'
+        'product_data_sheet' => 'nullable|mimes:pdf|max:102400'
       ]);
 
       if($validator->fails()) {
