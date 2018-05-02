@@ -33,7 +33,7 @@ export class OrdenesComponent implements OnInit {
     buttons: [
       {extend: 'excel', text: 'Exportar filtrado'}
     ],
-    pageLength: 1,
+    pageLength: 25,
     order: [[1, 'desc']]
   };
   dateRangeOptions = {
@@ -125,7 +125,7 @@ export class OrdenesComponent implements OnInit {
 
   pageSelected(dtObj) {
     this.page = dtObj;
-    console.log("pagina:" + this.page);
+    // console.log("pagina:" + this.page);
 
     this.position = this.ruta.indexOf("#");
     if(this.position > 0){
