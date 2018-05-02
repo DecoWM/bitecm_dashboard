@@ -24,13 +24,16 @@ export class OrdenesComponent implements OnInit {
   dtTrigger: Subject<any> = new Subject();
   ordenes: any = [];
   alert: any = null;
+  page = '1';
+  ruta = null;
+  position = 0;
 
   dtObj: any = null;
   options = {
     buttons: [
       {extend: 'excel', text: 'Exportar filtrado'}
     ],
-    pageLength: 25,
+    pageLength: 1,
     order: [[1, 'desc']]
   };
   dateRangeOptions = {
@@ -53,6 +56,16 @@ export class OrdenesComponent implements OnInit {
   ngOnInit() {
     const self = this;
     this.alert = null;
+
+    this.ruta = this.router.url;
+    /*
+    this.position = this.router.url.indexOf("#");
+    console.log(this.position);
+    if(this.position > 0){
+      console.log(this.position);
+      this.ruta = this.router.url.substring(1, this.position);
+      console.log(this.ruta);
+    }*/
 
     this.socket.on('connect', function () {
       console.log('Conectado a socket.io');
@@ -110,6 +123,17 @@ export class OrdenesComponent implements OnInit {
     this.dtObj = dtObj;
   }
 
+  pageSelected(dtObj) {
+    this.page = dtObj;
+    console.log("pagina:" + this.page);
+
+    this.position = this.ruta.indexOf("#");
+    if(this.position > 0){
+      this.ruta = this.ruta.substring(1, this.position);
+    }
+    document.location.href = this.ruta + '#' +  this.page;
+  }
+
   filterByDateRange() {
     if (this.dtObj) {
       this.dtObj.draw();
@@ -117,7 +141,9 @@ export class OrdenesComponent implements OnInit {
   }
 
   detail(data: any): void {
-    this.router.navigate([data.order_id], {relativeTo: this.route});
+    this.router.navigate([data.order_id], {relativeTo: this.route });
+        // this.router.navigate([data.order_id], {relativeTo: this.route, fragment: this.page });
+
   }
 
   printAlert(alert): void {

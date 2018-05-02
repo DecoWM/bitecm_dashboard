@@ -6,6 +6,8 @@ import { BlockUIService } from 'ng-block-ui';
 declare var $: any;
 declare var _: any;
 declare var moment: any;
+var comp = null;
+var page = null;
 
 @Component({
   selector: 'sa-datatable',
@@ -34,13 +36,15 @@ export class DatatableComponent implements OnInit {
   @Input() public dateRangeOptions = [];
 
   @Output() onInit: EventEmitter<any> = new EventEmitter();
-
+  @Output() onPageSelected: EventEmitter<any> = new EventEmitter();
+  
   constructor(
     private el: ElementRef,
     private blockui: BlockUIService
   ) { }
 
   ngOnInit() {
+    comp = this;
     this.dtTrigger.subscribe(() => {
       Promise.all([
         System.import('script-loader!smartadmin-plugins/datatables/datatables.min.js'),
@@ -106,6 +110,30 @@ export class DatatableComponent implements OnInit {
       responsive: true,
       initComplete: (settings, json) => {
         element.parent().find('.input-sm', ).removeClass('input-sm').addClass('input-md');
+
+        //-----------------------------------------------------------
+        // capturar el numero de la pagina seleccionada
+        //-----------------------------------------------------------
+        function onActive(_cur){
+           page = _cur.text(); 
+           comp.onPageSelected.emit(page);
+        }
+
+        $(document).on('click', '.paginate_button', function(e){
+           e.preventDefault();
+           onActive($(this));
+        });
+        //-----------------------------------------------------------
+
+        //----------------------------------------------------------------------------
+        // selecciona el numero de pagina cuando se hace el back desde el navegador
+        //----------------------------------------------------------------------------
+        var hash = window.location.hash;
+        if(hash){
+          hash = hash.split('#')[1];
+          $(".paginate_button a[data-dt-idx="+ hash +"]").trigger('click');
+        }
+        
       }
     });
 
@@ -160,9 +188,7 @@ export class DatatableComponent implements OnInit {
     });
 
     const _dataTable = element.DataTable(options);
-
     this.onInit.emit(_dataTable);
-
     /*_dataTable.columns().every(function () {
       const that = this;
       $('input', this.footer()).on('keyup change', function () {

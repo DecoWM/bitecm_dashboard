@@ -1,4 +1,4 @@
-<div id="content">
+  <div id="content">
   <div class="row">
     <sa-big-breadcrumbs [items]="['Ordenes']" icon="shopping-cart"
       class="col-xs-10 col-sm-7 col-md-7 col-lg-4"></sa-big-breadcrumbs>
@@ -21,7 +21,7 @@
             <div class="widget-body no-padding">
               <mini-general-orders (onDateChanged)="filterByDateRange()"></mini-general-orders>
               <sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
-                [paginationLength]="true" [filter]="true" [dateRangeOptions]="dateRangeOptions" (onInit)="initDtObj($event)" tableClass="table table-striped table-bordered table-hover">
+                [paginationLength]="true" [filter]="true" [dateRangeOptions]="dateRangeOptions" (onInit)="initDtObj($event)" (onPageSelected)="pageSelected($event)" tableClass="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
                     <th class="hasinput" style="width:10%">
