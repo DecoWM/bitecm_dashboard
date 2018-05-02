@@ -56,16 +56,7 @@ export class OrdenesComponent implements OnInit {
   ngOnInit() {
     const self = this;
     this.alert = null;
-
     this.ruta = this.router.url;
-    /*
-    this.position = this.router.url.indexOf("#");
-    console.log(this.position);
-    if(this.position > 0){
-      console.log(this.position);
-      this.ruta = this.router.url.substring(1, this.position);
-      console.log(this.ruta);
-    }*/
 
     this.socket.on('connect', function () {
       console.log('Conectado a socket.io');
@@ -142,7 +133,7 @@ export class OrdenesComponent implements OnInit {
 
   detail(data: any): void {
     this.router.navigate([data.order_id], {relativeTo: this.route });
-        // this.router.navigate([data.order_id], {relativeTo: this.route, fragment: this.page });
+    // this.router.navigate([data.order_id], {relativeTo: this.route, fragment: this.page });
 
   }
 
