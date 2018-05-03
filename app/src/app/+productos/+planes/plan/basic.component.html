@@ -29,13 +29,13 @@
                   </section>
                   <section class="col col-xs-7 col-sm-8">
                     <div class="select" [class.state-disabled]="plan.plan_id">
-                      <select [attr.disabled]="plan.plan_id ? 'disabled' : null" name="plan_type" id="plan_type" [(ngModel)]="plan.plan_type" (change)="onSelectChange($event)">
+                      <select [attr.disabled]="plan.plan_id ? 'disabled' : 'disabled'" name="plan_type" id="plan_type" [(ngModel)]="plan.plan_type" (change)="onSelectChange($event)">
                         <option value="">Seleccionar modalidad</option>
                         <option *ngFor="let item of variations" value="{{item.variation_type_name}}">
                           {{item.variation_type_name}}
                         </option>
                       </select> <i></i>
-                      <input *ngIf="plan.plan_id" type="hidden" name="plan_type" value="{{plan.plan_type}}">
+                      <input type="hidden" name="plan_type" value="{{plan.plan_type}}">
                     </div>
                   </section>
                 </div>

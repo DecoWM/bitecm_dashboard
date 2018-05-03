@@ -80,6 +80,7 @@ export class PlanBasicComponent implements OnInit, AfterViewChecked {
         if (affi.success) {
           this.affiliations_plan = affi.result;
         }
+        this.plan.plan_type = 'Postpago';
         this.blockui.stop('content');
       });
   }
