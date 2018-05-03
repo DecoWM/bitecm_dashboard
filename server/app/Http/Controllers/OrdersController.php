@@ -66,7 +66,22 @@ class OrdersController extends ApiController
         ]);
         $order->items[] = $item;
       }
+
+      //-----------------------------------
+      // agregar la orden back y next
+      //-----------------------------------
+      $order = $result[0];
+      $items = DB::select('call PA_orderBackNext(
+        :_order_id
+      )', [
+        '_order_id' => $order_id
+      ]);
+      foreach($items as $item) {
+        $order->navigation = $item;
+      }
     }
+
+    error_log(print_r($result,true) , 3, "c:/nginx-1.12.2/logs/frutaldia.log");
 
     return response()->json([
       'result' => count($result) ? $order : null,

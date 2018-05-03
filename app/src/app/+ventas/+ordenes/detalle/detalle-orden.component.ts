@@ -12,6 +12,9 @@ import { BlockUIService } from 'ng-block-ui';
 })
 export class DetalleOrdenComponent implements OnInit {
   order: any = {};
+  order_back: any = null;
+  order_next: any = null;
+  ruta = null;
   credit_status_list = [
     'Pendiente', 'Aprobada', 'Rechazada', 'Observada'
   ];
@@ -32,16 +35,19 @@ export class DetalleOrdenComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    const order_id = this.route.snapshot.params.id;
-    this.blockui.start('content');
-    this.ordenesService.getOrden(order_id)
+    this.route.params.subscribe(params => {
+      const order_id = params.id;    
+      this.blockui.start('content');
+      this.ordenesService.getOrden(order_id)
       .subscribe((data: any) => {
         console.log(data);
         if (data.success) {
           this.order = data.result;
+          console.log(this.order);
         }
         this.blockui.stop('content');
       });
+    });
   }
 
   statusHistory(): void {
@@ -158,4 +164,13 @@ export class DetalleOrdenComponent implements OnInit {
     }
     return null;
   }
+
+  orderBack(order_back: any): void {
+    this.router.navigate([order_back], {relativeTo: this.route.parent });
+  }
+
+  orderNext(order_next: any): void{
+    this.router.navigate([order_next], {relativeTo: this.route.parent });
+  }
+
 }

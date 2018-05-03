@@ -134,7 +134,6 @@ export class OrdenesComponent implements OnInit {
   detail(data: any): void {
     this.router.navigate([data.order_id], {relativeTo: this.route });
     // this.router.navigate([data.order_id], {relativeTo: this.route, fragment: this.page });
-
   }
 
   printAlert(alert): void {
