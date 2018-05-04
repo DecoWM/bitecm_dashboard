@@ -97,6 +97,9 @@ class ProductController extends ApiController
       if (!empty($product->product_data_sheet)) {
         $product->product_data_sheet = asset(Storage::url($product->product_data_sheet));
       }
+      if (!empty($product->product_general_specifications)) {
+        $product->product_general_specifications = asset(Storage::url($product->product_general_specifications));
+      }
       if (!empty($product->product_image_url)) {
         $product->product_image_url = asset(Storage::url(($product->product_image_url)));
       }
@@ -308,7 +311,8 @@ class ProductController extends ApiController
     if ($product) {
 
       $validator = Validator::make($request->all(), [
-        'product_data_sheet' => 'nullable|mimes:pdf|max:102400'
+        'product_data_sheet' => 'nullable|mimes:pdf|max:102400',
+        'product_general_specifications' => 'nullable|mimes:pdf|max:102400'
       ]);
 
       if($validator->fails()) {
@@ -320,7 +324,7 @@ class ProductController extends ApiController
       }
 
       $product_description = $request->input('product_description', null);
-      $product_general_specifications = $request->input('product_general_specifications', null);
+      //$product_general_specifications = $request->input('product_general_specifications', null);
       $product_external_memory = $request->input('product_external_memory', null);
       $product_internal_memory = $request->input('product_internal_memory', null);
       $product_screen_size = $request->input('product_screen_size', null);
@@ -346,7 +350,7 @@ class ProductController extends ApiController
       $data = array_add($data, 'updated_at', $updated_at);
 
       $data = array_add($data, 'product_description', $product_description);
-      isset($product_general_specifications) ? $data = array_add($data, 'product_general_specifications', $product_general_specifications) : '';
+      //isset($product_general_specifications) ? $data = array_add($data, 'product_general_specifications', $product_general_specifications) : '';
       isset($product_external_memory) ? $data = array_add($data, 'product_external_memory', $product_external_memory) : '';
       isset($product_internal_memory) ? $data = array_add($data, 'product_internal_memory', $product_internal_memory) : '';
       isset($product_screen_size) ? $data = array_add($data, 'product_screen_size', $product_screen_size) : '';
@@ -376,6 +380,16 @@ class ProductController extends ApiController
         }
       }
 
+      if ($request->has('product_general_specifications') && $request->hasFile('product_general_specifications')) {
+        $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
+        if ($request->file('product_general_specifications')->isValid()) {
+          $prefix = "data_commercial";
+          $extension = $request->file('product_general_specifications')->guessExtension();
+          $product_general_specifications_path = $request->file('product_general_specifications')->storeAs($prefix, 'Ficha_comercial_'.$brand->brand_name.'_'.$product->product_slug.'.'.$extension, 'public');
+          $data = array_add($data, 'product_general_specifications', $product_general_specifications_path);
+        }
+      }
+
       //Insert
       try {
         DB::beginTransaction();
@@ -393,6 +407,7 @@ class ProductController extends ApiController
       return response()->json([
         'result' => 'Producto actualizado correctamente.',
         'product_data_sheet_path' => isset($product_data_sheet_path) ? $product_data_sheet_path : null,
+        'product_general_specifications_path' => isset($product_general_specifications_path) ? $product_general_specifications_path : null,
         'success' => true
       ]);
     }

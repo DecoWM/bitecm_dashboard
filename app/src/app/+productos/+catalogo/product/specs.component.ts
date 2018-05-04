@@ -19,12 +19,14 @@ declare var $: any;
 })
 export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   dataSheetUrl = '';
+  dataSpecificationsUrl = '';
 
   @Input() product: any = {};
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
   @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   @ViewChild('formSpecs') formSpecs;
   @ViewChild('dataSheetInput') dataSheetInput;
+  @ViewChild('dataSpecificationsInput') dataSpecificationsInput;
 
   validationOptions = {
     rules: {
@@ -80,6 +82,10 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
         maxlength : 50
       },
       product_data_sheet: {
+        // required: true,
+        accept: 'application/pdf'
+      },
+      product_general_specifications: {
         // required: true,
         accept: 'application/pdf'
       }
@@ -139,6 +145,10 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       product_data_sheet: {
         // required: 'Este campo es obligatorio',
         accept: 'Solo se aceptan archivos PDF'
+      },
+      product_general_specifications: {
+        // required: 'Este campo es obligatorio',
+        accept: 'Solo se aceptan archivos PDF'
       }
     }
   };
@@ -153,6 +163,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
 
   ngOnInit() {
     this.dataSheetUrl = '';
+    this.dataSpecificationsUrl = '';
   }
 
   ngAfterViewChecked() {
@@ -160,6 +171,11 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       const img_url = this.product.product_data_sheet;
       const img_url_arr = img_url.split('/');
       this.product.product_data_sheet_name = img_url_arr[img_url_arr.length - 1];
+    }
+    if (!this.product.product_general_specifications_name && this.product.product_general_specifications) {
+      const img_url_gs = this.product.product_general_specifications;
+      const img_url_arr_gs = img_url_gs.split('/');
+      this.product.product_general_specifications_name = img_url_arr_gs[img_url_arr_gs.length - 1];
     }
     if (typeof this.product.product_internal_memory !== 'undefined' && this.product.product_internal_memory === null) {
       this.product.product_internal_memory = '';
@@ -213,6 +229,11 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     this.dataSheetUrl = uploadedFiles[0].name;
   }
 
+  changeFilenameGS(event) {
+    const uploadedFiles = event.target.files;
+    this.dataSpecificationsUrl = uploadedFiles[0].name;
+  }
+
   onSelectChange(event) {
     $(event.currentTarget).blur();
   }
@@ -247,13 +268,20 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     if (!this.dataSheetUrl.length) {
       formData.delete('product_data_sheet');
     }
+    if (!this.dataSpecificationsUrl.length) {
+      formData.delete('product_general_specifications');
+    }
     this.blockui.start('content');
     this.productService.updateSpecs(this.product.product_id, formData)
       .subscribe((data: any) => {
         this.dataSheetUrl = '';
+        this.dataSpecificationsUrl = '';
         this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
         if (data.success && formData.has('product_data_sheet')) {
           this.product.product_data_sheet = this.product.product_data_sheet + '?v' + (new Date().getTime().toString());
+        }
+        if (data.success && formData.has('product_general_specifications')) {
+          this.product.product_general_specifications = this.product.product_general_specifications + '?v' + (new Date().getTime().toString());
         }
         this.blockui.stop('content');
       }, (error) => {

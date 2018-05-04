@@ -226,6 +226,24 @@
                   </section>
                 </div>
               </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-sm-12">
+                    <label for="product_general_specifications">Especificaciones Comerciales</label>
+                  </section>
+                  <section *ngIf="product.product_general_specifications" class="col col-sm-12">
+                    <a href="{{product.product_general_specifications}}" target="_blank">{{product.product_general_specifications_name}}</a>
+                  </section>
+                  <section class="col col-sm-12">
+                    <div class="input input-file">
+                      <span class="button">
+                        <input #dataSpecificationsInput id="product_general_specifications" name="product_general_specifications" type="file" (change)="changeFilenameGS($event)">Subir
+                      </span>
+                      <input type="text" placeholder="" value="{{dataSpecificationsUrl}}" readonly>
+                    </div>
+                  </section>
+                </div>
+              </div>
               <!--div class="col col-sm-12">
                 <div class="row">
                   <section class="col col-sm-12">

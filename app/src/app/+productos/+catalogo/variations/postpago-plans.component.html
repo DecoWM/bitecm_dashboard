@@ -8,9 +8,17 @@
       </div>  
       <div class="row">
         <section class="col col-sm-12">
-          <label  *ngIf="variationsByPlan[plan.plan_id]" class="radiobuttom">
-            <input type="radio" id="mejor_plan{{affiliation_id}}" name="mejor_plan{{affiliation_id}}" [value]="variationsByPlan[plan.plan_id].plan_id" [(ngModel)]="best_plan"> Mejor Plan
-          </label>  
+          <div *ngIf="variationsByPlan[plan.plan_id]; then content1 else content2"></div>
+          <ng-template #content1>
+            <label class="radiobuttom">
+              <input type="radio" id="mejor_plan{{affiliation_id}}" name="mejor_plan{{affiliation_id}}" [value]="variationsByPlan[plan.plan_id].plan_id" [(ngModel)]="best_plan"> Mejor Plan
+            </label>
+          </ng-template>
+          <ng-template #content2>    
+            <label class="radiobuttom">
+              <input type="radio" id="mejor_plan{{affiliation_id}}" name="mejor_plan{{affiliation_id}}" [value]="plan.plan_id" disabled="true"> Mejor Plan
+            </label>
+          </ng-template>   
         </section>
       </div> 
     </div>
