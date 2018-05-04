@@ -164,6 +164,8 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   ngOnInit() {
     this.dataSheetUrl = '';
     this.dataSpecificationsUrl = '';
+    this.product.product_general_specifications_url = this.product.product_general_specifications;
+    this.product.product_data_sheet_url = this.product.product_data_sheet;
   }
 
   ngAfterViewChecked() {
@@ -278,10 +280,12 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
         this.dataSpecificationsUrl = '';
         this.onAlert.emit(this.getAlert(data, this.product, 'Actualización', 'actualizado'));
         if (data.success && formData.has('product_data_sheet')) {
-          this.product.product_data_sheet = this.product.product_data_sheet + '?v' + (new Date().getTime().toString());
+          this.product.product_data_sheet_url = data.product_data_sheet_path + '?v' + (new Date().getTime().toString());
+          this.product.product_data_sheet = data.product_data_sheet_path;
         }
         if (data.success && formData.has('product_general_specifications')) {
-          this.product.product_general_specifications = this.product.product_general_specifications + '?v' + (new Date().getTime().toString());
+          this.product.product_general_specifications_url = data.product_general_specifications_path + '?v' + (new Date().getTime().toString());
+          this.product.product_general_specifications = data.product_general_specifications_path;
         }
         this.blockui.stop('content');
       }, (error) => {

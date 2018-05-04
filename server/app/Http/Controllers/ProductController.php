@@ -406,8 +406,8 @@ class ProductController extends ApiController
 
       return response()->json([
         'result' => 'Producto actualizado correctamente.',
-        'product_data_sheet_path' => isset($product_data_sheet_path) ? $product_data_sheet_path : null,
-        'product_general_specifications_path' => isset($product_general_specifications_path) ? $product_general_specifications_path : null,
+        'product_data_sheet_path' => isset($product_data_sheet_path) ? asset(Storage::url($product_data_sheet_path)) : null,
+        'product_general_specifications_path' => isset($product_general_specifications_path) ? asset(Storage::url($product_general_specifications_path)) : null,
         'success' => true
       ]);
     }
