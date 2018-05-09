@@ -12,4 +12,14 @@ return [
     */
 
     'product_chip_id' => env('PRODUCT_CHIP_ID', 42),
+
+    /*
+    |--------------------------------------------------------------------------
+    | URL Servidor de Notificaciones
+    |--------------------------------------------------------------------------
+    |
+    | Angular obtiene este valor para realizar la conexión socket.io
+    |
+    */
+    'notification_server_url' => env('NOTIFICATION_SERVER_URL')
 ];

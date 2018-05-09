@@ -138,7 +138,7 @@
                         <div class="field-order">
                           <i class="icon-prepend fa fa-credit-card"></i>
                           <p>Crédito: "{{order.credit_status}}"</p>
-                          <div class="btn-group dropdown" dropdown>
+                          <div class="btn-group dropdown" style="float: right; right: 5px; position: absolute;" dropdown>
                             <button class="btn btn-primary btn-xs dropdown-toggle" dropdownToggle>
                               Cambiar
                               <i class="fa fa-gear"></i>
@@ -225,6 +225,10 @@
                             </div>
                             <div class="field-order">
                               <p class="field">Porting Status: </p>
+                              <p>{{order.porting_status}}</p>
+                            </div>
+                            <div class="field-order">
+                              <p class="field">Porting Status Description: </p>
                               <p>{{order.porting_status_desc}}</p>
                             </div>
                           </div>
