@@ -65,31 +65,31 @@ export class OrdenesComponent implements OnInit {
     this.socket.on('order completed', function (event) {
       console.log('Nueva orden #' + event.order_id);
       self.ordenesService.getOrdenSimple(event.order_id)
-      .subscribe((data: any) => {
-        if (data.success) {
-          const orden = data.result;
-          self.ordenes.unshift({
-            'order_id': orden.order_id,
-            'created_at' : orden.order_date,
-            'id_number' : orden.id_number,
-            'affiliation_type' : orden.affiliation_type,
-            'service_type' : orden.service_type,
-            'plan_name' : event.plan_name,
-            'order_status_name' : orden.order_status_name,
-            'total_igv' : orden.total_igv,
-            'credit_status' : orden.credit_status,
-            'equipo_plan' : orden.equipo_plan,
-            'product_model': orden.product_model 
-          });
-          self.notificationService.smallBox({
-            title: 'Nueva orden registrada #' + orden.order_id,
-            content: orden.created_at,
-            color: '#8ac38b',
-            iconSmall: 'fa-fw fa fa-check bounce animated',
-            timeout: 4000
-          });
-        }
-      });
+        .subscribe((data: any) => {
+          if (data.success) {
+            const orden = data.result;
+            self.ordenes.unshift({
+              'order_id': orden.order_id,
+              'created_at' : orden.order_date,
+              'id_number' : orden.id_number,
+              'affiliation_type' : orden.affiliation_type,
+              'service_type' : orden.service_type,
+              'plan_name' : event.plan_name,
+              'order_status_name' : orden.order_status_name,
+              'total_igv' : orden.total_igv,
+              'credit_status' : orden.credit_status,
+              'equipo_plan' : orden.equipo_plan,
+              'product_model': orden.product_model 
+            });
+            self.notificationService.smallBox({
+              title: 'Nueva orden registrada #' + orden.order_id,
+              content: orden.created_at,
+              color: '#8ac38b',
+              iconSmall: 'fa-fw fa fa-check bounce animated',
+              timeout: 4000
+            });
+          }
+        });
     });
 
     this.blockui.start('content');

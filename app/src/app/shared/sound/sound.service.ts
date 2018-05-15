@@ -39,7 +39,7 @@ export class SoundService {
 
   play(name) {
     if(config.sound_on){
-      this.get(name).then((audio)=> {
+      this.get(name).then((audio: any)=> {
         audio.play()
       })
     }

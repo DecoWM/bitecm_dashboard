@@ -161,3 +161,11 @@ Route::prefix('test')->group(function () {
 	//Product list
 	//Route::get('promo', 'ProductController@testPromo');
 });
+
+Route::prefix('config')->group(function () {
+	Route::get('public', function() {
+		return response()->json([
+			'notifServerUrl' => \Config::get('settings.notification_server_url')
+		]);
+	});
+});

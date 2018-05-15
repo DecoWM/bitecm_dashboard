@@ -328,7 +328,7 @@ nav ul li a:active{
   border: 1px solid #BDBDBD;
   height: 32px;
   line-height: 32px;
-  padding: 5px 10px;
+  padding: 5px 5px;
   box-sizing: border-box;
   margin-bottom: 10px;
   position: relative;
@@ -385,6 +385,7 @@ nav ul li a:active{
 
 .detalle-info .direccion-de-envio .row{
   margin: 0;
+  margin-bottom: 10px;
 }
 
 .detalle-info .direccion-de-envio header{
@@ -547,3 +548,11 @@ postpago-variations .panel-body {
 .images-content .input-content {
   width: 80%;
 }
+
+.detalle-order .field-order p {
+  height: 32px;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+}
+

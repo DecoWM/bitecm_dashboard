@@ -5,7 +5,6 @@ declare var jQuery: any;
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/mergeMap';
 
-
 // Smartadmin Dependencies
 window['jQuery'] = require('jquery');
 window['$'] = window['jQuery'];
@@ -22,4 +21,3 @@ window['moment'] = require('moment');
 import 'imports-loader?jQuery=jquery!jquery-color/jquery.color.js'
 
 require('smartadmin-plugins/notification/SmartNotification.min.js');
-

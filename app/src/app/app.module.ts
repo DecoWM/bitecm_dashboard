@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 /*
  * Platform and Environment providers/directives/pipes
  */
-import { routing } from './app.routing'
+import { routing } from './app.routing';
 import { AuthService } from './shared/auth/auth.service';
 // App is our top level component
 import { AppComponent } from './app.component';
