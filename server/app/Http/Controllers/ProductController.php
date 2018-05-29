@@ -16,7 +16,7 @@ class ProductController extends ApiController
     parent::__construct();
   }
 
- // carga los productos en el catalogo
+  // carga los productos en el catalogo
   public function list() {
     $product_list = DB::table('tbl_product')
       ->whereNotIn('tbl_product.category_id',[4])
@@ -203,28 +203,18 @@ class ProductController extends ApiController
   }
 
   public function updateProduct(Request $request, $product_id) {
-
-    //error_log('ENTRO1', 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
-
     $product = DB::table('tbl_product')
       ->where('product_id', $product_id)
       ->select('product_id', 'product_slug', 'brand_id')
       ->first();
 
-    //error_log(print_r($product, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
-
     if ($product) {
-
-      //error_log('ENTRO2', 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
-
       $validator = Validator::make($request->all(), [
         'product_price' => 'required|numeric',
         'product_priority' => 'required|integer',
         'product_tag' => 'nullable|string',
         'product_image' => 'nullable|image'
       ]);
-
-      // error_log(print_r($validator, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
 
       if($validator->fails()) {
         return response()->json([
@@ -233,8 +223,6 @@ class ProductController extends ApiController
           'success' => false
         ]);
       }
-
-      //error_log('ENTRO3', 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
 
       $product_price = $request->input('product_price');
       $product_priority = $request->input('product_priority');
@@ -248,17 +236,9 @@ class ProductController extends ApiController
         'updated_at' => $updated_at
       ];
 
-      //error_log(print_r($data, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
-
       if ($request->has('product_image')) {
-
-        //error_log("imagen1", 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
-
         $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
         if ($request->file('product_image')->isValid()) {
-
-          //error_log("imagen2", 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
-
           $prefix = "productos";
           $extension = $request->file('product_image')->guessExtension();
           $product_image_path = $request->file('product_image')->storeAs($prefix.'/'.$brand->brand_name, $product->product_slug.'.'.$extension, 'public');
@@ -268,8 +248,6 @@ class ProductController extends ApiController
       } else {
         $product_image_path = null;
       }
-
-      //error_log(print_r($data, true),3, 'c:/nginx-1.12.2/logs/frutaldia.log');
 
       //Insert
       try {
@@ -300,9 +278,6 @@ class ProductController extends ApiController
   }
 
   public function updateSpecifications(Request $request, $product_id) {
-
-    //error_log("entro", 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
-
     $product = DB::table('tbl_product')
       ->where('product_id', $product_id)
       ->select('product_id', 'product_slug', 'brand_id')
@@ -761,7 +736,7 @@ class ProductController extends ApiController
       $updated_at = $created_at;
 
       $variation = json_decode($request->variation);
-      //error_log(print_r($variation, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
+      
 
       try {
         DB::beginTransaction();
@@ -1034,9 +1009,6 @@ class ProductController extends ApiController
   }
 
   public function updatePostpaidProductVariation(Request $request, $product_id) {
-
-    //error_log('entro', 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
-
     $product = DB::table('tbl_product')
       ->where('product_id', $product_id)
       ->select('product_id', 'product_price')
