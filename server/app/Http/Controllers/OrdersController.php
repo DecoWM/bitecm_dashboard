@@ -81,8 +81,6 @@ class OrdersController extends ApiController
       }
     }
 
-    //error_log(print_r($result,true) , 3, "c:/nginx-1.12.2/logs/frutaldia.log");
-
     return response()->json([
       'result' => count($result) ? $order : null,
       'success' => count($result)

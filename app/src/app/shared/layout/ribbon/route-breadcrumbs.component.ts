@@ -51,7 +51,8 @@ export class RouteBreadcrumbsComponent implements OnInit {
   }
 
   prevBreadcrumb(){
-     parent.history.back();
+     //parent.history.back();
+     this.router.navigate(['/ventas/ordenes'], { relativeTo: this.route });
      // var hash = "#3"; // window.location.hash;
      // console.log(hash);
      // console.log(this.ruta);

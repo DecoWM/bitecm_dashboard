@@ -161,7 +161,6 @@ class PlanController extends ApiController
       ->first();
 
     if ($plan) {
-      //$publish_at = ($plan->updated_at) ? $plan->updated_at : Carbon::now()->toDateTimeString() ;
 
       $data = [
         'active' => 1,
@@ -402,8 +401,6 @@ class PlanController extends ApiController
         'flag_cantidad' => 'required|integer',
         'image_file' => 'nullable|mimes:jpeg,jpg,png,svg|image|max:1024'
     ]);
-
-    // error_log(print_r($validator, true), 3, 'c:/nginx-1.12.2/logs/frutaldia.log');
 
     if($validator->fails()) {
       return response()->json([
