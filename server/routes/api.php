@@ -169,3 +169,8 @@ Route::prefix('config')->group(function () {
 		]);
 	});
 });
+
+Route::get('/config_cache', function() {
+  Artisan::call('config:cache');
+  echo 'local config cache';
+});

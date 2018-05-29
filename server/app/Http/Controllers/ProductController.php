@@ -284,96 +284,101 @@ class ProductController extends ApiController
       ->first();
 
     if ($product) {
-
-      $validator = Validator::make($request->all(), [
-        'product_data_sheet' => 'nullable|mimes:pdf|max:102400',
-        'product_general_specifications' => 'nullable|mimes:pdf|max:102400'
-      ]);
-
-      if($validator->fails()) {
-        return response()->json([
-          'result' => 'Los datos no cumplen con la validación establecida.',
-          'messages' => $validator->errors(),
-          'success' => false
-        ]);
-      }
-
-      $product_description = $request->input('product_description', null);
-      //$product_general_specifications = $request->input('product_general_specifications', null);
-      $product_external_memory = $request->input('product_external_memory', null);
-      $product_internal_memory = $request->input('product_internal_memory', null);
-      $product_screen_size = $request->input('product_screen_size', null);
-      $product_camera_1 = $request->input('product_camera_1', null);
-      $product_camera_2 = $request->input('product_camera_2', null);
-      $product_camera_3 = $request->input('product_camera_3', null);
-      $product_camera_4 = $request->input('product_camera_4', null);
-      $product_memory_ram = $request->input('product_memory_ram', null);
-      $product_processor_name = $request->input('product_processor_name', null);
-      $product_processor_power = $request->input('product_processor_power', null);
-      $product_processor_cores = $request->input('product_processor_cores', null);
-      $product_band = $request->input('product_band', null);
-      $product_radio = $request->input('product_radio', null);
-      $product_wlan = $request->input('product_wlan', null);
-      $product_bluetooth = $request->input('product_bluetooth', null);
-      $product_os = $request->input('product_os', null);
-      $product_gps = $request->input('product_gps', null);
-      $product_battery = $request->input('product_battery', null);
-
-      $data = [];
-
-      $updated_at = Carbon::now()->toDateTimeString();
-      $data = array_add($data, 'updated_at', $updated_at);
-
-      $data = array_add($data, 'product_description', $product_description);
-      //isset($product_general_specifications) ? $data = array_add($data, 'product_general_specifications', $product_general_specifications) : '';
-      isset($product_external_memory) ? $data = array_add($data, 'product_external_memory', $product_external_memory) : '';
-      isset($product_internal_memory) ? $data = array_add($data, 'product_internal_memory', $product_internal_memory) : '';
-      isset($product_screen_size) ? $data = array_add($data, 'product_screen_size', $product_screen_size) : '';
-      isset($product_camera_1) ? $data = array_add($data, 'product_camera_1', $product_camera_1) : '';
-      isset($product_camera_2) ? $data = array_add($data, 'product_camera_2', $product_camera_2) : '';
-      isset($product_camera_3) ? $data = array_add($data, 'product_camera_3', $product_camera_3) : '';
-      isset($product_camera_4) ? $data = array_add($data, 'product_camera_4', $product_camera_4) : '';
-      isset($product_memory_ram) ? $data = array_add($data, 'product_memory_ram', $product_memory_ram) : '';
-      isset($product_processor_name) ? $data = array_add($data, 'product_processor_name', $product_processor_name) : '';
-      isset($product_processor_power) ? $data = array_add($data, 'product_processor_power', $product_processor_power) : '';
-      isset($product_processor_cores) ? $data = array_add($data, 'product_processor_cores', $product_processor_cores) : '';
-      isset($product_band) ? $data = array_add($data, 'product_band', $product_band) : '';
-      isset($product_radio) ? $data = array_add($data, 'product_radio', $product_radio) : '';
-      isset($product_wlan) ? $data = array_add($data, 'product_wlan', $product_wlan) : '';
-      isset($product_bluetooth) ? $data = array_add($data, 'product_bluetooth', $product_bluetooth) : '';
-      isset($product_os) ? $data = array_add($data, 'product_os', $product_os) : '';
-      isset($product_gps) ? $data = array_add($data, 'product_gps', $product_gps) : '';
-      isset($product_battery) ? $data = array_add($data, 'product_battery', $product_battery) : '';
-
-      if ($request->has('product_data_sheet') && $request->hasFile('product_data_sheet')) {
-        $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
-        if ($request->file('product_data_sheet')->isValid()) {
-          $prefix = "data_sheets";
-          $extension = $request->file('product_data_sheet')->guessExtension();
-          $product_data_sheet_path = $request->file('product_data_sheet')->storeAs($prefix, 'Ficha_tecnica_'.$brand->brand_name.'_'.$product->product_slug.'.'.$extension, 'public');
-          $data = array_add($data, 'product_data_sheet', $product_data_sheet_path);
-        }
-      }
-
-      if ($request->has('product_general_specifications') && $request->hasFile('product_general_specifications')) {
-        $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
-        if ($request->file('product_general_specifications')->isValid()) {
-          $prefix = "data_commercial";
-          $extension = $request->file('product_general_specifications')->guessExtension();
-          $product_general_specifications_path = $request->file('product_general_specifications')->storeAs($prefix, 'Ficha_comercial_'.$brand->brand_name.'_'.$product->product_slug.'.'.$extension, 'public');
-          $data = array_add($data, 'product_general_specifications', $product_general_specifications_path);
-        }
-      }
-
-      //Insert
       try {
+        $validator = Validator::make($request->all(), [
+          'product_data_sheet' => 'nullable|mimes:pdf|max:102400',
+          'product_general_specifications' => 'nullable|mimes:pdf|max:102400'
+        ]);
+
+        if($validator->fails()) {
+          return response()->json([
+            'result' => 'Los datos no cumplen con la validación establecida.',
+            'messages' => $validator->errors(),
+            'success' => false
+          ]);
+        }
+
+        $product_description = $request->input('product_description', null);
+        //$product_general_specifications = $request->input('product_general_specifications', null);
+        $product_external_memory = $request->input('product_external_memory', null);
+        $product_internal_memory = $request->input('product_internal_memory', null);
+        $product_screen_size = $request->input('product_screen_size', null);
+        $product_camera_1 = $request->input('product_camera_1', null);
+        $product_camera_2 = $request->input('product_camera_2', null);
+        $product_camera_3 = $request->input('product_camera_3', null);
+        $product_camera_4 = $request->input('product_camera_4', null);
+        $product_memory_ram = $request->input('product_memory_ram', null);
+        $product_processor_name = $request->input('product_processor_name', null);
+        $product_processor_power = $request->input('product_processor_power', null);
+        $product_processor_cores = $request->input('product_processor_cores', null);
+        $product_band = $request->input('product_band', null);
+        $product_radio = $request->input('product_radio', null);
+        $product_wlan = $request->input('product_wlan', null);
+        $product_bluetooth = $request->input('product_bluetooth', null);
+        $product_os = $request->input('product_os', null);
+        $product_gps = $request->input('product_gps', null);
+        $product_battery = $request->input('product_battery', null);
+
+        $data = [];
+
+        $updated_at = Carbon::now()->toDateTimeString();
+        $data = array_add($data, 'updated_at', $updated_at);
+
+        $data = array_add($data, 'product_description', $product_description);
+        //isset($product_general_specifications) ? $data = array_add($data, 'product_general_specifications', $product_general_specifications) : '';
+        isset($product_external_memory) ? $data = array_add($data, 'product_external_memory', $product_external_memory) : '';
+        isset($product_internal_memory) ? $data = array_add($data, 'product_internal_memory', $product_internal_memory) : '';
+        isset($product_screen_size) ? $data = array_add($data, 'product_screen_size', $product_screen_size) : '';
+        isset($product_camera_1) ? $data = array_add($data, 'product_camera_1', $product_camera_1) : '';
+        isset($product_camera_2) ? $data = array_add($data, 'product_camera_2', $product_camera_2) : '';
+        isset($product_camera_3) ? $data = array_add($data, 'product_camera_3', $product_camera_3) : '';
+        isset($product_camera_4) ? $data = array_add($data, 'product_camera_4', $product_camera_4) : '';
+        isset($product_memory_ram) ? $data = array_add($data, 'product_memory_ram', $product_memory_ram) : '';
+        isset($product_processor_name) ? $data = array_add($data, 'product_processor_name', $product_processor_name) : '';
+        isset($product_processor_power) ? $data = array_add($data, 'product_processor_power', $product_processor_power) : '';
+        isset($product_processor_cores) ? $data = array_add($data, 'product_processor_cores', $product_processor_cores) : '';
+        isset($product_band) ? $data = array_add($data, 'product_band', $product_band) : '';
+        isset($product_radio) ? $data = array_add($data, 'product_radio', $product_radio) : '';
+        isset($product_wlan) ? $data = array_add($data, 'product_wlan', $product_wlan) : '';
+        isset($product_bluetooth) ? $data = array_add($data, 'product_bluetooth', $product_bluetooth) : '';
+        isset($product_os) ? $data = array_add($data, 'product_os', $product_os) : '';
+        isset($product_gps) ? $data = array_add($data, 'product_gps', $product_gps) : '';
+        isset($product_battery) ? $data = array_add($data, 'product_battery', $product_battery) : '';
+
+        if ($request->has('product_data_sheet') && $request->hasFile('product_data_sheet')) {
+          $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
+          if ($request->file('product_data_sheet')->isValid()) {
+            $prefix = "data_sheets";
+            $extension = $request->file('product_data_sheet')->guessExtension();
+            $product_data_sheet_path = $request->file('product_data_sheet')->storeAs($prefix, 'Ficha_tecnica_'.$brand->brand_name.'_'.$product->product_slug.'.'.$extension, 'public');
+            $data = array_add($data, 'product_data_sheet', $product_data_sheet_path);
+          }
+        }
+
+        if ($request->has('product_general_specifications') && $request->hasFile('product_general_specifications')) {
+          $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
+          if ($request->file('product_general_specifications')->isValid()) {
+            $prefix = "data_commercial";
+            $extension = $request->file('product_general_specifications')->guessExtension();
+            $product_general_specifications_path = $request->file('product_general_specifications')->storeAs($prefix, 'Ficha_comercial_'.$brand->brand_name.'_'.$product->product_slug.'.'.$extension, 'public');
+            $data = array_add($data, 'product_general_specifications', $product_general_specifications_path);
+          }
+        }
+
+        //Insert
         DB::beginTransaction();
         DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
         DB::commit();
       } catch (\Illuminate\Database\QueryException $e) {
         DB::rollback();
         return response()->json([
-          'result' => 'No se pudo actualizar el producto.',
+          'result' => 'No se pudo actualizar el producto en la BD',
+          'success' => false,
+          'error' => $e->getMessage()
+        ]);
+      } catch (\Exception $e) {
+        return response()->json([
+          'result' => 'Ocurre un error con el procedimiento de guardado',
           'success' => false,
           'error' => $e->getMessage()
         ]);
