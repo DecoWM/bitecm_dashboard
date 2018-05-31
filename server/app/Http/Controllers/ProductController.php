@@ -289,7 +289,7 @@ class ProductController extends ApiController
           'product_data_sheet' => 'nullable|mimes:pdf|max:102400',
           'product_general_specifications' => 'nullable|mimes:pdf|max:102400'
         ]);
-
+        
         if($validator->fails()) {
           return response()->json([
             'result' => 'Los datos no cumplen con la validación establecida.',
@@ -297,7 +297,7 @@ class ProductController extends ApiController
             'success' => false
           ]);
         }
-
+        
         $product_description = $request->input('product_description', null);
         //$product_general_specifications = $request->input('product_general_specifications', null);
         $product_external_memory = $request->input('product_external_memory', null);
@@ -318,12 +318,12 @@ class ProductController extends ApiController
         $product_os = $request->input('product_os', null);
         $product_gps = $request->input('product_gps', null);
         $product_battery = $request->input('product_battery', null);
-
+        
         $data = [];
-
+        
         $updated_at = Carbon::now()->toDateTimeString();
         $data = array_add($data, 'updated_at', $updated_at);
-
+        
         $data = array_add($data, 'product_description', $product_description);
         //isset($product_general_specifications) ? $data = array_add($data, 'product_general_specifications', $product_general_specifications) : '';
         isset($product_external_memory) ? $data = array_add($data, 'product_external_memory', $product_external_memory) : '';
@@ -344,7 +344,7 @@ class ProductController extends ApiController
         isset($product_os) ? $data = array_add($data, 'product_os', $product_os) : '';
         isset($product_gps) ? $data = array_add($data, 'product_gps', $product_gps) : '';
         isset($product_battery) ? $data = array_add($data, 'product_battery', $product_battery) : '';
-
+        
         if ($request->has('product_data_sheet') && $request->hasFile('product_data_sheet')) {
           $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
           if ($request->file('product_data_sheet')->isValid()) {
@@ -354,7 +354,7 @@ class ProductController extends ApiController
             $data = array_add($data, 'product_data_sheet', $product_data_sheet_path);
           }
         }
-
+        
         if ($request->has('product_general_specifications') && $request->hasFile('product_general_specifications')) {
           $brand = DB::table('tbl_brand')->where('brand_id', $product->brand_id)->select('brand_name')->first();
           if ($request->file('product_general_specifications')->isValid()) {
@@ -364,7 +364,7 @@ class ProductController extends ApiController
             $data = array_add($data, 'product_general_specifications', $product_general_specifications_path);
           }
         }
-
+        
         //Insert
         DB::beginTransaction();
         DB::table('tbl_product')->where('product_id', $product->product_id)->update($data);
@@ -383,7 +383,7 @@ class ProductController extends ApiController
           'error' => $e->getMessage()
         ]);
       }
-
+      
       return response()->json([
         'result' => 'Producto actualizado correctamente.',
         'product_data_sheet_path' => isset($product_data_sheet_path) ? asset(Storage::url($product_data_sheet_path)) : null,
@@ -391,13 +391,13 @@ class ProductController extends ApiController
         'success' => true
       ]);
     }
-
+    
     return response()->json([
       'result' => 'No se pudo encontrar el producto.',
       'success' => false
     ]);
   }
-
+  
   public function listStockModelCode($product_id) {
     $stock_model_code_list = DB::table('tbl_stock_model')
       ->where('tbl_stock_model.product_id', $product_id)
