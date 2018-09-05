@@ -25,38 +25,42 @@
                 <thead>
                   <tr>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Nro. Pedido">
+                      <input type="text" class="form-control" placeholder="Nro. Pedido" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                    </th>
+                    <th class="hasinput" style="width:10%">
+                      <input type="text" class="form-control" placeholder="Sede del Pedido" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:16%">
-                      <input type="text" class="form-control" placeholder="Fecha">
+                      <input type="text" class="form-control" placeholder="Fecha" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Cliente / DNI">
+                      <input type="text" class="form-control" placeholder="Cliente / DNI" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Tipo de Linea">
+                      <input type="text" class="form-control" placeholder="Tipo de Linea" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Servicio">
+                      <input type="text" class="form-control" placeholder="Servicio" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Equipo">
+                      <input type="text" class="form-control" placeholder="Equipo" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Plan">
+                      <input type="text" class="form-control" placeholder="Plan" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:12%">
-                      <input type="text" class="form-control" placeholder="Estado">
+                      <input type="text" class="form-control" placeholder="Estado" (keyup)="getIdOrdens()"  (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Total">
+                      <input type="text" class="form-control" placeholder="Total" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:12%">
-                      <input type="text" class="form-control" placeholder="Evaluación">
+                      <input type="text" class="form-control" placeholder="Evaluación" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                   </tr>
                   <tr>
                     <th data-class="expand" style="width:10%">Nro. Pedido</th>
+                    <th data-hide="phone,tablet" style="width:10%">Sede del Pedido</th>
                     <th data-hide="phone,tablet" style="width:16%">Fecha</th>
                     <th data-hide="phone,tablet" style="width:10%">Cliente / DNI</th>
                     <th data-hide="phone,tablet" style="width:10%">Tipo de Linea</th>
@@ -69,30 +73,31 @@
                     <th data-hide="phone,tablet" style="width:12%">Evaluación</th>
                   </tr>
                 </thead>
-                <tbody *ngIf="itemsObs | async as items; else loading">
+                <tbody id="tableI" *ngIf="itemsObs | async as items; else loading">
                   <ng-container *ngFor="let item of items; let last = last" 
                     sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
                     <tr>
-                      <td id="{{ item.order_id }}">
+                      <td id="{{ item.order_id }}" class="color-order-{{ item.colorfondo }}">
                         <a class="clic-icon" (click)="detail(item)"><span class="fa fa-eye"></span> {{ item.order_id }}</a>
                       </td>
-                      <td [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>
-                      <td>{{ item.id_number }}</td>
-                      <td>{{ item.affiliation_type }}</td>
-                      <td>{{ item.service_type }}</td>
-                      <td *ngIf="item.equipo_plan === 0">{{ item.product_model }}</td>
-                      <td *ngIf="item.equipo_plan === 1">SOLO PLAN</td>
-                      <td>{{ item.plan_name }}</td>
+                      <td class="color-order-{{ item.order_repetida }}">{{ item.branch_name }}</td>
+                      <td class="color-order-{{ item.order_repetida }}" [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>
+                      <td class="color-order-{{ item.order_repetida }}">{{ item.id_number }}</td>
+                      <td class="color-order-{{ item.order_repetida }}">{{ item.affiliation_type }}</td>
+                      <td class="color-order-{{ item.order_repetida }}">{{ item.service_type }}</td>
+                      <td class="color-order-{{ item.order_repetida }}" *ngIf="item.equipo_plan === 0">{{ item.product_model }}</td>
+                      <td class="color-order-{{ item.order_repetida }}" *ngIf="item.equipo_plan === 1">SOLO PLAN</td>
+                      <td class="color-order-{{ item.order_repetida }}">{{ item.plan_name }}</td>
                       <!--<td>{{ item.branch_name }}</td>-->
-                      <td>{{ item.order_status_name }}</td>
-                      <td>{{ item.total_igv }}</td>
-                      <td>{{ item.credit_status }}</td>
+                      <td class="color-order-{{ item.order_repetida }}">{{ item.order_status_name }}</td>
+                      <td class="color-order-{{ item.order_repetida }}">{{ item.total_igv }}</td>
+                      <td class="color-order-{{ item.order_repetida }}">{{ item.credit_status }}</td>
                     </tr>
                   </ng-container>                
                 </tbody>
                 <ng-template #loading>
                   <tr class="odd">
-                    <td valign="top" colspan="10" class="dataTables_empty">
+                    <td valign="top" colspan="11" class="dataTables_empty">
                       {{ loadingStatus }}
                     </td>
                   </tr>

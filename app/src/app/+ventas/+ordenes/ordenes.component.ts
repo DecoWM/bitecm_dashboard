@@ -34,12 +34,12 @@ export class OrdenesComponent implements OnInit {
       {extend: 'excel', text: 'Exportar filtrado'}
     ],
     pageLength: 25,
-    order: [[1, 'desc']]
+    order: [[2, 'desc']]
   };
   dateRangeOptions = {
     from: '#begin_date',
     to: '#end_date',
-    column: 1
+    column: 2
   };
 
   constructor(
@@ -167,4 +167,21 @@ export class OrdenesComponent implements OnInit {
       });
     })
   }
+
+  getIdOrdens(){
+    var items = []; 
+    var columnValue;
+    $('#tableI>tr>td:nth-child(1)').each( function(){
+       columnValue = $.trim($(this).text()); 
+       items.push(columnValue);
+       //console.log(columnValue);   
+    });
+
+    this.ordenesService.setFilter(items);
+    this.ordenesService.setCursor(items[0]);
+    //console.log(items);
+    //console.log("------");
+
+  }
+
 }

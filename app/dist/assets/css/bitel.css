@@ -556,3 +556,30 @@ postpago-variations .panel-body {
   overflow: hidden;
 }
 
+.color-order-black {
+  background: #1A2320;
+}
+
+.color-order-blue {
+  background: #789DCA;
+}
+
+.color-order-red {
+  background: #FF6862;
+}
+
+.color-order-yellow {
+  background: yellow;
+}
+
+.color-order-green {
+  background: #ADF2B3;
+}
+
+.color-order-orange {
+  background: #FFB246;
+}
+
+.color-order-1 {
+  background: #A9E5E3;
+}

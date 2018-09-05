@@ -18,6 +18,13 @@ export class DetalleOrdenComponent implements OnInit {
   credit_status_list = [
     'Pendiente', 'Aprobada', 'Rechazada', 'Observada'
   ];
+  cursor: any = null;
+  filter: any = null;
+  prev: any = null;
+  next: any = null;
+  pos_prev: any = null;
+  pos_next: any = null;
+  pos_cursor: any = null;
 
   options = {
     columnDefs: [ {
@@ -36,8 +43,34 @@ export class DetalleOrdenComponent implements OnInit {
 
   ngOnInit() {
     this.route.params.subscribe(params => {
+      this.prev = null;
+      this.next = null;
+
       const order_id = params.id;    
       this.blockui.start('content');
+
+      this.filter = this.ordenesService.getFilter();
+      this.cursor = order_id; //this.ordenesService.getCursor();
+
+      // determino la posicion del order_id actual
+      this.pos_cursor = this.filter.indexOf(order_id);
+
+      // detectar las posiciones en base a la posicion del order_id
+      this.pos_prev = this.pos_cursor - 1;
+      this.pos_next = this.pos_cursor + 1;
+
+      if(this.pos_prev >= 0){
+        this.prev = this.filter[this.pos_prev];
+      }
+
+      if(this.pos_next <= this.filter.length){
+        this.next = this.filter[this.pos_next];
+      }
+
+      //this.prev = 1;
+      console.log(this.prev);
+      console.log(this.next);
+          
       this.ordenesService.getOrden(order_id)
       .subscribe((data: any) => {
         console.log(data);
@@ -165,6 +198,15 @@ export class DetalleOrdenComponent implements OnInit {
     return null;
   }
 
+  orderBack(): void {
+    this.router.navigate([this.prev], {relativeTo: this.route.parent });
+  }
+
+  orderNext(): void{
+    this.router.navigate([this.next], {relativeTo: this.route.parent });
+  }
+
+  /*
   orderBack(order_back: any): void {
     this.router.navigate([order_back], {relativeTo: this.route.parent });
   }
@@ -172,5 +214,6 @@ export class DetalleOrdenComponent implements OnInit {
   orderNext(order_next: any): void{
     this.router.navigate([order_next], {relativeTo: this.route.parent });
   }
+  */
 
 }
