@@ -54,6 +54,7 @@ export class DetalleOrdenComponent implements OnInit {
 
       // determino la posicion del order_id actual
       this.pos_cursor = this.filter.indexOf(order_id);
+      console.log('ordenes:' + this.filter);
 
       // detectar las posiciones en base a la posicion del order_id
       this.pos_prev = this.pos_cursor - 1;
@@ -68,8 +69,8 @@ export class DetalleOrdenComponent implements OnInit {
       }
 
       //this.prev = 1;
-      console.log(this.prev);
-      console.log(this.next);
+      console.log('prev:' + this.prev);
+      console.log('next:' + this.next);
           
       this.ordenesService.getOrden(order_id)
       .subscribe((data: any) => {

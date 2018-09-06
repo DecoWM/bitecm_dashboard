@@ -132,6 +132,7 @@ export class OrdenesComponent implements OnInit {
   }
 
   detail(data: any): void {
+    this.getIdOrdens();
     this.router.navigate([data.order_id], {relativeTo: this.route });
     // this.router.navigate([data.order_id], {relativeTo: this.route, fragment: this.page });
   }
@@ -174,13 +175,13 @@ export class OrdenesComponent implements OnInit {
     $('#tableI>tr>td:nth-child(1)').each( function(){
        columnValue = $.trim($(this).text()); 
        items.push(columnValue);
-       //console.log(columnValue);   
+       console.log(columnValue);   
     });
 
     this.ordenesService.setFilter(items);
     this.ordenesService.setCursor(items[0]);
     //console.log(items);
-    //console.log("------");
+    console.log("------");
 
   }
 
