@@ -71,7 +71,7 @@
                     </div>
                   </section>
                 </div>
-                 <input  *ngIf="product.category_id && product.category_id == 4"  id="product_tag" name="product_tag" type="hidden" value="Nuevo">
+                <input  *ngIf="product.category_id && product.category_id == 4"  id="product_tag" name="product_tag" type="hidden" value="Nuevo">
                 <div class="row">
                   <section class="col col-xs-7 col-sm-4">
                     <label for="product_price">Precio</label>
@@ -93,6 +93,19 @@
                   </section>
                 </div>
                 <input  *ngIf="product.category_id && product.category_id == 4"  id="product_priority" name="product_priority" type="hidden" value="1">
+                <!-- Sentinel Flag -->
+                <div *ngIf="product.category_id && product.category_id !== 4" class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="product_sentinel">Prioridad</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="input">
+                      <input id="product_sentinel" name="product_sentinel" type="checkbox" [(ngModel)]="product.product_sentinel"> <span>Sentinel</span>
+                    </div>
+                  </section>
+                </div>
+                <input  *ngIf="product.category_id && product.category_id == 4"  id="product_sentinel" name="product_sentinel" type="hidden" value="0">
+                <!-- End Sentinel Flag -->
               </div>
               <div class="col col-sm-5">
                 <div class="row">
