@@ -26,6 +26,11 @@ export const routes: Routes = [
         path: 'planes',
         loadChildren: './+planes/planes.module#PlanesModule',
         data: {pageTitle: 'Planes'}
+    },
+    {
+        path: 'contratos',
+        loadChildren: './+contratos/contratos.module#ContratosModule',
+        data: {pageTitle: 'Contratos'}
     }
 ];
 

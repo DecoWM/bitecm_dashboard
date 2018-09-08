@@ -133,6 +133,25 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::get('{plan_id}/getInformacionComercialPorPlan', 'PlanController@getInformacionComercialPorPlan');
 	});
 
+	//////////////
+	// CONTRATO //
+	//////////////
+	// CLES 24-08-2018
+	Route::prefix('contratos')->group(function () {
+		//Product list
+		Route::get('', 'ContratoController@list');
+		Route::put('{contract_id}/publish', 'ContratoController@publishContract');
+		Route::put('{contract_id}/hide', 'ContratoController@hideContract');
+		Route::post('', 'ContratoController@storeContract');
+		Route::get('{contract_id}', 'ContratoController@getContract');
+		Route::post('{contract_id_update}', 'ContratoController@updateContract');
+		/*
+		Route::get('variation', 'PlanController@listVariationPlan');
+		Route::get('affiliation', 'PlanController@listAffiliationPlan');
+		Route::get('{plan_id}', 'PlanController@showPlan');
+		*/
+	});
+
 	Route::prefix('plan')->group(function () {
 		Route::prefix('prepago')->group(function () {
 			Route::get('', 'ProductController@listPrepaid');

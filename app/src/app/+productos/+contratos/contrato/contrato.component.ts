@@ -5,26 +5,19 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { ProductService } from './../product.service';
+import { ContratosService } from './../contratos.service';
 
 import { NotificationService } from '../../../shared/utils/notification.service';
 import { BlockUIService } from 'ng-block-ui';
 
 @Component({
-  selector: 'product',
-  templateUrl: './product.component.html',
+  selector: 'contrato',
+  templateUrl: './contrato.component.html',
   styles: []
 })
-export class ProductComponent implements OnInit {
+export class ContratoComponent implements OnInit {
   subtitle: string;
-  product: any = {
-    category_id: '',
-    brand_id: '',
-    product_tag: '',
-    product_internal_memory: '',
-    product_external_memory: '',
-    product_band: ''
-  };
+  contract: any = {};
   alert: any = null;
   active: any = null;
 
@@ -33,30 +26,31 @@ export class ProductComponent implements OnInit {
     private router: Router,
     private blockui: BlockUIService,
     private notificationService: NotificationService,
-    private productService: ProductService
+    private contractService: ContratosService
   ) {}
 
   ngOnInit() {
-    this.active = 'tab-r1';
+    //this.active = 'tab-r1';
     this.alert = null;
-    const product_id = this.route.snapshot.params.id;
-    if (product_id) {
-      this.subtitle = 'Nro. #' + product_id;
+    const contract_id = this.route.snapshot.params.id;
+    if (contract_id) {
+      this.subtitle = 'Nro. #' + contract_id;
       this.blockui.start('content');
-      this.productService.getProduct(product_id)
+      this.contractService.getContract(contract_id)
         .subscribe((data: any) => {
+          console.log(data);
           if (data.success) {
-            this.product = data.result;
+            this.contract = data.result;
           }
           this.blockui.stop('content');
         });
     } else {
-      this.subtitle = 'Nuevo producto';
+      this.subtitle = 'Nuevo contrato';
     }
   }
 
-  refreshProduct() {
-    /*this.productService.getProduct(this.product.product_id)
+  refreshContract() {
+    /*this.planService.getProduct(this.product.product_id)
       .subscribe((data: any) => {
         if (data.success) {
           this.product = data.result;

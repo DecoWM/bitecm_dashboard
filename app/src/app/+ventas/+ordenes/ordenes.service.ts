@@ -11,11 +11,29 @@ import { AuthService } from './../../shared/auth/auth.service';
 export class OrdenesService {
 
   private url = '/api/admin/ordenes';
+  private filter = [];
+  private cursor = null;
 
   constructor(
     private http: HttpClient,
     private authService: AuthService
   ) {}
+
+  setFilter(filter){
+    this.filter=filter;
+  }
+
+  getFilter(){
+    return this.filter;
+  }
+
+  setCursor(cursor){
+    this.cursor=cursor; 
+  }
+
+  getCursor(){
+    return this.cursor;
+  }
 
   getOrdenes() {
     return this.http
