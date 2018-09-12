@@ -64,7 +64,7 @@
                     <div class="select">
                       <select name="product_tag" id="product_tag" [(ngModel)]="product.product_tag" (change)="onSelectChange($event)">
                         <option value="">Seleccionar etiqueta</option>
-                        <option *ngFor="let item of ['Nuevo','Destacado']" value="{{item}}">
+                        <option *ngFor="let item of ['Nuevo','Destacado','Promoción']" value="{{item}}">
                           {{item}}
                         </option>
                       </select> <i></i>
