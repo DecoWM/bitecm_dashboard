@@ -49,7 +49,7 @@ export class SucursalComponent implements OnInit {
     }
   }
 
-  refreshContract() {
+  refreshBranch() {
     /*this.planService.getProduct(this.product.product_id)
       .subscribe((data: any) => {
         if (data.success) {

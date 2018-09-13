@@ -1,0 +1,585 @@
+/*
+ * It is advised not to edit the smartadmin_production.css
+ * as this will override any changes you make in the 
+ * later versions of this theme. 
+ * 
+ * We advise that you use use this CSS to override 
+ * SmartAdmin styles. 
+ * 
+ * Rename the stylesheet to whatever your liking so it will stay
+ * unique to you with each update of SmartAdmin.
+ */
+
+/*
+ * INDEX
+ * 
+ * - HTML
+ * - BODY
+ * - CUSTOM STYLES
+ */
+
+
+ #main {
+  /*background: #000000;*/
+ }
+
+ #ribbon{
+  background-color: #fafafa;
+ }
+
+ #ribbon .breadcrumb{
+  color: #169599 !important;
+ }
+
+ #ribbon .breadcrumb li:last-child, #ribbon .breadcrumb>.active{
+  color: #169599 !important;
+  font-weight: bold;
+ }
+
+table.dataTable thead .sorting{
+  background-color: #169599 !important;
+  background-image:url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABMAAAATAgMAAAAPPt5fAAAACVBMVEUAAADIyMjl5eVIBBP/AAAAAXRSTlMAQObYZgAAAClJREFUCNdjwAYEwGQKiGDsBJFsTA5AUoJhAqZaiDhEDVg9RC/MHEwAANsMA91AQfd/AAAAAElFTkSuQmCC);
+  background-repeat: no-repeat;
+  background-position: center right;
+  color: #ffffff;
+  font-weight: normal;
+  text-align: center;
+}
+
+table.dataTable thead .sorting_disabled {
+  background-color: #169599 !important;
+  color: #ffffff;
+  font-weight: normal;
+  text-align: center;
+}
+
+table.dataTable thead .sorting_asc,
+table.dataTable thead .sorting_desc{
+  background-color: #ffe60d !important;
+  text-align: center;
+  color: #169599;
+}
+
+table.dataTable .btn {
+  background-color: #169599;
+  border: 1px solid transparent;
+  padding: 4px 10px;
+}
+
+table.dataTable .dropdown-menu {
+  left: auto;
+  right: 0;
+}
+
+ .pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover{
+  color: #169599;
+  background: transparent;
+  border: 1px solid transparent;
+ }
+
+ .pagination>li>a:focus, .pagination>li>a:hover, .pagination>li>span:focus, .pagination>li>span:hover{
+  background-color: #169599;
+  color: #ffffff;
+  border: 1px solid transparent;
+
+ }
+
+ .pagination>li>a, .pagination>li>span{
+  border: 1px solid transparent;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  color: #333;
+  font-weight: bold;
+  font-size: 14px;
+  text-transform: uppercase;
+
+ }
+.pagination>li:first-child>a, .pagination>li:first-child>span,
+.pagination>li:last-child>a, .pagination>li:last-child>span{
+  color: #169599;
+  border: 1px solid transparent;
+
+ }
+
+.pagination>li:first-child>a:hover,
+.pagination>li:last-child>a:hover{
+  color: #ffffff;
+
+ }
+
+.pagination>.disabled>a{
+  border: 1px solid transparent;
+  color: #333;
+}
+
+.pagination>.disabled>a:hover{
+  color: #333 !important;
+}
+
+.pagination>.disabled>a:focus, .pagination>.disabled>a:hover, .pagination>.disabled>span, .pagination>.disabled>span:focus, .pagination>.disabled>span:hover{
+  color: #169599;
+  border: 1px solid transparent;
+ }
+
+.txt-color-blueDark{
+  color: #169599;
+  font-size: 16px;
+  line-height: 17px;
+  font-weight: bold;
+}
+
+.vermascol.sorting_asc{
+  background: none !important;
+}
+
+.page-title span{
+  color: #169599;
+  font-size: 16px;
+  line-height: 17px;
+  font-weight: bold;
+  vertical-align: 0;
+}
+
+.table-bordered, .table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th{
+  border: 1px solid transparent;
+}
+
+table.table-bordered tbody td, table.table-bordered thead th{
+  text-align: center;
+  vertical-align: middle;
+}
+
+.vermascol,
+.vermas{
+  width: 50px;
+}
+
+sa-layout-switcher,
+sa-footer,
+.ribbon-button-alignment,
+sa-shopping-cart,
+#speech-btn,
+.header-search.pull-right,
+.header-dropdown-list,
+.project-context,
+#logo-group span#activity{
+  display: none;
+}
+
+.btn-header a{
+  border: 1px solid transparent !important;
+  background: transparent !important;
+}
+
+.btn-header a:hover{
+  border: 1px solid transparent !important;
+  background: #169599 !important;
+  color: #ffffff !important;
+}
+
+.btn-header a:hover i{
+  color: #ffffff;
+}
+
+.btn-header i{
+  color: #169599;
+}
+
+#extr-page #header, #header{
+  background: #ffe60d !important;
+}
+
+aside{
+  background: #169599;
+}
+
+nav ul ul {
+  background: rgba(69,69,69,.3);
+}
+
+nav ul li a{
+  color: #ffffff;
+}
+
+nav ul li a:hover{
+  color: #ffe60d;
+}
+
+nav ul ul li>a:hover,
+nav ul li a:active{
+  background: rgba(69,69,69,.1);
+  /*background: #ffe60d !important;
+  color: #169599 !important;*/
+}
+
+#logo{
+  margin-top: 5px;
+}
+
+#logo img{
+  width: 90px;
+}
+
+.login-info{
+
+}
+
+.login-info img{
+  border-radius: 50%;
+}
+
+.login-info a{
+  color: #ffffff;
+}
+
+.login-info a:hover{
+  color:  #ffe60d;
+}
+
+#shortcut{
+  display: none !important;
+}
+
+#extr-page #header #logo {
+  margin-top: 15px;
+}
+
+#extr-page #header #logo img {
+  width: 100px;
+}
+
+.page-title {
+  font-weight: bold;
+}
+
+.detalle-order{
+
+}
+
+.detalle-order header{
+  margin: 4px 14px 0;
+  font-weight: bold;
+  color: #515151;
+}
+
+.detalle-order header .icon-prepend{
+  position: initial;
+  margin-right: 5px;
+  border-right: none;
+}
+
+.detalle-order .btn {
+  float: right;
+  right: 5px;
+  position: absolute;
+  background-color: #169599;
+  border: 1px solid transparent;
+}
+
+.detalle-order .btn:active {
+  top: auto;
+  left: auto;
+}
+
+.detalle-order .btn.active,
+.detalle-order .btn:active,
+.detalle-order .btn:hover {
+  background-color: #169599;
+}
+
+.detalle-order .dropdown {
+/*  float: right;
+  right: 5px;
+  position: absolute;*/
+}
+
+.detalle-order .dropdown .btn {
+  float: none;
+  right: auto;
+  position: static;
+  margin-top: -3px;
+}
+
+.detalle-order .dropdown.open > .dropdown-toggle.btn {
+  background-color: #169599;
+}
+
+.detalle-order .dropdown-menu {
+  margin-top: -5px !important;
+  right: 0 !important;
+  left: auto !important;
+}
+
+.dropdown-menu>li>a:focus,
+.dropdown-menu>li>a:hover {
+  text-decoration: none;
+  color: #fff;
+  background-color: #169599;
+}
+
+#field-detalle-order,
+.padding-row{
+  padding: 10px 15px 5px;
+}
+
+#field-detalle-order .field-order{
+  display: flex;
+  align-items: center;
+  border: 1px solid #BDBDBD;
+  height: 32px;
+  line-height: 32px;
+  padding: 5px 5px;
+  box-sizing: border-box;
+  margin-bottom: 10px;
+  position: relative;
+}
+#field-detalle-order .field-order .icon-prepend{
+  position: initial;
+  margin-right: 10px;
+}
+
+.detalle-info td {
+  position: relative;
+}
+
+.detalle-info td .dropdown {
+  float: none;
+  right: auto;
+  position: static;
+  width: 100%;
+}
+
+.detalle-info td .dropdown .dropdown-toggle {
+  padding: 2px 10px;
+  width: 100%;
+}
+
+.detalle-info td .dropdown .dropdown-toggle .caret {
+  float: right;
+  margin-top: 7px;
+  position: absolute;
+  right: 20px;
+}
+
+.detalle-info td .dropdown .dropdown-menu{
+  margin-top: 0 !important;
+  width: calc(100% - 20px);
+  min-width: auto;
+  right: auto !important;
+}
+
+.detalle-info .field-order{
+  border: none !important;
+  margin-bottom: 0px !important;
+}
+
+.detalle-info .field-order .field{
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.detalle-info .direccion-de-envio{
+  border: 1px solid #BDBDBD;
+  margin-bottom: 15px;
+}
+
+.detalle-info .direccion-de-envio .row{
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.detalle-info .direccion-de-envio header{
+  margin-bottom: 10px;
+}
+
+.detalle-info .direccion-de-envio.data-table{
+  border: none !important 
+}
+
+.detalle-info .direccion-de-envio.data-table .dataTable{
+  border: 1px solid #BDBDBD !important;
+}
+
+.detalle-info .direccion-de-envio.data-table .dataTable thead .sorting{
+  background-image: none;
+}
+
+.detalle-info .direccion-de-envio.data-table .dataTable tfoot{}
+
+.detalle-info .direccion-de-envio.data-table .dataTable tfoot td{
+  text-align: center;
+  font-weight: bold;
+}
+
+.detalle-registro{
+
+}
+
+.detalle-registro .row{
+  margin: 0 -14px;
+  margin-bottom: 10px;
+}
+
+.detalle-registro .row footer{
+  margin-bottom: -14px;
+}
+
+.detalle-registro footer{
+
+}
+.detalle-registro footer .btn{
+  float: left;
+}
+
+.detalle-registro footer .btn-footer{
+  float: right;
+}
+
+.detalle-registro footer .btn-footer .btn{
+  position: static;
+  background-color: #169599;
+  border: 1px solid transparent;
+}
+
+.detalle-registro footer .btn-footer .btn:hover{
+  background-color: #ffe60d;
+  border: 1px solid transparent;
+  color:  #169599;
+}
+
+.detalle-info span.normal-price {
+  text-decoration: line-through;
+  font-size: 12px;
+  color: #d2d2d2;
+}
+
+.btn-success {
+  background-color: #169599;
+  border: 1px solid transparent;
+}
+
+.btn-success:hover{
+  background-color: #ffe60d;
+  border: 1px solid transparent;
+  color:  #169599;
+}
+
+.jarviswidget {
+  margin-bottom: 10px;
+}
+
+.login-info>span {
+  border-bottom: 0;
+}
+
+.MessageBoxContainer {
+  width: 50%;
+  margin: 0 auto;
+}
+.MessageBoxMiddle {
+  width: 100%;
+  left: 0%;
+}
+.MsgTitle .txt-color-orangeDark{
+  color: #169599;
+}
+
+
+
+/* Add Css */
+
+.detalle-registro img.product-image{
+  max-width: 100%;
+}
+.detalle-registro td img.product-image {
+  max-width: 30px;
+}
+
+product-specs i.icon-append {
+    color: #666;
+    font-size: 10px !important;
+    /* font-weight: bold; */
+    font-family: "Open Sans",Arial,Helvetica,Sans-Serif;
+}
+
+.product-images .btn {
+  float: none;
+  position: static;
+}
+
+
+.smart-form .state-success input.ng-untouched,
+.smart-form .state-success select.ng-untouched,
+.smart-form .state-success textarea.ng-untouched {
+  border-color: #bdbdbd;
+  background: #fff;
+}
+
+.smart-form .input-file input[type='text'] {
+  padding-right: 65px;
+}
+
+postpago-variations .panel-body {
+  padding: 0;
+}
+
+@media screen and (max-width: 979px){
+
+.display-inline.hidden-tablet, .hidden-tablet{
+  display: block !important; 
+}
+
+}
+
+
+.images-content {
+
+  display: flex;
+  align-items: center;
+
+}
+
+.images-content span.label-content {
+
+  width: 20%;
+
+}
+
+.images-content .input-content {
+  width: 80%;
+}
+
+.detalle-order .field-order p {
+  height: 32px;
+  display: block;
+  margin: 0;
+  overflow: hidden;
+}
+
+.color-order-black {
+  background: #1A2320;
+}
+
+.color-order-blue {
+  background: #789DCA;
+}
+
+.color-order-red {
+  background: #FF6862;
+}
+
+.color-order-yellow {
+  background: yellow;
+}
+
+.color-order-green {
+  background: #ADF2B3;
+}
+
+.color-order-orange {
+  background: #FFB246;
+}
+
+.color-order-1 {
+  background: #A9E5E3;
+}
