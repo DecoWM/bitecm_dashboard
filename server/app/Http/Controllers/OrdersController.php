@@ -574,7 +574,7 @@ class OrdersController extends ApiController
     }
     Excel::create($file_name, function($excel) use($data) {
       $excel->sheet('Reporte', function($sheet) use($data) {
-          $sheet->fromArray($data, 'N/A', 'A1', true, true);
+        $sheet->fromArray($data, 'N/A', 'A1', true, true);
       });
     })->store('xlsx', storage_path('app/public/reportes'));
 

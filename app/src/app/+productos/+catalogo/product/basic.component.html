@@ -64,14 +64,14 @@
                     <div class="select">
                       <select name="product_tag" id="product_tag" [(ngModel)]="product.product_tag" (change)="onSelectChange($event)">
                         <option value="">Seleccionar etiqueta</option>
-                        <option *ngFor="let item of ['Nuevo','Destacado']" value="{{item}}">
+                        <option *ngFor="let item of ['Nuevo','Destacado','Promoción']" value="{{item}}">
                           {{item}}
                         </option>
                       </select> <i></i>
                     </div>
                   </section>
                 </div>
-                 <input  *ngIf="product.category_id && product.category_id == 4"  id="product_tag" name="product_tag" type="hidden" value="Nuevo">
+                <input *ngIf="product.category_id && product.category_id == 4"  id="product_tag" name="product_tag" type="hidden" value="Nuevo">
                 <div class="row">
                   <section class="col col-xs-7 col-sm-4">
                     <label for="product_price">Precio</label>
@@ -92,7 +92,21 @@
                     </div>
                   </section>
                 </div>
-                <input  *ngIf="product.category_id && product.category_id == 4"  id="product_priority" name="product_priority" type="hidden" value="1">
+                <input *ngIf="product.category_id && product.category_id == 4"  id="product_priority" name="product_priority" type="hidden" value="1">
+                <!-- Sentinel Flag -->
+                <div *ngIf="!product.product_id || (product.category_id && product.category_id !== 4)" class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="product_sentinel">Sentinel</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div>
+                      <input id="product_sentinel" name="product_sentinel" type="checkbox" [(ngModel)]="product.product_sentinel" [attr.disabled]="product.product_id ? 'disabled' : null">
+                      <input *ngIf="product.product_id" id="product_sentinel" name="product_sentinel" type="hidden" value="0">
+                    </div>
+                  </section>
+                </div>
+                <input *ngIf="product.category_id && product.category_id == 4"  id="product_sentinel" name="product_sentinel" type="hidden" value="0">
+                <!-- End Sentinel Flag -->
               </div>
               <div class="col col-sm-5">
                 <div class="row">

@@ -45,7 +45,6 @@ export class ProductComponent implements OnInit {
       this.blockui.start('content');
       this.productService.getProduct(product_id)
         .subscribe((data: any) => {
-          console.log(data);
           if (data.success) {
             this.product = data.result;
           }

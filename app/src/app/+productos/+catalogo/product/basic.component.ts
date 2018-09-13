@@ -147,6 +147,7 @@ export class ProductBasicComponent implements OnInit, AfterViewChecked {
           this.blockui.stop('content');
         });
     } else {
+      formData.set('product_sentinel', this.product.product_sentinel);
       this.productService.saveBasic(formData)
         .subscribe((data: any) => {
           this.onAlert.emit(this.getAlert(data, this.product, 'Creación', 'creado'));

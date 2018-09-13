@@ -22,8 +22,14 @@ class ProductController extends ApiController
       ->whereNotIn('tbl_product.category_id',[4])
       ->join('tbl_brand', 'tbl_product.brand_id', '=', 'tbl_brand.brand_id')
       ->join('tbl_category', 'tbl_product.category_id', '=', 'tbl_category.category_id')
-      ->select('tbl_product.product_id', 'tbl_product.product_priority', DB::raw('IFNULL(tbl_product.updated_at, tbl_product.created_at) as updated_at'), 'tbl_category.category_name', 'tbl_brand.brand_name','tbl_product.product_model', 'tbl_product.publish_at', 'tbl_product.active')
+      ->select('tbl_product.product_id', 'tbl_product.product_priority', DB::raw('IFNULL(tbl_product.updated_at, tbl_product.created_at) as updated_at'), 'tbl_category.category_name', 'tbl_brand.brand_name', 'tbl_product.product_model', 'tbl_product.product_sentinel', 'tbl_product.publish_at', 'tbl_product.active')
       ->get();
+
+    foreach ($product_list as $ix => $product) {
+      if ($product->product_sentinel) {
+        $product_list[$ix]->product_model .= ' +S';
+      }
+    }
 
     return response()->json([
       'result' => $product_list,
@@ -118,6 +124,7 @@ class ProductController extends ApiController
 
   public function storeProduct(Request $request) {
     //Validator
+    $request->merge(['product_sentinel' => boolval($request->input('product_sentinel'))]);
     $validator = Validator::make($request->all(), [
       'category_id' => 'required|exists:tbl_category',
       'brand_id' => 'required|exists:tbl_brand',
@@ -125,7 +132,8 @@ class ProductController extends ApiController
       'product_price' => 'required|numeric',
       'product_priority' => 'required|integer',
       'product_tag' => 'nullable|string',
-      'product_image' => 'required|image|max:1024'
+      'product_image' => 'required|image|max:1024',
+      'product_sentinel' => 'required|boolean'
     ]);
 
     if($validator->fails()) {
@@ -143,9 +151,27 @@ class ProductController extends ApiController
     $product_price = $request->input('product_price');
     $product_priority = $request->input('product_priority');
     $product_tag = $request->input('product_tag');
+    $product_sentinel = $request->input('product_sentinel');
 
     //Slug
     $product_slug = str_slug($product_model);
+
+    if ($product_sentinel > 0) {
+      //$product_model = $product_model.' +S';
+      $product_slug = $product_slug.'-sentinel';
+    }
+
+    $product = DB::table('tbl_product')
+      ->where('product_slug', $product_slug)
+      ->select('product_id', 'product_slug')
+      ->first();
+
+    if ($product) {
+      return response()->json([
+        'error' => 'Producto ya existe',
+        'success' => false
+      ]);
+    }
 
     //Image
     $brand = DB::table('tbl_brand')->where('brand_id', $brand_id)->select('brand_name')->first();
@@ -171,7 +197,8 @@ class ProductController extends ApiController
         'product_priority' => $product_priority,
         'product_tag' => $product_tag,
         'product_slug' => $product_slug,
-        'product_image_url' => $product_image_url
+        'product_image_url' => $product_image_url,
+        'product_sentinel' => $product_sentinel
       ]);
       DB::commit();
     } catch (\Illuminate\Database\QueryException $e) {
