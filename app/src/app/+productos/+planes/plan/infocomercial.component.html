@@ -17,11 +17,13 @@
                       <table class="table table-striped table-bordered table-hover">
                         <thead>
                           <tr>
-                            <th style="width:13%;background:#169599;color:white;">Imagen</th>
+                            <th style="width:10%;background:#169599;color:white;">Imagen</th>
+                            <th style="width:13%;background:#169599;color:white;">Tipo</th>
                             <th style="width:13%;background:#169599;color:white;">Descripción</th>
                             <th style="width:13%;background:#169599;color:white;">Información adicional</th>
                             <th style="width:13%;background:#169599;color:white;">Flag-Cantidad</th>
-                            <th style="width:9%;background:#169599;color:white;">Activo</th>
+                            <th style="width:8%;background:#169599;color:white;">Orden</th>
+                            <th style="width:8%;background:#169599;color:white;">Activo</th>
                             <th style="width:11%;background:#169599;color:white;">Acción</th>
                           </tr>
                         </thead>
@@ -30,9 +32,24 @@
                           sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
                             <tr>
                               <td><img class="product-image" id="fimagen_icons{{ item.plan_infocomercial_id }}" src="{{item.plan_infocomercial_img_url}}"></td>
+                              <td id="ftipo{{ item.plan_infocomercial_id }}">
+                                <div *ngIf="item.tipo == 0">
+                                    Sin tipo
+                                </div>
+                                <div *ngIf="item.tipo == 1">
+                                    App Ilimitada
+                                </div>
+                                <div *ngIf="item.tipo == 2">
+                                    Servicio
+                                </div>
+                                <div *ngIf="item.tipo == 3">
+                                    Megas Inter.
+                                </div>
+                              </td>
                               <td id="fdescripcion{{ item.plan_infocomercial_id }}">{{ item.plan_infocomercial_descripcion }}</td>
                               <td id="finformacion_adicional{{ item.plan_infocomercial_id }}">{{ item.plan_infocomercial_informacion_adicional }}</td>
                               <td id="fflag_cantidad{{ item.plan_infocomercial_id }}">{{ item.plan_infocomercial_flag_cantidad }}</td>
+                              <td id="fweight{{ item.plan_infocomercial_id }}">{{ item.weight }}</td>
                               <td [attr.data-order]="item.active">
                                 <span *ngIf="item.active" class="fa fa-check-circle" style="color: green;"></span>
                                 <span *ngIf="!item.active" class="fa fa-minus-circle" style="color: red;"></span>
@@ -115,6 +132,17 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="inputlg">Tipo</label>
+          <div class="select">
+            <select id="tipo" name="tipo">
+              <option value="0">Seleccionar tipo</option> 
+              <option value="1">App Ilimitada</option>
+              <option value="2">Servicio</option>
+              <option value="3">Megas Internacionales</option>
+            </select>  <i></i>
+          </div> 
+        </div>
+        <div class="form-group">
            <label for="inputlg">Descripción</label>
            <input id="plan_id" type="hidden" name="plan_id" value="">
            <input id="plan_info_id" type="hidden" name="plan_info_id" value="">
@@ -127,6 +155,10 @@
         <div class="form-group">
           <label for="inputlg">Flag-Cantidad</label>
           <input class="form-control input-sm" id="inputlg" type="text" id="flag_cantidad" name="flag_cantidad" value="1" maxlength="3" required>
+        </div>
+        <div class="form-group">
+          <label for="inputlg">Orden</label>
+          <input class="form-control input-sm" id="inputlg" type="text" id="weight" name="weight" value="1" maxlength="3" required>
         </div>
       </form>  
       </div>
@@ -165,6 +197,17 @@
           </div>
         </div>
         <div class="form-group">
+          <label for="inputlg">Tipo</label>
+          <div class="select">
+            <select id="tipo_insertar" name="tipo_insertar">
+              <option value="0" selected>Seleccionar tipo</option> 
+              <option value="1">App Ilimitada</option>
+              <option value="2">Servicio</option>
+              <option value="3">Megas Internacionales</option>
+            </select>  <i></i>
+          </div> 
+        </div>
+        <div class="form-group">
           <label for="inputlg">Descripción</label>
           <input id="plan_id_insertar" type="hidden" name="plan_id_insertar" value="">
           <input class="form-control input-sm" id="inputlg" type="text" id="descripcion_insertar" name="descripcion_insertar" value="" requerid>
@@ -176,6 +219,10 @@
         <div class="form-group">
           <label for="inputlg">Flag-Cantidad</label>
           <input class="form-control input-sm" id="inputlg" type="text" id="flag_cantidad_insertar" name="flag_cantidad_insertar" value="1" maxlength="3" required>
+        </div>
+        <div class="form-group">
+          <label for="inputlg">Orden</label>
+          <input class="form-control input-sm" id="inputlg" type="text" id="weight_insertar" name="weight_insertar" value="1" maxlength="3" required>
         </div>
       </form>  
       </div>

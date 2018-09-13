@@ -31,6 +31,16 @@ export const routes: Routes = [
         path: 'contratos',
         loadChildren: './+contratos/contratos.module#ContratosModule',
         data: {pageTitle: 'Contratos'}
+    },
+    {
+        path: 'sucursales',
+        loadChildren: './+sucursales/sucursales.module#SucursalesModule',
+        data: {pageTitle: 'Sucursales'}
+    },
+    {
+        path: 'distritos',
+        loadChildren: './+distritos/distritos.module#DistritosModule',
+        data: {pageTitle: 'Distritos'}
     }
 ];
 

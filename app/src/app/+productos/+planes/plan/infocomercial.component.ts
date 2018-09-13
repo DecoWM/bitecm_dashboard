@@ -44,6 +44,9 @@ export class InfocomercialComponent implements OnInit {
       image_file_insertar : {
         required : true
       },
+      tipo_insertar : {
+        required : true
+      },
       descripcion_insertar : {
         required : true
       },
@@ -53,11 +56,18 @@ export class InfocomercialComponent implements OnInit {
       flag_cantidad_insertar : {
         required : true,
         number: true 
+      },
+      weight_insertar : {
+        required : true,
+        number: true 
       }
     },
     messages : {
       image_file_insertar : {
         required : 'Debes seleccionar una imagen'
+      },
+      tipo_insertar : {
+        required : 'Debes seleccionar un tipo'
       },
       descripcion_insertar : {
         required : 'Debes ingresar una descripcion'
@@ -68,12 +78,19 @@ export class InfocomercialComponent implements OnInit {
       flag_cantidad_insertar : {
         required : 'Debes ingresar un flag cantidad',
         number: 'Debes ingresar un número',
+      },
+      weight_insertar : {
+        required : 'Debes ingresar un peso para el orden de presentación',
+        number: 'Debes ingresar un número',
       }
     }
   };
 
   validationOptionsUpdate = {
     rules: {
+      tipo : {
+        required : true
+      },
       descripcion : {
         required : true
       },
@@ -83,9 +100,16 @@ export class InfocomercialComponent implements OnInit {
       flag_cantidad : {
         required : true,
         number: true 
+      },
+      weight : {
+        required : true,
+        number: true 
       }
     },
     messages : {
+      tipo : {
+        required : 'Debes seleccionar un tipo'
+      },
       descripcion : {
         required : 'Debes ingresar una descripcion'
       },
@@ -94,6 +118,10 @@ export class InfocomercialComponent implements OnInit {
       },
       flag_cantidad : {
         required : 'Debes ingresar un flag cantidad',
+        number: 'Debes ingresar un número',
+      },
+      weight : {
+        required : 'Debes ingresar un peso para el orden de presentación',
         number: 'Debes ingresar un número',
       }
     }
@@ -142,9 +170,29 @@ export class InfocomercialComponent implements OnInit {
   detailInfoComercialModalEditar(item): void {
     $('#plan_id').val(this.route.snapshot.params.id);
     $('#plan_info_id').val(item.plan_infocomercial_id);
+
+    var dato = $('#ftipo' + item.plan_infocomercial_id).text();
+    var valor = 0;
+    if(dato.trim() == 'Sin tipo'){
+      valor = 0;
+    }
+    if(dato.trim() == 'App Ilimitada'){
+      valor = 1;
+    }
+    if(dato.trim() == 'Servicio'){
+      valor = 2;
+    }
+    if(dato.trim() == 'Megas Inter.'){
+      valor = 3;
+    }
+
+    //$('#tipo').val($('#ftipo' + item.plan_infocomercial_id).text());
+    $('#tipo').val(valor);
+    
     $('#descripcion').val($('#fdescripcion' + item.plan_infocomercial_id).text());
     $('#informacion_adicional').val($('#finformacion_adicional' + item.plan_infocomercial_id).text());
     $('#flag_cantidad').val($('#fflag_cantidad' + item.plan_infocomercial_id).html());
+    $('#weight').val($('#fweight' + item.plan_infocomercial_id).html());
     $('#imagen_icon').attr('src', $('#fimagen_icons' + item.plan_infocomercial_id).attr('src'));
     $('#myModalEditar').modal('show');
   }
@@ -195,9 +243,28 @@ export class InfocomercialComponent implements OnInit {
         .subscribe((data: any) => {
           this.onAlert.emit(this.getAlertSaveInformacionComercial(data, data.descripcion));
           if (data.success) {
+
+            var valor = '';
+            if(data.tipo == 0){
+              valor = 'Sin tipo';
+            }
+            if(data.tipo == 1){
+              valor = 'App Ilimitada';
+            }
+            if(data.tipo == 2){
+              valor = 'Servicio';
+            }
+            if(data.tipo == 3){
+              valor = 'Megas Inter.';
+            }
+
+            $('#ftipo' + plan_infocomercial_id).text(valor);
+            //$('#ftipo' + plan_infocomercial_id).text(data.tipo);
+
             $('#fdescripcion' + plan_infocomercial_id).text(data.descripcion);
             $('#finformacion_adicional' + plan_infocomercial_id).text(data.informacion_adicional);
             $('#fflag_cantidad' + plan_infocomercial_id).html(data.flag_cantidad);
+            $('#fweight' + plan_infocomercial_id).html(data.weight);
             // valida si la imagen que se carga es diferente a la que ya esta cargada
             if(data.img_infocomercial != $('#imagen_icon' + plan_infocomercial_id).attr('src')){
               $('#fimagen_icons' + plan_infocomercial_id).attr('src', data.img_infocomercial);
@@ -232,9 +299,11 @@ export class InfocomercialComponent implements OnInit {
   // Mostrar los datos del modal
   detailInfoComercialModalNuevo(): void {
     $('#image_file_insertar').val(null);
+    $('#tipo_insertar').val('');
     $('#descripcion_insertar').val('');
     $('#informacion_adicional_insertar').val('');
     $('#flag_cantidad_insertar').val(1);
+    $('#weight_insertar').val(1);
     const plan_id = this.route.snapshot.params.id;
     $('#plan_id_insertar').val(plan_id);
     $('#myModalNuevo').modal('show');

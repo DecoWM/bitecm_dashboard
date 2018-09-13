@@ -1,0 +1,87 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Información Básica
+          </header>
+          <form #formBasic="ngForm" #form class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="districtOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-basic">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="departament_name">Departamento</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="select">
+                      <select id="departament_name" name="departament_name" (change)="onSelectDepartmentChange($event)">
+                        <option value="" selected>Seleccionar departamento</option> 
+                        <option *ngFor="let item of departments" value="{{item.departament_id}}">{{item.departament_name}}</option>
+                      </select>  <i></i>
+                    </div> 
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="province_name">Provincia</label>
+                  </section>                 
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="select">
+                      <select id="province_name" name="province_name" (change)="onSelectProvinceChange($event)">
+                        <option value="" selected>Seleccionar provincia</option> 
+                        <option *ngFor="let item of provinces" value="{{item.province_id}}">{{item.province_name}}</option>
+                      </select>  <i></i>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="district_name">Distrito</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="select">
+                      <select id="district_name" name="district_name">
+                        <option value="" selected>Seleccionar distrito</option> 
+                        <option *ngFor="let item of districts" value="{{item.district_id}}">{{item.district_name}}</option>
+                      </select>  <i></i>
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="sucursal_id">Sucursal</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="select">
+                      <select id="branch_name" name="branch_name">
+                        <option value="" selected>Seleccionar sucursal</option> 
+                        <option *ngFor="let item of branches" value="{{item.branch_id}}">{{item.branch_name}}</option>
+                      </select>  <i></i>
+                    </div> 
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <footer>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

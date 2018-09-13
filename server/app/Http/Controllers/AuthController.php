@@ -70,4 +70,38 @@ class AuthController extends Controller
     public function test(Request $request) {
         die('holaaa!!!');
     }
+
+    // Permite realizar el refresh del token vencido
+    public function refreshToken() {    
+        //Obtener el token JWT
+        $token = JWTAuth::getToken();
+        if(!$token){
+            return response()->json([
+                'token' => false,
+                'success' => false,
+                'message' => "error no se pudo obtener el token antiguo.",
+                'status' => 200
+            ]);
+        }
+       
+        try{
+            // refrescar el token
+            $token = JWTAuth::refresh($token);
+            return response()->json([
+                'token' => $token,
+                'success' => true,
+                'message' => "token refrescado.",
+                'status' => 200
+            ]);
+        }
+        catch(okenInvalidException $e){
+            return response()->json([
+                'token' => false,
+                'success' => false,
+                'message' => "no se pudo refrescar el tocken.",
+                'status' => 200
+            ]);
+        }
+
+    }
 }

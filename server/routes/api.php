@@ -2,7 +2,7 @@
 <?php
 
 Route::get('auth/login', 'AuthController@test');
-
+Route::post('auth/refreshToken', 'AuthController@refreshToken');
 Route::post('auth/login', 'AuthController@authenticate');
 
 Route::prefix('admin')->middleware('jwt.auth')->group(function () {
@@ -131,6 +131,50 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::get('{plan_id}/getAffiliationsPlan', 'PlanController@getAffiliationsPlan');
 
 		Route::get('{plan_id}/getInformacionComercialPorPlan', 'PlanController@getInformacionComercialPorPlan');
+	});
+
+	//////////////
+	// SUCURSAL //
+	//////////////
+	// CLES 24-08-2018
+	Route::prefix('sucursales')->group(function () {
+		//Product list
+		Route::get('', 'SucursalController@list');
+		Route::put('{branch_id}/publish', 'SucursalController@publishBranch');
+		Route::put('{branch_id}/hide', 'SucursalController@hideBranch');
+		Route::post('', 'SucursalController@storeBranch');
+		Route::get('{branch_id}', 'SucursalController@getBranch');
+		Route::post('{branch_id_update}', 'SucursalController@updateBranch');
+		/*
+		Route::get('variation', 'PlanController@listVariationPlan');
+		Route::get('affiliation', 'PlanController@listAffiliationPlan');
+		Route::get('{plan_id}', 'PlanController@showPlan');
+		*/
+	});
+
+	//////////////
+	// DISTRITOS //
+	//////////////
+	// CLES 24-08-2018
+	Route::prefix('distritos')->group(function () {
+		//Product list
+		Route::get('', 'DistritoController@list');
+
+		Route::get('departments', 'DistritoController@listDepartments');
+		Route::get('branches', 'DistritoController@listBranches');
+		Route::get('{departament_id}', 'DistritoController@listProvinces');
+		Route::get('{province_id}/getDistrictsByProvince', 'DistritoController@listDistricts');
+
+		Route::put('{district_id}/publish', 'DistritoController@publishDistrict');
+		Route::put('{district_id}/hide', 'DistritoController@hideDistrict');
+		//Route::post('', 'DistritoController@storeDistrict');
+		Route::get('{district_id}', 'DistritoController@getDistrict');
+		Route::post('', 'DistritoController@updateDistrict');
+		/*
+		Route::get('variation', 'PlanController@listVariationPlan');
+		Route::get('affiliation', 'PlanController@listAffiliationPlan');
+		Route::get('{plan_id}', 'PlanController@showPlan');
+		*/
 	});
 
 	//////////////

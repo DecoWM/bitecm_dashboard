@@ -140,6 +140,32 @@ export class AuthService {
     }
   }
 
+  // IMPORTANTE
+  // refrescar la variable _token
+  refresh_Token(token){
+    this._token = token;
+  }
+
+  // servicio que obtiene el nuevo token y lo pasa al proceso
+  // de validacion del token activo
+  refreshToken(){
+     const datos: Subject<any> = new Subject();
+     //console.log("Inicia el llamado de refreshToken");
+     this.http
+      .post(
+        '/api/auth/refreshToken',
+        { }
+        // { headers: headers }
+      ).map((data: any) => {
+        return data;
+      })
+      .subscribe(data => {
+        datos.next(data);
+      });
+
+      return datos;
+  }
+
   private showNavBar(ifShow: boolean) {
      this.showNavBarEmitter.emit(ifShow);
   }

@@ -278,6 +278,7 @@ class PlanController extends ApiController
 
   public function getInformacionComercialPorPlan($plan_id) {
     $info_comercial = DB::table('tbl_plan_infocomercial')
+      ->orderBy('tbl_plan_infocomercial.weight')
       ->where('plan_id', $plan_id)
       //->where('active', 1)
       ->get();
@@ -399,6 +400,8 @@ class PlanController extends ApiController
         'descripcion' => 'required|string',
         'informacion_adicional' => 'required|string',
         'flag_cantidad' => 'required|integer',
+        'weight' => 'required|integer',
+        'tipo' => 'required|integer',
         'image_file' => 'nullable|mimes:jpeg,jpg,png,svg|image|max:1024'
     ]);
 
@@ -416,6 +419,8 @@ class PlanController extends ApiController
     $descripcion = $request->input('descripcion');
     $informacion_adicional = $request->input('informacion_adicional');
     $flag_cantidad = $request->input('flag_cantidad');
+    $weight = $request->input('weight');
+    $tipo = $request->input('tipo');
 
     // validacion del plan
     $product = DB::table('tbl_plan_infocomercial')
@@ -428,6 +433,8 @@ class PlanController extends ApiController
         'plan_infocomercial_descripcion' => $descripcion,
         'plan_infocomercial_informacion_adicional' => $informacion_adicional,
         'plan_infocomercial_flag_cantidad' => $flag_cantidad,
+        'weight' => $weight,
+        'tipo' => $tipo,
         'updated_at' => Carbon::now()->toDateTimeString()
       ];
 
@@ -457,6 +464,8 @@ class PlanController extends ApiController
         'descripcion' => $descripcion,
         'informacion_adicional' => $informacion_adicional,
         'flag_cantidad' => $flag_cantidad,
+        'weight' => $weight,
+        'tipo' => $tipo,
         'img_infocomercial' => $image_url,
         'success' => true
       ]);
@@ -475,6 +484,8 @@ class PlanController extends ApiController
       'descripcion_insertar' => 'required|string',
       'informacion_adicional_insertar' => 'required|string',
       'flag_cantidad_insertar' => 'required|integer',
+      'weight_insertar' => 'required|integer',
+      'tipo_insertar' => 'required|integer',
       'image_file_insertar' => 'required|mimes:jpeg,jpg,png,svg|image|max:1024'
     ]);
 
@@ -492,6 +503,8 @@ class PlanController extends ApiController
     $descripcion = $request->input('descripcion_insertar');
     $informacion_adicional = $request->input('informacion_adicional_insertar');
     $flag_cantidad = $request->input('flag_cantidad_insertar');
+    $weight = $request->input('weight_insertar');
+    $tipo = $request->input('tipo_insertar');
 
     $product = DB::table('tbl_plan')
       ->where('plan_id', $plan_id)
@@ -517,6 +530,8 @@ class PlanController extends ApiController
           'plan_infocomercial_descripcion' => $descripcion,
           'plan_infocomercial_informacion_adicional' => $informacion_adicional,
           'plan_infocomercial_flag_cantidad' => $flag_cantidad,
+          'weight' => $weight,
+          'tipo' => $tipo,
           'plan_infocomercial_img_url' => $img_infocomercial,
           'created_at' => Carbon::now()->toDateTimeString(),
           'active' => 1

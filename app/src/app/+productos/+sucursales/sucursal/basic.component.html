@@ -1,0 +1,65 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Información Básica
+          </header>
+          <form #formBasic="ngForm" #form class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="branchOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-basic">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-7">
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="branch_name">Nombre</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="branch.branch_id" class="input">
+                      <input id="branch_name" name="branch_name" type="text" [(ngModel)]="branch.branch_name">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="branch_zip">Código ZIP</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="branch.branch_id" class="input">
+                      <input id="zip_code" name="zip_code" type="text" [(ngModel)]="branch.zip_code">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="branch_address">Dirección de sucursal</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="branch.branch_id" class="input">
+                      <input id="branch_address" name="branch_address" type="text" [(ngModel)]="branch.branch_address">
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <footer>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>
