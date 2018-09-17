@@ -94,6 +94,21 @@
                   </section>
                 </div>
               </div>
+
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
+                <div class="row">
+                  <section class="col col-xs-5 col-sm-12">
+                    <label for="product_camera_3">Cámara Externa</label>
+                  </section>
+                  <section class="col col-xs-7 col-sm-12">
+                    <div class="input"> <i class="icon-append fa">MP</i>
+                      <input id="product_camera_3" name="product_camera_3" type="text" [(ngModel)]="product.product_camera_3">
+                    </div>
+                  </section>
+                </div>
+              </div>
+
+              <!--
               <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-sm-6 col-md-4">
                 <div class="row">
                   <section class="col col-xs-5 col-sm-12">
@@ -106,6 +121,7 @@
                   </section>
                 </div>
               </div>
+            -->
          <!--      <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
               </div> -->
               <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-8">
@@ -120,6 +136,21 @@
                   </section>
                 </div>
               </div>
+
+              <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
+                <div class="row">
+                  <section class="col col-xs-5 col-sm-12">
+                    <label for="product_memory_ram">Memoria RAM</label>
+                  </section>
+                  <section class="col col-xs-7 col-sm-12">
+                    <div class="input"> <i class="icon-append fa">GB</i>
+                      <input id="product_memory_ram" name="product_memory_ram" type="text" [(ngModel)]="product.product_memory_ram">
+                    </div>
+                  </section>
+                </div>
+              </div>
+
+              <!--
               <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col col-xs-6 col-sm-6 col-md-4">
                 <div class="row">
                   <section class="col col-xs-5 col-sm-12">
@@ -132,6 +163,8 @@
                   </section>
                 </div>
               </div>
+              -->
+
               <div *ngIf="product.product_id && product.category_id && (product.category_id == 1 || product.category_id == 3)" class="col  col-xs-6 col-sm-12">
                 <div class="row">
                   <section class="col col-xs-5 col-sm-12">

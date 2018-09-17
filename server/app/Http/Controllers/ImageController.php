@@ -21,7 +21,7 @@ class ImageController extends ApiController
     //Validator
     $validator = Validator::make($request->all(), [
       'image_name' => 'required',
-      'image_file' => 'nullable|image|max:10240'
+      'image_file' => 'nullable|image|mimes:jpeg,jpg,png,gif|max:20240'
     ]);
 
     //Images
@@ -35,12 +35,12 @@ class ImageController extends ApiController
     ];
 
     if ($request->hasFile('image_file') && $request->file('image_file')->isValid()) {
-      // error_log('entro11'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+       //error_log('entro11'."\n", 3, "C:/nginx-1.12.2/logs/bitel-store.log");
       $prefix = "images";
       $extension = $request->file('image_file')->guessExtension();
-      // error_log('entro12:'.$extension."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+       //error_log('entro12:'.$extension."\n", 3, "C:/nginx-1.12.2/logs/bitel-store.log");
       $image_data['image_url'] = $request->file('image_file')->storeAs($prefix, $image_name.'.'.$extension, 'public');
-      // error_log('entro13'."\n", 3, "C:/nginx-1.12.2/logs/biteldashboard.log");
+       //error_log('entro13'."\n", 3, "C:/nginx-1.12.2/logs/bitel-store.log");
       $image_url = asset(Storage::url($image_data['image_url']));
     } 
     else {
@@ -119,6 +119,8 @@ class ImageController extends ApiController
         'image_demo' => $image_demo,
         'active' => $image->active
       ];
+
+      //error_log(print_r($image_data, true), 3, 'c:/nginx-1.12.2/logs/bitel-store.log');
 
       array_push($image_array, $image_data);
     }

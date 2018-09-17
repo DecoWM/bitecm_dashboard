@@ -336,7 +336,7 @@ class ProductController extends ApiController
         $product_camera_4 = $request->input('product_camera_4', null);
         $product_memory_ram = $request->input('product_memory_ram', null);
         $product_processor_name = $request->input('product_processor_name', null);
-        $product_processor_power = $request->input('product_processor_power', null);
+        //$product_processor_power = $request->input('product_processor_power', null);
         $product_processor_cores = $request->input('product_processor_cores', null);
         $product_band = $request->input('product_band', null);
         $product_radio = $request->input('product_radio', null);
@@ -362,7 +362,7 @@ class ProductController extends ApiController
         isset($product_camera_4) ? $data = array_add($data, 'product_camera_4', $product_camera_4) : '';
         isset($product_memory_ram) ? $data = array_add($data, 'product_memory_ram', $product_memory_ram) : '';
         isset($product_processor_name) ? $data = array_add($data, 'product_processor_name', $product_processor_name) : '';
-        isset($product_processor_power) ? $data = array_add($data, 'product_processor_power', $product_processor_power) : '';
+        //isset($product_processor_power) ? $data = array_add($data, 'product_processor_power', $product_processor_power) : '';
         isset($product_processor_cores) ? $data = array_add($data, 'product_processor_cores', $product_processor_cores) : '';
         isset($product_band) ? $data = array_add($data, 'product_band', $product_band) : '';
         isset($product_radio) ? $data = array_add($data, 'product_radio', $product_radio) : '';
