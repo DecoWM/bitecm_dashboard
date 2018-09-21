@@ -18,7 +18,7 @@ class DistritoController extends ApiController
   }
 
   public function list() {
-    $sucursal_list = DB::table('tbl_district')
+    $district_list = DB::table('tbl_district')
     ->join('tbl_province','tbl_district.province_id', '=', 'tbl_province.province_id')
     ->join('tbl_department', 'tbl_province.departament_id', '=', 'tbl_department.departament_id')
     ->join('tbl_branch', 'tbl_branch.branch_id', '=', 'tbl_district.branch_id')
@@ -32,7 +32,7 @@ class DistritoController extends ApiController
     ->get();
 
     return response()->json([
-      'result' => $sucursal_list,
+      'result' => $district_list,
       'success' => true
     ]);
   }
@@ -185,7 +185,6 @@ class DistritoController extends ApiController
         ]);
       }
 
-      //$branch_id = $request->input('branch_id');
       $updated_at = Carbon::now()->toDateTimeString();
 
       $data = [

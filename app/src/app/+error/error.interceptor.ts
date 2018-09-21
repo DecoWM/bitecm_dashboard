@@ -82,9 +82,16 @@ export class ErrorInterceptor implements HttpInterceptor {
               //this.router.navigate(['/auth/login']);
             //}
           } else {
-            this.router.navigate(['/error', error.status]);
+            auth.logout();
+            this.router.navigate(['/auth/login']);
+            //this.router.navigate(['/error', error.status]);
           }
           return Observable.throw(error);
+        }
+        else{
+          auth.logout();
+          this.router.navigate(['/auth/login']);
+          //this.router.navigate(['/error', error.status]);
         }
       });
   }

@@ -325,7 +325,8 @@ class ProductController extends ApiController
           ]);
         }
         
-        $product_description = $request->input('product_description', null);
+        //$product_description = $request->input('product_description', null);
+        $product_description = $request->input('ckeditor-showcase', null); // descripcion
         //$product_general_specifications = $request->input('product_general_specifications', null);
         $product_external_memory = $request->input('product_external_memory', null);
         $product_internal_memory = $request->input('product_internal_memory', null);

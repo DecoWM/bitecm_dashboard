@@ -196,6 +196,25 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		*/
 	});
 
+	//////////////
+	// USUARIO //
+	//////////////
+	// CLES 18-09-2018
+	Route::prefix('usuarios')->group(function () {
+		//Product list
+		Route::get('', 'UsuarioController@list');
+		Route::put('{id}/publish', 'UsuarioController@publishUser');
+		Route::put('{id}/hide', 'UsuarioController@hideUser');
+		Route::post('', 'UsuarioController@storeUser');
+		Route::get('{id}', 'UsuarioController@getUser');
+		Route::post('{id_update}', 'UsuarioController@updateUser');
+		/*
+		Route::get('variation', 'PlanController@listVariationPlan');
+		Route::get('affiliation', 'PlanController@listAffiliationPlan');
+		Route::get('{plan_id}', 'PlanController@showPlan');
+		*/
+	});
+
 	Route::prefix('plan')->group(function () {
 		Route::prefix('prepago')->group(function () {
 			Route::get('', 'ProductController@listPrepaid');

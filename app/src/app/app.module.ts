@@ -23,6 +23,9 @@ import { CoreModule } from './core/core.module';
 import { SmartadminLayoutModule } from './shared/layout/layout.module';
 import { BlockUIModule } from 'ng-block-ui';
 
+//import { CKEditorModule } from 'ng2-ckeditor';
+//import { FroalaEditorModule, FroalaViewModule } from 'angular-froala-wysiwyg';
+
 // Application wide providers
 const APP_PROVIDERS = [
   AuthService,

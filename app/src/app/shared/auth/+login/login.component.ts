@@ -52,9 +52,11 @@ export class LoginComponent implements OnInit {
           }
         }, (error) => {
           if (error.status === 401) {
+            this.router.navigate(['/auth/login']);
             this.showWrongPasswordPopup();
           }
           if (error.status === 404) {
+            this.router.navigate(['/auth/login']);
             this.showInvalidUserPopup();
           }
         });

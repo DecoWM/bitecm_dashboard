@@ -54,6 +54,10 @@
         <a routerLink="/imagenes" title="Imagenes"><i class="fa fa-lg fa-fw fa-image"></i> <span
           class="menu-item-parent">{{'Imágenes' | i18n}}</span></a>
       </li>
+      <li routerLinkActive="active" *ngIf="isAdmin()">
+        <a routerLink="/usuarios" title="Usuarios"><i class="fa fa-lg fa-fw fa-user"></i> <span
+          class="menu-item-parent">{{'Usuarios' | i18n}}</span></a>
+      </li>
     </ul>    
   </nav>
 

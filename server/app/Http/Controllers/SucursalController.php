@@ -80,7 +80,7 @@ class SucursalController extends ApiController
     ]);
   }
 
-  // Permite el registro de un nuevo plan
+  // Permite el registro de una nueva sucursal
   public function storeBranch(Request $request) {
     //Validator
     $validator = Validator::make($request->all(), [

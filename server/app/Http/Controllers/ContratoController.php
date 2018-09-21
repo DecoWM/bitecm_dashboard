@@ -18,10 +18,10 @@ class ContratoController extends ApiController
   }
 
   public function list() {
-    $plan_list = DB::table('tbl_contract')->select('tbl_contract.contract_id', 'tbl_contract.contract_name', 'tbl_contract.contract_months', 'tbl_contract.created_at', 'tbl_contract.updated_at', 'tbl_contract.active')->get();
+    $contract_list = DB::table('tbl_contract')->select('tbl_contract.contract_id', 'tbl_contract.contract_name', 'tbl_contract.contract_months', 'tbl_contract.created_at', 'tbl_contract.updated_at', 'tbl_contract.active')->get();
 
     return response()->json([
-      'result' => $plan_list,
+      'result' => $contract_list,
       'success' => true
     ]);
   }
@@ -80,7 +80,7 @@ class ContratoController extends ApiController
     ]);
   }
 
-  // Permite el registro de un nuevo plan
+  // Permite el registro de un nuevo contrato
   public function storeContract(Request $request) {
     //Validator
     $validator = Validator::make($request->all(), [

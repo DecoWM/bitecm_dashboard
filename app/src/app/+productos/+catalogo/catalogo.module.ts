@@ -5,6 +5,10 @@ import { SmartadminDatatableModule } from '../../shared/ui/datatable/smartadmin-
 import { SmartadminValidationModule } from '../../shared/forms/validation/smartadmin-validation.module';
 import { SmartadminInputModule } from '../../shared/forms/input/smartadmin-input.module';
 import { FormContainerModule } from '../../shared/forms/custom/form-container/form-container.module';
+
+import { CkeditorRoutingModule } from '../../+miscellaneous/+ckeditor/ckeditor-routing.module';
+import { CkeditorComponent } from '../../+miscellaneous/+ckeditor/ckeditor.component';
+
 import { Select2Module } from '../../shared/forms/input/select2/select2.module';
 import { AccordionModule, CarouselModule } from 'ngx-bootstrap';
 

@@ -12,6 +12,8 @@ import { BlockUIService } from 'ng-block-ui';
 
 declare var $: any;
 
+const $script = require('scriptjs');
+
 @Component({
   selector: 'product-specs',
   templateUrl: './specs.component.html',
@@ -170,17 +172,26 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
     private blockui: BlockUIService,
     private productService: ProductService,
     private notificationService: NotificationService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.dataSheetUrl = '';
     this.dataSpecificationsUrl = '';
     this.product.product_general_specifications_url = this.product.product_general_specifications;
     this.product.product_data_sheet_url = this.product.product_data_sheet;
+
+    // en la url que hace referencia al js se puede poner standard o full
+    $script("https://cdn.ckeditor.com/4.5.11/full/ckeditor.js", ()=> {
+      const CKEDITOR = window['CKEDITOR'];
+
+      CKEDITOR.replace('ckeditor-showcase');
+    });
+
   }
 
   ngAfterViewChecked() {
-    if (!this.product.product_data_sheet_name && this.product.product_data_sheet) {
+  if (!this.product.product_data_sheet_name && this.product.product_data_sheet) {
       const img_url = this.product.product_data_sheet;
       const img_url_arr = img_url.split('/');
       this.product.product_data_sheet_name = img_url_arr[img_url_arr.length - 1];

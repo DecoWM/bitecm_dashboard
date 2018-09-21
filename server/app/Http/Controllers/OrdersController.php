@@ -35,7 +35,7 @@ class OrdersController extends ApiController
     $product_plans_aux = [];
     $analizar_ordenes = [];
     $orden_repetida = [];
-    $orden_repetida_final = [];
+    $order_repetida_final = [];
     $product_plans_aux = $result;
 
     //---------------------------------------------------------------------

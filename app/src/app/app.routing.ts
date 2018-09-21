@@ -39,7 +39,14 @@ export const routes: Routes = [
         canActivate: [EditorGuard],
         loadChildren: 'app/+imagenes/imagenes.module#ImagenesModule',
         data: { pageTitle: 'Imagenes' }
+      },
+      {
+        path: 'usuarios',
+        canActivate: [EditorGuard],
+        loadChildren: 'app/+usuarios/usuarios.module#UsuariosModule',
+        data: { pageTitle: 'Usuarios' }
       }
+
     ]
   },
   {
