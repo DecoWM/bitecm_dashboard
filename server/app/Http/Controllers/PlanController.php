@@ -59,7 +59,7 @@ class PlanController extends ApiController
       ->orWhere('product_code', $product_code)
       ->select('plan_id')->first();
 
-    if (!$plan) {
+    if (!$plan) { // plan
       try {
         DB::beginTransaction();
         $plan_id = DB::table('tbl_plan')->insertGetId([
