@@ -77,8 +77,9 @@
                   <ng-container *ngFor="let item of items; let last = last" 
                     sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
                     <tr>
-                      <td id="{{ item.order_id }}" class="color-order-{{ item.colorfondo }}">
+                      <td id="{{ item.order_id }}">
                         <a class="clic-icon" (click)="detail(item)"><span class="fa fa-eye"></span> {{ item.order_id }}</a>
+                        <p><span class="color-order-{{ item.colorfondo }}"></span></p>
                       </td>
                       <td class="color-order-{{ item.order_repetida }}">{{ item.branch_name }}</td>
                       <td class="color-order-{{ item.order_repetida }}" [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>

@@ -23,6 +23,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   dataSheetUrl = '';
   dataSpecificationsUrl = '';
 
+  @Input() CKEDITOR: any = {};
   @Input() product: any = {};
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
   @Output() onUpdate: EventEmitter<any> = new EventEmitter();
@@ -183,11 +184,10 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
 
     // en la url que hace referencia al js se puede poner standard o full
     $script("https://cdn.ckeditor.com/4.5.11/full/ckeditor.js", ()=> {
-      const CKEDITOR = window['CKEDITOR'];
-
-      CKEDITOR.replace('ckeditor-showcase');
-    });
-
+      this.CKEDITOR = window['CKEDITOR'];
+      this.CKEDITOR.replace('product_description');  
+    }); 
+    
   }
 
   ngAfterViewChecked() {
@@ -267,8 +267,14 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
   }
 
   save(e) {
+    // obtener los datos desde el componente CKeditor
+    var editor_data = this.CKEDITOR.instances.product_description.getData();
+    //console.log(editor_data);
+
     const fileBrowser = this.dataSheetInput.nativeElement;
     const formData = new FormData(document.forms.namedItem('form-specs'));
+    formData.append('product_description', editor_data);
+   
     if (this.product.product_radio_check) {
       formData.append('product_radio', 'Si');
     } else {
@@ -296,7 +302,7 @@ export class ProductSpecsComponent implements OnInit, AfterViewChecked {
       formData.delete('product_general_specifications');
     }
     this.blockui.start('content');
-    this.productService.updateSpecs(this.product.product_id, formData)
+      this.productService.updateSpecs(this.product.product_id, formData)
       .subscribe((data: any) => {
         this.dataSheetUrl = '';
         this.dataSpecificationsUrl = '';

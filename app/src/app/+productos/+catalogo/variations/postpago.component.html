@@ -4,15 +4,13 @@
       <i class="icon-prepend fa fa-exclamation-circle"></i>
       Variaciones Postpago
     </header>
-    <accordion *ngFor="let contract of contracts; let b = index" class="smart-accordion-default panel-group" >
-      <accordion-group (click) = "current = b">
+    <accordion class="smart-accordion-default panel-group" [closeOthers]="true">
+      <accordion-group *ngFor="let contract of contracts"  [isOpen]="true" #group1>
         <h4 class="panel-title" accordion-heading>
-          <a><i class="pull-right fa fa-lg" [ngClass]="{'fa-angle-up': b != current, 'fa-angle-down': b == current}"></i>{{contract.contract_name}}</a>
+          <a><i class="pull-right fa fa-lg" [ngClass]="{'fa-angle-down': group1?.isOpen, 'fa-angle-up': !group1?.isOpen}"></i>{{contract.contract_name}}</a>
         </h4>
-      </accordion-group>
-      <div id="collapse1" class="panel-collapse" [class.collapse]='current != b'>
         <postpago-affiliations [contract_id]="contract.contract_id" (onAlert)="printAlert($event)"></postpago-affiliations>
-      </div>
+      </accordion-group>
     </accordion>
   </div>
 </div>

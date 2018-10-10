@@ -557,27 +557,57 @@ postpago-variations .panel-body {
 }
 
 .color-order-black {
-  background: #1A2320;
+  /* background: #1A2320; */
+  height: 15px;
+  width: 15px;
+  background-color: #1A2320;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .color-order-blue {
-  background: #789DCA;
+  /* background: #789DCA; */
+  height: 15px;
+  width: 15px;
+  background-color: #789DCA;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .color-order-red {
-  background: #FF6862;
+  /* background: #FF6862; */
+  height: 15px;
+  width: 15px;
+  background-color: #FF6862;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .color-order-yellow {
-  background: yellow;
+  /*background: #FCFD95; */
+  height: 15px;
+  width: 15px;
+  background-color: #FCFD95;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .color-order-green {
-  background: #ADF2B3;
+  /* background: #ADF2B3; */
+  height: 15px;
+  width: 15px;
+  background-color: #ADF2B3;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .color-order-orange {
-  background: #FFB246;
+  /* background: #FFB246; */
+  height: 15px;
+  width: 15px;
+  background-color: #FFB246;
+  border-radius: 50%;
+  display: inline-block;
 }
 
 .color-order-1 {
