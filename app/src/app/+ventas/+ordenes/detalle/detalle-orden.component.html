@@ -110,10 +110,17 @@
                             <i class="icon-prepend fa fa-envelope"></i>
                             <p>{{order.contact_email}}</p>
                         </div>
-                        <div class="field-order">
-                            <i class="icon-prepend fa fa-phone"></i>
-                            <p>{{order.billing_phone}}</p>
-                        </div>
+                        <div class="col-sm-6" style="padding-left:0px; padding-right:0px;">
+                          <div class="field-order">
+                              <i class="icon-prepend fa fa-phone"></i>
+                              <p>{{order.billing_phone}}</p>
+                          </div>
+                        </div>  
+                        <div class="col-sm-6" style="padding-left:0px; padding-right:0px;">
+                          <div class="field-order">
+                              <p>{{order.idschedule_name}}</p>
+                          </div>
+                        </div>  
                       </div>
                   </div>
                 </form>
