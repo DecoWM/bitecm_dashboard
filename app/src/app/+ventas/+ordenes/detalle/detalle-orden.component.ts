@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { OrdenesService } from './../ordenes.service';
@@ -11,6 +11,7 @@ import { BlockUIService } from 'ng-block-ui';
   templateUrl: './detalle-orden.component.html'
 })
 export class DetalleOrdenComponent implements OnInit {
+  alert: any = null;
   order: any = {};
   equipo: any = {};
   order_back: any = null;
@@ -34,6 +35,8 @@ export class DetalleOrdenComponent implements OnInit {
     } ]
   };
 
+  @Output() onAlert: EventEmitter<any> = new EventEmitter();
+
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -43,6 +46,7 @@ export class DetalleOrdenComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.alert = null;
     this.route.params.subscribe(params => {
       this.prev = null;
       this.next = null;
@@ -206,10 +210,85 @@ export class DetalleOrdenComponent implements OnInit {
 
   orderBack(): void {
     this.router.navigate([this.prev], {relativeTo: this.route.parent });
+    this.alert = '';
   }
 
   orderNext(): void{
     this.router.navigate([this.next], {relativeTo: this.route.parent });
+    this.alert ='';
+  }
+
+  showPopupStore(store, $order_id, event): void {
+    var idStore = event.target.value;
+    //console.log(store);
+    if(idStore != ""){
+      var indexStore = store.findIndex(buscar => buscar['store_id'] == idStore);
+      var storeName = store[indexStore]['store_name']; 
+      this.notificationService.smartMessageBox({
+        title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Grabar 
+          <span class="txt-color-orangeDark">
+            <strong>` + storeName + `</strong>
+          </span>`,
+        content : '¿Seguro que quieres actualizar la tienda en la orden?.',
+        buttons : '[No][Si]'
+      }, (ButtonPressed) => {
+        if (ButtonPressed === 'Si') {
+          this.grabarTienda(store, $order_id, event);
+        }
+      });
+    }
+    else{
+      let mode, title, message = '';
+      mode = 'danger';
+      title = 'Actualización fallida';
+      message = 'Seleccione una tienda!.';
+      this.alert = { 'title': title, 'message': message, 'mode': mode }
+    }
+  }
+
+  grabarTienda(store, $order_id, event){
+    const store_id = event.target.value;
+    var indexStore = store.findIndex(buscar => buscar['store_id'] == store_id);
+    var storeName = store[indexStore]['store_name']; 
+
+    console.log(store_id);
+    console.log($order_id);
+
+    this.ordenesService.saveStore($order_id, store_id)
+      .subscribe((data: any) => {
+        console.log(data);
+        if (data.success) {
+          console.log(data.result);
+          console.log("registro en base de datos");
+          this.alert = this.getAlert(data, storeName, 'Actualización', 'actualizada');
+        } 
+        else {
+          console.log("Error");
+          this.alert = this.getAlert(data, storeName, 'Actualización', 'actualizada');
+        }
+        this.blockui.stop('content');
+      }); 
+  }
+
+  getAlert(result, storeName, title_mode, desc_mode): any {
+    let mode, title, message = '';
+    console.log(result.success);
+    if (result.success) {
+      mode = 'success';
+      title = title_mode + ' completada';
+      message = 'La Tienda ' + storeName + ' ha sido ' + desc_mode + " en la orden ";
+    } 
+    else {
+      mode = 'danger';
+      title = title_mode + ' fallida';
+      message = 'La Tienda ' + storeName + ' no pudo ser ' + desc_mode + " en la orden ";
+    }
+    console.log(message);
+    return {
+      'title': title,
+      'message': message,
+      'mode': mode
+    }
   }
 
   /*

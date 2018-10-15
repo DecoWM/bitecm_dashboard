@@ -69,6 +69,11 @@ export class OrdenesService {
       .put(this.getUrl([id, 'item']), item);
   }
 
+  saveStore(order_id, store_id) {
+    return this.http
+      .get(this.getUrl([order_id, store_id]));
+  }
+
   deleteItem(id, item) {
 
   }

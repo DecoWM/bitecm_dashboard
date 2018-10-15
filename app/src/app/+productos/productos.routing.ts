@@ -38,6 +38,11 @@ export const routes: Routes = [
         data: {pageTitle: 'Sucursales'}
     },
     {
+        path: 'tiendas',
+        loadChildren: './+tiendas/tiendas.module#TiendasModule',
+        data: {pageTitle: 'Tiendas'}
+    },
+    {
         path: 'distritos',
         loadChildren: './+distritos/distritos.module#DistritosModule',
         data: {pageTitle: 'Distritos'}

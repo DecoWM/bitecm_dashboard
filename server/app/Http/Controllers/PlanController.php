@@ -239,33 +239,6 @@ class PlanController extends ApiController
       ]);
     }
 
-    /*$product_variations = DB::table('tbl_product_variation')
-      ->where('plan_id', $plan_id)
-      ->where('product_id', $product_id)
-      ->where('active', 1)
-      ->select('affiliation_id')
-      ->get();
-
-    $plan->product_variations = [];
-    if(!empty($product_variations)) {
-      foreach ($product_variations as $var) {
-        $plan->product_variations[$var->affiliation_id] = $var->affiliation_id;
-      }
-    }
-
-    $stock_model = DB::table('tbl_stock_model')
-      ->where('product_id', $product_id)
-      ->where('stock_model_code', strval($plan_id))
-      ->first();
-    
-    if($stock_model) {
-      $plan->stock_model = $stock_model;
-    } else {
-      if (!empty($product->product_image_url)) {
-        $product->product_image_url = asset(Storage::url(($product->product_image_url)));
-      }
-    }*/
-
     if (!empty($product->product_image_url)) {
       $product->product_image_url = asset(Storage::url(($product->product_image_url)));
     }

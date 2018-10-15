@@ -1,0 +1,81 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Información Básica
+          </header>
+          <form #formBasic="ngForm" #form class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="storeOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-basic">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-12">
+
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="branch_name">Sucursal</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="select">
+                      <select id="branch_name" name="branch_name" [(ngModel)]="store.branch_id">
+                        <option value="" selected>Seleccionar Sucursal</option> 
+                        <option *ngFor="let item of branches" value="{{item.branch_id}}">{{item.branch_name}}</option>
+                      </select>  <i></i>
+                    </div> 
+                  </section>
+                </div>
+
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="store_name">Nombre</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="store.store_id" class="input">
+                      <input id="store_name" name="store_name" type="text" [(ngModel)]="store.store_name">
+                    </div>
+                  </section>
+                </div>
+
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="store_zip">Código ZIP</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="store.store_id" class="input">
+                      <input id="zip_code" name="zip_code" type="text" [(ngModel)]="store.zip_code">
+                    </div>
+                  </section>
+                </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="store_address">Dirección de tienda</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="store.store_id" class="input">
+                      <input id="store_address" name="store_address" type="text" [(ngModel)]="store.store_address">
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <footer>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

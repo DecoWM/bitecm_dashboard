@@ -37,6 +37,9 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::post('reportes/general_orders', 'OrdersController@reportGeneralOrders');
 		Route::post('reportes/general_sales', 'OrdersController@reportGeneralSales');
 		Route::post('reportes/best_sellers', 'OrdersController@reportBestSellers');
+		// Save store by order
+		Route::get('{order_id}/{store_id}', 'OrdersController@saveStore');
+
 	});
 
 	////////////
@@ -145,11 +148,23 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::post('', 'SucursalController@storeBranch');
 		Route::get('{branch_id}', 'SucursalController@getBranch');
 		Route::post('{branch_id_update}', 'SucursalController@updateBranch');
-		/*
-		Route::get('variation', 'PlanController@listVariationPlan');
-		Route::get('affiliation', 'PlanController@listAffiliationPlan');
-		Route::get('{plan_id}', 'PlanController@showPlan');
-		*/
+
+	});
+
+	//////////////
+	// TIENDA //
+	//////////////
+	// CLES 24-08-2018
+	Route::prefix('tiendas')->group(function () {
+		//Product list
+		Route::get('', 'TiendaController@list');
+		Route::get('branches', 'TiendaController@listBranches');
+		Route::put('{store_id}/publish', 'TiendaController@publishStore');
+		Route::put('{store_id}/hide', 'TiendaController@hideStore');
+		Route::post('', 'TiendaController@storeStore');
+		Route::get('{store_id}', 'TiendaController@getStore');
+		Route::post('{store_id_update}', 'TiendaController@updateStore');
+
 	});
 
 	//////////////

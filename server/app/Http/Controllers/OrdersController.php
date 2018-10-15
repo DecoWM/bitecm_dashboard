@@ -212,12 +212,49 @@ class OrdersController extends ApiController
       foreach($items as $item) {
         $order->navigation = $item;
       }
+
+      //-----------------------------------------------
+      // obtener las tiendas por sucursal
+      //-----------------------------------------------
+      $branch_id = $result[0]->branch_id;
+      $tiendas = DB::select('call PA_storesByBranch(
+        :_branch_id
+      )', [
+        '_branch_id' => $branch_id
+      ]);
+      foreach($tiendas as $tienda) {
+        $order->store[] = $tienda;
+      }
+
     }
 
     return response()->json([
       'result' => count($result) ? $order : null,
       'success' => count($result)
     ]);
+  }
+
+  public function saveStore($order_id, $store_id) {
+
+    if(!isset($order_id) || !isset($store_id) || empty($order_id) || empty($store_id)) {
+      return response()->json([
+        'result' => 'No se tienen los datos requeridos',
+        'success' => false
+      ]);
+    }
+
+    $result = DB::table('tbl_order')
+      ->where('order_id', $order_id)
+      ->update([
+        'store_id' => $store_id,
+        'updated_at' => Carbon::now()->toDateTimeString()
+      ]);
+    
+    return response()->json([
+      'result' => $order_id,
+      'success' => true
+    ]);
+    
   }
 
   public function detailSimple($order_id = null) {
