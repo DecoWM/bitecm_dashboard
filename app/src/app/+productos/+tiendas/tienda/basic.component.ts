@@ -87,6 +87,10 @@ export class TiendaBasicComponent implements OnInit {
     this.save(e);
   }
 
+  cmdRegresar(){
+    this.router.navigate(['/productos/tiendas']);
+  }
+
   save(e) {
     const formData = new FormData(document.forms.namedItem('form-basic'));
     this.blockui.start('content');

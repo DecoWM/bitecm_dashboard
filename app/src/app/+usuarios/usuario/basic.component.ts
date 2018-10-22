@@ -104,6 +104,10 @@ export class UsuarioBasicComponent implements OnInit {
     this.save(e);
   }
 
+  cmdRegresar(){
+    this.router.navigate(['/usuarios']);
+  }
+
   save(e) {
     const formData = new FormData(document.forms.namedItem('form-basic'));
     this.blockui.start('content');

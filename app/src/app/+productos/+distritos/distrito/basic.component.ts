@@ -98,6 +98,10 @@ export class DistritoBasicComponent implements OnInit {
     this.save(e);
   }
 
+  cmdRegresar(){
+    this.router.navigate(['/productos/distritos']);
+  }
+
   onSelectDepartmentChange(event){
     const departament_id = event.target.value;
     //if (departament_id) {

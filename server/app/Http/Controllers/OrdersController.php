@@ -32,6 +32,7 @@ class OrdersController extends ApiController
       'sort_direction' => $request->input('sort_direction', null)
     ]);
 
+    /*
     $product_plans_aux = [];
     $analizar_ordenes = [];
     $orden_repetida = [];
@@ -76,6 +77,7 @@ class OrdersController extends ApiController
         }
         $x++;
     }
+    */
 
     //---------------------------------------------------------------------
     // capturando los filtros que se repiten
@@ -100,6 +102,7 @@ class OrdersController extends ApiController
     }
     */
 
+    /*
     $x = 0;
     $a = 0;
     while($x < count($analizar_ordenes)){
@@ -113,6 +116,7 @@ class OrdersController extends ApiController
         }
         $x++;
     }
+    */
 
     //--------------------------------------------------------------------------
     // detectando todos las numero de las ordenes que cumplen con los filtros
@@ -135,6 +139,7 @@ class OrdersController extends ApiController
     }
     */
 
+    /*
     $x = 0;
     $a = 0;
     while($x < count($orden_repetida)){
@@ -148,10 +153,12 @@ class OrdersController extends ApiController
       }
       $x++;
     }
+    */
 
     //---------------------------------------------------------------------
     // agregando el flag para determinar si es repetido en la orden
     //---------------------------------------------------------------------
+    /*
     $x = 0;
     while($x < count($order_repetida_final)){
       $i = 0;
@@ -163,6 +170,7 @@ class OrdersController extends ApiController
       }
       $x++;
     }
+    */
 
     return response()->json([
       'result' => $result,

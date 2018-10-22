@@ -67,23 +67,15 @@
                         </div>
                       </div>
                       <div class="col-sm-6" style="padding-left:0px; padding-right:0px;">  
-                        <div class="field-order">
-                          <!--
-                          <div class="btn-group dropdown" style="float: right; right: 5px; position: absolute;" dropdown>
-                            <button class="btn btn-primary btn-xs dropdown-toggle" dropdownToggle>
-                              Tienda
-                              <i class="fa fa-gear"></i>
-                              <i class="fa fa-caret-down"></i>
-                            </button>
-                            <ul *dropdownMenu class="dropdown-menu" [(ngModel)]="order.store_id">
-                              <li *ngFor="let item of order.store">
-                                <a (click)="showPopupStore(order.store, order.order_id, item.store_id)">{{item.store_name}}</a>
-                              </li>
-                            </ul>
-                          </div>
-                          -->
-                          <select id="store_id" name="store_name" class="col-xs-12" (change)="showPopupStore(order.store, order.order_id, $event)" [(ngModel)]="order.store_id">
-                            <option value="" selected>Seleccione Tienda</option> 
+                        <div class="field-order" *ngIf="order.store_id > 0">
+                          <select id="store_id" *ngIf="order.store_id > 0" name="store_name" class="col-xs-12" (change)="showPopupStore(order.store, order.order_id, $event)" [(ngModel)]='order.store_id'>
+                            <option value="">Asignar Tienda</option> 
+                            <option *ngFor="let item of order.store" value="{{item.store_id}}">{{item.store_name}}</option>
+                          </select>  <i></i>
+                        </div>
+                        <div class="field-order" *ngIf="!order.store_id">
+                          <select id="store_id" name="store_name" class="col-xs-12" (change)="showPopupStore(order.store, order.order_id, $event)">
+                            <option value="" selected>Asignar Tienda</option> 
                             <option *ngFor="let item of order.store" value="{{item.store_id}}">{{item.store_name}}</option>
                           </select>  <i></i>
                         </div>

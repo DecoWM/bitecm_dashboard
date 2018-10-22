@@ -79,20 +79,21 @@
                     <tr>
                       <td id="{{ item.order_id }}">
                         <a class="clic-icon" (click)="detail(item)"><span class="fa fa-eye"></span> {{ item.order_id }}</a>
-                        <p><span class="color-order-{{ item.colorfondo }}"></span></p>
+                        <!--<p><span class="color-order-{{ item.colorfondo }}"></span></p>-->
                       </td>
-                      <td class="color-order-{{ item.order_repetida }}">{{ item.branch_name }}</td>
-                      <td class="color-order-{{ item.order_repetida }}" [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>
-                      <td class="color-order-{{ item.order_repetida }}">{{ item.id_number }}</td>
-                      <td class="color-order-{{ item.order_repetida }}">{{ item.affiliation_type }}</td>
-                      <td class="color-order-{{ item.order_repetida }}">{{ item.service_type }}</td>
-                      <td class="color-order-{{ item.order_repetida }}" *ngIf="item.equipo_plan === 0">{{ item.product_model }}</td>
-                      <td class="color-order-{{ item.order_repetida }}" *ngIf="item.equipo_plan === 1">SOLO PLAN</td>
-                      <td class="color-order-{{ item.order_repetida }}">{{ item.plan_name }}</td>
+                      <td>{{ item.branch_name }}</td>
+                      <td [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>
+                      <td>{{ item.id_number }}</td>
+                      <td>{{ item.affiliation_type }}</td>
+                      <td>{{ item.service_type }}</td>
+                      <td *ngIf="item.equipo_plan === 0">{{ item.product_model }}</td>
+                      <td *ngIf="item.equipo_plan === 1">SOLO PLAN</td>
+                      <td>{{ item.plan_name }}</td>
                       <!--<td>{{ item.branch_name }}</td>-->
-                      <td class="color-order-{{ item.order_repetida }}">{{ item.order_status_name }}</td>
-                      <td class="color-order-{{ item.order_repetida }}">{{ item.total_igv }}</td>
-                      <td class="color-order-{{ item.order_repetida }}">{{ item.credit_status }}</td>
+                      <td>{{ item.order_status_name }}</td>
+                      <td>{{ item.total_igv }}</td>
+                      <!--<td class="color-order-{{ item.order_repetida }}">{{ item.credit_status }}</td>-->
+                      <td>{{ item.credit_status }}</td>
                     </tr>
                   </ng-container>                
                 </tbody>

@@ -18,7 +18,7 @@ class SucursalController extends ApiController
   }
 
   public function list() {
-    $sucursal_list = DB::table('tbl_branch')->select('tbl_branch.branch_id', 'tbl_branch.branch_name', 'tbl_branch.zip_code', 'tbl_branch.branch_address', 'tbl_branch.created_at', 'tbl_branch.updated_at', 'tbl_branch.active')->get();
+    $sucursal_list = DB::table('tbl_branch')->select('tbl_branch.branch_id', 'tbl_branch.branch_name',  'tbl_branch.branch_address', 'tbl_branch.updated_at', 'tbl_branch.active')->get();
 
     return response()->json([
       'result' => $sucursal_list,
@@ -97,7 +97,7 @@ class SucursalController extends ApiController
 
     //Inputs
     $branch_name = $request->input('branch_name');
-    $zip_code = $request->input('zip_code');
+    $zip_code = ''; //$request->input('zip_code');
     $branch_address = $request->input('branch_address');
 
     $branch = DB::table('tbl_branch')
@@ -191,7 +191,7 @@ class SucursalController extends ApiController
       }
 
       $branch_name = $request->input('branch_name');
-      $zip_code = $request->input('zip_code');
+      $zip_code = ""; //$request->input('zip_code');
       $branch_address = $request->input('branch_address');
       $updated_at = Carbon::now()->toDateTimeString();
 

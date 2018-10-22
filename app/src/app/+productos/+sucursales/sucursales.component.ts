@@ -25,10 +25,10 @@ export class SucursalesComponent implements OnInit {
     dom: 'Bfrtip',
     pageLength: 25,
     columnDefs: [ {
-      targets: [ 6 ],
+      targets: [ 5 ],
       orderable: false
     } ],
-    order: [[4, 'desc']],
+    order: [[3, 'asc']],
     // colReorder: true
   };
 
