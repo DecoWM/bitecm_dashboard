@@ -28,7 +28,7 @@ export class TiendasComponent implements OnInit {
       targets: [ 6 ],
       orderable: false
     } ],
-    order: [[5, 'desc']],
+    order: [[4, 'asc']],
     // colReorder: true
   };
 

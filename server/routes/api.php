@@ -164,6 +164,8 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 		Route::post('', 'TiendaController@storeStore');
 		Route::get('{store_id}', 'TiendaController@getStore');
 		Route::post('{store_id_update}', 'TiendaController@updateStore');
+		Route::get('{branch_id}/getDistricts', 'TiendaController@listDistricts'); 
+		Route::get('{store_id}/getDistrictsByStore', 'TiendaController@listDistrictsByStore'); 
 
 	});
 

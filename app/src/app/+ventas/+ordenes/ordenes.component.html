@@ -14,6 +14,9 @@
   <sa-widgets-grid>
     
     <div class="row">
+      <div class="col col-md-2">
+      <button class="btn btn-default" name="btn-back" type="button" (click)="cmdPrueba()">Regresar</button>
+    </div>
       <article class="col-sm-12">
 
         <sa-widget class="well" color="darken">
@@ -25,37 +28,37 @@
                 <thead>
                   <tr>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Nro. Pedido" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="nropedido" class="form-control" placeholder="Nro. Pedido" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Sede del Pedido" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="sucursal" class="form-control" placeholder="Sede del Pedido" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:16%">
-                      <input type="text" class="form-control" placeholder="Fecha" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="fecha" class="form-control" placeholder="Fecha" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Cliente / DNI" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="dni" class="form-control" placeholder="Cliente / DNI" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Tipo de Linea" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="tipolinea" class="form-control" placeholder="Tipo de Linea" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Servicio" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="servicio" name="servicio" class="form-control servicio" placeholder="Servicio" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()" (onblur)="getIdOrdens()" [(ngModel)]="servicio" value="{{servicio}}">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Equipo" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="equipo" class="form-control" placeholder="Equipo" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Plan" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="plan" class="form-control" placeholder="Plan" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:12%">
-                      <input type="text" class="form-control" placeholder="Estado" (keyup)="getIdOrdens()"  (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="estado" class="form-control" placeholder="Estado" (keyup)="getIdOrdens()"  (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Total" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="total" class="form-control" placeholder="Total" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:12%">
-                      <input type="text" class="form-control" placeholder="Evaluación" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="evaluacion" class="form-control" placeholder="Evaluación" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
                     </th>
                   </tr>
                   <tr>
@@ -80,20 +83,20 @@
                       <td id="{{ item.order_id }}">
                         <a class="clic-icon" (click)="detail(item)"><span class="fa fa-eye"></span> {{ item.order_id }}</a>
                         <!--<p><span class="color-order-{{ item.colorfondo }}"></span></p>-->
-                      </td>
-                      <td>{{ item.branch_name }}</td>
-                      <td [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>
-                      <td>{{ item.id_number }}</td>
-                      <td>{{ item.affiliation_type }}</td>
-                      <td>{{ item.service_type }}</td>
-                      <td *ngIf="item.equipo_plan === 0">{{ item.product_model }}</td>
-                      <td *ngIf="item.equipo_plan === 1">SOLO PLAN</td>
-                      <td>{{ item.plan_name }}</td>
-                      <!--<td>{{ item.branch_name }}</td>-->
-                      <td>{{ item.order_status_name }}</td>
-                      <td>{{ item.total_igv }}</td>
-                      <!--<td class="color-order-{{ item.order_repetida }}">{{ item.credit_status }}</td>-->
-                      <td>{{ item.credit_status }}</td>
+                        </td>
+                        <td>{{ item.branch_name }}</td>
+                        <td [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>
+                        <td>{{ item.id_number }}</td>
+                        <td>{{ item.affiliation_type }}</td>
+                        <td>{{ item.service_type }}</td>
+                        <td *ngIf="item.equipo_plan === 0">{{ item.product_model }}</td>
+                        <td *ngIf="item.equipo_plan === 1">SOLO PLAN</td>
+                        <td>{{ item.plan_name }}</td>
+                        <!--<td>{{ item.branch_name }}</td>-->
+                        <td>{{ item.order_status_name }}</td>
+                        <td>{{ item.total_igv }}</td>
+                        <!--<td class="color-order-{{ item.order_repetida }}">{{ item.credit_status }}</td>-->
+                        <td>{{ item.credit_status }}</td>
                     </tr>
                   </ng-container>                
                 </tbody>

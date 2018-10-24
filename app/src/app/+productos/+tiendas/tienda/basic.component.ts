@@ -20,22 +20,48 @@ declare var $: any;
 export class TiendaBasicComponent implements OnInit {
 
   branches: any = [];
+  districts: any = [];
 
   storeOptions = {
     rules: {
+      branch_id : {
+        required : true,
+        number: true
+      },
+      district_id : {
+        required : true,
+        number: true
+      },
       store_name : {
         required : true
       },
-      zip_code : {
-        required : false
+      store_slug : {
+        required : true
+      },
+      store_ubigeo : {
+        required : true,
+        number: true,
+        maxlength: 6
       },
       store_address : {
         required : false
       }
     },
     messages : {
+      branch_id : {
+        required : 'Debes seleccionar una Branch.'
+      },
+      district_id : {
+        required : 'Debes seleccionar un Distrito.'
+      },
       store_name : {
-        required : 'Debes ingresar un nombre de sucursal.'
+        required : 'Debes ingresar un nombre de tienda.'
+      },
+      store_slug : {
+        required : 'Debes ingresar un código de tienda.'
+      },
+      store_ubigeo : {
+        required : 'Debes ingresar un código de ubigeo (número de 6 dígitos).'
       }
     }
   };
@@ -60,13 +86,17 @@ export class TiendaBasicComponent implements OnInit {
         this.blockui.start('content');
         Observable.zip(  
           this.storeService.getStore(store_id),
-          this.storeService.getBranches()
-        ).subscribe(([dept, bran]: [any, any]) => {
+          this.storeService.getBranches(),
+          this.storeService.getDistrictsByStore(store_id)
+        ).subscribe(([dept, bran, dist]: [any, any, any]) => {
           if (dept.success) {
             this.store = dept.result;
           }
           if (bran.success) {
             this.branches = bran.result;
+          }
+          if (dist.success) {
+            this.districts = dist.result;
           }
           this.blockui.stop('content');
         });
@@ -85,6 +115,18 @@ export class TiendaBasicComponent implements OnInit {
 
   onValidationSuccess(e) {
     this.save(e);
+  }
+
+  onSelectBranchChange(event){
+    const branch_id = event.target.value;
+    this.storeService.getDistricts(branch_id)
+      .subscribe((data: any) => {
+         console.log(data);
+         if (data.success) {
+           this.districts = data.result;
+         }
+         this.blockui.stop('content');
+    });
   }
 
   cmdRegresar(){

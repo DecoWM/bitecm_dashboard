@@ -40,10 +40,13 @@
                                     App Ilimitada
                                 </div>
                                 <div *ngIf="item.tipo == 2">
-                                    Servicio
+                                    Megas Inter.
                                 </div>
                                 <div *ngIf="item.tipo == 3">
-                                    Megas Inter.
+                                    Videos y Musica
+                                </div>
+                                <div *ngIf="item.tipo == 4">
+                                    Juegos
                                 </div>
                               </td>
                               <td id="fdescripcion{{ item.plan_infocomercial_id }}">{{ item.plan_infocomercial_descripcion }}</td>
@@ -137,8 +140,9 @@
             <select id="tipo" name="tipo">
               <option value="0">Seleccionar tipo</option> 
               <option value="1">App Ilimitada</option>
-              <option value="2">Servicio</option>
-              <option value="3">Megas Internacionales</option>
+              <option value="2">Megas Internacionales</option>
+              <option value="3">Videos y Musica</option>
+              <option value="4">Juegos</option>
             </select>  <i></i>
           </div> 
         </div>
@@ -202,8 +206,9 @@
             <select id="tipo_insertar" name="tipo_insertar">
               <option value="0" selected>Seleccionar tipo</option> 
               <option value="1">App Ilimitada</option>
-              <option value="2">Servicio</option>
-              <option value="3">Megas Internacionales</option>
+              <option value="2">Megas Internacionales</option>
+              <option value="3">Videos y Musica</option>
+              <option value="4">Juegos</option>
             </select>  <i></i>
           </div> 
         </div>

@@ -1,9 +1,12 @@
   <!-- MAIN CONTENT -->
 <div id="content">
   <div class="row">
-    <div class="col col-md-9">
+    <div class="col col-md-7">
       <sa-big-breadcrumbs [items]="[' Detalle de Orden', 'Nro. #'+order.order_id]" icon="cube" class= "col-xs-12 col-sm-12 col-md-12 col-lg-12">
       </sa-big-breadcrumbs>
+    </div>
+    <div class="col col-md-2">
+      <button class="btn btn-default" name="btn-back" type="button" (click)="cmdBackOrders()">Regresar</button>
     </div>
     <div class="col col-md-2 col-md-offset-1">
         <div class="col col-md-4 col-md-offset-4">

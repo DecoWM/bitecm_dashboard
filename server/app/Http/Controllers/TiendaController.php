@@ -36,7 +36,8 @@ class TiendaController extends ApiController
   public function list() {
     $tienda_list = DB::table('tbl_store')
     ->join("tbl_branch", 'tbl_store.branch_id', '=', 'tbl_branch.branch_id')
-    ->select('tbl_store.store_id', 'tbl_store.branch_id','tbl_store.store_name', 'tbl_branch.branch_name', 'tbl_store.zip_code', 'tbl_store.store_address', 'tbl_store.created_at', 'tbl_store.updated_at', 'tbl_store.active')->get();
+    ->join('tbl_district', 'tbl_district.district_id', '=', 'tbl_store.district_id')
+    ->select('tbl_store.store_id', 'tbl_store.branch_id', 'tbl_district.district_name', 'tbl_store.store_name', 'tbl_branch.branch_name', 'tbl_store.store_slug', 'tbl_store.store_ubigeo', 'tbl_store.store_address', 'tbl_store.created_at', 'tbl_store.updated_at', 'tbl_store.active')->get();
 
     return response()->json([
       'result' => $tienda_list,
@@ -100,7 +101,11 @@ class TiendaController extends ApiController
   public function storeStore(Request $request) {
     //Validator
     $validator = Validator::make($request->all(), [
-      'store_name' => 'required'
+      'branch_id' => 'required|exists:tbl_branch',
+      'district_id' => 'required|exists:tbl_district',
+      'store_name' => 'required',
+      'store_slug' => 'required',
+      'store_ubigeo' => 'required|integer'
     ]);
 
     if($validator->fails()) {
@@ -112,13 +117,15 @@ class TiendaController extends ApiController
     }
 
     //Inputs
-    $branch_id = $request->input('branch_name');
+    $branch_id = $request->input('branch_id');
+    $district_id = $request->input('district_id');
     $store_name = $request->input('store_name');
-    $zip_code = $request->input('zip_code');
+    $store_slug = $request->input('store_slug');
+    $store_ubigeo = $request->input('store_ubigeo');
     $store_address = $request->input('store_address');
 
     $store = DB::table('tbl_store')
-      ->orWhere('store_name', $store_name)
+      ->where('store_slug', $store_slug)
       ->select('store_id')->first();
 
     if (!$store) {
@@ -126,8 +133,10 @@ class TiendaController extends ApiController
         DB::beginTransaction();
         $store_id = DB::table('tbl_store')->insertGetId([
           'branch_id' => $branch_id,
+          'district_id' => $district_id,
+          'store_slug' => $store_slug,
           'store_name' => $store_name,
-          'zip_code' => $zip_code,
+          'store_ubigeo' => $store_ubigeo,
           'store_address' => $store_address,
           'created_at' => Carbon::now()->toDateTimeString(),
           'created_by' => 1,
@@ -156,7 +165,7 @@ class TiendaController extends ApiController
       }
     } else {
       return response()->json([
-        'result' => 'Una tienda con este nombre o código de tienda ya existe.',
+        'result' => 'Una tienda con este Id tienda ya existe.',
         'success' => false
       ]);
     }
@@ -192,7 +201,11 @@ class TiendaController extends ApiController
     if ($store) {
 
       $validator = Validator::make($request->all(), [
-        'store_name' => 'required'
+        'branch_id' => 'required|exists:tbl_branch',
+        'district_id' => 'required|exists:tbl_district',
+        'store_name' => 'required',
+        'store_slug' => 'required',
+        'store_ubigeo' => 'required|integer'
       ]);
 
       if($validator->fails()) {
@@ -203,38 +216,43 @@ class TiendaController extends ApiController
         ]);
       }
 
-      $branch_id = $request->input('branch_name');
+      $branch_id = $request->input('branch_id');
+      $district_id = $request->input('district_id');
       $store_name = $request->input('store_name');
-      $zip_code = $request->input('zip_code');
+      $store_slug = $request->input('store_slug');
+      $store_ubigeo = $request->input('store_ubigeo');
       $store_address = $request->input('store_address');
       $updated_at = Carbon::now()->toDateTimeString();
 
       $data = [
         'branch_id' => $branch_id,
+        'district_id' => $district_id,
         'store_name' => $store_name,
-        'zip_code' => $zip_code,
+        'store_slug' => $store_slug,
+        'store_ubigeo' => $store_ubigeo,
         'store_address' => $store_address,
         'updated_at' => $updated_at
       ];
 
       //Insert
       try {
-        DB::beginTransaction();
-        DB::table('tbl_store')->where('store_id', $store->store_id)->update($data);
-        DB::commit();
-      } catch (\Illuminate\Database\QueryException $e) {
-        DB::rollback();
-        return response()->json([
-          'result' => 'No se pudo actualizar la tienda.',
-          'success' => false,
-          'error' => $e->getMessage()
-        ]);
+          DB::beginTransaction();
+          DB::table('tbl_store')->where('store_id', $store->store_id)->update($data);
+          DB::commit();
+        } catch (\Illuminate\Database\QueryException $e) {
+          DB::rollback();
+          return response()->json([
+            'result' => 'No se pudo actualizar la tienda.',
+            'success' => false,
+            'error' => $e->getMessage()
+          ]);
       }
-
+      
       return response()->json([
         'result' => 'Tienda actualizada correctamente.',
         'success' => true
       ]);
+
     }
 
     return response()->json([
@@ -254,6 +272,50 @@ class TiendaController extends ApiController
       'result' => $branch_list,
       'success' => true
     ]);
+  }
+
+  public function listDistricts($branch_id) {
+    $districts_list = DB::table('tbl_district')
+    ->select('tbl_district.district_id', 'tbl_district.district_name')
+    ->where('tbl_district.branch_id', $branch_id)
+    ->where('tbl_district.active', 1)
+    ->get();
+
+    return response()->json([
+      'result' => $districts_list,
+      'success' => true
+    ]);
+  }
+
+  public function listDistrictsByStore($store_id) {
+
+    // primero obtener el branch
+    $branch = DB::table('tbl_store')
+      ->select('tbl_store.branch_id')
+      ->where('tbl_store.store_id', $store_id)
+      ->where('tbl_store.active', 1)
+      ->get();
+
+    if($branch){
+      // luego obtengo los distritos de ese branch
+      $districts_list = DB::table('tbl_district')
+        ->select('tbl_district.district_id', 'tbl_district.district_name')
+        ->where('tbl_district.branch_id', $branch[0]->branch_id)
+        ->where('tbl_district.active', 1)
+        ->get();
+
+      return response()->json([
+        'result' => $districts_list,
+        'success' => true
+      ]);
+    }
+    else{
+      return response()->json([
+        'result' => 'No se pudo encontrar la Branch de la tienda.',
+        'success' => false
+      ]);
+    }
+
   }
  
 }

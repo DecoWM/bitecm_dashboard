@@ -28,6 +28,16 @@ export class TiendasService {
       .get(this.getUrl(store_id));
   }
 
+  getDistricts(branch_id) {
+    return this.http
+      .get(this.getUrl([branch_id, 'getDistricts']), {});
+  }
+
+  getDistrictsByStore(store_id) {
+    return this.http
+      .get(this.getUrl([store_id, 'getDistrictsByStore']), {});
+  }
+
   publishStore(store_id) {
     return this.http
       .put(this.getUrl([store_id, 'publish']), {});

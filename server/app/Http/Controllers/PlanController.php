@@ -18,7 +18,7 @@ class PlanController extends ApiController
   }
 
   public function list() {
-    $plan_list = DB::table('tbl_plan')->select('tbl_plan.plan_id', 'tbl_plan.plan_type', 'tbl_plan.plan_name', 'tbl_plan.plan_price', 'tbl_plan.created_at', 'tbl_plan.updated_at', 'tbl_plan.active')->get();
+    $plan_list = DB::table('tbl_plan')->select('tbl_plan.plan_id', 'tbl_plan.plan_type', 'tbl_plan.plan_name', 'tbl_plan.plan_price', 'tbl_plan.plan_bono', 'tbl_plan.created_at', 'tbl_plan.updated_at', 'tbl_plan.active')->get();
 
     return response()->json([
       'result' => $plan_list,
@@ -33,7 +33,8 @@ class PlanController extends ApiController
       'plan_name' => 'required',
       'plan_price' => 'required',
       'plan_type' => 'required',
-      'product_code' => 'required'
+      'product_code' => 'required',
+      'plan_bono' => 'required'
     ]);
 
     if($validator->fails()) {
@@ -49,6 +50,7 @@ class PlanController extends ApiController
     $plan_price = $request->input('plan_price');
     $plan_type = $request->input('plan_type');
     $product_code = $request->input('product_code');
+    $plan_bono = $request->input('plan_bono');
 
     $plan_slug = str_replace('+', '-plus', $plan_name);
     $plan_slug = str_replace_last('.', '_', $plan_slug);
@@ -68,6 +70,7 @@ class PlanController extends ApiController
           'plan_price' => $plan_price,
           'plan_slug' => $plan_slug,
           'product_code' => $product_code,
+          'plan_bono' => $plan_bono,
           'created_at' => Carbon::now()->toDateTimeString(),
           'updated_at' => Carbon::now()->toDateTimeString(),
           'active' => 1
@@ -555,4 +558,5 @@ class PlanController extends ApiController
       'success' => true
     ]);
   }
+  
 }

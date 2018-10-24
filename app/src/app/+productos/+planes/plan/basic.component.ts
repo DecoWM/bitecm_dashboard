@@ -34,6 +34,9 @@ export class PlanBasicComponent implements OnInit, AfterViewChecked {
         required : true,
         number: true
         // pattern: /\d+(\.\d{1,2})?/
+      },
+      plan_bono : {
+        required : true
       }
     },
     messages : {
@@ -47,6 +50,9 @@ export class PlanBasicComponent implements OnInit, AfterViewChecked {
         required : 'Debes ingresar un precio',
         number: 'Debes ingresar un número',
         pattern: 'Solo se aceptan números con 2 decimales'
+      },
+      plan_bono : {
+        required : 'Debes ingresar la descripción del bono'
       }
     }
   };

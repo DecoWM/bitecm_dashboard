@@ -22,6 +22,7 @@ export class DetalleOrdenComponent implements OnInit {
   ];
   cursor: any = null;
   filter: any = null;
+  filters: any = null;
   prev: any = null;
   next: any = null;
   pos_prev: any = null;
@@ -54,6 +55,11 @@ export class DetalleOrdenComponent implements OnInit {
       const order_id = params.id;
       this.blockui.start('content');
 
+      // valores de los filtros 
+      this.filters = this.ordenesService.getTextFilters();
+      console.log(this.filters);
+
+      // numero de ordenes filtradas
       this.filter = this.ordenesService.getFilter();
       this.cursor = order_id; // this.ordenesService.getCursor();
 
@@ -216,6 +222,10 @@ export class DetalleOrdenComponent implements OnInit {
   orderNext(): void{
     this.router.navigate([this.next], {relativeTo: this.route.parent });
     this.alert ='';
+  }
+
+  cmdBackOrders(){
+    this.router.navigate(['/ventas/ordenes']);
   }
 
   showPopupStore(store, $order_id, event): void {

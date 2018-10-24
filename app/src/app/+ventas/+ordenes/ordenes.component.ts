@@ -1,4 +1,4 @@
-import { Component, OnInit, Type, Input } from '@angular/core';
+import { Component, OnInit, Type, Input, Output, EventEmitter } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subject, Observable } from 'rxjs/Rx';
@@ -23,6 +23,8 @@ export class OrdenesComponent implements OnInit {
   itemsObs: Subject<any> = new Subject();
   dtTrigger: Subject<any> = new Subject();
   ordenes: any = [];
+  filters: any = [];
+  servicio: any = null;
   alert: any = null;
   page = '1';
   ruta = null;
@@ -57,7 +59,7 @@ export class OrdenesComponent implements OnInit {
     const self = this;
     this.alert = null;
     this.ruta = this.router.url;
-
+    this.servicio = null;
     this.socket.on('connect', function () {
       console.log('Conectado a socket.io');
     });
@@ -93,21 +95,55 @@ export class OrdenesComponent implements OnInit {
     });
 
     this.blockui.start('content');
+
+    this.filters = this.ordenesService.getTextFilters();
+    console.log(this.filters);
+       
     this.ordenesService.getOrdenes()
       .subscribe((data: any) => {
         // console.log(data);
         this.blockui.stop('content');
         this.ordenes = data.result;
         this.itemsObs.next(this.ordenes);
+
+        // inicializa los filtros
+          if(this.filters.length > 0){
+            /*
+            $("#nropedido").val(this.filters[0][0]);
+            $("#sucursal").val(this.filters[0][1]);
+            $("#fecha").val(this.filters[0][2]);
+            $("#dni").val(this.filters[0][3]);
+            $("#tipolinea").val(this.filters[0][4]);
+            */
+            //this.servicio = this.filters[0][5];
+            //$("#servicio").val(this.filters[0][5]);
+            //$("#servicio").keyup();
+            //$("#servicio").keydown();
+            //$("#servicio").keypress();
+            //$('#servicio').trigger('click');
+            //$("#servicio").focus();
+
+            /*
+            this.servicio = this.filters[0][5];
+            $("#equipo").val(this.filters[0][6]);
+            $("#plan").val(this.filters[0][7]);
+            $("#estado").val(this.filters[0][8]);
+            $("#total").val(this.filters[0][9]);
+            $("#evaluacion").val(this.filters[0][10]);
+            */
+          }
+
         if (this.ordenes.length === 0) {
           this.loadingStatus = 'No se encontraron registros';
         }
-      }, (error) => {
+      }
+      , (error) => {
         this.blockui.stop('content');
         if (error.status === 401) {
         // this.authService.logout(true);
         }
       });
+
   }
 
   initDtObj(dtObj) {
@@ -117,7 +153,6 @@ export class OrdenesComponent implements OnInit {
   pageSelected(dtObj) {
     this.page = dtObj;
     // console.log("pagina:" + this.page);
-
     this.position = this.ruta.indexOf("#");
     if(this.position > 0){
       this.ruta = this.ruta.substring(1, this.position);
@@ -133,6 +168,8 @@ export class OrdenesComponent implements OnInit {
 
   detail(data: any): void {
     this.getIdOrdens();
+    this.getValueFilters();
+    console.log(this.filters);
     this.router.navigate([data.order_id], {relativeTo: this.route });
     // this.router.navigate([data.order_id], {relativeTo: this.route, fragment: this.page });
   }
@@ -169,20 +206,42 @@ export class OrdenesComponent implements OnInit {
     })
   }
 
+  cmdPrueba(){
+    $("#servicio").val('Pre');
+    $("#servicio").focus();
+    $("#servicio").keyup();
+  }
+
   getIdOrdens(){
     var items = []; 
     var columnValue;
     $('#tableI>tr>td:nth-child(1)').each( function(){
        columnValue = $.trim($(this).text()); 
        items.push(columnValue);
-       console.log(columnValue);   
+       //console.log(columnValue);   
     });
 
     this.ordenesService.setFilter(items);
     this.ordenesService.setCursor(items[0]);
     //console.log(items);
-    console.log("------");
+  }
 
+  getValueFilters(){
+    this.filters[0] = new Array(11);
+    this.filters[0][0] = $("#nropedido").val();    //'nropedido'
+    this.filters[0][1] = $("#sucursal").val();    //'sucursal'
+    this.filters[0][2] = $("#fecha").val();    //'fecha'
+    this.filters[0][3] = $("#dni").val();    //'dni'
+    this.filters[0][4] = $("#tipolinea").val();    //'tipolinea'
+    this.filters[0][5] = $("#servicio").val();    //'servicio'
+    this.filters[0][6] = $("#equipo").val();    //'equipo'
+    this.filters[0][7] = $("#plan").val();    //'plan'
+    this.filters[0][8] = $("#estado").val();    //'estado'
+    this.filters[0][9] = $("#total").val();    //'total'
+    this.filters[0][10] = $("#evaluacion").val();   //'evaluacion'
+    this.filters[0][11] = 1;   //'nropagina'
+
+    this.ordenesService.setTextFilters(this.filters);
   }
 
 }

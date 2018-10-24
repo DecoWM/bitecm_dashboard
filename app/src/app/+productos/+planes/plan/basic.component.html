@@ -59,6 +59,16 @@
                     </div>
                   </section>
                 </div>
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="plan_bono">Bono</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="plan.plan_id" class="input">
+                      <input [attr.disabled]="plan.plan_id ? 'disabled' : null" id="plan_bono" name="plan_bono" type="text" [(ngModel)]="plan.plan_bono">
+                    </div>
+                  </section>
+                </div>
                 <!--<div class="row">
                   <section class="col col-sm-12">
                     <label for="">Disponible en:</label>

@@ -179,11 +179,14 @@ export class InfocomercialComponent implements OnInit {
     if(dato.trim() == 'App Ilimitada'){
       valor = 1;
     }
-    if(dato.trim() == 'Servicio'){
+    if(dato.trim() == 'Megas Inter.'){
       valor = 2;
     }
-    if(dato.trim() == 'Megas Inter.'){
+    if(dato.trim() == 'Video y Musica'){
       valor = 3;
+    }
+    if(dato.trim() == 'Juegos'){
+      valor = 4;
     }
 
     //$('#tipo').val($('#ftipo' + item.plan_infocomercial_id).text());
@@ -252,10 +255,13 @@ export class InfocomercialComponent implements OnInit {
               valor = 'App Ilimitada';
             }
             if(data.tipo == 2){
-              valor = 'Servicio';
+              valor = 'Megas Inter.';
             }
             if(data.tipo == 3){
-              valor = 'Megas Inter.';
+              valor = 'Videos y Musica';
+            }
+            if(data.tipo == 4){
+              valor = 'Juegos';
             }
 
             $('#ftipo' + plan_infocomercial_id).text(valor);

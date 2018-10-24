@@ -36,6 +36,9 @@
                     <th class="hasinput" style="width:13%">
                       <input type="text" class="form-control" placeholder="Precio del chip">
                     </th>
+                    <th class="hasinput" style="width:13%">
+                      <input type="text" class="form-control" placeholder="Bono del plan">
+                    </th>
                     <th class="hasinput" style="width:11%">
                       <input type="text" class="form-control" placeholder="Publicado">
                     </th>
@@ -53,6 +56,7 @@
                     <th style="width:13%">Modalidad</th>
                     <th style="width:16%">Descripción</th>
                     <th style="width:13%">Precio del chip</th>
+                    <th style="width:13%">Bono del plan</th>
                     <th data-hide="phone,tablet" style="width:11%">Publicado</th>
                     <th data-hide="phone,tablet" style="width:12%">Actualizado</th>
 <!--                     <th data-hide="phone,tablet" style="width:15%">Publicado</th>
@@ -70,6 +74,7 @@
                       <td>{{ item.plan_type }}</td>
                       <td>{{ item.plan_name }}</td>
                       <td>{{ item.plan_price }}</td>
+                      <td>{{ item.plan_bono }}</td>
                       <td [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>
                       <td [attr.data-order]="item.updated_at | moment:'x'">{{ item.updated_at }}</td>
 <!--                       <td>{{ item.product_priority }}</td>

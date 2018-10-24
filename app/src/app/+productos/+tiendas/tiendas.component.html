@@ -23,20 +23,9 @@
                 [paginationLength]="true" [filter]="true" tableClass="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
-                    <th class="hasinput" style="width:7%">
+                    <th class="hasinput" style="width:10%">
                       <input type="text" class="form-control" placeholder="Id Tienda">
                     </th>
-                    <!--
-                    <th class="hasinput" style="width:8%">
-                      <input type="text" class="form-control" placeholder="Departamento">
-                    </th>
-                    <th class="hasinput" style="width:8%">
-                      <input type="text" class="form-control" placeholder="Provincia">
-                    </th>
-                    <th class="hasinput" style="width:8%">
-                      <input type="text" class="form-control" placeholder="Distrito">
-                    </th>
-                    -->
                     <th class="hasinput" style="width:8%">
                       <input type="text" class="form-control" placeholder="Sucursal">
                     </th>
@@ -44,33 +33,24 @@
                       <input type="text" class="form-control" placeholder="Nombre Tienda">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" class="form-control" placeholder="Código ZIP">
+                      <input type="text" class="form-control" placeholder="Ubigeo">
+                    </th>
+                    <th class="hasinput" style="width:15%">
+                      <input type="text" class="form-control" placeholder="Distrito">
                     </th>
                     <th class="hasinput" style="width:19%">
                       <input type="text" class="form-control" placeholder="Dirección">
-                    </th>
-                    <th class="hasinput" style="width:14%">
-                      <input type="text" class="form-control" placeholder="Publicado">
-                    </th>
-                    <th class="hasinput" style="width:14%">
-                      <input type="text" class="form-control" placeholder="Actualizado">
                     </th>
                     <th class="hasinput" style="width:8%"></th>
                     <th class="hasinput" style="width:10%"></th>
                   </tr>
                   <tr>
-                    <th style="width:7%">Id Tienda</th>
-                    <!--
-                    <th style="width:8%">Departamento</th>
-                    <th style="width:8%">Provincia</th>
-                    <th style="width:8%">Distrito</th>
-                    -->
+                    <th style="width:10%">Id Tienda</th>
                     <th style="width:8%">Sucursal</th>
                     <th style="width:13%">Nombre Tienda</th>
-                    <th style="width:10%">Código ZIP</th>
+                    <th style="width:10%">Ubigeo</th>
+                    <th style="width:15%">Distrito</th>
                     <th style="width:19%">Dirección</th>
-                    <th data-hide="phone,tablet" style="width:14%">Publicado</th>
-                    <th data-hide="phone,tablet" style="width:14%">Actualizado</th>
                     <th data-hide="phone,tablet" style="width:9%">Activo</th>
                     <th style="width:11%">Acción</th>
                   </tr>
@@ -79,18 +59,12 @@
                   <ng-container *ngFor="let item of items; let last = last" 
                   sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
                     <tr>
-                      <td>{{ item.store_id }}</td>
-                      <!--
-                      <td>{{ item.departament_name }}</td>
-                      <td>{{ item.province_name }}</td>
-                      <td>{{ item.district_name }}</td>
-                      -->
+                      <td>{{ item.store_slug }}</td>
                       <td>{{ item.branch_name }}</td>
                       <td>{{ item.store_name }}</td>
-                      <td>{{ item.zip_code }}</td>
+                      <td>{{ item.store_ubigeo }}</td>
+                      <td>{{ item.district_name }}</td>
                       <td>{{ item.store_address }}</td>
-                      <td [attr.data-order]="item.created_at | moment:'x'">{{ item.created_at }}</td>
-                      <td [attr.data-order]="item.updated_at | moment:'x'">{{ item.updated_at }}</td>
                       <td [attr.data-order]="item.active">
                         <span *ngIf="item.active" class="fa fa-check-circle" style="color: green;"></span>
                         <span *ngIf="!item.active" class="fa fa-minus-circle" style="color: red;"></span>

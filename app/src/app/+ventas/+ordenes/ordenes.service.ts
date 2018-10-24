@@ -12,6 +12,7 @@ export class OrdenesService {
 
   private url = '/api/admin/ordenes';
   private filter = [];
+  private filters = [];
   private cursor = null;
 
   constructor(
@@ -25,6 +26,14 @@ export class OrdenesService {
 
   getFilter(){
     return this.filter;
+  }
+
+  setTextFilters(filters){
+    this.filters=filters;
+  }
+
+  getTextFilters(){
+    return this.filters;
   }
 
   setCursor(cursor){

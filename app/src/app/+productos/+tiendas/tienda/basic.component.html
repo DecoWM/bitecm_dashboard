@@ -16,12 +16,12 @@
 
                 <div class="row">
                   <section class="col col-xs-7 col-sm-4">
-                    <label for="branch_name">Sucursal</label>
+                    <label for="branch_id">Branch</label>
                   </section>
                   <section class="col col-xs-5 col-sm-8">
                     <div class="select">
-                      <select id="branch_name" name="branch_name" [(ngModel)]="store.branch_id">
-                        <option value="" selected>Seleccionar Sucursal</option> 
+                      <select id="branch_id" name="branch_id" (change)="onSelectBranchChange($event)" [(ngModel)]="store.branch_id">
+                        <option value="" selected>Seleccionar Branch</option> 
                         <option *ngFor="let item of branches" value="{{item.branch_id}}">{{item.branch_name}}</option>
                       </select>  <i></i>
                     </div> 
@@ -30,7 +30,21 @@
 
                 <div class="row">
                   <section class="col col-xs-7 col-sm-4">
-                    <label for="store_name">Nombre</label>
+                    <label for="district_id">Distrito</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div class="select">
+                      <select id="district_id" name="district_id" [(ngModel)]="store.district_id">
+                        <option value="" selected>Seleccionar Distrito</option> 
+                        <option *ngFor="let item of districts" value="{{item.district_id}}">{{item.district_name}}</option>
+                      </select>  <i></i>
+                    </div> 
+                  </section>
+                </div>
+
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="store_name">Nombre de tienda</label>
                   </section>
                   <section class="col col-xs-5 col-sm-8">
                     <div [class.state-disabled]="store.store_id" class="input">
@@ -41,14 +55,26 @@
 
                 <div class="row">
                   <section class="col col-xs-7 col-sm-4">
-                    <label for="store_zip">Código ZIP</label>
+                    <label for="store_slug">Id tienda</label>
                   </section>
                   <section class="col col-xs-5 col-sm-8">
                     <div [class.state-disabled]="store.store_id" class="input">
-                      <input id="zip_code" name="zip_code" type="text" [(ngModel)]="store.zip_code">
+                      <input id="store_slug" name="store_slug" type="text" [attr.disabled]="store.store_id ? 'disabled' : null" [(ngModel)]="store.store_slug">
                     </div>
                   </section>
                 </div>
+
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="store_ubigeo">Ubigeo</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="store.store_id" class="input">
+                      <input id="store_ubigeo" name="store_ubigeo" type="text" maxlength="6" [(ngModel)]="store.store_ubigeo">
+                    </div>
+                  </section>
+                </div>
+
                 <div class="row">
                   <section class="col col-xs-7 col-sm-4">
                     <label for="store_address">Dirección de tienda</label>
