@@ -227,7 +227,7 @@ export class DetalleOrdenComponent implements OnInit {
   cmdBackOrders(){
     this.router.navigate(['/ventas/ordenes']);
   }
-
+  
   showPopupStore(store, $order_id, event): void {
     var idStore = event.target.value;
     //console.log(store);

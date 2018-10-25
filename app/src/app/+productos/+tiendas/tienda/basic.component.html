@@ -60,6 +60,7 @@
                   <section class="col col-xs-5 col-sm-8">
                     <div [class.state-disabled]="store.store_id" class="input">
                       <input id="store_slug" name="store_slug" type="text" [attr.disabled]="store.store_id ? 'disabled' : null" [(ngModel)]="store.store_slug">
+                      <input *ngIf="store.store_id" type="hidden" name="store_slug" value="{{store.store_slug}}">
                     </div>
                   </section>
                 </div>

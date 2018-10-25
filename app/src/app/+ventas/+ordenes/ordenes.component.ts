@@ -206,11 +206,13 @@ export class OrdenesComponent implements OnInit {
     })
   }
 
+  /*
   cmdPrueba(){
     $("#servicio").val('Pre');
     $("#servicio").focus();
     $("#servicio").keyup();
   }
+  */
 
   getIdOrdens(){
     var items = []; 
