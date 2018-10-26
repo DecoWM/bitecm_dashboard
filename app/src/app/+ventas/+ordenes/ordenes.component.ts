@@ -1,4 +1,4 @@
-import { Component, OnInit, Type, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Type, Input, Output, EventEmitter, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subject, Observable } from 'rxjs/Rx';
@@ -19,6 +19,9 @@ declare var $: any;
   styles: []
 })
 export class OrdenesComponent implements OnInit {
+  @Input() public options2: any;
+  @Input() public filter: any;
+
   loadingStatus: string;
   itemsObs: Subject<any> = new Subject();
   dtTrigger: Subject<any> = new Subject();
@@ -45,6 +48,7 @@ export class OrdenesComponent implements OnInit {
   };
 
   constructor(
+    private el: ElementRef,
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
@@ -96,6 +100,7 @@ export class OrdenesComponent implements OnInit {
 
     this.blockui.start('content');
 
+    // obtengo los valores de los filtros 
     this.filters = this.ordenesService.getTextFilters();
     console.log(this.filters);
        
@@ -105,9 +110,16 @@ export class OrdenesComponent implements OnInit {
         this.blockui.stop('content');
         this.ordenes = data.result;
         this.itemsObs.next(this.ordenes);
+        //this.render();
 
         // inicializa los filtros
-          if(this.filters.length > 0){
+          //if(this.filters.length > 0){
+            //const element = $(this.el.nativeElement.children[0]);
+           // console.log("HOLA");
+           //console.log(element);
+
+
+
             /*
             $("#nropedido").val(this.filters[0][0]);
             $("#sucursal").val(this.filters[0][1]);
@@ -131,8 +143,8 @@ export class OrdenesComponent implements OnInit {
             $("#total").val(this.filters[0][9]);
             $("#evaluacion").val(this.filters[0][10]);
             */
-          }
-
+          //}
+    
         if (this.ordenes.length === 0) {
           this.loadingStatus = 'No se encontraron registros';
         }
@@ -144,6 +156,35 @@ export class OrdenesComponent implements OnInit {
         }
       });
 
+  }
+
+  renderiza() {
+    /*
+    const element = $(this.el.nativeElement.children[0]);
+    const _dataTable = element.DataTable();
+
+        _dataTable
+          .column($(this).parent().index() + ':visible')
+          .search("Pre")
+          .draw();
+  */
+    //$("#servicio").val(this.filters[0][5]);
+    this.servicio = "Pre";
+      /*
+            $("#servicio").val(this.filters[0][5]);
+                $("#servicio").focus();
+
+            $("#servicio").keyup({
+            });
+
+            $("#servicio").keydown();
+            $("#servicio").keypress();
+
+         $('#tablaDatos').dataTable( {
+            "oSearch": {"sSearch": "Pre" }
+         });
+         */
+         
   }
 
   initDtObj(dtObj) {

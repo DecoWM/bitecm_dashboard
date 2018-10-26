@@ -1,0 +1,48 @@
+<sa-widget [editbutton]="false" [custombutton]="false">
+  <!-- widget div-->
+  <div>
+    <!-- widget content -->
+    <div class="widget-body no-padding">
+
+      <div class="smart-form">
+        <div class="detalle-order">
+          <header>
+            <i class="icon-prepend fa fa-exclamation-circle"></i>
+            Información Básica
+          </header>
+          <form #formBasic="ngForm" #form class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="brandOptions" (onValidationSuccess)="onValidationSuccess($event)" name="form-basic">
+            <div class="detalle-registro row padding-row">
+              <div class="col col-sm-12">
+                <div class="row">
+                  <section class="col col-xs-7 col-sm-4">
+                    <label for="brand_name">Nombre</label>
+                  </section>
+                  <section class="col col-xs-5 col-sm-8">
+                    <div [class.state-disabled]="brand.brand_id" class="input">
+                      <input id="brand_name" name="brand_name" type="text" [(ngModel)]="brand.brand_name">
+                    </div>
+                  </section>
+                </div>
+              </div>
+              <div class="col col-sm-12">
+                <div class="row">
+                  <footer>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="submit" type="submit">Guardar</button>
+                    </div>
+                    <div class="btn-footer">
+                      <button class="btn btn-primary" name="regresar" type="button" (click)="cmdRegresar()">Regresar</button>
+                    </div>
+                  </footer>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <!-- end widget content -->
+  </div>
+  <!-- end widget div -->
+</sa-widget>

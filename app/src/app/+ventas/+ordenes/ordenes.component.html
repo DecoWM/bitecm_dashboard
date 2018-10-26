@@ -21,7 +21,7 @@
           <div>
             <div class="widget-body no-padding">
               <mini-general-orders (onDateChanged)="filterByDateRange()"></mini-general-orders>
-              <sa-datatable [options]="options" [dtTrigger]="dtTrigger" 
+              <sa-datatable id="tablaDatos" name="tablaDatos" [options]="options" [dtTrigger]="dtTrigger" 
                 [paginationLength]="true" [filter]="true" [dateRangeOptions]="dateRangeOptions" (onInit)="initDtObj($event)" (onPageSelected)="pageSelected($event)" tableClass="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>

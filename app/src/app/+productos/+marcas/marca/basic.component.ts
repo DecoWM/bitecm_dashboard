@@ -5,7 +5,7 @@ import { Subject, Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
-import { SucursalesService } from './../sucursales.service';
+import { MarcasService } from './../marcas.service';
 import { NotificationService } from '../../../shared/utils/notification.service';
 
 import { BlockUIService } from 'ng-block-ui';
@@ -13,36 +13,28 @@ import { BlockUIService } from 'ng-block-ui';
 declare var $: any;
 
 @Component({
-  selector: 'sucursal-basic',
+  selector: 'marca-basic',
   templateUrl: './basic.component.html',
   styles: []
 })
-export class SucursalBasicComponent implements OnInit {
+export class MarcaBasicComponent implements OnInit {
 
   variations: any = [];
-  //affiliations_plan: any = [];
-  //productImageUrl = '';
 
-  branchOptions = {
+  brandOptions = {
     rules: {
-      branch_name : {
+      brand_name : {
         required : true
       },
-      zip_code : {
-        required : false
-      },
-      branch_address : {
-        required : false
-      }
     },
     messages : {
-      branch_name : {
-        required : 'Debes ingresar un nombre de sucursal.'
+      brand_name : {
+        required : 'Debes ingresar un nombre de marca.'
       }
     }
   };
 
-  @Input()  branch: any = {};
+  @Input()  brand: any = {};
   @Output() onAlert: EventEmitter<any> = new EventEmitter();
   @Output() onUpdate: EventEmitter<any> = new EventEmitter();
   @ViewChild('formBasic') formBasic;
@@ -51,7 +43,7 @@ export class SucursalBasicComponent implements OnInit {
     private route: ActivatedRoute,
     private router: Router,
     private blockui: BlockUIService,
-    private branchService: SucursalesService,
+    private brandService: MarcasService,
     private notificationService: NotificationService
   ) {}
 
@@ -81,18 +73,18 @@ export class SucursalBasicComponent implements OnInit {
   }
 
   cmdRegresar(){
-    this.router.navigate(['/productos/sucursales']);
+    this.router.navigate(['/productos/marcas']);
   }
 
   save(e) {
     const formData = new FormData(document.forms.namedItem('form-basic'));
     this.blockui.start('content');
-    if (this.branch.branch_id) {
-      console.log('id:' + this.branch.branch_id);
+    if (this.brand.brand_id) {
+      console.log('id:' + this.brand.brand_id);
       console.log(formData);
-      this.branchService.updateBranch(this.branch.branch_id, formData)
+      this.brandService.updateBrand(this.brand.brand_id, formData)
         .subscribe((data: any) => {
-          this.onAlert.emit(this.getAlert(data, this.branch, 'Actualización', 'actualizada'));
+          this.onAlert.emit(this.getAlert(data, this.brand, 'Actualización', 'actualizada'));
           if (data.success) {
            //this.router.navigate(['productos/contratos'],{ preserveFragment: true });
           }
@@ -106,9 +98,9 @@ export class SucursalBasicComponent implements OnInit {
           this.blockui.stop('content');
         });
     } else {
-      this.branchService.storeBranch(formData)
+      this.brandService.storeBrand(formData)
         .subscribe((data: any) => {
-          this.onAlert.emit(this.getAlert(data, this.branch, 'Creación', 'creada'));
+          this.onAlert.emit(this.getAlert(data, this.brand, 'Creación', 'creada'));
           if (data.success) {
            //this.router.navigate(['productos/contratos'],{ preserveFragment: true });
           }
@@ -126,17 +118,17 @@ export class SucursalBasicComponent implements OnInit {
     }
   }
 
-  getAlert(result, branch, title_mode, desc_mode): any {
+  getAlert(result, brand, title_mode, desc_mode): any {
     let mode, title, message = '';
     if (result.success) {
       mode = 'success';
       title = title_mode + ' completada';
-      message = result.result.length ? result.result : 'La Sucursal ' + branch.branch_name + ' ha sido ' + desc_mode;
+      message = result.result.length ? result.result : 'La Marca ' + brand.brand_name + ' ha sido ' + desc_mode;
     } 
     else {
       mode = 'danger';
       title = title_mode + ' fallida';
-      message = result.result.length ? result.result : 'La Sucursal ' + branch.branch_name + ' no pudo ser ' + desc_mode;
+      message = result.result.length ? result.result : 'La Marca ' + brand.brand_name + ' no pudo ser ' + desc_mode;
     }
     return {
       'title': title,

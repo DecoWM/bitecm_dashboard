@@ -23,6 +23,11 @@ export const routes: Routes = [
         data: {pageTitle: 'Importación'}
     },
     {
+        path: 'marcas',
+        loadChildren: './+marcas/marcas.module#MarcasModule',
+        data: {pageTitle: 'Marcas'}
+    },
+    {
         path: 'planes',
         loadChildren: './+planes/planes.module#PlanesModule',
         data: {pageTitle: 'Planes'}

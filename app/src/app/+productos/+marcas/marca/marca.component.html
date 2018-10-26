@@ -1,7 +1,7 @@
 <!-- MAIN CONTENT -->
 <div id="content">
   <div class="row">
-    <sa-big-breadcrumbs [items]="[' Contratos', subtitle]" icon="legal" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
+    <sa-big-breadcrumbs [items]="[' Marcas', subtitle]" icon="trademark" class="col-xs-12 col-sm-12 col-md-12 col-lg-12"></sa-big-breadcrumbs>
   </div>
 
   <ng-container *ngIf="alert">
@@ -15,7 +15,7 @@
     <div class="row">
       <article>
         <div class="col-sm-6 col-md-5 col-lg-5">
-          <contrato-basic [contract]="contract" (onAlert)="printAlert($event)" (onUpdate)="refreshContract()"></contrato-basic>
+          <marca-basic [brand]="brand" (onAlert)="printAlert($event)" (onUpdate)="refreshBrand()"></marca-basic>
         </div>
       </article>
     </div>

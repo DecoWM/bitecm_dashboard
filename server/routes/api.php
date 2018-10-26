@@ -112,6 +112,21 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	});
 
 	///////////
+	// MARCA //
+	///////////
+	// CLES 26-10-2018
+	Route::prefix('marcas')->group(function () {
+		//Product list
+		Route::get('', 'MarcaController@list');
+		Route::put('{brand_id}/publish', 'MarcaController@publishBrand');
+		Route::put('{brand_id}/hide', 'MarcaController@hideBrand');
+		Route::post('', 'MarcaController@storeBrand');
+		Route::get('{brand_id}', 'MarcaController@getBrand');
+		Route::post('{brand_id_update}', 'MarcaController@updateBrand');
+
+	});
+
+	///////////
 	// PLAN  //
 	///////////
 	// CLES 05-04-2018
