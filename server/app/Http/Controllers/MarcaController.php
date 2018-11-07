@@ -97,7 +97,8 @@ class MarcaController extends ApiController
 
     //Inputs
     $brand_name = $request->input('brand_name');
-    
+    $brand_slug = strtolower($brand_name);
+
     $brand = DB::table('tbl_brand')
       ->where('brand_name', $brand_name)
       ->select('brand_id')->first();
@@ -107,6 +108,8 @@ class MarcaController extends ApiController
         DB::beginTransaction();
         $brand_id = DB::table('tbl_brand')->insertGetId([
           'brand_name' => $brand_name,
+          'brand_slug' => $brand_slug,
+          'weight' => 1,
           'created_at' => Carbon::now()->toDateTimeString(),
           'created_by' => 1,
           'active' => 1
@@ -191,6 +194,7 @@ class MarcaController extends ApiController
 
       $data = [
         'brand_name' => $brand_name,
+        'brand_slug' => strtolower($brand_name),
         'updated_at' => $updated_at
       ];
 

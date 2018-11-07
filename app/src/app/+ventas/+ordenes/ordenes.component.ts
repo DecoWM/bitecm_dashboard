@@ -20,7 +20,7 @@ declare var $: any;
 })
 export class OrdenesComponent implements OnInit {
   @Input() public options2: any;
-  @Input() public filter: any;
+  //@Input() public filter: any;
 
   loadingStatus: string;
   itemsObs: Subject<any> = new Subject();
@@ -110,6 +110,14 @@ export class OrdenesComponent implements OnInit {
         this.blockui.stop('content');
         this.ordenes = data.result;
         this.itemsObs.next(this.ordenes);
+        /*
+        this.blockui.start('content');
+        if(this.filters.length > 0){
+          console.log("entro1");
+          this.renderiza();
+          console.log("entro2");
+          this.blockui.stop('content');
+        }*/
         //this.render();
 
         // inicializa los filtros
@@ -152,13 +160,48 @@ export class OrdenesComponent implements OnInit {
       , (error) => {
         this.blockui.stop('content');
         if (error.status === 401) {
-        // this.authService.logout(true);
+          // this.authService.logout(true);
         }
       });
 
   }
 
   renderiza() {
+
+    this.servicio = 'Pre';
+    this.cmdPrueba();
+    /*
+    var e = jQuery.Event("keypress");
+e.which = 13; //choose the one you want
+e.keyCode = 13;
+$("#servicio").trigger(e);
+*/
+  $('#servicio').trigger(jQuery.Event('keypress', {which: 13}));
+
+
+    /*
+    var input, filter, table, tr, td, i;
+    input = 'Pre';
+    filter = input;
+    table = document.getElementById("tableI");
+    tr = table.getElementsByTagName("tr");
+
+    // Loop through all table rows, and hide those who don't match the search query
+    for (i = 0; i < tr.length; i++) {
+      td = tr[i].getElementsByTagName("td")[5];
+      if (td) {
+        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+          tr[i].style.display = "";
+        } else {
+          tr[i].style.display = "none";
+        }
+      } 
+    }*/
+
+  //  $('#tableI').column(6).search('Pre').draw();
+
+    //$('#tableI').DataTable().column(6).search('Pre').data().unique().sort();
+
     /*
     const element = $(this.el.nativeElement.children[0]);
     const _dataTable = element.DataTable();
@@ -169,7 +212,7 @@ export class OrdenesComponent implements OnInit {
           .draw();
   */
     //$("#servicio").val(this.filters[0][5]);
-    this.servicio = "Pre";
+    //this.servicio = "Pre";
       /*
             $("#servicio").val(this.filters[0][5]);
                 $("#servicio").focus();
@@ -247,14 +290,12 @@ export class OrdenesComponent implements OnInit {
     })
   }
 
-  /*
   cmdPrueba(){
     $("#servicio").val('Pre');
     $("#servicio").focus();
     $("#servicio").keyup();
   }
-  */
-
+  
   getIdOrdens(){
     var items = []; 
     var columnValue;

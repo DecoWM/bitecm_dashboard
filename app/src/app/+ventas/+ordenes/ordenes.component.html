@@ -75,9 +75,9 @@
                   </tr>
                 </thead>
                 <tbody id="tableI" *ngIf="itemsObs | async as items; else loading">
-                  <ng-container *ngFor="let item of items; let last = last" 
+                  <tr *ngFor="let item of items; let last = last" 
                     sa-cond-trigger [cond]="last ? true : false" [trigger]="dtTrigger">
-                    <tr>
+                    <!--<tr>-->
                       <td id="{{ item.order_id }}">
                         <a class="clic-icon" (click)="detail(item)"><span class="fa fa-eye"></span> {{ item.order_id }}</a>
                         <!--<p><span class="color-order-{{ item.colorfondo }}"></span></p>-->
@@ -96,7 +96,7 @@
                         <!--<td class="color-order-{{ item.order_repetida }}">{{ item.credit_status }}</td>-->
                         <td>{{ item.credit_status }}</td>
                     </tr>
-                  </ng-container>                
+                  <!--</ng-container>-->                
                 </tbody>
                 <ng-template #loading>
                   <tr class="odd">
