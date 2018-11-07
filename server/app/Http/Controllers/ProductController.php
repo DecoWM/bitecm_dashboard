@@ -156,10 +156,12 @@ class ProductController extends ApiController
     //Slug
     $product_slug = str_slug($product_model);
 
+    /*
     if ($product_sentinel > 0) {
       //$product_model = $product_model.' +S';
       $product_slug = $product_slug.'-sentinel';
     }
+    */
 
     $product = DB::table('tbl_product')
       ->where('product_slug', $product_slug)
@@ -198,7 +200,7 @@ class ProductController extends ApiController
         'product_tag' => $product_tag,
         'product_slug' => $product_slug,
         'product_image_url' => $product_image_url,
-        'product_sentinel' => $product_sentinel
+        'product_sentinel' => 0
       ]);
       DB::commit();
     } catch (\Illuminate\Database\QueryException $e) {
