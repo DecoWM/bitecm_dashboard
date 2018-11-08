@@ -49,11 +49,11 @@
             <a routerLink="/productos/sucursales">{{'Sucursales' | i18n}}</a>
           </li>
           <li routerLinkActive="active">
-            <a routerLink="/productos/tiendas">{{'Tiendas' | i18n}}</a>
-          </li>
-          <li routerLinkActive="active">
             <a routerLink="/productos/distritos">{{'Distritos' | i18n}}</a>
           </li> 
+          <li routerLinkActive="active">
+            <a routerLink="/productos/tiendas">{{'Tiendas' | i18n}}</a>
+          </li>
         </ul>
       </li>
       <li routerLinkActive="active" *ngIf="isEditor()">
