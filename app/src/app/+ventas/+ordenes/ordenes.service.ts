@@ -7,6 +7,8 @@ import { Subject, Observable } from 'rxjs/Rx';
 
 import { AuthService } from './../../shared/auth/auth.service';
 
+import * as moment from 'moment'
+
 @Injectable()
 export class OrdenesService {
 
@@ -20,33 +22,33 @@ export class OrdenesService {
     private authService: AuthService
   ) {}
 
-  setFilter(filter){
-    this.filter=filter;
+  setFilter(filter) {
+    this.filter = filter;
   }
 
-  getFilter(){
+  getFilter() {
     return this.filter;
   }
 
-  setTextFilters(filters){
-    this.filters=filters;
+  setTextFilters(filters) {
+    this.filters = filters;
   }
 
-  getTextFilters(){
+  getTextFilters() {
     return this.filters;
   }
 
-  setCursor(cursor){
-    this.cursor=cursor; 
+  setCursor(cursor) {
+    this.cursor = cursor;
   }
 
-  getCursor(){
+  getCursor() {
     return this.cursor;
   }
 
-  getOrdenes() {
+  getOrdenes(filters) {
     return this.http
-      .get(this.url);
+      .post(this.getUrl('filter'), filters);
   }
 
   getOrden(id) {
@@ -100,6 +102,22 @@ export class OrdenesService {
   createStatus(order_id, status) {
     return this.http
       .post(this.getUrl([order_id, 'status']), status);
+  }
+
+  getWeekDateRange() {
+    const now = moment();
+
+    const startDate = now.isoWeekday(1).format('DD/MM/YYYY');
+    const finishDate = now.isoWeekday(7).format('DD/MM/YYYY');
+    const startTimestamp = now.isoWeekday(1).format('x');
+    const finishTimestamp = now.isoWeekday(7).format('x');
+
+    return {
+      'startDate': startDate,
+      'finishDate': finishDate,
+      'startTimestamp': startTimestamp,
+      'finishTimestamp': finishTimestamp
+    };
   }
 
   getUrl(params: any = '') {

@@ -1,7 +1,7 @@
 <!--form #formGeneralOrders="ngForm" class="smart-form margin-top-10" novalidate="novalidate" [saUiValidate]="validationOptions" (onValidationSuccess)="exportGeneralOrders($event)" name="form-general-orders"-->
 <form #formGeneralOrders="ngForm" (ngSubmit)="exportGeneralOrders(formGeneralOrders)" class="smart-form margin-top-10" novalidate="novalidate" name="form-general-orders" autocomplete="off">
   <div class="detalle-registro row padding-row">
-    <div class="col col-sm-4">
+    <div class="col col-sm-6">
       <div class="form-group">
         <div class="input-group">
           <input class="form-control" id="begin_date" name="begin_date" [saUiDatepicker]="{
@@ -15,7 +15,7 @@
         </div>
       </div>
     </div>
-    <div class="col col-sm-4">
+    <div class="col col-sm-6">
       <div class="form-group">
         <div class="input-group">
           <input class="form-control" id="end_date" name="end_date" [saUiDatepicker]="{

@@ -19,165 +19,44 @@ class OrdersController extends ApiController
     parent::__construct();
   }
 
-  public function list(Request $request) {
+  public function filterList(Request $request) {
+    $validator = Validator::make($request->all(), [
+      'start_date' => 'required',
+      'finish_date' => 'required'
+    ]);
+
+    if($validator->fails()) {
+      return response()->json([
+        'result' => 'Las fechas son requeridas',
+        'messages' => $validator->errors(),
+        'success' => false
+      ]);
+    }
+
+    // Recibir valores para la consulta
+    $start_date = Carbon::createFromFormat('d/m/Y', $request->input('start_date'))->format('Y-m-d');
+    $finish_date = Carbon::createFromFormat('d/m/Y', $request->input('finish_date'))->format('Y-m-d');
+
     $result = DB::select('call PA_orderSearch(
       :pag_total_by_page,
       :pag_actual,
       :sort_by,
-      :sort_direction
+      :sort_direction,
+      :start_date,
+      :finish_date
     )', [
       'pag_total_by_page' => $request->input('pag_total_by_page', null),
       'pag_actual' => $request->input('pag_actual', null),
       'sort_by' => $request->input('sort_by', null),
-      'sort_direction' => $request->input('sort_direction', null)
+      'sort_direction' => $request->input('sort_direction', null),
+      'start_date' => $start_date,
+      'finish_date' => $finish_date
     ]);
-
-    /*
-    $product_plans_aux = [];
-    $analizar_ordenes = [];
-    $orden_repetida = [];
-    $order_repetida_final = [];
-    $product_plans_aux = $result;
-
-    //---------------------------------------------------------------------
-    // agregando la informacion del color por cada orden
-    //---------------------------------------------------------------------
-    $x = 0;
-    while($x < count($product_plans_aux)) {
-        // obteniendo los valores por los que  se realizara la busqueda de pedidos repetidos
-        $analizar_ordenes[$x]['order_id'] = $product_plans_aux[$x]->order_id;
-        $analizar_ordenes[$x]['id_number'] = $product_plans_aux[$x]->id_number;
-        $analizar_ordenes[$x]['billing_phone'] = $product_plans_aux[$x]->billing_phone;
-        $analizar_ordenes[$x]['affiliation_type'] = $product_plans_aux[$x]->affiliation_type;
-
-        // condiciones para asignarle el color segun el estado del pedido
-        if($product_plans_aux[$x]->order_status_name == 'Pendiente') {
-            $result[$x]->colorfondo = 'black';
-            $result[$x]->order_repetida = 0;
-        }
-        elseif($product_plans_aux[$x]->order_status_name == 'Aceptado'){
-            $result[$x]->colorfondo = 'green';
-            $result[$x]->order_repetida = 0;
-        }
-        elseif($product_plans_aux[$x]->order_status_name == 'En Envío'){
-            $result[$x]->colorfondo = 'yellow';
-            $result[$x]->order_repetida = 0;
-        }
-        elseif($product_plans_aux[$x]->order_status_name == 'Completado'){
-            $result[$x]->colorfondo = 'blue';
-            $result[$x]->order_repetida = 0;
-        }
-        elseif($product_plans_aux[$x]->order_status_name == 'Cancelado'){
-            $result[$x]->colorfondo = 'red';
-            $result[$x]->order_repetida = 0;
-        }
-        elseif($product_plans_aux[$x]->order_status_name == 'Programado'){
-            $result[$x]->colorfondo = 'orange';
-            $result[$x]->order_repetida = 0;
-        }
-        $x++;
-    }
-    */
-
-    //---------------------------------------------------------------------
-    // capturando los filtros que se repiten
-    //---------------------------------------------------------------------
-    /*
-    $x = 0;
-    $a = 0;
-    while($x < count($analizar_ordenes)){
-        $i = $x;
-        while($i < count($analizar_ordenes) - 1){
-            if($analizar_ordenes[$x]['id_number'] == $analizar_ordenes[$i + 1]['id_number'] &&  
-               $analizar_ordenes[$x]['billing_phone'] == $analizar_ordenes[$i + 1]['billing_phone'] &&
-               $analizar_ordenes[$x]['affiliation_type'] == $analizar_ordenes[$i + 1]['affiliation_type']){
-                  $orden_repetida[$a]['id_number'] = $analizar_ordenes[$x]['id_number'];
-                  $orden_repetida[$a]['billing_phone'] = $analizar_ordenes[$x]['billing_phone'];
-                  $orden_repetida[$a]['affiliation_type'] = $analizar_ordenes[$x]['affiliation_type'];
-                  $a++;
-            }
-            $i++;
-        }
-        $x++;
-    }
-    */
-
-    /*
-    $x = 0;
-    $a = 0;
-    while($x < count($analizar_ordenes)){
-        $i = $x;
-        while($i < count($analizar_ordenes) - 1){
-            if($analizar_ordenes[$x]['id_number'] == $analizar_ordenes[$i + 1]['id_number']){
-                  $orden_repetida[$a]['id_number'] = $analizar_ordenes[$x]['id_number'];
-                  $a++;
-            }
-            $i++;
-        }
-        $x++;
-    }
-    */
-
-    //--------------------------------------------------------------------------
-    // detectando todos las numero de las ordenes que cumplen con los filtros
-    //--------------------------------------------------------------------------
-    /*
-    $x = 0;
-    $a = 0;
-    while($x < count($orden_repetida)){
-      $i = 0;
-      while($i < count($analizar_ordenes)){
-          if($orden_repetida[$x]['id_number'] == $analizar_ordenes[$i]['id_number'] &&
-             $orden_repetida[$x]['billing_phone'] == $analizar_ordenes[$i]['billing_phone'] && 
-             $orden_repetida[$x]['affiliation_type'] == $analizar_ordenes[$i]['affiliation_type']){
-             $order_repetida_final[$a]['order_id'] = $analizar_ordenes[$i]['order_id'];
-             $a++; 
-          } 
-          $i++;
-      }
-      $x++;
-    }
-    */
-
-    /*
-    $x = 0;
-    $a = 0;
-    while($x < count($orden_repetida)){
-      $i = 0;
-      while($i < count($analizar_ordenes)){
-          if($orden_repetida[$x]['id_number'] == $analizar_ordenes[$i]['id_number']){
-             $order_repetida_final[$a]['order_id'] = $analizar_ordenes[$i]['order_id'];
-             $a++; 
-          } 
-          $i++;
-      }
-      $x++;
-    }
-    */
-
-    //---------------------------------------------------------------------
-    // agregando el flag para determinar si es repetido en la orden
-    //---------------------------------------------------------------------
-    /*
-    $x = 0;
-    while($x < count($order_repetida_final)){
-      $i = 0;
-      while($i < count($product_plans_aux)){
-        if($order_repetida_final[$x]['order_id'] == $product_plans_aux[$i]->order_id){
-          $result[$i]->order_repetida = 1;
-        }
-        $i++;
-      }
-      $x++;
-    }
-    */
 
     return response()->json([
       'result' => $result,
       'success' => true
     ]);
-
-  	//return $this->jsonResponse(User::ofType(User::SELLER)->get(), 'sellers.all', 'success');
   }
 
   public function detail($order_id = null) {
@@ -545,7 +424,7 @@ class OrdersController extends ApiController
 
     if($validator->fails()) {
       return response()->json([
-        'result' => 'Las fechas on requeridas',
+        'result' => 'Las fechas son requeridas',
         'messages' => $validator->errors(),
         'success' => false
       ]);
@@ -594,7 +473,7 @@ class OrdersController extends ApiController
 
     if($validator->fails()) {
       return response()->json([
-        'result' => 'Las fechas on requeridas',
+        'result' => 'Las fechas son requeridas',
         'messages' => $validator->errors(),
         'success' => false
       ]);
@@ -643,7 +522,7 @@ class OrdersController extends ApiController
 
     if($validator->fails()) {
       return response()->json([
-        'result' => 'Las fechas on requeridas',
+        'result' => 'Las fechas son requeridas',
         'messages' => $validator->errors(),
         'success' => false
       ]);

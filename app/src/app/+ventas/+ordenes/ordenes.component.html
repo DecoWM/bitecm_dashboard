@@ -20,43 +20,45 @@
         <sa-widget class="well" color="darken">
           <div>
             <div class="widget-body no-padding">
-              <mini-general-orders (onDateChanged)="filterByDateRange()"></mini-general-orders>
-              <sa-datatable id="tablaDatos" name="tablaDatos" [options]="options" [dtTrigger]="dtTrigger" 
-                [paginationLength]="true" [filter]="true" [dateRangeOptions]="dateRangeOptions" (onInit)="initDtObj($event)" (onPageSelected)="pageSelected($event)" tableClass="table table-striped table-bordered table-hover">
+              <mini-general-orders (onDateChanged)="filterByDateRange()" class="col col-sm-6"></mini-general-orders>
+              <div class="col col-sm-6">
+                <button style="margin-top: 20px;" class="btn btn-primary" name="filter" type="button" (click)="filter()">Filtrar</button>
+              </div>
+              <sa-datatable id="tablaDatos" name="tablaDatos" [options]="options" [dtTrigger]="dtTrigger" [paginationLength]="true" [filter]="true" [dateRangeOptions]="dateRangeOptions" (onInit)="initDtObj($event)" (onPageSelected)="pageSelected($event)" tableClass="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" id="nropedido" class="form-control" placeholder="Nro. Pedido" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="nropedido" class="form-control" placeholder="Nro. Pedido" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" id="sucursal" class="form-control" placeholder="Sede del Pedido" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="sucursal" class="form-control" placeholder="Sede del Pedido" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:16%">
-                      <input type="text" id="fecha" class="form-control" placeholder="Fecha" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="fecha" class="form-control" placeholder="Fecha" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" id="dni" class="form-control" placeholder="Cliente / DNI" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="dni" class="form-control" placeholder="Cliente / DNI" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" id="tipolinea" class="form-control" placeholder="Tipo de Linea" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="tipolinea" class="form-control" placeholder="Tipo de Linea" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" id="servicio" name="servicio" class="form-control servicio" placeholder="Servicio" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()" (onblur)="getIdOrdens()" [(ngModel)]="servicio" value="{{servicio}}">
+                      <input type="text" id="servicio" name="servicio" class="form-control servicio" placeholder="Servicio" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" id="equipo" class="form-control" placeholder="Equipo" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="equipo" class="form-control" placeholder="Equipo" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" id="plan" class="form-control" placeholder="Plan" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="plan" class="form-control" placeholder="Plan" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:12%">
-                      <input type="text" id="estado" class="form-control" placeholder="Estado" (keyup)="getIdOrdens()"  (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="estado" class="form-control" placeholder="Estado" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:10%">
-                      <input type="text" id="total" class="form-control" placeholder="Total" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="total" class="form-control" placeholder="Total" (keypress)="getIdOrdens()">
                     </th>
                     <th class="hasinput" style="width:12%">
-                      <input type="text" id="evaluacion" class="form-control" placeholder="Evaluación" (keyup)="getIdOrdens()" (keypress)="getIdOrdens()" (keydown)="getIdOrdens()">
+                      <input type="text" id="evaluacion" class="form-control" placeholder="Evaluación" (keypress)="getIdOrdens()">
                     </th>
                   </tr>
                   <tr>
@@ -68,7 +70,6 @@
                     <th data-hide="phone,tablet" style="width:10%">Servicio</th>
                     <th data-hide="phone,tablet" style="width:10%">Equipo</th>
                     <th data-hide="phone,tablet" style="width:10%">Plan</th>
-                    <!--<th data-hide="phone,tablet">Sucursal</th>-->
                     <th data-hide="phone,tablet" style="width:12%">Estado</th>
                     <th data-hide="phone,tablet" style="width:10%">Total</th>
                     <th data-hide="phone,tablet" style="width:12%">Evaluación</th>

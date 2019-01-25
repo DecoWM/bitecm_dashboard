@@ -19,7 +19,7 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	////////////
 	Route::prefix('ordenes')->group(function () {
 		// Order List
-		Route::get('', 'OrdersController@list');
+		Route::post('filter', 'OrdersController@filterList');
 		// Status List
 		Route::get('status', 'OrdersController@listStatus');
 		// Order
@@ -114,7 +114,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	///////////
 	// MARCA //
 	///////////
-	// CLES 26-10-2018
 	Route::prefix('marcas')->group(function () {
 		//Product list
 		Route::get('', 'MarcaController@list');
@@ -129,7 +128,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	///////////
 	// PLAN  //
 	///////////
-	// CLES 05-04-2018
 	Route::prefix('planes')->group(function () {
 		//Product list
 		Route::get('', 'PlanController@list');
@@ -154,7 +152,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	//////////////
 	// SUCURSAL //
 	//////////////
-	// CLES 24-08-2018
 	Route::prefix('sucursales')->group(function () {
 		//Product list
 		Route::get('', 'SucursalController@list');
@@ -169,7 +166,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	//////////////
 	// TIENDA //
 	//////////////
-	// CLES 24-08-2018
 	Route::prefix('tiendas')->group(function () {
 		//Product list
 		Route::get('', 'TiendaController@list');
@@ -187,7 +183,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	//////////////
 	// DISTRITOS //
 	//////////////
-	// CLES 24-08-2018
 	Route::prefix('distritos')->group(function () {
 		//Product list
 		Route::get('', 'DistritoController@list');
@@ -212,7 +207,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	//////////////
 	// CONTRATO //
 	//////////////
-	// CLES 24-08-2018
 	Route::prefix('contratos')->group(function () {
 		//Product list
 		Route::get('', 'ContratoController@list');
@@ -231,7 +225,6 @@ Route::prefix('admin')->middleware('jwt.auth')->group(function () {
 	//////////////
 	// USUARIO //
 	//////////////
-	// CLES 18-09-2018
 	Route::prefix('usuarios')->group(function () {
 		//Product list
 		Route::get('', 'UsuarioController@list');

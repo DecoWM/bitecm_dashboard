@@ -53,11 +53,9 @@ export class DetalleOrdenComponent implements OnInit {
       this.next = null;
 
       const order_id = params.id;
-      this.blockui.start('content');
 
-      // valores de los filtros 
+      // valores de los filtros
       this.filters = this.ordenesService.getTextFilters();
-      console.log(this.filters);
 
       // numero de ordenes filtradas
       this.filter = this.ordenesService.getFilter();
@@ -65,7 +63,6 @@ export class DetalleOrdenComponent implements OnInit {
 
       // determino la posicion del order_id actual
       this.pos_cursor = this.filter.indexOf(order_id);
-      console.log('ordenes:' + this.filter);
 
       // detectar las posiciones en base a la posicion del order_id
       this.pos_prev = this.pos_cursor - 1;
@@ -79,9 +76,7 @@ export class DetalleOrdenComponent implements OnInit {
         this.next = this.filter[this.pos_next];
       }
 
-      // this.prev = 1;
-      console.log('prev:' + this.prev);
-      console.log('next:' + this.next);
+      this.blockui.start('content');
 
       this.ordenesService.getOrden(order_id)
         .subscribe((data: any) => {
@@ -219,21 +214,21 @@ export class DetalleOrdenComponent implements OnInit {
     this.alert = '';
   }
 
-  orderNext(): void{
+  orderNext(): void {
     this.router.navigate([this.next], {relativeTo: this.route.parent });
-    this.alert ='';
+    this.alert = '';
   }
 
-  cmdBackOrders(){
+  cmdBackOrders() {
     this.router.navigate(['/ventas/ordenes']);
   }
-  
+
   showPopupStore(store, $order_id, event): void {
-    var idStore = event.target.value;
-    //console.log(store);
-    if(idStore != ""){
-      var indexStore = store.findIndex(buscar => buscar['store_id'] == idStore);
-      var storeName = store[indexStore]['store_name']; 
+    const idStore = event.target.value;
+    // console.log(store);
+    if (idStore !== '') {
+      const indexStore = store.findIndex(buscar => buscar['store_id'] === idStore);
+      const storeName = store[indexStore]['store_name'];
       this.notificationService.smartMessageBox({
         title : `<i class="fa fa-sign-out txt-color-orangeDark"></i> Grabar 
           <span class="txt-color-orangeDark">
@@ -246,8 +241,7 @@ export class DetalleOrdenComponent implements OnInit {
           this.grabarTienda(store, $order_id, event);
         }
       });
-    }
-    else{
+    } else {
       let mode, title, message = '';
       mode = 'danger';
       title = 'Actualización fallida';
@@ -256,28 +250,23 @@ export class DetalleOrdenComponent implements OnInit {
     }
   }
 
-  grabarTienda(store, $order_id, event){
+  grabarTienda(store, $order_id, event) {
     const store_id = event.target.value;
-    var indexStore = store.findIndex(buscar => buscar['store_id'] == store_id);
-    var storeName = store[indexStore]['store_name']; 
-
-    console.log(store_id);
-    console.log($order_id);
+    const indexStore = store.findIndex(buscar => buscar['store_id'] === store_id);
+    const storeName = store[indexStore]['store_name'];
 
     this.ordenesService.saveStore($order_id, store_id)
       .subscribe((data: any) => {
         console.log(data);
         if (data.success) {
           console.log(data.result);
-          console.log("registro en base de datos");
           this.alert = this.getAlert(data, storeName, 'Actualización', 'actualizada');
-        } 
-        else {
-          console.log("Error");
+        } else {
+          console.log('Error');
           this.alert = this.getAlert(data, storeName, 'Actualización', 'actualizada');
         }
         this.blockui.stop('content');
-      }); 
+      });
   }
 
   getAlert(result, storeName, title_mode, desc_mode): any {
@@ -287,8 +276,7 @@ export class DetalleOrdenComponent implements OnInit {
       mode = 'success';
       title = title_mode + ' completada';
       message = 'La Tienda ' + storeName + ' ha sido ' + desc_mode + " en la orden ";
-    } 
-    else {
+    } else {
       mode = 'danger';
       title = title_mode + ' fallida';
       message = 'La Tienda ' + storeName + ' no pudo ser ' + desc_mode + " en la orden ";

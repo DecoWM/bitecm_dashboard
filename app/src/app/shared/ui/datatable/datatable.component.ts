@@ -37,7 +37,9 @@ export class DatatableComponent implements OnInit {
 
   @Output() onInit: EventEmitter<any> = new EventEmitter();
   @Output() onPageSelected: EventEmitter<any> = new EventEmitter();
-  
+
+  dtInstance = null;
+
   constructor(
     private el: ElementRef,
     private blockui: BlockUIService
@@ -46,22 +48,30 @@ export class DatatableComponent implements OnInit {
   ngOnInit() {
     comp = this;
     this.dtTrigger.subscribe(() => {
-      Promise.all([
-        System.import('script-loader!smartadmin-plugins/datatables/datatables.min.js'),
-        System.import('script-loader!jszip/dist/jszip.min.js'),
-        this.blockui.start('content')
-      ]).then(() => {
-        this.blockui.stop('content');
-        this.render()
-      })
+      if (!this.dtInstance) {
+        Promise.all([
+          System.import('script-loader!smartadmin-plugins/datatables/datatables.min.js'),
+          System.import('script-loader!jszip/dist/jszip.min.js'),
+          this.blockui.start('content')
+        ]).then(() => {
+          this.blockui.stop('content');
+          this.render();
+        })
+      } else {
+        this.dtInstance.destroy();
+        this.render();
+      }
     })
   }
 
   render() {
-    const element = $(this.el.nativeElement.children[0]);
-    let options = this.options || {}
+    const self = this;
 
+    const element = $(this.el.nativeElement.children[0]);
+
+    let options = this.options || {}
     let toolbar_arr = [];
+
     if (options.buttons) {
       toolbar_arr.push('B');
     }
@@ -102,7 +112,7 @@ export class DatatableComponent implements OnInit {
           first: "Primero",
           last: "Ultimo",
           next: "Siguiente",
-          previous:"Anterior"
+          previous: "Anterior"
         }
       },
       autoWidth: false,
@@ -111,11 +121,11 @@ export class DatatableComponent implements OnInit {
       initComplete: (settings, json) => {
         element.parent().find('.input-sm', ).removeClass('input-sm').addClass('input-md');
 
-        //-----------------------------------------------------------
+        // -----------------------------------------------------------
         // capturar el numero de la pagina seleccionada
-        //-----------------------------------------------------------
-        function onActive(_cur){
-           page = _cur.text(); 
+        // -----------------------------------------------------------
+        function onActive(_cur) {
+           page = _cur.text();
            comp.onPageSelected.emit(page);
         }
 
@@ -123,17 +133,16 @@ export class DatatableComponent implements OnInit {
            e.preventDefault();
            onActive($(this));
         });
-        //-----------------------------------------------------------
+        // -----------------------------------------------------------
 
-        //----------------------------------------------------------------------------
+        // ----------------------------------------------------------------------------
         // selecciona el numero de pagina cuando se hace el back desde el navegador
-        //----------------------------------------------------------------------------
-        var hash = window.location.hash;
-        if(hash){
+        // ----------------------------------------------------------------------------
+        let hash = window.location.hash;
+        if (hash) {
           hash = hash.split('#')[1];
-          $(".paginate_button a[data-dt-idx="+ hash +"]").trigger('click');
+          $('.paginate_button a[data-dt-idx=' + hash + ']').trigger('click');
         }
-        
       }
     });
 
@@ -142,9 +151,11 @@ export class DatatableComponent implements OnInit {
     if (!this.dateRangeOptions) {
       this.dateRangeOptions = [];
     }
+
     if (!(this.dateRangeOptions instanceof Array)) {
       this.dateRangeOptions = [this.dateRangeOptions];
     }
+
     this.dateRangeOptions.forEach((opt, ix) => {
       if (opt.from && opt.to && opt.column) {
         $.fn.dataTable.ext.search.push(
@@ -187,23 +198,12 @@ export class DatatableComponent implements OnInit {
       }
     });
 
-    const _dataTable = element.DataTable(options);
-    this.onInit.emit(_dataTable);
-    /*_dataTable.columns().every(function () {
-      const that = this;
-      $('input', this.footer()).on('keyup change', function () {
-        if (that.search() !== this.value) {
-          that
-            .search( this.value )
-            .draw();
-        }
-      });
-    });*/
+    this.dtInstance = element.DataTable(options);
 
     if (this.filter) {
       // Apply the filter
       element.on('keyup change', 'thead th input[type=text]', function () {
-        _dataTable
+        self.dtInstance
           .column($(this).parent().index() + ':visible')
           .search(this.value)
           .draw();
@@ -211,25 +211,9 @@ export class DatatableComponent implements OnInit {
     }
 
     if (!toolbar) {
-      element.parent().find('.dt-toolbar').append('<div class="text-right"><img src="assets/img/logo.png" alt="SmartAdmin" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
+      element.parent().find('.dt-toolbar').append('<div class="text-right"><img src="assets/img/logo.png" alt="Bitel" style="width: 111px; margin-top: 3px; margin-right: 10px;"></div>');
     }
 
-    /*if(this.detailsFormat){
-      let format = this.detailsFormat
-      element.on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = _dataTable.row( tr );
-        if ( row.child.isShown() ) {
-          row.child.hide();
-          tr.removeClass('shown');
-        }
-        else {
-          row.child( format(row.data()) ).show();
-          tr.addClass('shown');
-        }
-      })
-    }*/
-
+    this.onInit.emit(this.dtInstance);
   }
-
 }
