@@ -24,7 +24,7 @@
               <div class="col col-sm-6">
                 <button style="margin-top: 20px;" class="btn btn-primary" name="filter" type="button" (click)="filter()">Filtrar</button>
               </div>
-              <sa-datatable id="tablaDatos" name="tablaDatos" [options]="options" [dtTrigger]="dtTrigger" [paginationLength]="true" [filter]="true" [dateRangeOptions]="dateRangeOptions" (onInit)="initDtObj($event)" (onPageSelected)="pageSelected($event)" tableClass="table table-striped table-bordered table-hover">
+              <sa-datatable id="tablaDatos" name="tablaDatos" [options]="options" [dtTrigger]="dtTrigger" [paginationLength]="true" [filter]="true" (onInit)="initDtObj($event)" (onPageSelected)="pageSelected($event)" tableClass="table table-striped table-bordered table-hover">
                 <thead>
                   <tr>
                     <th class="hasinput" style="width:10%">
