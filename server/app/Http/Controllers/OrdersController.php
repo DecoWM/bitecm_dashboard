@@ -35,7 +35,7 @@ class OrdersController extends ApiController
 
     // Recibir valores para la consulta
     $start_date = Carbon::createFromFormat('d/m/Y', $request->input('start_date'))->format('Y-m-d');
-    $finish_date = Carbon::createFromFormat('d/m/Y', $request->input('finish_date'))->format('Y-m-d');
+    $finish_date = Carbon::createFromFormat('d/m/Y', $request->input('finish_date'))->addDays(1)->format('Y-m-d');
 
     $result = DB::select('call PA_orderSearch(
       :pag_total_by_page,
