@@ -55,7 +55,8 @@ class PlanController extends ApiController
     $plan_slug = str_replace('+', '-plus', $plan_name);
     $plan_slug = str_replace_last('.', '_', $plan_slug);
     $plan_slug = str_replace_last(',', '_', $plan_slug);
-    $plan_slug = str_replace(' ', '-', $plan_slug);  //str_slug($plan_name);
+    $plan_slug = str_slug($plan_slug, '-');
+    $plan_slug = str_replace_last('-', '_', $plan_slug);
 
     $plan = DB::table('tbl_plan')
       ->where('plan_slug', $plan_slug)
