@@ -44,8 +44,8 @@
                     <label for="product_price">Precio mensual</label>
                   </section>
                   <section class="col col-xs-5 col-sm-8">
-                    <div [class.state-disabled]="plan.plan_id" class="input">
-                      <input [attr.disabled]="plan.plan_id ? 'disabled' : null" id="plan_price" name="plan_price" type="text" [(ngModel)]="plan.plan_price">
+                    <div class="input">
+                      <input id="plan_price" name="plan_price" type="text" [(ngModel)]="plan.plan_price">
                     </div>
                   </section>
                 </div>
@@ -64,8 +64,8 @@
                     <label for="plan_bono">Bono</label>
                   </section>
                   <section class="col col-xs-5 col-sm-8">
-                    <div [class.state-disabled]="plan.plan_id" class="input">
-                      <input [attr.disabled]="plan.plan_id ? 'disabled' : null" id="plan_bono" name="plan_bono" type="text" [(ngModel)]="plan.plan_bono">
+                    <div class="input">
+                      <input id="plan_bono" name="plan_bono" type="text" [(ngModel)]="plan.plan_bono">
                     </div>
                   </section>
                 </div>
